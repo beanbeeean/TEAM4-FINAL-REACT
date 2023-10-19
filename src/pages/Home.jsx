@@ -13,6 +13,7 @@ const Home = () => {
         setData(result);
       });
   }, []);
+
   return (
     <div>
       Home
