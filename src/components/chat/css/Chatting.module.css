@@ -1,0 +1,28 @@
+.chatting {
+  width: 800px;
+  padding: 20px;
+}
+
+.mine,
+.others {
+  display: inline-block;
+  width: 100%;
+}
+
+.mine > span {
+  float: right;
+  max-width: 300px;
+  padding: 13px;
+  border-radius: 14px;
+  border-top-right-radius: 0;
+  background-color: #feccbe;
+}
+
+.others > span {
+  float: left;
+  max-width: 300px;
+  padding: 13px;
+  border-radius: 14px;
+  border-top-left-radius: 0;
+  background-color: #d0c9c6;
+}

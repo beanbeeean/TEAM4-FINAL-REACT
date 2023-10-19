@@ -1,3 +1,7 @@
 div.modal-content {
   height: 500px;
 }
+
+body {
+  height: 2000px;
+}
