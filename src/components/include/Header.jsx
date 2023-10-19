@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/Header.css";
 import { Container } from "react-bootstrap";
+import LoginModal from "./LoginModal";
 
 const Header = () => {
+  const [modalShow, setModalShow] = useState(false);
   return (
     <Container className="main_header">
       <div className="search_bar">
@@ -16,9 +18,10 @@ const Header = () => {
         </div>
       </div>
       <div id="user-actions">
-        <a href="#" className="show_modal">
+        <p className="show_modal" onClick={() => setModalShow(true)}>
           Login
-        </a>
+        </p>
+        <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       </div>
     </Container>
   );
