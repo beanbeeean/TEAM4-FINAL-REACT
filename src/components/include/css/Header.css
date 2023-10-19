@@ -8,8 +8,14 @@
 a.logo {
   padding-left: 30px;
   font-size: 40px;
+  color: #fd8a69;
   line-height: 50px;
   vertical-align: middle;
+}
+
+a.logo img {
+  min-width: 200px;
+  height: 70px;
 }
 
 div.search_bar {
@@ -20,7 +26,7 @@ div.search_bar_wrap {
   width: 380px;
   display: inline-block;
   position: relative;
-  border: 1px solid #9ad789;
+  border: 1px solid #fd8a69;
   border-radius: 50px;
   margin-left: 15px;
 }

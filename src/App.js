@@ -5,6 +5,9 @@ import Home from "./pages/Home";
 import Header from "./components/include/Header";
 import Footer from "./components/include/Footer";
 import Nav from "./components/include/Nav";
+import BookList from "./pages/book/BookList";
+import BookDetail from "./pages/book/include/BookDetail";
+import Cart from "./pages/book/pay/Cart";
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/books" element={<BookList />} />
+        <Route path="/books/:id" element={<BookDetail />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </div>

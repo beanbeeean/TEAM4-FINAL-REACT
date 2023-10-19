@@ -1,0 +1,14 @@
+.booklist_nav {
+  display: flex;
+  /* width: 450px; */
+  background-color: #feccbe;
+}
+
+.booklist_nav li {
+  color: #ffffff;
+  padding: 5px 20px;
+}
+
+.booklist_nav li:hover {
+  background-color: #ffeee8;
+}

@@ -6,7 +6,9 @@ const Header = () => {
   return (
     <Container className="main_header">
       <div className="search_bar">
-        <a className="logo">Libooks</a>
+        <a className="logo">
+          <img src="./imgs/logo.png" />
+        </a>
         <div className="search_bar_wrap">
           <input
             className="main_search_bar"
