@@ -1,3 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  overflow: hidden;
+}
+
+li {
+  list-style: none;
+  /* float: left; */
+}
 div.modal-content {
   height: 500px;
 }
