@@ -1,0 +1,95 @@
+div.search_area {
+  display: flex;
+  justify-content: space-between;
+}
+div.category_box {
+  min-width: 520px;
+}
+
+div.search_box {
+  display: inline-block;
+}
+
+ul {
+  margin: 0;
+}
+
+li.board_category {
+  margin-right: 15px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+li.board_category:hover {
+  color: orangered;
+}
+
+li.board_category.on {
+  color: red;
+  font-weight: bold;
+  border-bottom: 1px solid red;
+}
+
+div.search_box {
+  display: flex;
+}
+
+select[name="search_category"] {
+  height: 32px;
+  font-size: 14px;
+  padding: 5px;
+}
+
+div.search_bar {
+  position: relative;
+}
+
+div.search_bar > input {
+  height: 32px;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.search_btn {
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+}
+
+table.board_table {
+  width: 100%;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+table.board_table th {
+  padding: 10px 0;
+}
+
+th:nth-child(2) {
+  width: 55%;
+}
+
+th:nth-child(1),
+th:nth-child(3),
+th:nth-child(4) {
+  width: 15%;
+}
+
+table.board_table td {
+  padding: 10px 0;
+}
+
+table.board_table tbody tr {
+  border-top: 1px solid #dadada;
+}
+
+button.write_btn {
+  float: right;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  padding: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
