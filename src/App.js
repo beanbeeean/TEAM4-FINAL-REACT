@@ -12,6 +12,9 @@ import Cart from "./pages/book/pay/Cart";
 import CartPayConfirm from "./pages/book/pay/CartPayConfirm";
 import StudyRoom from "./components/reservation/study/StudyRoom";
 import ReadRoom from "./components/reservation/read/ReadRoom";
+import BoardWrite from "./pages/board/BoardWrite";
+import Board from "./pages/board/Board";
+import BoardDetail from "./pages/board/BoardDetail";
 
 function App() {
   return (
@@ -23,12 +26,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<BookList />} />
         <Route path="/books/:id" element={<BookDetail />} />
+        <Route path="/board" element={<Board />} />
+        <Route path="/board/:id" element={<BoardDetail />} />
+        <Route path="/board_write" element={<BoardWrite />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/confirm" element={<CartPayConfirm />} />
 
         <Route path="/readroom" element={<ReadRoom />} />
         <Route path="/studyroom" element={<StudyRoom />} />
-
       </Routes>
       <Footer />
     </div>

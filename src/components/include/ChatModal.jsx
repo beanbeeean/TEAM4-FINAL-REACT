@@ -16,6 +16,9 @@ const ChatModal = () => {
           <ChatItem />
           <ChatItem />
           <ChatItem />
+          <ChatItem />
+          <ChatItem />
+          <ChatItem />
         </div>
         <div className={styles.chat_area}>
           <Chatting />
