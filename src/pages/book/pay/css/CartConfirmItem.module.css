@@ -1,0 +1,71 @@
+a {
+  color: #404040;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.booklist_wrap {
+  margin-bottom: 10px;
+}
+
+.book_item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+img {
+  max-width: 120px;
+  height: 170px;
+}
+
+.book_title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.sale_price {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.ori_price {
+  margin-left: 10px;
+  font-size: 0.9em;
+  color: #b7b7b7;
+  text-decoration: line-through;
+}
+
+.count_wrap {
+  text-align: center;
+  line-height: 176px;
+}
+
+.count_wrap input[type="button"] {
+  border: 1px solid #dadada;
+}
+
+.count_wrap input[type="text"] {
+  width: 40px;
+  border: none;
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
+}
+
+.count_wrap input[value="변경"] {
+  font-size: 0.7em;
+  width: 90px;
+}
+
+.book_price {
+  text-align: center;
+  line-height: 176px;
+}
+
+.book_total_price {
+  text-align: center;
+  line-height: 176px;
+}

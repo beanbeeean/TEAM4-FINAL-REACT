@@ -5,3 +5,12 @@ div.modal-content {
 body {
   height: 2000px;
 }
+
+a {
+  color: #404040;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
