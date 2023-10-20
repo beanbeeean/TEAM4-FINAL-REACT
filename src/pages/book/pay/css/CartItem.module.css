@@ -50,6 +50,8 @@ img {
 .count_wrap input[type="text"] {
   width: 40px;
   border: none;
+  border-radius: 0px;
+  height: 29px;
   border-top: 1px solid #dadada;
   border-bottom: 1px solid #dadada;
 }

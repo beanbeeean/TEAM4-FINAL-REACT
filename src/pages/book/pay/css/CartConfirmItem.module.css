@@ -44,22 +44,6 @@ img {
   line-height: 176px;
 }
 
-.count_wrap input[type="button"] {
-  border: 1px solid #dadada;
-}
-
-.count_wrap input[type="text"] {
-  width: 40px;
-  border: none;
-  border-top: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
-}
-
-.count_wrap input[value="변경"] {
-  font-size: 0.7em;
-  width: 90px;
-}
-
 .book_price {
   text-align: center;
   line-height: 176px;
