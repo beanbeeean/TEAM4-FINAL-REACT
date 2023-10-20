@@ -1,3 +1,11 @@
+.book_search {
+  min-width: 400px;
+  margin-bottom: 10px;
+  border: 1px solid #feccbe;
+  border-radius: 3px;
+  padding: 3px;
+}
+
 .booklist_nav {
   display: flex;
   /* width: 450px; */

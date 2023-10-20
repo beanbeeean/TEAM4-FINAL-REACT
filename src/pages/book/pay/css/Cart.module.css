@@ -34,3 +34,33 @@
 .nav_item:last-child {
   border: 0;
 }
+
+.total_price {
+  display: flex;
+}
+
+.total_product_price,
+.point {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.word {
+  margin-right: 20px;
+}
+
+.select_pay input[value="주문하기"] {
+  border: none;
+  background-color: #fd8a69;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+
+.select_pay input[value="삭제"] {
+  margin-left: 3px;
+  background-color: #ffffff;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  padding: 5px 20px;
+}

@@ -18,7 +18,8 @@ li {
 }
 
 img {
-  max-width: 100px;
+  max-width: 120px;
+  height: 170px;
 }
 
 .book_title {
@@ -39,8 +40,8 @@ img {
 }
 
 .count_wrap {
-  margin-top: 55px;
   text-align: center;
+  line-height: 176px;
 }
 
 .count_wrap input[type="button"] {
@@ -61,29 +62,10 @@ img {
 
 .book_price {
   text-align: center;
-  line-height: 160px;
+  line-height: 176px;
 }
 
-.wrap {
-  margin-top: 40px;
+.book_total_price {
   text-align: center;
-}
-
-.delete {
-  width: 100px;
-  border: none;
-  border-radius: 8px;
-  background-color: #feccbe;
-  color: #ffffff;
-  margin-bottom: 2px;
-}
-
-.buy {
-  padding: 5px 0;
-  width: 100px;
-  border: none;
-  border-radius: 8px;
-  background-color: #fd8a69;
-  color: #ffffff;
-  margin-bottom: 2px;
+  line-height: 176px;
 }

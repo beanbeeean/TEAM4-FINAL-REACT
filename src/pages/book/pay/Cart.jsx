@@ -2,6 +2,8 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./css/Cart.module.css";
 import CartItem from "./CartItem";
+import CartFooter from "./CartFooter";
+import CartProductNav from "./CartProductNav";
 
 const Cart = () => {
   return (
@@ -13,22 +15,10 @@ const Cart = () => {
         <input type="button" value="삭제" />
       </div>
       <hr />
-      <Row className={styles.cart_nav}>
-        <Col className={styles.nav_item} md={6}>
-          상품정보
-        </Col>
-        <Col className={styles.nav_item} md={2}>
-          수량
-        </Col>
-        <Col className={styles.nav_item} md={2}>
-          상품금액
-        </Col>
-        <Col className={styles.nav_item} md={2}>
-          주문
-        </Col>
-      </Row>
-
+      <CartProductNav />
       <CartItem />
+      <hr />
+      <CartFooter />
     </Container>
   );
 };

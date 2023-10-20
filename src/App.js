@@ -8,6 +8,7 @@ import Nav from "./components/include/Nav";
 import BookList from "./pages/book/BookList";
 import BookDetail from "./pages/book/include/BookDetail";
 import Cart from "./pages/book/pay/Cart";
+import CartPayConfirm from "./pages/book/pay/CartPayConfirm";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/books" element={<BookList />} />
         <Route path="/books/:id" element={<BookDetail />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/cart/confirm" element={<CartPayConfirm />} />
       </Routes>
       <Footer />
     </div>

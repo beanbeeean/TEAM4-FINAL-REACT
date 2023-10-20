@@ -30,7 +30,7 @@ const BookDetail = () => {
   return (
     <Container>
       <div className={styles.bookdetail_wrap}>
-        <img className={styles.bookImg} src="./imgs/default.png" />
+        <img className={styles.bookImg} src="../imgs/default.png" />
         <div className={styles.content_wrap}>
           <h2>책으로 가는 문 - 이와나미소년문고를 이야기하다</h2>
 
