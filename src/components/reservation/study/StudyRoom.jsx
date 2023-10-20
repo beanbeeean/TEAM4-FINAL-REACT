@@ -16,11 +16,6 @@ function StudyRoom() {
 
   const handleTimeClick = (time) => {
     setSelectedTime((prev) => {
-      // if (prev.includes(time)) {
-      //   return prev.filter(t => t !== time);
-      // } else {
-      //   return [...prev, time];
-      // }
       return [time];
     });
   };

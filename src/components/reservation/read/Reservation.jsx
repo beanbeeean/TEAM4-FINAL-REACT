@@ -24,6 +24,7 @@ function Reservation() {
   };
 
   const handleButtonClick = (roomNumber) => {
+    setModalShow(true);
     setSelectedSeat(roomNumber);
   };
 
@@ -39,7 +40,7 @@ function Reservation() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  backgroundColor: seat.reserved ? '#ddd' : selectedSeat === seat.id ? '#FFD700' : '#4CAF50',
+                  backgroundColor: seat.reserved ? '#ddd' : selectedSeat === seat.id ? '#fd8a69' : '#FECCBE',
                   borderRadius: '8px',
                   cursor: seat.reserved ? 'not-allowed' : 'pointer',
                   transition: 'background-color 0.3s',
@@ -53,10 +54,10 @@ function Reservation() {
           ))}
         </Row>
         <Button 
-          onClick={()=>handleButtonClick(true)} 
+          onClick={()=>handleButtonClick(selectedSeat)} 
           disabled={!selectedSeat}
           block
-          variant={selectedSeat ? 'success' : 'secondary'}
+          style={{backgroundColor:selectedSeat ? '#fd8a69' : '#a0a0a0',border:'none'}}
         >
           예약하기
         </Button>
