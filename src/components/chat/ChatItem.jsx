@@ -9,7 +9,7 @@ const ChatItem = () => {
       <div className={styles.chat_room_title}>
         <div>
           <FontAwesomeIcon className={styles.group_icon} icon={faPeopleGroup} />
-          <h5>BTC DEVELOPER STUDY</h5>
+          <h5 className={styles.group_name}>BTC DEVELOPER STUDY</h5>
         </div>
         <span>1일전</span>
       </div>
