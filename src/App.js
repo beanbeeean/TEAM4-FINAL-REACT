@@ -10,6 +10,8 @@ import BookList from "./pages/book/BookList";
 import BookDetail from "./pages/book/include/BookDetail";
 import Cart from "./pages/book/pay/Cart";
 import CartPayConfirm from "./pages/book/pay/CartPayConfirm";
+import StudyRoom from "./components/reservation/study/StudyRoom";
+import ReadRoom from "./components/reservation/read/ReadRoom";
 
 function App() {
   return (
@@ -23,6 +25,10 @@ function App() {
         <Route path="/books/:id" element={<BookDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/confirm" element={<CartPayConfirm />} />
+
+        <Route path="/readroom" element={<ReadRoom />} />
+        <Route path="/studyroom" element={<StudyRoom />} />
+
       </Routes>
       <Footer />
     </div>
