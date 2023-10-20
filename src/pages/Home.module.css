@@ -1,0 +1,119 @@
+.content_wrap {
+  /* display: flex; */
+}
+
+.second_wrap {
+  display: flex;
+}
+
+.block {
+  display: inline-block;
+}
+
+.recommend_books,
+.community {
+  margin-bottom: 20px;
+}
+
+.community .mini_nav {
+  width: 750px;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fd8a69;
+  margin-bottom: 10px;
+}
+
+.recommend_books img {
+  min-width: 250px;
+  height: 300px;
+}
+
+.community {
+  width: 800px;
+  margin-right: 20px;
+}
+
+.more {
+  float: right;
+  color: #bababa;
+}
+
+.community_item {
+  border: 1px solid #dadada;
+  padding: 40px 30px;
+  width: 250px;
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.board_title {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.board_body {
+  font-size: 0.9em;
+}
+
+.board_date {
+  text-align: right;
+  font-size: 0.8em;
+  color: #bababa;
+  line-height: 280px;
+}
+
+.community .mini_nav {
+  width: 750px;
+}
+
+.reservation .mini_nav {
+  width: 500px;
+}
+
+.graph {
+  width: 500px;
+  height: 300px;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+}
+
+/* Home.module.css */
+.graph {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bar {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.barLabel {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.barFill {
+  background-color: #feccbe;
+  height: 25px;
+  align-items: center;
+  border-radius: 5px;
+  text-align: right;
+  color: #ffffff;
+}
+
+.barInner {
+  background-color: #e74c3c;
+  height: 100%;
+  border-radius: 5px;
+}
+
+/* You can adjust colors, sizes, and other styles as needed */
