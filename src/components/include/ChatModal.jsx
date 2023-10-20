@@ -17,8 +17,9 @@ const ChatModal = () => {
           <ChatItem />
           <ChatItem />
         </div>
-        <div className={styles.divide_bar}></div>
-        <Chatting />
+        <div className={styles.chat_area}>
+          <Chatting />
+        </div>
       </div>
       <div className={styles.quick_btn} onClick={() => setShow(!show)}>
         <FontAwesomeIcon className={styles.msg_icon} icon={faMessage} />

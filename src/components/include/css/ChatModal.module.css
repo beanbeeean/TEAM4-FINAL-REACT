@@ -1,8 +1,9 @@
 .quick_menu {
   position: fixed;
   display: flex;
-  left: -1200px;
+  left: -850px;
   transition: all 0.5s;
+  background-color: #fff;
 }
 
 .on {
@@ -11,15 +12,15 @@
 }
 
 .chat_box {
-  width: 1200px;
-  border: 1px solid red;
+  width: 850px;
+  /* border: 1px solid red; */
   height: 700px;
   background-color: #fff;
   display: flex;
 }
 
 .chat_list {
-  width: 380px;
+  width: 250px;
   height: 700px;
   overflow-y: auto;
 }
@@ -32,9 +33,13 @@
   border-bottom: 1px solid #949090;
 }
 
-.divide_bar {
-  width: 20px;
-  background-color: #d1cfcf;
+.chat_area {
+  width: 600px;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dad5d5;
 }
 
 .quick_menu p {

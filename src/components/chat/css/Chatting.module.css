@@ -1,6 +1,10 @@
 .chatting {
-  width: 800px;
+  width: 580px;
+  height: 680px;
   padding: 20px;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 .mine,
@@ -24,5 +28,5 @@
   padding: 13px;
   border-radius: 14px;
   border-top-left-radius: 0;
-  background-color: #d0c9c6;
+  background-color: #f5f0ed;
 }
