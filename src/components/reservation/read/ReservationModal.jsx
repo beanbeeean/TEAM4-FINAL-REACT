@@ -44,20 +44,11 @@ const ReservationModal = (props) => {
               <Form.Control type="text" defaultValue={(props.time.getHours() + 2) + "시 " + props.time.getMinutes() + "분"} readOnly />
             </Col>
           </Form.Group>
-
-          <Form.Group as={Row} controlId="extensionCount" className="mb-3">
-            <Form.Label column sm={4}>
-              연장횟수
-            </Form.Label>
-            <Col sm={8}>
-              <Form.Control type="text" defaultValue="0" readOnly />
-            </Col>
-          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary">연장</Button>
-        <Button variant="secondary" onClick={props.onHide}>Close</Button>
+        <Button variant="primary">예약</Button>
+        <Button variant="secondary" onClick={props.onHide}>닫기</Button>
       </Modal.Footer>
     </Modal>
   );

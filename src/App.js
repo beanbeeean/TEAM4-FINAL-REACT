@@ -15,6 +15,8 @@ import ReadRoom from "./components/reservation/read/ReadRoom";
 import BoardWrite from "./pages/board/BoardWrite";
 import Board from "./pages/board/Board";
 import BoardDetail from "./pages/board/BoardDetail";
+import CheckoutList from "./pages/user/book_checkout/CheckoutList";
+import CheckoutDetail from "./pages/user/book_checkout/CheckoutDetail";
 import MyPage from "./pages/MyPage";
 import Sidebar from "./components/include/Sidebar";
 
@@ -37,6 +39,8 @@ function App() {
             <Route path="/board_write" element={<BoardWrite />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/cart/confirm" element={<CartPayConfirm />} />
+            <Route path="/checkout_books" element={<CheckoutList />} />
+            <Route path="/checkout_books/:id" element={<CheckoutDetail />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/readroom" element={<ReadRoom />} />
             <Route path="/studyroom" element={<StudyRoom />} />

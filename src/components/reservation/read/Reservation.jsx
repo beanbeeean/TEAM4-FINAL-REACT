@@ -9,6 +9,8 @@ function Reservation() {
   const [modalShow, setModalShow] = useState(false);
   const [selectedSeat1, setSelectedSeat1] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  
+  const [seat, setSeat] = useState([2,6,8,7]);
 
   const handleSeatClick = (seat) => {
     if (!seat.reserved) {
@@ -24,6 +26,7 @@ function Reservation() {
   };
 
   const handleButtonClick = (roomNumber) => {
+    setModalShow(true);
     setSelectedSeat(roomNumber);
   };
 
@@ -32,14 +35,14 @@ function Reservation() {
       <Card className="p-4 shadow-sm">
         <h2 className="text-center mb-4">독서실 예약</h2>
         <Row className="mb-4">
-          {seats.map((seat) => (
-            <Col xs={3} className="mb-2" key={seat.id}>
+          {seats.map((seat) => ( 
+            <Col xs={2} className="mb-2" key={seat.id}>
               <div 
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  backgroundColor: seat.reserved ? '#ddd' : selectedSeat === seat.id ? '#FFD700' : '#4CAF50',
+                  backgroundColor: seat.reserved ? '#ddd' : selectedSeat === seat.id ? '#fd8a69' : '#FECCBE',
                   borderRadius: '8px',
                   cursor: seat.reserved ? 'not-allowed' : 'pointer',
                   transition: 'background-color 0.3s',
@@ -53,10 +56,10 @@ function Reservation() {
           ))}
         </Row>
         <Button 
-          onClick={()=>handleButtonClick(true)} 
+          onClick={()=>handleButtonClick(selectedSeat)} 
           disabled={!selectedSeat}
           block
-          variant={selectedSeat ? 'success' : 'secondary'}
+          style={{backgroundColor:selectedSeat ? '#fd8a69' : '#a0a0a0',border:'none'}}
         >
           예약하기
         </Button>
