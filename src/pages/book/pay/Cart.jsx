@@ -1,9 +1,9 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./css/Cart.module.css";
-import CartItem from "./CartItem";
-import CartFooter from "./CartFooter";
-import CartProductNav from "./CartProductNav";
+import CartItem from "../../../components/book/pay/CartItem";
+import CartFooter from "../../../components/book/pay/CartFooter";
+import CartProductNav from "../../../components/book/pay/CartProductNav";
 
 const Cart = () => {
   return (

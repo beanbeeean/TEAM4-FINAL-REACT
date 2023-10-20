@@ -7,7 +7,7 @@ import Footer from "./components/include/Footer";
 import Nav from "./components/include/Nav";
 import ChatModal from "./components/include/ChatModal";
 import BookList from "./pages/book/BookList";
-import BookDetail from "./pages/book/include/BookDetail";
+import BookDetail from "./pages/book/BookDetail";
 import Cart from "./pages/book/pay/Cart";
 import CartPayConfirm from "./pages/book/pay/CartPayConfirm";
 import StudyRoom from "./components/reservation/study/StudyRoom";

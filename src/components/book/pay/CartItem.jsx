@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import styles from "./css/CartItem.module.css";
 
 const CartItem = () => {
@@ -38,7 +37,7 @@ const CartItem = () => {
         <div className={styles.booklist_wrap}>
           <div className={styles.book_item}>
             <input type="checkbox" />
-            <img src="./imgs/default.png" />
+            <img src="../imgs/default.png" />
             <div className={styles.content_wrap}>
               <ul>
                 <li className={styles.book_title}>책 제목</li>

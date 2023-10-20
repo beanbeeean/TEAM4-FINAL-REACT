@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./css/Cart.module.css";
+import styles from "../../../pages/book/pay/css/Cart.module.css";
 import { Col, Row } from "react-bootstrap";
 
 const CartProductNav = () => {

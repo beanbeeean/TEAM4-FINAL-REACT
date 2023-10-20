@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./css/Cart.module.css";
+import styles from "../../../pages/book/pay/css/Cart.module.css";
 import { Row } from "react-bootstrap";
 import axios from "axios";
 import { Bootpay } from "@bootpay/client-js";

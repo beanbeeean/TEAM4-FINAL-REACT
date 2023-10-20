@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import styles from "../css/BookDetail.module.css";
+import styles from "./css/BookDetail.module.css";
 
 const BookDetail = ({ book }) => {
   const [cnt, setCnt] = useState(1);
