@@ -63,8 +63,10 @@ img {
 }
 
 .buttons input[type="text"] {
-  width: 20px;
+  width: 30px;
+  height: 23px;
   border: none;
+  border-radius: 0px;
   border-top: 1px solid #dadada;
   border-bottom: 1px solid #dadada;
 }

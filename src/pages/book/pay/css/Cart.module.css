@@ -36,20 +36,18 @@
 }
 
 .total_price {
-  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .total_product_price,
 .point {
-  font-size: 1.1em;
+  font-size: 1.3em;
   font-weight: bold;
+  line-height: 24px;
 }
 
-.word {
-  margin-right: 20px;
-}
-
-.select_pay input[value="주문하기"] {
+.select_pay input[value="결제하기"] {
   border: none;
   background-color: #fd8a69;
   color: #ffffff;

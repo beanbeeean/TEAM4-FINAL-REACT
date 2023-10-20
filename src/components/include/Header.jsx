@@ -9,7 +9,7 @@ const Header = () => {
     <Container className="main_header">
       <div className="search_bar">
         <a className="logo">
-          <img src="./imgs/logo.png" />
+          <img src="../imgs/logo.png" />
         </a>
         <div className="search_bar_wrap">
           <input

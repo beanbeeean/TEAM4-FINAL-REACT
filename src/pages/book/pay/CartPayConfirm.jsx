@@ -1,6 +1,5 @@
 import React from "react";
 import CartProductNav from "./CartProductNav";
-import CartItem from "./CartItem";
 import CartFooter from "./CartFooter";
 import { Container } from "react-bootstrap";
 import CartConfirmItem from "./CartConfirmItem";
@@ -16,6 +15,7 @@ const CartPayConfirm = () => {
       <hr />
       <h4>배송지</h4>
       <DeliveryForm />
+      <hr />
       <CartFooter />
     </Container>
   );
