@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import styles from "../css/BookList.module.css";
+import styles from "./css/BookList.module.css";
 import { Link } from "react-router-dom";
 
 const BookListItem = ({ book }) => {
@@ -34,7 +34,7 @@ const BookListItem = ({ book }) => {
         <Link to={`/books/${book.b_no}`} key={book.b_no}>
           <div className={styles.book_item}>
             <span>{book.b_no}</span>
-            <img src="./imgs/default.png" />
+            <img src="../imgs/default.png" />
             <div className={styles.content_wrap}>
               <ul>
                 <li className={styles.book_title}>{book.b_title}</li>

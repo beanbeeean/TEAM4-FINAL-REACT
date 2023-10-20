@@ -1,8 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import BookListNav from "./include/BookListNav";
-import BookListItem from "./include/BookListItem";
-import { Link } from "react-router-dom";
+import BookListNav from "../../components/book/BookListNav";
+import BookListItem from "../../components/book/BookListItem";
 
 const books = [
   {

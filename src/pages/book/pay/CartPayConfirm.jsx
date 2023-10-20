@@ -1,9 +1,9 @@
 import React from "react";
-import CartProductNav from "./CartProductNav";
-import CartFooter from "./CartFooter";
+import CartProductNav from "../../../components/book/pay/CartProductNav";
+import CartFooter from "../../../components/book/pay/CartFooter";
 import { Container } from "react-bootstrap";
-import CartConfirmItem from "./CartConfirmItem";
-import DeliveryForm from "./DeliveryForm";
+import CartConfirmItem from "../../../components/book/pay/CartConfirmItem";
+import DeliveryForm from "../../../components/book/pay/DeliveryForm";
 
 const CartPayConfirm = () => {
   return (
