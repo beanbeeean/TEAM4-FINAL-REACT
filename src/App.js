@@ -6,7 +6,6 @@ import Header from "./components/include/Header";
 import Footer from "./components/include/Footer";
 import Nav from "./components/include/Nav";
 import ChatModal from "./components/include/ChatModal";
-
 function App() {
   return (
     <div id="wrap">

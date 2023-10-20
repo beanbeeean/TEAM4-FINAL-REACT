@@ -3,7 +3,8 @@ import styles from "./css/Chatting.module.css";
 const MyChat = ({ chat }) => {
   return (
     <div className={styles.mine}>
-      <span>{chat.text}</span>
+      <span className={styles.chat_time}>pm 10:10</span>
+      <span className={styles.chat_text}>{chat.text}</span>
     </div>
   );
 };

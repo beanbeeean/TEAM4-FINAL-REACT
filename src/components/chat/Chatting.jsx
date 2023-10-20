@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import styles from "./css/Chatting.module.css";
 import MyChat from "./MyChat";
 import OthersChat from "./OthersChat";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 const data = [
   {
@@ -81,15 +83,26 @@ const Chatting = () => {
     }
   };
   useEffect(() => {
-    scrollToBottom();
+    // scrollToBottom();
   }, []);
   return (
-    <div ref={scrollRef} className={styles.chatting}>
-      {data.map((chat) =>
-        chat.user == 1 ? <MyChat chat={chat} /> : <OthersChat chat={chat} />
-      )}
+    <div className={styles.chatting}>
+      <div ref={scrollRef} className={styles.chatting_log}>
+        <div className={styles.chat_date}>
+          <span>2023년 10월 20일</span>
+        </div>
+        {data.map((chat) =>
+          chat.user == 1 ? <MyChat chat={chat} /> : <OthersChat chat={chat} />
+        )}
+      </div>
+
       <div className={styles.input_chat}>
-        <input type="text" />
+        <input type="text" placeholder="메세지를 입력하세요" />
+        <FontAwesomeIcon
+          title="Send"
+          className={styles.send_icon}
+          icon={faPaperPlane}
+        />
       </div>
     </div>
   );
