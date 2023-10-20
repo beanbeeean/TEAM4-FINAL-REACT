@@ -1,0 +1,62 @@
+div.side_bar {
+  width: 13%;
+  background-color: #fd8a69;
+  border-radius: 20px;
+  height: 98vh;
+  padding: 30px 0 30px 20px;
+  position: relative;
+  min-width: 160px;
+}
+
+.logo {
+  max-width: 80%;
+  margin: 30px 30px 110px 10px;
+}
+
+.nav_menu {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.nav_menu > li {
+  padding: 25px 0 25px 15px;
+  margin-bottom: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  height: 20px;
+  line-height: 2px;
+  border-top-left-radius: 60px;
+  border-bottom-left-radius: 60px;
+  transition: all 0.3s;
+}
+
+.nav_menu > li:hover {
+  color: #ffeee8;
+  font-size: 1.1em;
+}
+
+li.on {
+  background-color: #fff;
+  color: #fd8a69;
+  font-size: 1.1em;
+}
+
+li.on:hover {
+  color: #fd8a69;
+}
+
+.logout {
+  position: absolute;
+  bottom: 60px;
+  left: 25%;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logout:hover {
+  color: #ffeee8;
+  font-size: 1.1em;
+}

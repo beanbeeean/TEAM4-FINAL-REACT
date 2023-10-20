@@ -15,14 +15,14 @@ const Home = () => {
       });
   }, []);
   return (
-    <Container>
+    <>
       Home
       <ul>
         {data.map((v, idx) => (
           <li key={`${idx}-${v}`}>{v}</li>
         ))}
       </ul>
-    </Container>
+    </>
   );
 };
 

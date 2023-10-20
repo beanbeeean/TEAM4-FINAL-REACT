@@ -5,18 +5,12 @@
 
 ul {
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 li {
   list-style: none;
-  /* float: left; */
-}
-div.modal-content {
-  height: 500px;
-}
-
-body {
-  height: 2000px;
 }
 
 a {
@@ -24,6 +18,25 @@ a {
   text-decoration: none;
 }
 
-li {
-  list-style: none;
+div#wrap {
+  display: flex;
+  padding: 10px;
+  height: 100vh;
+}
+
+div#section {
+  background-color: #fff;
+  width: 90%;
+  padding: 5px 10px 5px 20px;
+  min-width: 900px;
+  overflow-y: auto;
+}
+
+div.section_area {
+  overflow-y: auto;
+  margin-top: 60px;
+}
+
+div.modal-content {
+  height: 500px;
 }
