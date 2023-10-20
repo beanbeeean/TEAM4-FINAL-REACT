@@ -34,7 +34,8 @@ div#section {
 
 div.section_area {
   overflow-y: auto;
-  margin-top: 60px;
+  margin-top: 20px;
+  padding: 0 25px;
 }
 
 div.modal-content {
