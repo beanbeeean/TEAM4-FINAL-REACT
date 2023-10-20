@@ -1,0 +1,67 @@
+.bookdetail_wrap {
+  width: 100%;
+  display: flex;
+  margin: 40px auto;
+}
+
+.content_wrap {
+  margin-left: 30px;
+}
+
+.bookImg {
+  min-width: 300px;
+  height: 400px;
+}
+
+.book_title {
+  font-size: 2em;
+}
+
+.name {
+  margin-bottom: 80px;
+}
+
+.publish_date {
+  color: #979797;
+}
+
+.ori_price {
+  margin-left: 100px;
+}
+
+.sale_price {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: rgb(255, 127, 127);
+  margin-left: 80px;
+}
+
+.date_wrap {
+  margin-top: 200px;
+}
+
+.count_wrap {
+  margin-top: 10px;
+}
+
+.date_word {
+  margin-right: 10px;
+}
+
+.date_content {
+  color: #ff0000;
+  text-decoration: underline;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.checkout_btn {
+  padding: 10px 50px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fd8a69;
+  color: #ffffff;
+  font-size: 1.1em;
+}
