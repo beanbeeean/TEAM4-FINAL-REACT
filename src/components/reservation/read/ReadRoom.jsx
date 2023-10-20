@@ -5,38 +5,44 @@ import Reservation from "./Reservation";
 
 const ReadRoom = () => {
 
+    const [readRoom, setReadRoom] = useState(1);
+
+    const handleChangeRoom = (no) => {
+        setReadRoom(no);
+      };
+
     return (
         <div>
             <div style={{padding: '20px', display: 'flex', justifyContent: 'center' }}>
                 <ButtonGroup>
-                    <Button 
+                    <Button onClick={() => handleChangeRoom(1)}
                         style={{
                             borderRadius: '20px', 
                             margin: '0 10px', 
                             width: '120px', 
-                            background: '#fd8a69',
+                            background: readRoom ==1 ? '#fd8a69':'#FECCBE',
                             border:'none'
                         }}
                     >
                         <strong>1</strong> 열람실
                     </Button>
-                    <Button 
+                    <Button onClick={() => handleChangeRoom(2)}
                         style={{ 
                             borderRadius: '20px', 
                             margin: '0 10px', 
                             width: '120px', 
-                            background: '#FECCBE',
+                            background: readRoom == 2 ? '#fd8a69':'#FECCBE',
                             border:'none'
                         }}
                     >
                         <strong>2</strong> 열람실
                     </Button>
-                    <Button 
+                    <Button onClick={() => handleChangeRoom(3)}
                         style={{ 
                             borderRadius: '20px', 
                             margin: '0 10px', 
                             width: '120px', 
-                            background: '#FECCBE',
+                            background: readRoom == 3 ? '#fd8a69':'#FECCBE',
                             border:'none'
                         }}
                     >
@@ -45,7 +51,9 @@ const ReadRoom = () => {
                 </ButtonGroup>
             </div>
             <div>
-                <Reservation/>
+                {readRoom==1 ?(<Reservation/>):(<div></div>)}
+                {readRoom==2 ?(<Reservation/>):(<div></div>)}
+                {readRoom==3 ?(<Reservation/>):(<div></div>)}
             </div>
         </div>
     );
