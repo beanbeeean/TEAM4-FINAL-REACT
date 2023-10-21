@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.main_search > input {
+  width: 500px;
+  padding: 8px 12px;
+  border: 1px solid #dadada;
+  border-radius: 18px;
+  outline: none;
+  color: #999898;
+}
+
+.main_search > .search_btn {
+  position: relative;
+  left: -30px;
+  cursor: pointer;
+  color: #999898;
+}
+
+.main_search > .search_btn:hover {
+  color: #454444;
+}
+
+.today {
+  font-size: 14px;
+  color: #999898;
+}
+
+.today_day {
+  font-weight: bold;
+}

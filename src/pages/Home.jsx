@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 
 const Home = () => {
   // 연결된거 확인
@@ -15,14 +16,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <>
       Home
       <ul>
         {data.map((v, idx) => (
           <li key={`${idx}-${v}`}>{v}</li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 

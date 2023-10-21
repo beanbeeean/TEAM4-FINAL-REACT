@@ -1,0 +1,25 @@
+.name,
+.phone,
+.zipcode,
+.address,
+.detail_address {
+  border: 1px solid #dadada;
+  padding: 5px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+}
+
+.name,
+.phone {
+  min-width: 150px;
+}
+
+.zipcode {
+  min-width: 200px;
+  margin-right: 5px;
+}
+
+.address,
+.detail_address {
+  min-width: 500px;
+}

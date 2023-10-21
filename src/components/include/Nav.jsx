@@ -1,27 +1,28 @@
 import React from "react";
 import "./css/Nav.css";
-import { Container } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
     <Container className="nav_wrap">
-      <div>
-        <a className="books" href="#">
+      <Col>
+        <Link to="/books" className="books">
           <p className="books">도서</p>
-        </a>
+        </Link>
 
-        <a className="community" href="#">
+        <Link to="/cart" className="community">
           <p className="community">커뮤니티</p>
-        </a>
+        </Link>
 
-        <a className="room_reserve" href="#">
-          <p class="room_reserve">좌석 현황/발권</p>
-        </a>
+        <Link to="/cart/confirm" className="room_reserve">
+          <p className="room_reserve">좌석 현황/발권</p>
+        </Link>
 
         <a className="menu" href="#">
-          <p class="menu">menu</p>
+          <p className="menu">menu</p>
         </a>
-      </div>
+      </Col>
     </Container>
   );
 };
