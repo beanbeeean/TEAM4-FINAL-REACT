@@ -14,7 +14,9 @@ const ReservationModal = (props) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Reservation</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Reservation
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -23,7 +25,13 @@ const ReservationModal = (props) => {
               좌석
             </Form.Label>
             <Col sm={8}>
-              <Form.Control type="text" defaultValue={props.no} readOnly />
+              <Form.Control
+                type="text"
+                defaultValue={
+                  "제 " + props.readRoom + " 열람실 " + props.seat + "번"
+                }
+                readOnly
+              />
             </Col>
           </Form.Group>
 
@@ -32,7 +40,13 @@ const ReservationModal = (props) => {
               예약시간
             </Form.Label>
             <Col sm={8}>
-              <Form.Control type="text" defaultValue={props.time.getHours() + "시 " + props.time.getMinutes() + "분"} readOnly />
+              <Form.Control
+                type="text"
+                defaultValue={
+                  props.time.getHours() + "시 " + props.time.getMinutes() + "분"
+                }
+                readOnly
+              />
             </Col>
           </Form.Group>
 
@@ -41,14 +55,26 @@ const ReservationModal = (props) => {
               만료시간
             </Form.Label>
             <Col sm={8}>
-              <Form.Control type="text" defaultValue={(props.time.getHours() + 2) + "시 " + props.time.getMinutes() + "분"} readOnly />
+              <Form.Control
+                type="text"
+                defaultValue={
+                  props.time.getHours() +
+                  2 +
+                  "시 " +
+                  props.time.getMinutes() +
+                  "분"
+                }
+                readOnly
+              />
             </Col>
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary">예약</Button>
-        <Button variant="secondary" onClick={props.onHide}>닫기</Button>
+        <Button variant="secondary" onClick={props.onHide}>
+          닫기
+        </Button>
       </Modal.Footer>
     </Modal>
   );

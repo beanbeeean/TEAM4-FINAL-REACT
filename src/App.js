@@ -19,6 +19,7 @@ import CheckoutList from "./pages/user/book_checkout/CheckoutList";
 import CheckoutDetail from "./pages/user/book_checkout/CheckoutDetail";
 import MyPage from "./pages/MyPage";
 import Sidebar from "./components/include/Sidebar";
+import Reservation from "./components/reservation/Reservation";
 
 function App() {
   return (
@@ -42,8 +43,9 @@ function App() {
             <Route path="/checkout_books" element={<CheckoutList />} />
             <Route path="/checkout_books/:id" element={<CheckoutDetail />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/readroom" element={<ReadRoom />} />
-            <Route path="/studyroom" element={<StudyRoom />} />
+
+            <Route path="/reservation" element={<Reservation />} />
+            <Route path="/reservation/studyroom" element={<StudyRoom />} />
           </Routes>
         </div>
       </div>

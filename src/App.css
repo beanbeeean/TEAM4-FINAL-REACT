@@ -33,7 +33,7 @@ div#section {
 }
 
 div.section_area {
-  overflow-y: auto;
+  /* overflow-y: auto; */
   margin-top: 20px;
   padding: 0 25px;
 }

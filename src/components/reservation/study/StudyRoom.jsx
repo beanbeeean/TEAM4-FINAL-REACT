@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import {Row, Col, Table, Card, Button} from 'react-bootstrap';
+import React, { useState } from "react";
+import { Row, Col, Table, Card, Button } from "react-bootstrap";
 import ReservationModal from "./ReservationModal";
+// import ReservationHeader from "../ReservationHeader";
 
 function StudyRoom() {
-
   const [selectedTime, setSelectedTime] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [showTimeSelectionCard, setShowTimeSelectionCard] = useState(false);
 
-  const times = Array.from({ length: 24 }).map((_, i) => {
-    const hour = String(i).padStart(2, '0');
-    return [`${hour}:00`];
-  }).flat();
+  const times = Array.from({ length: 24 })
+    .map((_, i) => {
+      const hour = String(i).padStart(2, "0");
+      return [`${hour}:00`];
+    })
+    .flat();
 
   const handleTimeClick = (time) => {
     setSelectedTime((prev) => {
@@ -25,16 +27,14 @@ function StudyRoom() {
   };
 
   const reservationTime = () => {
-    if(showTimeSelectionCard==false)
-      setShowTimeSelectionCard(true);
-    else
-      setShowTimeSelectionCard(false);
+    if (showTimeSelectionCard == false) setShowTimeSelectionCard(true);
+    else setShowTimeSelectionCard(false);
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
       <h2 className="text-center mb-4">스터디룸 예약</h2>
-      
+
       <Card className="mb-4">
         <Card.Header>스터디룸 정보</Card.Header>
         <Table striped bordered hover responsive>
@@ -82,31 +82,47 @@ function StudyRoom() {
           </ListGroup.Item>
         </ListGroup>
       </Card> */}
-      
-      {showTimeSelectionCard  && (<Card className="mt-5">
-      <Card.Header>이용시간 선택</Card.Header>
-        <Card.Body>
-          <p className="text-muted">※ 선택 시간만큼 스터디룸을 사용하실 수 있습니다.</p>
-          <Row>
-            {times.map((time, index) => (
-              <Col xs={3} className="mb-3" key={time}>
-                <Button 
-                  variant={selectedTime.includes(time) ? 'primary' : 'outline-primary'}
-                  block
-                  onClick={() => handleTimeClick(time)}
-                >
-                  {time}
-                </Button>
-              </Col>
-            ))}
-          </Row>
-        </Card.Body>
-      <Button variant="primary" className="w-100" onClick={() => setModalShow(true)}>예약하기</Button>
-      </Card>
+
+      {showTimeSelectionCard && (
+        <Card className="mt-5">
+          <Card.Header>이용시간 선택</Card.Header>
+          <Card.Body>
+            <p className="text-muted">
+              ※ 선택 시간만큼 스터디룸을 사용하실 수 있습니다.
+            </p>
+            <Row>
+              {times.map((time, index) => (
+                <Col xs={3} className="mb-3" key={time}>
+                  <Button
+                    variant={
+                      selectedTime.includes(time)
+                        ? "primary"
+                        : "outline-primary"
+                    }
+                    block
+                    onClick={() => handleTimeClick(time)}
+                  >
+                    {time}
+                  </Button>
+                </Col>
+              ))}
+            </Row>
+          </Card.Body>
+          <Button
+            variant="primary"
+            className="w-100"
+            onClick={() => setModalShow(true)}
+          >
+            예약하기
+          </Button>
+        </Card>
       )}
-    
-    <ReservationModal show={modalShow} no={selectedSeat} onHide={() => setModalShow(false)} />
-    
+
+      <ReservationModal
+        show={modalShow}
+        no={selectedSeat}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   );
 }
