@@ -15,7 +15,7 @@ const Sidebar = () => {
         navigate("/reservation");
         break;
       case 3:
-        navigate("/books");
+        navigate("/checkout_books");
         break;
       case 4:
         navigate("/board");
