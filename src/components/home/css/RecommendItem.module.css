@@ -1,0 +1,23 @@
+.slide_block {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 17%;
+  max-height: 280px;
+  background-color: #ffffff;
+}
+
+.slide_block img {
+  height: 200px;
+  min-width: 100%;
+}
+
+.text_wrap {
+  text-align: left;
+}
+
+.author,
+.publisher {
+  font-size: 0.85em;
+  color: #bababa;
+}

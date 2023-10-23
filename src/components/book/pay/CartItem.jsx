@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import styles from "./css/CartItem.module.css";
+import { Link } from "react-router-dom";
 
 const CartItem = () => {
   const [cnt, setCnt] = useState(1);
@@ -67,7 +68,13 @@ const CartItem = () => {
       </Col>
       <Col md={2}>
         <div className={styles.wrap}>
-          <input className={styles.buy} type="button" value="주문하기"></input>
+          <Link to="/cart/confirm">
+            <input
+              className={styles.buy}
+              type="button"
+              value="주문하기"
+            ></input>
+          </Link>
           <br />
           <input className={styles.delete} type="button" value="삭제"></input>
         </div>

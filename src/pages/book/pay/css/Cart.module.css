@@ -7,14 +7,14 @@
   margin-right: 10px;
 }
 
-.select input[type="button"] {
-  padding: 3px 10px;
+.btn input[type="button"] {
+  padding: 5px 15px;
   margin-left: 5px;
   border: 1px solid #dadada;
   border-radius: 5px;
 }
 
-.select input[value="주문하기"] {
+.btn input[value="주문하기"] {
   background-color: #fd8a69;
   color: #ffffff;
 }

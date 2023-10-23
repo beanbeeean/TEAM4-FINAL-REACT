@@ -1,12 +1,19 @@
 .swiper {
-    width: 100%;
+  width: 100%;
 }
 
 .swiper_slide {
-    min-height: 280px;
-    background-color: #ffeee8;
+  text-align: center;
+  max-height: 280px;
+  /* background-color: #ffeee8; */
+  /* border-radius: 15px; */
 }
 
 .swiper-pagination-bullet-active {
-    background: #FD8A69 !important;
+  background: #fd8a69 !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fd8a69 !important;
 }

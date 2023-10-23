@@ -1,6 +1,14 @@
 .content_wrap {
   /* display: flex; */
-  width: 1500px;
+  width: 100%;
+}
+
+.mini_nav {
+  margin-bottom: 10px;
+}
+
+.first_wrap {
+  margin-bottom: 30px;
 }
 
 .second_wrap {
@@ -26,12 +34,11 @@
 
 .recommend_books {
   width: 100%;
+  margin-right: 30px;
 }
 
-.recommend_books img {
-  min-width: 100%;
-  height: 350px;
-  border-radius: 10px;
+.my_info_wrap {
+  width: 25%;
 }
 
 .community {

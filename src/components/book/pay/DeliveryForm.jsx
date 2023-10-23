@@ -8,6 +8,10 @@ const DeliveryForm = () => {
   const scriptUrl =
     "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
   const open = useDaumPostcodePopup(scriptUrl);
+  const [address, setAddress] = useState({
+    fullAddress: "",
+    zipcode: "",
+  });
 
   const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -24,7 +28,10 @@ const DeliveryForm = () => {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
-    console.log(fullAddress);
+    setAddress({
+      fullAddress,
+      zipcode: data.zonecode, // 'zonecode' is the Daum Postcode's name for zipcode
+    });
   };
 
   const handleClick = () => {
@@ -45,11 +52,26 @@ const DeliveryForm = () => {
       </div>
       <span>주소</span>
       <br />
-      <input type="text" className={styles.zipcode} placeholder="우편번호" />
-      <input type="button" value="우편번호 찾기" onClick={handleClick} />
+      <input
+        type="text"
+        className={styles.zipcode}
+        placeholder="우편번호"
+        value={address.zipcode}
+      />
+      <input
+        type="button"
+        value="우편번호 찾기"
+        onClick={handleClick}
+        className={styles.search_zipcode}
+      />
       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       <br />
-      <input type="text" className={styles.address} placeholder="도로명주소" />
+      <input
+        type="text"
+        className={styles.address}
+        placeholder="도로명주소"
+        value={address.fullAddress}
+      />
       <br />
       <input
         type="text"

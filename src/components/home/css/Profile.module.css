@@ -1,0 +1,57 @@
+.my_info {
+  width: 100%;
+  height: 350px;
+  background-color: #fff8f8;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.my_info_content {
+  padding-top: 70px;
+  margin-bottom: 20px;
+  /* background-color: #ffffff; */
+}
+
+.my_info_content img {
+  min-width: 120px;
+  height: 150px;
+}
+
+.user_info {
+  text-align: left;
+  margin-left: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.user_name {
+  font-weight: bold;
+}
+
+.user_mail {
+  color: #bababa;
+}
+
+.user_point {
+  font-size: 0.9em;
+  color: #3b3b3b;
+}
+
+.notice {
+  padding-top: 70px;
+  color: #fd8a69;
+}
+
+.mypage_btn {
+  margin-right: 10px;
+}
+
+.log_btn,
+.mypage_btn {
+  background-color: #ffffff;
+  color: #fd8a69;
+  width: 120px;
+  border-radius: 10px;
+  padding: 5px;
+  display: inline-block;
+}
