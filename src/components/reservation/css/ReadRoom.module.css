@@ -1,0 +1,241 @@
+div.readroom_wrap {
+  background-color: #e7e6e6;
+  padding: 50px;
+  display: inline-block;
+  border-radius: 30px;
+}
+
+div.readroom_tap {
+  display: flex;
+  justify-content: space-evenly;
+  width: 1100px;
+  height: 70px;
+  padding: 0 50px;
+}
+
+div.readroom_tap_item {
+  /* background-color: #636262; */
+  color: #fff;
+  font-size: 32px;
+  padding: 3px 30px 0px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  width: 280px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 70px;
+  background-color: rgb(189, 184, 184);
+}
+
+div.readroom_tap_item.current_room {
+  background-color: #636262;
+  font-weight: bold;
+}
+
+div.readroom_content {
+  width: 1200px;
+  height: 800px;
+  background-color: #636262;
+  border-radius: 30px;
+}
+
+div.readroom_map {
+  width: 100%;
+  padding: 100px;
+}
+
+div.readroom_map table {
+  border-collapse: separate;
+  border-spacing: 5px;
+  display: inline-block;
+}
+
+.readroom_map td {
+  width: 67px;
+  height: 67px;
+  background-color: rgb(242, 186, 55);
+  border: 0;
+  border-radius: 25px;
+  font-size: 30px;
+  line-height: 45px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
+}
+
+.readroom_map td.user_select {
+  background-color: rgb(28, 30, 189);
+  color: #fff;
+}
+
+.rm_first_line {
+  margin-bottom: 54px;
+}
+
+.rm_first_line > table {
+  margin-right: 54px;
+}
+
+.rm_first_line > table:last-child {
+  margin-right: 0;
+}
+
+.door_wrap {
+  display: inline-block;
+}
+
+.left_door,
+.right_door {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  background-color: #b0abab;
+}
+
+.left_door {
+  border-top-right-radius: 100%;
+}
+
+.right_door {
+  margin-left: -5px;
+  border-top-left-radius: 100%;
+}
+
+.rm_second_line > table:first-child {
+  margin-right: 65px;
+}
+
+.rm_second_line > table:last-child {
+  margin-right: 0;
+}
+
+.rm_second_line > table.eight {
+  margin-left: 65px;
+  margin-right: 55px;
+}
+
+/* reservation */
+
+.readroom_reservation {
+  margin-bottom: 50px;
+  height: 200px;
+  width: 100%;
+  padding: 0 100px;
+  background-color: #cac9c9;
+  display: flex;
+  align-items: center;
+}
+
+.map_info {
+  margin-right: 50px;
+  width: 330px;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.seat_info {
+  display: flex;
+  align-items: center;
+}
+
+.seat_ex {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(242, 186, 55);
+  border: 0;
+  border-radius: 18px;
+  margin-right: 40px;
+}
+
+.seat_txt {
+  font-size: 28px;
+}
+
+.door_info {
+  display: flex;
+  align-items: center;
+}
+
+.di_wrap {
+  margin-right: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.di_left,
+.di_right {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: #b0abab;
+}
+
+.di_left {
+  border-top-right-radius: 100%;
+}
+
+.di_right {
+  border-top-left-radius: 100%;
+}
+
+.di_txt {
+  font-size: 28px;
+}
+
+.reservation_area {
+  width: 620px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+}
+
+.selected_area {
+  margin-right: 25px;
+  width: 315px;
+  height: 110px;
+  display: flex;
+}
+
+.selected_area > div {
+  height: 110px;
+}
+
+.selected_area > div:first-child {
+  background-color: #636262;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: #fff;
+  line-height: 45px;
+  font-weight: bold;
+}
+
+.selected_num {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background-color: rgb(44, 44, 43);
+  width: 235px;
+  font-size: 80px;
+  text-align: center;
+  line-height: 105px;
+  color: #fff;
+}
+
+.reservation_btn {
+  width: 300px;
+  height: 110px;
+  background-color: rgb(44, 44, 44);
+  font-size: 56px;
+  text-align: center;
+  line-height: 110px;
+  cursor: pointer;
+  border-radius: 30px;
+  color: #cfcdcd;
+  font-weight: bold;
+}

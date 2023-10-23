@@ -12,7 +12,7 @@ const Sidebar = () => {
         navigate("/");
         break;
       case 2:
-        navigate("/readroom");
+        navigate("/reservation");
         break;
       case 3:
         navigate("/books");

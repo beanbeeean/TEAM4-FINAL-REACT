@@ -1,62 +1,53 @@
-import React, {useState} from "react";
-import { ButtonGroup, Button } from 'react-bootstrap';
-import ReadRoomReservation from "./ReadRoomReservation";
-import Reservation from "./Reservation";
+import React, { useEffect, useState } from "react";
+import ReadRoomReservation from "./components/ReadRoomReservation";
+import styles from "../css/ReadRoom.module.css";
+import { useNavigate } from "react-router-dom/dist";
+import ReservationHeader from "../include/ReservationHeader";
+import ReadRoomMap from "./components/ReadRoomMap";
 
 const ReadRoom = () => {
+  const [readRoom, setReadRoom] = useState(1);
+  const [seat, setSeat] = useState();
 
-    const [readRoom, setReadRoom] = useState(1);
+  const changeReadRoom = (num) => {
+    setSeat();
+    setReadRoom(num);
+  };
 
-    const handleChangeRoom = (no) => {
-        setReadRoom(no);
-      };
-
-    return (
-        <div>
-            <div style={{padding: '20px', display: 'flex', justifyContent: 'center' }}>
-                <ButtonGroup>
-                    <Button onClick={() => handleChangeRoom(1)}
-                        style={{
-                            borderRadius: '20px', 
-                            margin: '0 10px', 
-                            width: '120px', 
-                            background: readRoom ==1 ? '#fd8a69':'#FECCBE',
-                            border:'none'
-                        }}
-                    >
-                        <strong>1</strong> 열람실
-                    </Button>
-                    <Button onClick={() => handleChangeRoom(2)}
-                        style={{ 
-                            borderRadius: '20px', 
-                            margin: '0 10px', 
-                            width: '120px', 
-                            background: readRoom == 2 ? '#fd8a69':'#FECCBE',
-                            border:'none'
-                        }}
-                    >
-                        <strong>2</strong> 열람실
-                    </Button>
-                    <Button onClick={() => handleChangeRoom(3)}
-                        style={{ 
-                            borderRadius: '20px', 
-                            margin: '0 10px', 
-                            width: '120px', 
-                            background: readRoom == 3 ? '#fd8a69':'#FECCBE',
-                            border:'none'
-                        }}
-                    >
-                        <strong>3</strong> 열람실
-                    </Button>
-                </ButtonGroup>
-            </div>
-            <div>
-                {readRoom==1 ?(<Reservation/>):(<div></div>)}
-                {readRoom==2 ?(<Reservation/>):(<div></div>)}
-                {readRoom==3 ?(<Reservation/>):(<div></div>)}
-            </div>
+  return (
+    <div className={styles.readroom_wrap}>
+      <div className={styles.readroom_tap}>
+        <div
+          onClick={() => changeReadRoom(1)}
+          className={`${styles.readroom_tap_item} ${
+            readRoom == 1 && styles.current_room
+          }`}
+        >
+          1 열람실
         </div>
-    );
-}
+        <div
+          onClick={() => changeReadRoom(2)}
+          className={`${styles.readroom_tap_item} ${
+            readRoom == 2 && styles.current_room
+          }`}
+        >
+          2 열람실
+        </div>
+        <div
+          onClick={() => changeReadRoom(3)}
+          className={`${styles.readroom_tap_item} ${
+            readRoom == 3 && styles.current_room
+          }`}
+        >
+          3 열람실
+        </div>
+      </div>
+      <div className={styles.readroom_content}>
+        <ReadRoomMap setSeat={setSeat} seat={seat} />
+        <ReadRoomReservation seat={seat} readRoom={readRoom} />
+      </div>
+    </div>
+  );
+};
 
 export default ReadRoom;

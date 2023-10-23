@@ -8,6 +8,19 @@ import Recommend from "../components/home/Recommend";
 import Profile from "../components/home/Profile";
 
 const Home = () => {
+  // 연결된거 확인
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("/showMe")
+      .then((res) => {
+        return res.json();
+      })
+      .then(function (result) {
+        setData(result);
+      });
+  }, []);
+
   return (
     <div className={`${styles.content_wrap}`}>
       <div className={styles.first_wrap}>

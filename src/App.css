@@ -34,8 +34,28 @@ div#section {
 
 div.section_area {
   margin-top: 60px;
+  /* overflow-y: auto; */
+  margin-top: 20px;
+  padding: 0 25px;
 }
 
 div.modal-content {
   height: 500px;
+}
+
+div.carousel-inner {
+  text-align: center !important;
+}
+
+div.carousel-indicators button {
+  background-color: #fff !important;
+}
+
+div.carousel-caption {
+  color: #fff !important;
+}
+
+div.carousel {
+  width: 1300px;
+  height: 600px;
 }

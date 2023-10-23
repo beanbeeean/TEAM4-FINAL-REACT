@@ -10,8 +10,6 @@ import BookList from "./pages/book/BookList";
 import BookDetail from "./pages/book/BookDetail";
 import Cart from "./pages/book/pay/Cart";
 import CartPayConfirm from "./pages/book/pay/CartPayConfirm";
-import StudyRoom from "./components/reservation/study/StudyRoom";
-import ReadRoom from "./components/reservation/read/ReadRoom";
 import BoardWrite from "./pages/board/BoardWrite";
 import Board from "./pages/board/Board";
 import BoardDetail from "./pages/board/BoardDetail";
@@ -19,6 +17,8 @@ import CheckoutList from "./pages/user/book_checkout/CheckoutList";
 import CheckoutDetail from "./pages/user/book_checkout/CheckoutDetail";
 import MyPage from "./pages/MyPage";
 import Sidebar from "./components/include/Sidebar";
+import Reservation from "./components/reservation/Reservation";
+import StudyRoom from "./components/reservation/study/components/StudyRoom";
 
 function App() {
   return (
@@ -42,8 +42,9 @@ function App() {
             <Route path="/checkout_books" element={<CheckoutList />} />
             <Route path="/checkout_books/:id" element={<CheckoutDetail />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/readroom" element={<ReadRoom />} />
-            <Route path="/studyroom" element={<StudyRoom />} />
+
+            <Route path="/test" element={<StudyRoom />} />
+            <Route path="/reservation" element={<Reservation />} />
           </Routes>
         </div>
       </div>
