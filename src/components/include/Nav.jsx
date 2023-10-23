@@ -7,7 +7,7 @@ const Nav = () => {
   return (
     <Container className="nav_wrap">
       <Col>
-        <Link to="/books" className="books">
+        <Link to="/checkout_books" className="books">
           <p className="books">도서</p>
         </Link>
 

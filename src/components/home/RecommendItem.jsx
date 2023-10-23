@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const RecommendItem = () => {
   return (
-    <Link to="./books/:id">
+    <Link to="./checkout_books/:id">
       <div className={styles.slide_block}>
         <img src="../imgs/default.png" /> <br />
         <div className={styles.text_wrap}>

@@ -19,6 +19,7 @@ import MyPage from "./pages/MyPage";
 import Sidebar from "./components/include/Sidebar";
 import Reservation from "./components/reservation/Reservation";
 import StudyRoom from "./components/reservation/study/components/StudyRoom";
+import SearchMain from "./pages/user/Search/SearchMain";
 
 function App() {
   return (
@@ -46,6 +47,8 @@ function App() {
 
             <Route path="/test" element={<StudyRoom />} />
             <Route path="/reservation" element={<Reservation />} />
+
+            <Route path="/search" element={<SearchMain />} />
           </Routes>
         </div>
       </div>

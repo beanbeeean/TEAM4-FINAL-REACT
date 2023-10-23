@@ -37,18 +37,24 @@ li {
 }
 
 .buttons {
-  font-size: 0.8em;
   align-items: center;
   height: 100%;
 }
 
+.buttons_wrap {
+  padding-top: 35px;
+}
+
 .ch_count {
+  font-size: 0.9em;
+  color: #3f3f3f;
   margin-right: 3px;
 }
 
 .buttons input[type="button"] {
-  width: 100px;
-  height: 30px;
+  padding: 5px 20px;
   border: none;
   border-radius: 5px;
+  background-color: #feccbe;
+  color: #ffffff;
 }

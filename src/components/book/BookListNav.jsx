@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./css/BookListNav.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const BookListNav = () => {
   return (
@@ -9,6 +11,10 @@ const BookListNav = () => {
         className={styles.book_search}
         type="text"
         placeholder="도서 검색"
+      />
+      <FontAwesomeIcon
+        icon={faMagnifyingGlass}
+        className={styles.book_search_btn}
       />
 
       <ul className={styles.booklist_nav}>

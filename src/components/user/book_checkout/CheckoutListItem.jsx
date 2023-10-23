@@ -18,7 +18,7 @@ const CheckoutListItem = ({ book }) => {
               <ul>
                 <li className={styles.book_title}>{book.b_title}</li>
                 <li>
-                  <span>{book.b_writer} 저</span> |{" "}
+                  <span>{book.b_writer} 저</span>&nbsp;|&nbsp;
                   <span>{book.b_publisher}</span>
                 </li>
               </ul>
@@ -27,14 +27,16 @@ const CheckoutListItem = ({ book }) => {
         </Link>
       </Col>
       <Col className={styles.buttons}>
-        <span className={styles.ch_count}>대여 가능 수량 6</span>
-        <br />
-        <input
-          type="button"
-          value="대여하기"
-          onClick={() => setModalShow(true)}
-        />
-        <CheckoutModal show={modalShow} onHide={() => setModalShow(false)} />
+        <div className={styles.buttons_wrap}>
+          <span className={styles.ch_count}>대여 가능 수량 5</span>
+          <br />
+          <input
+            type="button"
+            value="대여하기"
+            onClick={() => setModalShow(true)}
+          />
+          <CheckoutModal show={modalShow} onHide={() => setModalShow(false)} />
+        </div>
       </Col>
     </Row>
   );
