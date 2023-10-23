@@ -46,8 +46,7 @@ function App() {
 
             <Route path="/test" element={<StudyRoom />} />
             <Route path="/reservation" element={<Reservation />} />
-            <Route path="/readroom" element={<ReadRoom />} />
-            <Route path="/studyroom" element={<StudyRoom />} />
+
             <Route path="/search" element={<SearchMain />} />
           </Routes>
         </div>
