@@ -9,15 +9,17 @@ li {
 
 .booklist_wrap {
   margin-bottom: 10px;
+  height: 100%;
 }
 
 .book_item {
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-img {
+.book_wrap img {
   max-width: 100px;
 }
 
@@ -45,6 +47,11 @@ img {
 
 .count_wrap input[type="button"] {
   border: 1px solid #dadada;
+}
+
+.count_wrap input[value="-"],
+.count_wrap input[value="+"] {
+  padding: 2px;
 }
 
 .count_wrap input[type="text"] {

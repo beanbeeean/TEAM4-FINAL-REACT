@@ -54,8 +54,10 @@ img {
   padding: 10px;
 }
 
-.buttons input[type="button"] {
+.buttons input[value="-"],
+.buttons input[value="+"] {
   border: 1px solid #dadada;
+  padding: 2px;
 }
 
 .count {
@@ -72,7 +74,7 @@ img {
 }
 
 .cart {
-  padding: 5px 20px;
+  padding: 5px 30px;
   border: none;
   border-radius: 8px;
   background-color: #feccbe;
@@ -82,7 +84,7 @@ img {
 }
 
 .buy {
-  padding: 5px 20px;
+  padding: 5px 30px;
   border: none;
   border-radius: 8px;
   background-color: #fd8a69;

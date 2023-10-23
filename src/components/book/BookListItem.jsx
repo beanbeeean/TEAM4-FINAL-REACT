@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import styles from "./css/BookList.module.css";
 import { Link } from "react-router-dom";
+import CartModal from "../include/CartModal";
 
 const BookListItem = ({ book }) => {
   const [cnt, setCnt] = useState(1);
+  const [modalShow, setModalShow] = useState(false);
 
   const decreaseCnt = () => {
     console.log("decreaseCnt");
@@ -30,7 +32,8 @@ const BookListItem = ({ book }) => {
 
   return (
     <Row>
-      <Col className={styles.booklist_wrap} md={10}>
+      <Col className={styles.booklist_wrap} md={9}>
+        <input type="checkbox" />
         <Link to={`/books/${book.b_no}`} key={book.b_no}>
           <div className={styles.book_item}>
             <span>{book.b_no}</span>
@@ -57,7 +60,8 @@ const BookListItem = ({ book }) => {
         <input type="text" value={cnt} onChange={onChange}></input>
         <input type="button" value="+" onClick={increaseCnt}></input>
         <br />
-        <input className={styles.cart} type="button" value="장바구니"></input>
+        <input className={styles.cart} type="button" value="장바구니" onClick={() => setModalShow(true)}></input>
+        <CartModal show={modalShow} onHide={() => setModalShow(false)} />
         <br />
         <input className={styles.buy} type="button" value="바로구매"></input>
       </Col>

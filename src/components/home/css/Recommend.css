@@ -1,0 +1,12 @@
+.swiper {
+    width: 100%;
+}
+
+.swiper_slide {
+    min-height: 280px;
+    background-color: #ffeee8;
+}
+
+.swiper-pagination-bullet-active {
+    background: #FD8A69 !important;
+}

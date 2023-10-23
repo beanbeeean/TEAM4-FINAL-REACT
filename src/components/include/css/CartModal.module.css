@@ -1,0 +1,58 @@
+.confirm_btn {
+  background-color: #feccbe;
+  border: none;
+}
+
+.confirm_btn:hover {
+  background-color: #fd8a69;
+}
+
+.cancle_btn {
+  background-color: #dadada;
+  border: none;
+}
+
+.cancle_btn:hover {
+  background-color: #b8b8b8;
+}
+
+.modal_content {
+  text-align: center;
+  color: #333333;
+}
+
+.icon {
+  margin-top: 100px;
+  margin-bottom: 80px;
+  color: #fd8a69;
+}
+
+.notice {
+  margin-bottom: 30px;
+}
+
+.book_title,
+.writer,
+.publisher {
+  font-weight: bold;
+}
+
+.content {
+  margin-bottom: 10px;
+}
+
+.content input[type="text"] {
+  text-align: center;
+  padding: 5px 20px;
+  width: 380px;
+  border-radius: 5px;
+  border: 1px solid #dadada;
+}
+
+.notice2 {
+  margin-top: 120px;
+  font-size: 0.8em;
+  text-align: right;
+  color: #bababa;
+  text-decoration: underline;
+}

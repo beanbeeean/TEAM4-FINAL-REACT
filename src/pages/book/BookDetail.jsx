@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import styles from "./css/BookDetail.module.css";
+import CartModal from "../../components/include/CartModal";
 
 const BookDetail = ({ book }) => {
   const [cnt, setCnt] = useState(1);
+  const [modalShow, setModalShow] = useState(false);
+
 
   const decreaseCnt = () => {
     console.log("decreaseCnt");
@@ -57,7 +60,8 @@ const BookDetail = ({ book }) => {
           </div>
 
           <div className={styles.buttons}>
-            <input className={styles.cart} type="button" value="장바구니" />
+            <input className={styles.cart} type="button" value="장바구니" onClick={() => setModalShow(true)}></input>
+            <CartModal show={modalShow} onHide={() => setModalShow(false)} />
             <input className={styles.buy} type="button" value="바로구매" />
           </div>
         </div>
