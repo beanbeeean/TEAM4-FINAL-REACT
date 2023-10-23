@@ -24,10 +24,11 @@ function App() {
   return (
     <div id="wrap">
       {/* <Header />
-      <Nav />
-      <ChatModal /> */}
+      <Nav />*/}
+
       <Sidebar />
       <div id="section">
+        {/* <ChatModal /> */}
         <Header />
         <div className="section_area">
           <Routes>
@@ -48,7 +49,6 @@ function App() {
           </Routes>
         </div>
       </div>
-
       {/* <Footer /> */}
     </div>
   );
