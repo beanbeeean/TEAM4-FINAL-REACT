@@ -97,3 +97,19 @@
 .calendar .day_list .day_list_area .day {
   font-weight: bold;
 }
+
+.study_reservation_wrap {
+  margin-top: 50px;
+  width: 1200px;
+}
+
+.study_reservation_date {
+  width: 50%;
+  height: 500px;
+  background-color: red;
+}
+
+.study_reservation_confirm {
+  width: 50%;
+  background-color: blue;
+}
