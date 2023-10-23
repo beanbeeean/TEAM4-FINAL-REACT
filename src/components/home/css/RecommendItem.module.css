@@ -5,6 +5,11 @@
   width: 17%;
   max-height: 280px;
   background-color: #ffffff;
+  transition: all 0.2s;
+}
+
+.slide_block:hover {
+  transform: scale(1.03);
 }
 
 .slide_block img {
