@@ -2,8 +2,17 @@
   min-width: 400px;
   margin-bottom: 10px;
   border: 1px solid #feccbe;
-  border-radius: 3px;
-  padding: 3px;
+  border-radius: 15px;
+  padding: 5px;
+  padding-left: 10px;
+  position: relative;
+}
+
+.book_search_btn {
+  position: absolute;
+  top: 82px;
+  left: 690px;
+  color: #feccbe;
 }
 
 .booklist_nav {

@@ -19,6 +19,7 @@ import CheckoutList from "./pages/user/book_checkout/CheckoutList";
 import CheckoutDetail from "./pages/user/book_checkout/CheckoutDetail";
 import MyPage from "./pages/MyPage";
 import Sidebar from "./components/include/Sidebar";
+import SearchMain from "./pages/user/Search/SearchMain";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/readroom" element={<ReadRoom />} />
             <Route path="/studyroom" element={<StudyRoom />} />
+            <Route path="/search" element={<SearchMain />} />
           </Routes>
         </div>
       </div>
