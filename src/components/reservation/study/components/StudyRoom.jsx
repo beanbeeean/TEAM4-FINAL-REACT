@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Table, Card, Button } from "react-bootstrap";
 import ReservationModal from "./ReservationModal";
 // import ReservationHeader from "../ReservationHeader";
@@ -8,6 +8,15 @@ function StudyRoom() {
   const [modalShow, setModalShow] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [showTimeSelectionCard, setShowTimeSelectionCard] = useState(false);
+
+  const getDate = () => {
+    let today = new Date();
+
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let date = today.getDate();
+    return year + "-" + month + "-" + date;
+  };
 
   const times = Array.from({ length: 24 })
     .map((_, i) => {
@@ -21,6 +30,7 @@ function StudyRoom() {
       return [time];
     });
   };
+
   const handleButtonClick = (roomNumber) => {
     // setModalShow(true);
     // setSelectedSeat(roomNumber);
@@ -30,6 +40,8 @@ function StudyRoom() {
     if (showTimeSelectionCard == false) setShowTimeSelectionCard(true);
     else setShowTimeSelectionCard(false);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
