@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import BookListNav from "../../../admin/components/book/BookListNav";
+import BookListNav from "../../components/book/BookListNav";
 import CheckoutListItem from "../../components/book/CheckoutListItem";
 
 const CheckoutList = () => {
