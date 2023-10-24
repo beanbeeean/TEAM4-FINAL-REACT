@@ -78,10 +78,6 @@ const StudyRoomHeader = () => {
     { weak: CalendarWeak[6], day: CalendarDay[6] },
   ];
 
-  useEffect(() => {
-    return () => console.log("Clean up");
-  });
-
   const Weak = useRef(null);
   return (
     <>

@@ -103,13 +103,135 @@
   width: 1200px;
 }
 
-.study_reservation_date {
-  width: 50%;
-  height: 500px;
-  background-color: red;
+.study_reservation_date > table {
+  width: 100%;
+
+  text-align: center;
+}
+
+.study_reservation_date > table > thead > tr {
+  border-bottom: 2px solid #fddacd;
+  background-color: #fddacd;
+}
+
+.study_reservation_date > table > thead th {
+  padding: 15px 0;
+  font-size: 22px;
+  color: #f7f7f7;
+  /* color: #f3b9a4; */
+}
+
+.study_reservation_date > table th:nth-child(1) {
+  width: 30%;
+}
+
+.study_reservation_date > table th:nth-child(2),
+.study_reservation_date > table th:nth-child(3) {
+  width: 35%;
+}
+
+.study_reservation_date > table tbody td {
+  padding: 13px 0;
+}
+
+.study_reservation_date > table tbody td:nth-child(1) {
+  background-color: #fff7f7;
+  font-weight: bold;
+  font-size: 17px;
+  color: #9e9d9d;
+}
+
+.reservation_enable {
+  cursor: pointer;
+}
+
+.reservation_enable:hover {
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+
+.reservation_unable {
+  color: #ff0000;
+  text-decoration: line-through;
 }
 
 .study_reservation_confirm {
-  width: 50%;
-  background-color: blue;
+  position: sticky;
+  top: 100px;
+}
+
+.reservation_confirm_card {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.reservation_card_title {
+  font-weight: 800;
+  padding: 15px 0;
+  background-color: #fddacd;
+  border-bottom: 1px solid #dadada;
+  color: #fff;
+  margin: 0;
+}
+
+.reservation_card_info {
+  background-color: #918d8d;
+}
+
+.reservation_card_table {
+  background-color: #fff7f7;
+  padding: 0px 10px 10px;
+}
+
+.reservation_card_table > table {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+}
+
+.reservation_card_table th {
+  font-size: 22px;
+  padding: 30px 0;
+  color: #9e9d9d;
+  background-color: #fff7f7;
+  border-bottom: 1px solid #dadada;
+}
+
+.reservation_card_table th:nth-child(1) {
+  width: 20%;
+}
+
+.reservation_card_table th:nth-child(2),
+.reservation_card_table th:nth-child(3) {
+  width: 40%;
+}
+
+.reservation_card_table tbody tr {
+  border: 1px solid #dadada;
+}
+
+.reservation_card_table td {
+  font-size: 35px;
+  font-weight: bold;
+  padding: 30px 0;
+  border-right: 1px solid #dadada;
+}
+
+.reservation_card_btn {
+  padding: 25px 0;
+  margin-top: 15px;
+  font-size: 42px;
+  text-align: center;
+  background-color: #f8ebeb;
+  font-weight: bold;
+  color: #cfcfcf;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.reservation_card_btn:hover {
+  background-color: #f7d4d4;
+  color: #fff;
 }
