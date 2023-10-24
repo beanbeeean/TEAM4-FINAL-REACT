@@ -1,0 +1,72 @@
+.content_wrap {
+  background-color: #ffeee8;
+  padding: 50px;
+  border-radius: 20px;
+  color: #fd8a69;
+  text-align: center;
+}
+
+.content_wrap .block {
+  display: inline-block;
+}
+
+.content_wrap .file {
+  position: relative;
+  left: 13%;
+}
+
+.mypage_wrap .block {
+  display: inline-block;
+}
+
+.mypage_wrap li {
+  display: inline-block;
+}
+
+.profile_img {
+  width: 200px;
+  height: 200px;
+  border-radius: 250px;
+  margin-bottom: 20px;
+}
+
+.my_info {
+  vertical-align: 80px;
+}
+
+.my_info .title {
+  font-weight: bold;
+}
+
+.my_info input[type="text"],
+.my_info input[type="mail"] {
+  color: #3f3f3f;
+  padding: 5px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #dadada;
+}
+
+.btn_wrap {
+  margin-top: 50px;
+}
+
+.btn_wrap input[type="button"] {
+  width: 80px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #dadada;
+  padding: 5px 10px;
+  margin-left: 5px;
+}
+
+.btn_wrap input[value="취소"] {
+  background-color: #f7f7f7;
+}
+
+.btn_wrap input[value="적용"] {
+  background-color: #feccbe;
+  color: #ffffff;
+}
