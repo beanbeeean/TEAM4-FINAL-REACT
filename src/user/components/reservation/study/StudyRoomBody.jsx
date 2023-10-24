@@ -17,8 +17,13 @@ const StudyRoomBody = ({
   setSelectedRoom,
   price,
   setPrice,
+  space,
+  setSpace,
+  chosenMonth,
+  chosenDay,
 }) => {
   const [times, setTimes] = useState(getBusinessHours(8, 22));
+  const [spaceNum, setSpaceNum] = useState();
 
   const roomNames = [
     "SPACE1 - A",
@@ -28,6 +33,7 @@ const StudyRoomBody = ({
     "SPACE3 - A",
     "SPACE3 - B",
   ];
+
   const userSelect = (num, time) => {
     setSelectedTime(time);
     for (let i = 0; i < roomNames.length; i++) {
@@ -40,36 +46,81 @@ const StudyRoomBody = ({
         } else if (roomNames[i].includes("3")) {
           setPrice(3000);
         }
-        break;
       }
     }
   };
 
+  useEffect(() => {
+    if (space == 1) {
+      setSpaceNum([0, 1]);
+    } else if (space == 2) {
+      setSpaceNum([2, 3]);
+    } else if (space == 3) {
+      setSpaceNum([4, 5]);
+    }
+  }, []);
+
   return (
     <div className={styles.study_reservation_wrap}>
+      <ul className={styles.study_reservation_tap}>
+        <li
+          onClick={() => setSpace(1)}
+          className={`${space == 1 && styles.reservation_tap_active}`}
+        >
+          SPACE1(2~4인)
+        </li>
+        <li
+          onClick={() => setSpace(2)}
+          className={`${space == 2 && styles.reservation_tap_active}`}
+        >
+          SPACE2(4~6인)
+        </li>
+        <li
+          onClick={() => setSpace(3)}
+          className={`${space == 3 && styles.reservation_tap_active}`}
+        >
+          SPACE3(6~8인)
+        </li>
+      </ul>
       <Row>
         <Col>
           <div className={styles.study_reservation_date}>
             <table>
               <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>SPACE1 - A</th>
-                  <th>SPACE1 - B</th>
-                </tr>
+                {space == 1 ? (
+                  <tr>
+                    <th>Time</th>
+                    <th>SPACE1 - A</th>
+                    <th>SPACE1 - B</th>
+                  </tr>
+                ) : space == 2 ? (
+                  <tr>
+                    <th>Time</th>
+                    <th>SPACE2 - A</th>
+                    <th>SPACE2 - B</th>
+                  </tr>
+                ) : space == 3 ? (
+                  <tr>
+                    <th>Time</th>
+                    <th>SPACE3 - A</th>
+                    <th>SPACE3 - B</th>
+                  </tr>
+                ) : (
+                  ""
+                )}
               </thead>
               <tbody>
                 {times.map((t) => (
                   <tr>
                     <td>{t}:00</td>
                     <td
-                      onClick={() => userSelect(0, t)}
+                      onClick={() => userSelect(spaceNum[0], t)}
                       className={`${styles.reservation_enable} ${styles.reservation_badge}`}
                     >
                       예약 가능
                     </td>
                     <td
-                      onClick={() => userSelect(1, t)}
+                      onClick={() => userSelect(spaceNum[1], t)}
                       className={`${styles.reservation_enable} ${styles.reservation_badge}`}
                     >
                       예약 가능
@@ -90,6 +141,7 @@ const StudyRoomBody = ({
                 <table>
                   <thead>
                     <tr>
+                      <th>Date</th>
                       <th>Time</th>
                       <th>StudyRoom</th>
                       <th>Costs per hour</th>
@@ -97,6 +149,10 @@ const StudyRoomBody = ({
                   </thead>
                   <tbody>
                     <tr>
+                      <td>
+                        {chosenMonth}
+                        {chosenDay > 0 && "." + chosenDay}
+                      </td>
                       <td>{selectedTime > 7 ? selectedTime + ":00" : ""}</td>
                       <td>{selectedRoom}</td>
                       <td>{price > 0 && "\\" + price}</td>

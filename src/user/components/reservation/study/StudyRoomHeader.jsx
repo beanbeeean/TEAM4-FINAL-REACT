@@ -4,7 +4,7 @@ import Year from "react-live-clock";
 import Month from "react-live-clock";
 import styles from "../../../css/reservation/StudyRoom.module.css";
 
-const StudyRoomHeader = () => {
+const StudyRoomHeader = ({ setChosenMonth, setChosenDay }) => {
   const now = new Date();
   const todayWeak = now.getDay();
   const today = now.getDate();
@@ -79,6 +79,12 @@ const StudyRoomHeader = () => {
   ];
 
   const Weak = useRef(null);
+
+  const setDateData = (idx, day) => {
+    setSelectedDay(idx);
+    setChosenDay(day);
+  };
+
   return (
     <>
       <div className={styles.calendar}>
@@ -102,7 +108,7 @@ const StudyRoomHeader = () => {
           <div className={styles.day_list_container}>
             {CalendarObject.map((calendar, index) => (
               <div
-                onClick={() => setSelectedDay(index)}
+                onClick={() => setDateData(index, calendar.day)}
                 className={`${styles.day_list_area} ${
                   selectedDay == index ? styles.selected_day : ""
                 } `}

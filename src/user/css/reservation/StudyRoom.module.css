@@ -99,8 +99,22 @@
 }
 
 .study_reservation_wrap {
-  margin-top: 50px;
+  margin-top: 20px;
   width: 1200px;
+}
+.study_reservation_tap > li {
+  float: left;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  font-weight: bold;
+  color: #9e9d9d;
+  cursor: pointer;
+}
+
+.study_reservation_tap > li.reservation_tap_active {
+  color: #000;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #ff0000;
 }
 
 .study_reservation_date > table {
@@ -199,13 +213,14 @@
   border-bottom: 1px solid #dadada;
 }
 
-.reservation_card_table th:nth-child(1) {
+.reservation_card_table th:nth-child(2),
+.reservation_card_table th:nth-child(4) {
   width: 20%;
 }
 
-.reservation_card_table th:nth-child(2),
+.reservation_card_table th:nth-child(1),
 .reservation_card_table th:nth-child(3) {
-  width: 40%;
+  width: 30%;
 }
 
 .reservation_card_table tbody tr {
@@ -213,7 +228,7 @@
 }
 
 .reservation_card_table td {
-  font-size: 35px;
+  font-size: 22px;
   font-weight: bold;
   padding: 30px 0;
   border-right: 1px solid #dadada;

@@ -45,7 +45,7 @@ const StudyHome = () => {
           </Carousel.Item>
         </Carousel>
       ) : (
-        <StudyRoomReservation />
+        <StudyRoomReservation space={space} setSpace={setSpace} />
       )}
     </div>
   );
