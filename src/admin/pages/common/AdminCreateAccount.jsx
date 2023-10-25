@@ -1,26 +1,18 @@
 import React from "react";
-import stylesAdmin from "../../css/common/AdminLogin.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import stylesAdmin from "../../css/common/AdminCreateAccount.module.css";
+import { Link } from "react-router-dom";
 
-const AdminLogin = () => {
-  const navigate = useNavigate();
-  const userLogin = () => {
-    navigate("/admin");
-  };
+const AdminCreateAccount = () => {
   return (
     <div className={stylesAdmin.admin_login_wrap}>
       <div className={stylesAdmin.login_container}>
-        <form
-          onSubmit={userLogin}
-          name="login_form"
-          className={stylesAdmin.login_form}
-        >
+        <form name="login_form" className={stylesAdmin.login_form}>
           <img
             className={stylesAdmin.admin_logo}
             src="../imgs/admin_logo.png"
             alt=""
           />
-          <h5>Sign in to your account.</h5>
+          <h5>Sign up</h5>
           <input type="text" name="id" placeholder="ID" />
           <input
             type="password"
@@ -31,19 +23,16 @@ const AdminLogin = () => {
 
           <input
             type="submit"
-            value="Sign in"
+            value="Sign up"
             className={stylesAdmin.sign_in_btn}
           />
         </form>
-        <Link
-          to={"/admin/create_account"}
-          className={stylesAdmin.go_create_account}
-        >
-          Don’t have an account? Sign up
+        <Link to={"/admin/login"} className={stylesAdmin.go_create_account}>
+          Do you already have an account? Sign in
         </Link>
       </div>
     </div>
   );
 };
 
-export default AdminLogin;
+export default AdminCreateAccount;

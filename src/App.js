@@ -16,6 +16,8 @@ import BoardDetail from "./user/pages/community/BoardDetail";
 import BoardWrite from "./user/pages/community/BoardWrite";
 import CartPayConfirm from "./admin/pages/book/cart/CartPayConfirm";
 import AdminLogin from "./admin/pages/common/AdminLogin";
+import AdminCreateAccount from "./admin/pages/common/AdminCreateAccount";
+import Admin from "./admin/pages/common/Admin";
 
 function App() {
   console.log(window.location.pathname.includes("/admin"));
@@ -25,10 +27,15 @@ function App() {
         <>
           <Routes>
             <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin/create_account"
+              element={<AdminCreateAccount />}
+            />
+            <Route path="/admin/management" element={<Admin />} />
           </Routes>
         </>
       ) : (
-        <>
+        <div id="user_wrap">
           <Sidebar />
           <div id="section">
             {/* <ChatModal /> */}
@@ -55,7 +62,7 @@ function App() {
               </Routes>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
