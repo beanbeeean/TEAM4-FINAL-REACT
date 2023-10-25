@@ -1,13 +1,35 @@
 import React, { useState } from "react";
-import styles from "../../css/common/Mypage.module.css";
-import MypageProfile from "../../components/common/MypageProfile";
+import styles from "../../css/common/mypage/Mypage.module.css";
 import CheckoutListItem from "../../components/book/CheckoutListItem";
-import MypageBook from "../../components/common/MypageBook";
-import MypageCommunity from "../../components/common/MypageCommunity";
-import MypageReservation from "../../components/common/MypageReservation";
+import MyChat from "../../components/common/chat/MyChat";
+import MypageProfile from "../../components/mypage/MypageProfile";
+import MypageReservation from "../../components/mypage/MypageReservation";
+import MypageBook from "../../components/mypage/MypageBook";
+import MypageCommunity from "../../components/mypage/MypageCommunity";
+import MypageChat from "../../components/mypage/MypageChat";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
+
+  let contentComponent;
+
+  switch (on) {
+    case 1:
+      contentComponent = <MypageProfile />;
+      break;
+    case 2:
+      contentComponent = <MypageReservation />;
+      break;
+    case 3:
+      contentComponent = <MypageBook />;
+      break;
+    case 4:
+      contentComponent = <MypageCommunity />;
+      break;
+    case 5:
+      contentComponent = <MypageChat />;
+      break;
+  }
 
   return (
     <div className={styles.mypage_wrap}>
@@ -48,11 +70,12 @@ const MyPage = () => {
           </ul>
         </div>
       </div>
-
       {/* <MypageProfile /> */}
+      {/* <MypageReservation /> */}
       {/* <MypageBook /> */}
       {/* <MypageCommunity /> */}
-      <MypageReservation />
+      {/* <MypageChat /> */}
+      {contentComponent}
     </div>
   );
 };

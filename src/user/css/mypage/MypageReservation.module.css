@@ -1,15 +1,13 @@
 div.reserve_wrap {
-  width: 100%;
+  width: 1242px;
   background-color: #ffeee8;
   padding: 50px;
   display: inline-block;
   border-radius: 30px;
+  height: 1000px;
 }
 
 div.reserve_tap {
-  display: flex;
-  float: left;
-  justify-content: space-between;
   width: 100%;
   height: 70px;
 }
@@ -17,18 +15,18 @@ div.reserve_tap {
 div.reserve_tap_item {
   color: #fff;
   font-size: 32px;
-  padding: 3px 30px 0px;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
   width: 280px;
   text-align: center;
   cursor: pointer;
   line-height: 70px;
-  background-color: rgb(242, 224, 224);
+  background-color: #feccbe;
+  display: inline-block;
 }
 
-.reserve_tap_item {
-  display: inline-block;
+.reserve_tap_item:first-child {
+  margin-right: 298px;
 }
 
 div.reserve_tap_item.current_room {
@@ -36,40 +34,64 @@ div.reserve_tap_item.current_room {
   font-weight: bold;
 }
 
-div.reserve_content {
-  display: inline-block;
-  width: 49%;
+div.reserve_seat_content {
+  padding: 30px;
+  width: 555px;
   height: 800px;
   background-color: #feccbe;
-  /* border-radius: 30px; */
-}
-
-div.reserve_content:nth-child(2) {
-  padding: 30px;
-  margin-right: 22px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
 }
 
-div.reserve_content:nth-child(3) {
+div.reserve_studyroom_content {
   padding: 30px;
+  width: 555px;
+  height: 800px;
+  position: relative;
+  bottom: 800px;
+  left: 578px;
+  background-color: #feccbe;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
+}
+
+.common .items {
+  display: inline-block;
+}
+
+.common .reserve_date {
+  vertical-align: 35px;
+  color: #fd8a69;
+}
+
+.common .detail_content {
+  vertical-align: 10px;
+}
+
+.detail_content .reserve_time {
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.detail_content .room_num,
+.detail_content .seat_num {
+  font-size: 0.9em;
+  margin-right: 5px;
+  color: #5c5c5c;
 }
 
 .pin {
-  display: inline-block;
   width: 20px; /* 핀의 전체 너비 */
-  height: 40px; /* 핀의 전체 높이 */
+  height: 50px; /* 핀의 전체 높이 */
   position: relative;
 }
 
 .pin_body {
   width: 1px; /* 핀 몸체 너비 */
-  height: 50px; /* 핀 몸체 높이 */
-  background-color: red; /* 몸체 색상 */
+  height: 60px; /* 핀 몸체 높이 */
+  background-color: rgb(255, 255, 255); /* 몸체 색상 */
   border-radius: 2px; /* 몸체를 둥글게 만듭니다. */
   position: absolute;
   left: 50%; /* 가운데 정렬 */
@@ -79,7 +101,7 @@ div.reserve_content:nth-child(3) {
 .pin_head {
   width: 10px; /* 핀 머리 너비 */
   height: 10px; /* 핀 머리 높이 */
-  background-color: red; /* 머리 색상 */
+  background-color: rgb(255, 255, 255); /* 머리 색상 */
   border-radius: 50%; /* 머리를 원 모양으로 만듭니다. */
   position: absolute;
   top: 0;

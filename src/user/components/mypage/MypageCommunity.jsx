@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import styles from "../../css/common/MypageCommunity.module.css";
+import styles from "../../css/mypage/MypageCommunity.module.css";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 
 const MypageCommunity = () => {

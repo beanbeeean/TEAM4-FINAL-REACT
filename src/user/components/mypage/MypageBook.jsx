@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
-import styles from "../../css/common/MypageBook.module.css";
+import styles from "../../css/mypage/MypageBook.module.css";
 import { Link } from "react-router-dom";
 import ReturnBookModal from "../book/ReturnBookModal";
 

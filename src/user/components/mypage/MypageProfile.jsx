@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../css/common/MypageProfile.module.css";
+import styles from "../../css/mypage/MypageProfile.module.css";
 
 const MypageProfile = () => {
   return (
