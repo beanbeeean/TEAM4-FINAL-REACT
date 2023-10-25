@@ -1,0 +1,106 @@
+.management_wrap {
+  padding: 10px;
+}
+
+.admin_title {
+  font-weight: bold;
+  margin-bottom: 50px;
+  font-size: 40px;
+}
+
+.search_book {
+  margin-bottom: 20px;
+  border-top: 1px solid #dadada;
+  padding-top: 20px;
+}
+
+.search_book > input {
+  padding: 10px 40px 10px 20px;
+  width: 360px;
+  border: 1px solid #dadada;
+  border-radius: 30px;
+  outline: none;
+}
+
+.search_book_btn {
+  color: #cac9c9;
+  position: relative;
+  left: -33px;
+  top: 1px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.search_book_btn:hover {
+  color: #242424;
+}
+
+.book_list table.book_wrap {
+  width: 100%;
+}
+
+.book_list table.book_wrap th {
+  font-weight: bold;
+  font-size: 25px;
+  /* padding: 8px; */
+  border-bottom: 1px solid #dadada;
+  text-align: center;
+  background-color: rgb(202, 200, 195);
+}
+
+.book_list table.book_wrap th:nth-child(1) {
+  width: 5%;
+}
+
+.book_list table.book_wrap th:nth-child(2) {
+  width: 5%;
+}
+
+.book_list table.book_wrap th:nth-child(3) {
+  width: 30%;
+}
+
+.book_list table.book_wrap th:nth-child(4) {
+  width: 20%;
+}
+
+.book_list table.book_wrap th:nth-child(5) {
+  width: 10%;
+}
+
+.book_list table.book_wrap th:nth-child(6) {
+  width: 10%;
+}
+
+.book_list table.book_wrap th:nth-child(7) {
+  width: 10%;
+}
+
+.book_list {
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.book_list:nth-child(2n) {
+  background-color: #f3f3f3;
+}
+
+.book_wrap td {
+  padding: 5px;
+  font-size: 17px;
+  text-align: center;
+}
+
+.book_wrap tr.selected_row {
+  background-color: #eeeeee;
+}
+
+.book_wrap td:nth-child(8) input {
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.addtional_row td:nth-child(1) {
+  padding-left: 50px;
+}
