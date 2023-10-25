@@ -93,27 +93,24 @@
   border-radius: 15px;
 }
 
-/* .profile_list {
-  width: 250px;
-  height: 500px;
-  overflow-y: auto;
-  background-color: #ffeee8;
-  color: #fff;
-}
-
-.profile_list > h4 {
-  text-align: center;
-  padding: 20px 0;
-  width: 200px;
-  margin: 0 auto 20px;
-  border-bottom: 1px solid #fd8a69;
-}
-
-.profile_area {
+.chat_box {
   width: 600px;
-  height: 500px;
+  height: 600px;
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-radius: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffeee8;
-} */
+  position: absolute;
+  right: -30px;
+  transition: all 0.5s;
+  bottom: 120px;
+}
+
+.chat_box .chat_list {
+  width: 30%;
+  overflow-y: scroll;
+}
+
+.chat_box .chat_area {
+  width: 70%;
+}

@@ -6,19 +6,23 @@
   padding: 5px;
   padding-left: 10px;
   position: relative;
+  outline: none;
 }
 
 .book_search_btn {
-  position: absolute;
-  top: 85px;
-  left: 690px;
+  position: relative;
+  left: -25px;
   color: #feccbe;
+}
+
+.book_search_btn:hover {
+  color: #fd8a69;
 }
 
 .booklist_nav {
   display: flex;
   /* width: 450px; */
-  background-color: #feccbe;
+  background-color: #fd8a69;
   margin-bottom: 20px;
 }
 
@@ -28,5 +32,5 @@
 }
 
 .booklist_nav li:hover {
-  background-color: #ffeee8;
+  background-color: #feccbe;
 }
