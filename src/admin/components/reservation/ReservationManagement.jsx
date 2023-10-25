@@ -3,6 +3,7 @@ import stylesAdmin from "../../css/reservation/ReservationManagement.module.css"
 import ReadRoomSetting from "./ReadRoomSetting";
 import ReadRoomReservationList from "./ReadRoomReservationList";
 import StudyRoomReservationList from "./StudyRoomReservationList";
+import StudyRoomSetting from "./StudyRoomSetting";
 
 const ReservationManagement = () => {
   const [tapActive, setTapActive] = useState(true);
@@ -59,7 +60,7 @@ const ReservationManagement = () => {
         ) : smallTap ? (
           <ReadRoomSetting />
         ) : (
-          ""
+          <StudyRoomSetting />
         )}
       </div>
     </div>

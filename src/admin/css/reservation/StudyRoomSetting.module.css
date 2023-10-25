@@ -1,0 +1,47 @@
+.sr_setting_wrap {
+  width: 1200px;
+  background-color: #f0ebeb;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.sr_item {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.sr_item > img {
+  max-width: 350px;
+  min-width: 350px;
+  min-height: 350px;
+  border-radius: 20px;
+}
+
+.sr_btn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sr_btn > div {
+  width: 45%;
+  text-align: center;
+  padding: 10px 30px;
+  background-color: rgb(107, 107, 228);
+  font-weight: bold;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sr_btn > div:hover {
+}
+
+.sr_item > p {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 25px;
+}
