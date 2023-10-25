@@ -1,35 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../css/mypage/Mypage.module.css";
-import CheckoutListItem from "../../components/book/CheckoutListItem";
-import MyChat from "../../components/common/chat/MyChat";
 import MypageProfile from "../../components/mypage/MypageProfile";
 import MypageReservation from "../../components/mypage/MypageReservation";
 import MypageBook from "../../components/mypage/MypageBook";
 import MypageCommunity from "../../components/mypage/MypageCommunity";
 import MypageChat from "../../components/mypage/MypageChat";
+import { useLocation } from "react-router";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
+  const location = useLocation();
 
-  let contentComponent;
-
-  switch (on) {
-    case 1:
-      contentComponent = <MypageProfile />;
-      break;
-    case 2:
-      contentComponent = <MypageReservation />;
-      break;
-    case 3:
-      contentComponent = <MypageBook />;
-      break;
-    case 4:
-      contentComponent = <MypageCommunity />;
-      break;
-    case 5:
-      contentComponent = <MypageChat />;
-      break;
-  }
+  useEffect(() => {
+    setOn(location.state.page);
+  }, [location]);
 
   return (
     <div className={styles.mypage_wrap}>
@@ -70,12 +54,11 @@ const MyPage = () => {
           </ul>
         </div>
       </div>
-      {/* <MypageProfile /> */}
-      {/* <MypageReservation /> */}
-      {/* <MypageBook /> */}
-      {/* <MypageCommunity /> */}
-      {/* <MypageChat /> */}
-      {contentComponent}
+      {on == 1 && <MypageProfile />}
+      {on == 2 && <MypageReservation />}
+      {on == 3 && <MypageBook />}
+      {on == 4 && <MypageCommunity />}
+      {on == 5 && <MypageChat />}
     </div>
   );
 };
