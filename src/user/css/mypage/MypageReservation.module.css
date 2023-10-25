@@ -1,0 +1,130 @@
+div.reserve_wrap {
+  width: 1242px;
+  background-color: #ffeee8;
+  padding: 30px 50px;
+  display: inline-block;
+  border-radius: 30px;
+  height: 1000px;
+}
+
+.reserve_wrap .datePicker_wrap {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 30px;
+  color: #a0a0a0;
+  font-weight: bold;
+}
+
+.reserve_wrap .datePicker {
+  background-color: #ffffff;
+  width: 100px;
+  color: #a0a0a0;
+  border: 1px solid #dadada;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+}
+
+div.reserve_tap {
+  width: 100%;
+  height: 70px;
+}
+
+div.reserve_tap_item {
+  color: #fff;
+  font-weight: bold;
+  font-size: 32px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  width: 280px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 70px;
+  background-color: #feccbe;
+  display: inline-block;
+}
+
+.reserve_tap_item:first-child {
+  margin-right: 298px;
+}
+
+div.reserve_tap_item.current_room {
+  background-color: #feccbe;
+  font-weight: bold;
+}
+
+div.reserve_seat_content {
+  padding: 30px;
+  width: 555px;
+  height: 800px;
+  background-color: #feccbe;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+div.reserve_studyroom_content {
+  padding: 30px;
+  width: 555px;
+  height: 800px;
+  position: relative;
+  bottom: 800px;
+  left: 578px;
+  background-color: #feccbe;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.common .items {
+  display: inline-block;
+}
+
+.common .reserve_date {
+  vertical-align: 35px;
+  font-weight: bold;
+  color: #fd8a69;
+}
+
+.common .detail_content {
+  vertical-align: 10px;
+}
+
+.detail_content .reserve_time {
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.detail_content .room_num,
+.detail_content .seat_num {
+  font-size: 0.9em;
+  margin-right: 5px;
+  color: #5c5c5c;
+}
+
+.pin {
+  width: 20px; /* 핀의 전체 너비 */
+  height: 50px; /* 핀의 전체 높이 */
+  position: relative;
+}
+
+.pin_body {
+  width: 1px; /* 핀 몸체 너비 */
+  height: 60px; /* 핀 몸체 높이 */
+  background-color: rgb(255, 255, 255); /* 몸체 색상 */
+  border-radius: 2px; /* 몸체를 둥글게 만듭니다. */
+  position: absolute;
+  left: 50%; /* 가운데 정렬 */
+  transform: translateX(-50%); /* 가운데 정렬 */
+}
+
+.pin_head {
+  width: 10px; /* 핀 머리 너비 */
+  height: 10px; /* 핀 머리 높이 */
+  background-color: rgb(255, 255, 255); /* 머리 색상 */
+  border-radius: 50%; /* 머리를 원 모양으로 만듭니다. */
+  position: absolute;
+  top: 0;
+  left: 50%; /* 가운데 정렬 */
+  transform: translateX(-50%); /* 가운데 정렬 */
+}
