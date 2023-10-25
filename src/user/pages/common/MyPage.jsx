@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../css/common/mypage/Mypage.module.css";
+import styles from "../../css/mypage/Mypage.module.css";
 import CheckoutListItem from "../../components/book/CheckoutListItem";
 import MyChat from "../../components/common/chat/MyChat";
 import MypageProfile from "../../components/mypage/MypageProfile";

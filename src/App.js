@@ -15,6 +15,7 @@ import Board from "./user/pages/community/Board";
 import BoardDetail from "./user/pages/community/BoardDetail";
 import BoardWrite from "./user/pages/community/BoardWrite";
 import CartPayConfirm from "./admin/pages/book/cart/CartPayConfirm";
+import MypageModal from "./user/components/mypage/MypageModal";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Sidebar />
       <div id="section">
         {/* <ChatModal /> */}
+        <MypageModal />
         <Header />
         <div className="section_area">
           <Routes>
