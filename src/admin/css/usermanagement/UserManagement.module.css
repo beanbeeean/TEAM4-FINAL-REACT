@@ -1,0 +1,91 @@
+.management_wrap {
+  padding: 10px;
+}
+
+.admin_title {
+  font-weight: bold;
+  margin-bottom: 50px;
+  font-size: 40px;
+}
+
+.search_user {
+  margin-bottom: 20px;
+  border-top: 1px solid #dadada;
+  padding-top: 20px;
+}
+
+.search_user > input {
+  padding: 10px 40px 10px 20px;
+  width: 360px;
+  border: 1px solid #dadada;
+  border-radius: 30px;
+  outline: none;
+}
+
+.search_user_btn {
+  color: #cac9c9;
+  position: relative;
+  left: -33px;
+  top: 1px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.search_user_btn:hover {
+  color: #242424;
+}
+
+.user_list table {
+  width: 100%;
+}
+
+.user_list table th {
+  font-weight: bold;
+  font-size: 28px;
+  padding: 8px;
+  border-bottom: 1px solid #dadada;
+  text-align: center;
+  background-color: rgb(202, 200, 195);
+}
+
+.user_list table th:nth-child(1) {
+  width: 10%;
+}
+
+.user_list table th:nth-child(2) {
+  width: 15%;
+}
+
+.user_list table th:nth-child(3) {
+  width: 15%;
+}
+
+.user_list table th:nth-child(4) {
+  width: 20%;
+}
+
+.user_list table th:nth-child(5) {
+  width: 15%;
+}
+
+.user_list table th:nth-child(6) {
+  width: 13%;
+}
+
+.user_list table th:nth-child(7) {
+  width: 12%;
+}
+
+.user_item {
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.user_item:nth-child(2n) {
+  background-color: #f3f3f3;
+}
+
+.user_item td {
+  padding: 8px;
+  font-size: 20px;
+  text-align: center;
+}

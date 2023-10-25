@@ -1,0 +1,73 @@
+div.side_bar {
+  width: 13%;
+  background-color: rgb(33, 41, 66);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  height: 98vh;
+  padding: 30px 0 30px 20px;
+  position: relative;
+  min-width: 160px;
+}
+
+.logo {
+  max-width: 80%;
+  margin: 30px 30px 110px 10px;
+}
+
+.sub_title {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 40px;
+  padding-right: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.nav_menu {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.nav_menu > li {
+  padding: 25px 0 25px 15px;
+  margin-bottom: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  height: 20px;
+  line-height: 2px;
+  border-top-left-radius: 60px;
+  border-bottom-left-radius: 60px;
+  transition: all 0.3s;
+}
+
+.nav_menu > li:hover {
+  color: rgb(126, 142, 190);
+  font-size: 1.1em;
+}
+
+.nav_menu > li.on {
+  background-color: #fff;
+  color: rgb(33, 41, 66);
+  font-size: 1.2em;
+}
+
+.nav_menu > li.on:hover {
+  color: rgb(33, 41, 66);
+}
+
+.logout {
+  position: absolute;
+  bottom: 60px;
+  left: 35%;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logout:hover {
+  color: rgb(126, 142, 190);
+  font-size: 1.1em;
+}
