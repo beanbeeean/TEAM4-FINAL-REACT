@@ -77,14 +77,7 @@ const data = [
 ];
 const Chatting = () => {
   const scrollRef = useRef();
-  const scrollToBottom = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  };
-  useEffect(() => {
-    // scrollToBottom();
-  }, []);
+
   return (
     <div className={styles.chatting}>
       <div ref={scrollRef} className={styles.chatting_log}>

@@ -8,7 +8,7 @@ li {
 }
 
 .book_nav {
-  background-color: #feccbe;
+  background-color: #fd8a69;
   margin-bottom: 30px;
   color: #ffffff;
   padding-top: 5px;
@@ -18,53 +18,77 @@ li {
   border-right: 1px solid #ffffff;
 }
 
+.book_nav .booklist_wrap {
+  margin-bottom: 10px;
+}
+
 .book_nav .booklist_wrap:nth-child(4) {
   border-right: none;
 }
 
-.booklist_wrap {
+.mybook_cnt {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #4e4e4e;
   margin-bottom: 10px;
 }
 
-.book_item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.item_wrap {
+  position: relative;
+  float: left;
+  padding: 10px;
+  border-radius: 10px;
+  width: 270px;
+  height: 400px;
+  margin: 0 10px;
+  margin-bottom: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #f0f0f0;
+  transition: 0.5s;
 }
 
-.booklist_wrap {
-  display: flex;
-  align-items: center;
+.item_wrap:hover {
+  transform: scale(1.03);
 }
 
-.book_item img {
-  max-width: 100px;
+.content_wrap img {
+  width: 250px;
+  height: 250px;
 }
 
-.book_title {
-  font-size: 1.2em;
+.content_wrap .book_title {
   font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 3px;
 }
 
-.buttons {
-  align-items: center;
-  height: 100%;
+.content_wrap > ul li:nth-child(2) {
+  font-size: 0.9em;
+  color: #c4c4c4;
 }
 
 .buttons_wrap {
-  padding-top: 50px;
+  position: absolute;
+  bottom: 10px;
 }
 
-.ch_count {
+.buttons_wrap .ch_count {
   font-size: 0.9em;
-  color: #3f3f3f;
-  margin-right: 3px;
 }
 
-.buttons input[type="button"] {
-  padding: 5px 20px;
+.buttons_wrap .checkout_date {
+  font-size: 0.9em;
+}
+
+.buttons_wrap input[type="button"] {
+  width: 250px;
+  padding: 3px;
   border: none;
   border-radius: 5px;
   background-color: #feccbe;
-  color: #ffffff;
+  color: #fff;
+}
+
+.buttons_wrap input[type="button"]:hover {
+  background-color: #fd8a69;
 }

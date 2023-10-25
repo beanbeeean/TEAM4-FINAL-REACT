@@ -4,27 +4,26 @@
   cursor: pointer;
 }
 
-.chat_room:hover h5 {
-  color: rgb(90, 174, 119);
+.chat_room_title:hover span {
+  color: #fd8a69;
 }
 
 .chat_room_title {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.chat_room_title > h5 {
-  width: 250px;
-  font-weight: 700;
-}
-
-.chat_room_title > span {
-  font-size: 11px;
-}
-
-.chat_room_latest > p {
+.chat_room_title span {
   font-size: 14px;
+}
+
+.chat_room_latest span:nth-child(1) {
+  font-size: 12px;
+}
+
+.chat_room_latest span:nth-child(2) {
+  margin-left: 10px;
+  font-size: 10px;
+  color: #bababa;
 }
 
 .group_icon {
