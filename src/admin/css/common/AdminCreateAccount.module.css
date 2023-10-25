@@ -1,0 +1,82 @@
+.admin_login_wrap {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1d243d;
+}
+
+.login_container {
+  margin: 0;
+  position: relative;
+  text-align: center;
+  background-color: rgb(33, 41, 66);
+  border-radius: 9px;
+  border-top: 10px solid #79a6fe;
+  border-bottom: 10px solid #79a6fe;
+  width: 400px;
+  height: 500px;
+  box-shadow: 1px 1px 108.8px 19.2px rgb(25, 31, 53);
+}
+
+img.admin_logo {
+  margin-top: 50px;
+}
+
+.login_form h5 {
+  font-size: 13px;
+  color: #a1a4ad;
+  letter-spacing: 1.5px;
+  margin-bottom: 50px;
+}
+
+.login_form input[type="text"],
+.login_form input[type="password"] {
+  display: block;
+  margin: 20px auto;
+  background: #262e49;
+  border: 0;
+  border-radius: 5px;
+  padding: 14px 10px;
+  width: 320px;
+  outline: none;
+  color: #d6d6d6;
+  transition: all 0.2s ease-out;
+}
+.login_form input[type="text"]:focus,
+.login_form input[type="password"]:focus {
+  border: 1px solid #79a6fe;
+}
+
+.go_create_account {
+  color: #5c7fda;
+  text-decoration: none;
+}
+
+.go_create_account:hover {
+  text-decoration: underline;
+}
+
+.sign_in_btn {
+  border: 0;
+  background: #7f5feb;
+  color: #dfdeee;
+  border-radius: 100px;
+  width: 340px;
+  height: 49px;
+  font-size: 16px;
+  transition: 0.3s;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.sign_in_btn:hover {
+  background: #5d33e6;
+}
+
+.go_create_account {
+  margin-top: 10px;
+  display: inline-block;
+  text-align: center;
+}
