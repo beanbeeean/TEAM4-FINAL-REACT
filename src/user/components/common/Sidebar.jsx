@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../css/common/Sidebar.module.css";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 const Sidebar = () => {
   const [currentMenu, setCurrentMenu] = useState(1);
   const navigate = useNavigate();
@@ -24,7 +25,9 @@ const Sidebar = () => {
   };
   return (
     <div className={styles.side_bar}>
-      <img className={styles.logo} src="../imgs/logo.png" alt="" />
+      <Link to="/">
+        <img className={styles.logo} src="../imgs/logo.png" alt="" />
+      </Link>
       <ul className={styles.nav_menu}>
         <li
           onClick={() => movePage(1)}
