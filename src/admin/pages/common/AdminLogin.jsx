@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const AdminLogin = () => {
   const navigate = useNavigate();
   const userLogin = () => {
-    navigate("/admin");
+    navigate("/admin/management");
   };
   return (
     <div className={stylesAdmin.admin_login_wrap}>
