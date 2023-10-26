@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import stylesAdmin from "../../css/book/BookManagement.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { BsArrowReturnRight } from "react-icons/bs";
+import CheckoutUserModal from "./CheckoutUserModal";
+import ChangeStateModal from "./ChangeStateModal";
 
 const BookManagement = () => {
-  const [selectedRow, setSelectedRow] = useState(null);
+  const [coutModalShow, setCoutModalShow] = useState(false);
+  const [stateShow, setStateShow] = useState(false);
 
-  const handleRowClick = (index) => {
-    if (selectedRow === index) {
-      setSelectedRow(null);
-    } else {
-      setSelectedRow(index);
-    }
+  const changeState = () => {
+    console.log("changeState");
+    alert("수량변경");
   };
 
   return (
@@ -40,62 +39,47 @@ const BookManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <React.Fragment key={index}>
-                <tr
-                  className={`${stylesAdmin.user_item} ${
-                    selectedRow === index ? stylesAdmin.selected_row : ""
-                  }`}
-                  onClick={() => handleRowClick(index)}
-                >
-                  <td>1</td>
-                  <td>15035</td>
-                  <td>잭과 콩나물</td>
-                  <td>siyeong</td>
-                  <td>beanbeeean</td>
-                  <td>5</td>
-                  <td>사용가능</td>
-                  <td>
-                    <input type="button" value="상태변경" />
-                  </td>
-                </tr>
-                {selectedRow === index && (
-                  <>
-                    <tr
-                      className={`${stylesAdmin.user_item_nav} ${stylesAdmin.addtional_row}`}
-                    >
-                      <td>
-                        <BsArrowReturnRight />
-                      </td>
-                      <td>BNO</td>
-                      <td>UNO</td>
-                      <td>UID</td>
-                      <td>START DATE</td>
-                      <td>END DATE</td>
-                      <td>STATE</td>
-                      <td>CHANGE</td>
-                    </tr>
-                    <tr
-                      className={`${stylesAdmin.user_item} ${stylesAdmin.addtional_row}`}
-                    >
-                      <td>
-                        <BsArrowReturnRight />
-                      </td>
-                      <td>user</td>
-                      <td>5</td>
-                      <td>sy1013</td>
-                      <td>2023.10.25</td>
-                      <td>2023.11.01</td>
-                      <td>대여중</td>
-                      <td>
-                        <input type="button" value="반납" />
-                      </td>
-                    </tr>
-                  </>
-                )}
-              </React.Fragment>
-            ))}
+            <tr>
+              <td>1</td>
+              <td>15035</td>
+              <td onClick={() => setCoutModalShow(true)}>잭과 콩나물</td>
+              <td>siyeong</td>
+              <td>beanbeeean</td>
+              <td>5</td>
+              <td>사용가능</td>
+              <td>
+                <input
+                  type="button"
+                  value="상태변경"
+                  onClick={() => setStateShow(true)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>15035</td>
+              <td onClick={() => setCoutModalShow(true)}>잭과 콩나물</td>
+              <td>siyeong</td>
+              <td>beanbeeean</td>
+              <td>5</td>
+              <td>사용가능</td>
+              <td>
+                <input
+                  type="button"
+                  value="상태변경"
+                  onClick={() => setStateShow(true)}
+                />
+              </td>
+            </tr>
           </tbody>
+          <CheckoutUserModal
+            show={coutModalShow}
+            onHide={() => setCoutModalShow(false)}
+          />
+          <ChangeStateModal
+            show={stateShow}
+            onHide={() => setStateShow(false)}
+          />
         </table>
       </div>
     </div>
