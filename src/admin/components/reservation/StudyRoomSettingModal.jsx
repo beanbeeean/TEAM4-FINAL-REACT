@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { DateRange, DateRangePicker } from "react-date-range";
-import { addDays } from "date-fns";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/material_blue.css";
+import stylesAdmin from "../../css/reservation/StudyRoomSetting.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 const getToday = () => {
   let today = new Date();
@@ -18,15 +19,13 @@ const getToday = () => {
   return y + "-" + m + "-" + d;
 };
 const StudyRoomSettingModal = (props) => {
-  const [startDate, setStartDate] = useState(getToday());
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 1),
-      key: "selection",
-    },
-  ]);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
+  useEffect(() => {
+    setStartDate();
+    setEndDate();
+  }, [props.onHide]);
   return (
     <Modal
       {...props}
@@ -39,8 +38,9 @@ const StudyRoomSettingModal = (props) => {
           StudyRoom Setting
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className={stylesAdmin.setting_modal_body}>
         <Form>
+          <span className={stylesAdmin.modal_sub_title}>기본 정보</span>
           <Form.Group as={Row} controlId="roomName" className="mb-3">
             <Form.Label column sm={3}>
               스터디룸
@@ -54,7 +54,12 @@ const StudyRoomSettingModal = (props) => {
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} controlId="studyRoomPrice" className="mb-3">
+          <Form.Group
+            as={Row}
+            controlId="studyRoomPrice"
+            className="mb-3 pb-3"
+            style={{ borderBottom: "1px solid #dadada" }}
+          >
             <Form.Label column sm={3}>
               가격 (1시간)
             </Form.Label>
@@ -73,44 +78,63 @@ const StudyRoomSettingModal = (props) => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="studyRoomPrice" className="mb-3">
+          <span className={stylesAdmin.modal_sub_title}>예약 불가 설정</span>
+          <Form.Group as={Row} controlId="unableStart" className="mb-3">
             <Form.Label column sm={3}>
-              예약 불가
-              <br />
-              기간 설정
+              시작일
             </Form.Label>
             <Col sm={9}>
-              <DateRange
-                editableDateInputs={true}
-                onChange={(item) => setDate([item.selection])}
-                moveRangeOnFirstSelection={false}
-                ranges={date}
-                // months={2}
-                direction="horizontal"
+              <Flatpickr
+                className={stylesAdmin.set_unable_date}
+                placeholder="클릭해서 시작일(시간)을 선택해주세요"
+                style={{ width: "100%" }}
+                data-enable-time
+                value={startDate}
+                options={{
+                  minDate: "today",
+                  minTime: "10:00",
+                  maxTime: "22:00",
+                }}
+                onChange={(startDate) => setStartDate(startDate)}
               />
-              {/* <Form.Control
-                type="date"
-                min={startDate}
-                defaultValue={startDate}
-              /> */}
             </Col>
-            {/* <Col sm={4}>
-              
-            </Col> */}
           </Form.Group>
-          {/* <Form.Group as={Row} controlId="studyRoomPrice" className="mb-3">
-            <Form.Label column sm={4}>
-              예약 불가 종료일
+          <Form.Group as={Row} controlId="unableEnd" className="mb-3">
+            <Form.Label column sm={3}>
+              종료일
             </Form.Label>
-            <Col sm={8}>
-              <Form.Control
-                type="datetime-local"
-                defaultValue={new Date()}
-                
+            <Col sm={9}>
+              <Flatpickr
+                className={stylesAdmin.set_unable_date}
+                placeholder="클릭해서 시작일(시간)을 선택해주세요"
+                style={{ width: "100%" }}
+                data-enable-time
+                value={endDate}
+                options={{
+                  minDate: "today",
+                  minTime: "10:00",
+                  maxTime: "22:00",
+                }}
+                onChange={(endDate) => setEndDate(endDate)}
               />
             </Col>
-           
-          </Form.Group> */}
+          </Form.Group>
+          <Form.Group as={Row} controlId="unableDate" className="mb-3">
+            <Form.Label column sm={3}>
+              설정일
+            </Form.Label>
+            <Col className={stylesAdmin.setting_date} sm={9}>
+              <Form.Control
+                type="text"
+                defaultValue="2023.10.26 08:00 ~ 2023.11.01 08:00"
+                readOnly
+              />
+              <FontAwesomeIcon
+                className={stylesAdmin.cancel_icon}
+                icon={faCircleXmark}
+              />
+            </Col>
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
