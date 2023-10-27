@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import styles from "../../css/common/Sidebar.module.css";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import LoginModal from "./LoginModal";
+import { userLogout } from '../../../redux/user/slices/userSlice';
+
 const Sidebar = () => {
+
+  const [modalShow, setModalShow] = useState(false);
   const [currentMenu, setCurrentMenu] = useState(1);
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.flag);
+  const dispatch = useDispatch();
 
   const movePage = (num) => {
     setCurrentMenu(num);
@@ -54,7 +63,10 @@ const Sidebar = () => {
           COMMUNITY
         </li>
       </ul>
-      <div className={styles.logout}>LogOut</div>
+      
+  
+      <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
+      {user ? (<div className={styles.logout} onClick={() => dispatch(userLogout())}>LogOut</div>) : (<div className={styles.logout} onClick={() => setModalShow(true)}>LogIn</div>)}
     </div>
   );
 };

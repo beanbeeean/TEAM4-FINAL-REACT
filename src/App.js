@@ -19,11 +19,22 @@ import MypageModal from "./user/components/mypage/MypageModal";
 import AdminLogin from "./admin/pages/common/AdminLogin";
 import AdminCreateAccount from "./admin/pages/common/AdminCreateAccount";
 import Admin from "./admin/pages/common/Admin";
+import OAuth2RedirectHandler from "./user/components/common/login/OAuth2RedirectHandler";
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
+
+  const persistor = persistStore(store);
+
   console.log(window.location.pathname.includes("/admin"));
+  
   return (
     <div id="wrap">
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
       {/* <Header />
       <Nav />*/}
       {window.location.pathname.includes("/admin") ? (
@@ -63,11 +74,15 @@ function App() {
                 <Route path="/reservation" element={<Reservation />} />
 
                 <Route path="/search" element={<SearchMain />} />
+
+                <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} ></Route>
               </Routes>
             </div>
           </div>
         </div>
       )}
+        </PersistGate>
+      </Provider>
     </div>
   );
 }

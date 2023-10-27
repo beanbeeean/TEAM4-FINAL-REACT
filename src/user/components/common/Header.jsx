@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 // import "./css/Header.css";
 import styles from "../../css/common/Header.module.css";
-import LoginModal from "./LoginModal";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = () => {
-  const [modalShow, setModalShow] = useState(false);
   return (
     // <Container className="main_header">
     //   <div className="search_bar">
