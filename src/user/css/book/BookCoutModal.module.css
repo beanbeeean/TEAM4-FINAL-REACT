@@ -31,8 +31,9 @@
 .names,
 .checkout_date {
   font-weight: bold;
+  font-size: 1.1em;
 }
 
 .content {
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }

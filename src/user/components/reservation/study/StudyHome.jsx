@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "../../../css/reservation/StudyRoom.module.css";
 import Carousel from "react-bootstrap/Carousel";
 import StudyRoomReservation from "./StudyRoomReservation";
+import Bootpay from "@bootpay/client-js";
+import axios from "axios";
 
 const StudyHome = () => {
   const [space, setSpace] = useState(0);

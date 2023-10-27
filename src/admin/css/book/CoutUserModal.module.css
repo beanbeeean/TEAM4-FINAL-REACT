@@ -9,6 +9,7 @@
 
 .user_modal {
   overflow-y: scroll;
+  height: 400px;
 }
 
 .book_wrap th {

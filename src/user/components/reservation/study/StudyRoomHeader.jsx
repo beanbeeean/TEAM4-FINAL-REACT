@@ -4,7 +4,7 @@ import Year from "react-live-clock";
 import Month from "react-live-clock";
 import styles from "../../../css/reservation/StudyRoom.module.css";
 
-const StudyRoomHeader = ({ setChosenMonth, setChosenDay }) => {
+const StudyRoomHeader = ({ setChosenMonth, setChosenDay, setMonthState }) => {
   const now = new Date();
   const todayWeak = now.getDay();
   const today = now.getDate();
@@ -13,6 +13,8 @@ const StudyRoomHeader = ({ setChosenMonth, setChosenDay }) => {
   const [daylist, setDaylist] = useState([]);
   const [weaklist, setWeaklist] = useState([]);
   const [selectedDay, setSelectedDay] = useState(0);
+
+  let selectedIdx;
 
   const getAlldate = (today, lastday) => {
     let dates = [];
@@ -23,6 +25,7 @@ const StudyRoomHeader = ({ setChosenMonth, setChosenDay }) => {
       //마지막 날보다 날짜가 클경우 today를 1로 초기화.
       if (today > lastday) {
         today = 1;
+        selectedIdx = i;
         dates[i] = today;
       }
       //일반 경우 그냥 날짜 추가
@@ -81,6 +84,15 @@ const StudyRoomHeader = ({ setChosenMonth, setChosenDay }) => {
   const Weak = useRef(null);
 
   const setDateData = (idx, day) => {
+    console.log("idx:", idx);
+    console.log("selectedIdx-1 :", selectedIdx - 1);
+
+    if (idx > selectedIdx - 1) {
+      setMonthState(1);
+    } else {
+      setMonthState(0);
+    }
+
     setSelectedDay(idx);
     setChosenDay(day);
   };
