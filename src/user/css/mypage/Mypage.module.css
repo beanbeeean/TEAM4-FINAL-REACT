@@ -1,0 +1,40 @@
+.mypage_wrap h4 {
+  color: #fd8a69;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+div.search_area {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.category_box {
+  min-width: 100%;
+}
+
+.category_box {
+  margin-bottom: 20px;
+}
+
+li.board_category {
+  margin-right: 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  float: left;
+  font-weight: bold;
+  color: #adabab;
+}
+
+li.board_category:hover {
+  color: #f7c7b6;
+}
+
+li.board_category.on {
+  color: #fd8a69;
+  font-weight: bold;
+  border-bottom: 2px solid #fd8a69;
+}

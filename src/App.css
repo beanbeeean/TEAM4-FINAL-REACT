@@ -18,7 +18,14 @@ a {
   text-decoration: none;
 }
 
-div#wrap {
+div#admin_wrap {
+  display: flex;
+  padding: 10px;
+  height: 100vh;
+  background-color: #676768;
+}
+
+div#user_wrap {
   display: flex;
   padding: 10px;
   height: 100vh;
@@ -28,7 +35,7 @@ div#section {
   background-color: #fff;
   width: 90%;
   padding: 5px 10px 5px 20px;
-  min-width: 900px;
+  min-width: 98vh;
   overflow-y: auto;
 }
 
@@ -40,7 +47,7 @@ div.section_area {
 }
 
 div.modal-content {
-  height: 500px;
+  /* height: 500px; */
 }
 
 div.carousel-inner {

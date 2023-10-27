@@ -1,0 +1,80 @@
+.chatting {
+  padding: 10px;
+}
+
+.chatting_log {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.mine,
+.others {
+  display: inline-block;
+  width: 100%;
+}
+
+.mine {
+  text-align: right;
+}
+.mine > .chat_text {
+  float: right;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border-top-right-radius: 0;
+  background-color: #feccbe;
+}
+
+.others > .chat_text {
+  float: left;
+  max-width: 300px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border-top-left-radius: 0;
+  background-color: #f5f0ed;
+}
+
+.chat_time {
+  font-size: 12px;
+  display: inline-block;
+  padding: 26px 5px 0;
+  color: #999695;
+}
+
+.input_chat {
+  background-color: #fff;
+  padding: 10px 0;
+  margin: 10px 0 0 0;
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
+}
+
+.input_chat > input {
+  border: 0;
+  outline: none;
+  min-width: 360px;
+}
+
+.send_icon {
+  position: relative;
+  margin-left: 5px;
+  color: #999695;
+  cursor: pointer;
+}
+
+.send_icon:hover {
+  color: #feccbe;
+}
+
+.chat_date {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #696767;
+  font-weight: bold;
+}
+
+.chat_date > span {
+  padding: 8px 12px;
+  background-color: antiquewhite;
+  border-radius: 13px;
+}

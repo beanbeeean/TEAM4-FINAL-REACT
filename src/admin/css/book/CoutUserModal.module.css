@@ -1,0 +1,46 @@
+.cancle_btn {
+  background-color: #dadada;
+  border: none;
+}
+
+.cancle_btn:hover {
+  background-color: #b8b8b8;
+}
+
+.user_modal {
+  overflow-y: scroll;
+}
+
+.book_wrap th {
+  text-align: center;
+  background-color: #cccccc;
+  padding: 3px;
+}
+
+.book_wrap td {
+  text-align: center;
+  padding: 3px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.book_wrap td input[type="button"] {
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  padding: 0px 5px;
+}
+
+table.book_wrap th:nth-child(1) {
+  width: 20%;
+}
+
+table.book_wrap th:nth-child(2) {
+  width: 30%;
+}
+
+table.book_wrap th:nth-child(3) {
+  width: 30%;
+}
+
+table.book_wrap th:nth-child(4) {
+  width: 25%;
+}

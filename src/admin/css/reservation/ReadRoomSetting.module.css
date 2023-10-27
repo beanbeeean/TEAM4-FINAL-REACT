@@ -1,0 +1,211 @@
+div.readroom_wrap {
+  background-color: #e7e6e6;
+  padding: 50px;
+  display: inline-block;
+  border-radius: 30px;
+}
+
+div.readroom_tap > ul {
+  display: flex;
+  justify-content: center;
+}
+
+div.readroom_tap > ul > li {
+  float: left;
+  margin-left: 20px;
+  background-color: #b0abab;
+  padding: 10px 15px;
+  font-size: 22px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+div.readroom_tap > ul > li.active_floor {
+  background-color: #1f327c;
+}
+
+div.readroom_tap_item {
+  /* background-color: #636262; */
+  color: #fff;
+  font-size: 32px;
+  padding: 3px 30px 0px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  width: 280px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 70px;
+  background-color: rgb(189, 184, 184);
+}
+
+div.readroom_tap_item.current_room {
+  background-color: #636262;
+  font-weight: bold;
+}
+
+div.readroom_content {
+  width: 1200px;
+  /* height: 500px; */
+  background-color: #636262;
+  border-radius: 30px;
+
+  display: flex;
+}
+
+.readroom_map_wrap {
+  padding: 50px 0px 30px 30px;
+}
+
+div.readroom_map {
+  width: 100%;
+  margin: 40px 0 50px;
+}
+
+div.readroom_map table {
+  border-collapse: separate;
+  border-spacing: 5px;
+  display: inline-block;
+}
+
+.readroom_map td {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(242, 186, 55);
+  border: 0;
+  border-radius: 8px;
+  font-size: 26px;
+  line-height: 40px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
+}
+
+.readroom_map td.user_select {
+  background-color: rgb(28, 30, 189);
+  color: #fff;
+}
+
+.rm_first_line {
+  margin-bottom: 54px;
+}
+
+.rm_first_line > table {
+  margin-right: 30px;
+}
+
+.rm_first_line > table:last-child {
+  margin-right: 0;
+}
+
+.door_wrap {
+  display: inline-block;
+}
+
+.left_door,
+.right_door {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 10px;
+  background-color: #b0abab;
+}
+
+.left_door {
+  border-top-right-radius: 100%;
+}
+
+.right_door {
+  /* margin-left: -5px; */
+  border-top-left-radius: 100%;
+}
+
+.rm_second_line > table:first-child {
+  margin-right: 33px;
+}
+
+.rm_second_line > table:last-child {
+  margin-right: 0;
+}
+
+.rm_second_line > table.eight {
+  margin-left: 33px;
+  margin-right: 30px;
+}
+
+.divide_line {
+  width: 2px;
+  background-color: #b0abab;
+  margin-left: 50px;
+}
+
+.readroom_admin_card {
+  width: 42%;
+  /* background-color: red; */
+  padding: 30px;
+}
+
+.selected_seat_info {
+  width: 100%;
+  height: 285px;
+  background-color: #e7e6e6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.selected_seat_info > div {
+  height: 95px;
+  display: flex;
+  border-bottom: 1px solid #a7a6a6;
+}
+
+.selected_seat_info > div > div:first-child {
+  width: 30%;
+  background-color: #cfcdcd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #a7a6a6;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.selected_seat_info > div > div:last-child {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.status_btn {
+  width: 100%;
+  height: 110px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.status_btn > div {
+  width: 48%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  background-color: #cfcdcd;
+}
+
+.status_btn > div:first-child:hover {
+  color: #1fc21f;
+}
+
+.status_btn > div:last-child:hover {
+  color: #ff0000;
+}

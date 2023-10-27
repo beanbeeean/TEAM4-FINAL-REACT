@@ -1,58 +1,88 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Header from "./components/include/Header";
-import Footer from "./components/include/Footer";
-import Nav from "./components/include/Nav";
-import ChatModal from "./components/include/ChatModal";
-import BookList from "./pages/book/BookList";
-import BookDetail from "./pages/book/BookDetail";
-import Cart from "./pages/book/pay/Cart";
-import CartPayConfirm from "./pages/book/pay/CartPayConfirm";
-import BoardWrite from "./pages/board/BoardWrite";
-import Board from "./pages/board/Board";
-import BoardDetail from "./pages/board/BoardDetail";
-import CheckoutList from "./pages/user/book_checkout/CheckoutList";
-import CheckoutDetail from "./pages/user/book_checkout/CheckoutDetail";
-import MyPage from "./pages/MyPage";
-import Sidebar from "./components/include/Sidebar";
-import Reservation from "./components/reservation/Reservation";
-import StudyRoom from "./components/reservation/study/components/StudyRoom";
-import SearchMain from "./pages/user/Search/SearchMain";
+import Home from "./user/pages/common/Home";
+import Sidebar from "./user/components/common/Sidebar";
+import Header from "./user/components/common/Header";
+import Cart from "./admin/pages/book/cart/Cart";
+import CheckoutDetail from "./user/pages/book/CheckoutDetail";
+import MyPage from "./user/pages/common/MyPage";
+import Reservation from "./user/pages/reservation/Reservation";
+import StudyRoom from "./user/pages/reservation/StudyRoom";
+import SearchMain from "./user/pages/common/SearchMain";
+import CheckoutList from "./user/pages/book/CheckoutList";
+import Board from "./user/pages/community/Board";
+import BoardDetail from "./user/pages/community/BoardDetail";
+import BoardWrite from "./user/pages/community/BoardWrite";
+import CartPayConfirm from "./admin/pages/book/cart/CartPayConfirm";
+import MypageModal from "./user/components/mypage/MypageModal";
+import AdminLogin from "./admin/pages/common/AdminLogin";
+import AdminCreateAccount from "./admin/pages/common/AdminCreateAccount";
+import Admin from "./admin/pages/common/Admin";
+import OAuth2RedirectHandler from "./user/components/common/login/OAuth2RedirectHandler";
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
+
+  const persistor = persistStore(store);
+
+  console.log(window.location.pathname.includes("/admin"));
+  
   return (
     <div id="wrap">
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
       {/* <Header />
       <Nav />*/}
-
-      <Sidebar />
-      <div id="section">
-        {/* <ChatModal /> */}
-        <Header />
-        <div className="section_area">
+      {window.location.pathname.includes("/admin") ? (
+        <>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/books" element={<BookList />} />
-            <Route path="/books/:id" element={<BookDetail />} />
-            <Route path="/board" element={<Board />} />
-            <Route path="/board/:id" element={<BoardDetail />} />
-            <Route path="/board_write" element={<BoardWrite />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/cart/confirm" element={<CartPayConfirm />} />
-            <Route path="/checkout_books" element={<CheckoutList />} />
-            <Route path="/checkout_books/:id" element={<CheckoutDetail />} />
-            <Route path="/mypage" element={<MyPage />} />
-
-            <Route path="/test" element={<StudyRoom />} />
-            <Route path="/reservation" element={<Reservation />} />
-
-            <Route path="/search" element={<SearchMain />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin/create_account"
+              element={<AdminCreateAccount />}
+            />
+            <Route path="/admin/management" element={<Admin />} />
           </Routes>
+        </>
+      ) : (
+        <div id="user_wrap">
+          <Sidebar />
+          <div id="section">
+            {/* <ChatModal /> */}
+            <MypageModal />
+            <Header />
+            <div className="section_area">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                {/* <Route path="/books" element={<BookList />} /> */}
+                {/* <Route path="/books/:id" element={<BookDetail />} /> */}
+                <Route path="/board" element={<Board />} />
+                <Route path="/board/:id" element={<BoardDetail />} />
+                <Route path="/board_write" element={<BoardWrite />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/cart/confirm" element={<CartPayConfirm />} />
+                <Route path="/checkout_books" element={<CheckoutList />} />
+                <Route
+                  path="/checkout_books/:id"
+                  element={<CheckoutDetail />}
+                />
+                <Route path="/mypage" element={<MyPage />} />
+                <Route path="/reservation" element={<Reservation />} />
+
+                <Route path="/search" element={<SearchMain />} />
+
+                <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} ></Route>
+              </Routes>
+            </div>
+          </div>
         </div>
-      </div>
-      {/* <Footer /> */}
+      )}
+        </PersistGate>
+      </Provider>
     </div>
   );
 }

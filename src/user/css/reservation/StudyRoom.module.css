@@ -1,0 +1,252 @@
+.study_wrap {
+  margin: 45px auto;
+  width: 1300px;
+}
+
+.carousel_img {
+  max-width: 980px;
+  min-width: 980px;
+  min-height: 600px;
+  max-height: 600px;
+  cursor: pointer;
+}
+
+.calendar {
+  padding-bottom: 30px;
+  border-bottom: 1px solid #dadada;
+  margin: -20px auto 0;
+  display: inline-block;
+  width: 1200px;
+}
+
+.calendar .year_month_list {
+  font-style: italic;
+  color: #fd8a69;
+  font-weight: bold;
+  width: 100% - 30px;
+  padding-left: 30px;
+}
+
+.calendar .year_month_list .year {
+  font-size: 2.4rem;
+}
+
+.calendar .year_month_list .month {
+  font-size: 1.55rem;
+}
+
+.calendar .day_list {
+  width: 100%;
+  font-size: 1.4rem;
+  color: #fd8a69;
+  float: left;
+}
+
+.day_list .day_list_container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.calendar .day_list .day_list_area {
+  text-align: center;
+  float: left;
+  margin-left: 4em;
+  cursor: pointer;
+  width: 70px;
+  height: 110px;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.calendar .day_list .day_list_area:first-child {
+  margin: 0;
+}
+
+.calendar .day_list .day_list_area .sun {
+  color: red !important;
+}
+
+.calendar .day_list .day_list_area .sat {
+  color: #156fb9 !important;
+}
+
+.calendar .day_list .day_list_area:hover {
+  background: #f3b9a4;
+  color: white;
+}
+
+.calendar .day_list .day_list_area.selected_day {
+  border: 1px solid #f3b9a4;
+}
+
+.calendar .day_list .day_list_area.selected_day .weak {
+  color: #000;
+  /* text-decoration: underline; */
+}
+
+.calendar .day_list .day_list_area .weak {
+  font-size: 0.8em;
+  color: rgb(117, 116, 116);
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.calendar .day_list .day_list_area .day {
+  font-weight: bold;
+}
+
+.study_reservation_wrap {
+  margin-top: 20px;
+  width: 1200px;
+}
+.study_reservation_tap > li {
+  float: left;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  font-weight: bold;
+  color: #9e9d9d;
+  cursor: pointer;
+}
+
+.study_reservation_tap > li.reservation_tap_active {
+  color: #000;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #ff0000;
+}
+
+.study_reservation_date > table {
+  width: 100%;
+
+  text-align: center;
+}
+
+.study_reservation_date > table > thead > tr {
+  border-bottom: 2px solid #fddacd;
+  background-color: #fddacd;
+}
+
+.study_reservation_date > table > thead th {
+  padding: 15px 0;
+  font-size: 22px;
+  color: #f7f7f7;
+  /* color: #f3b9a4; */
+}
+
+.study_reservation_date > table th:nth-child(1) {
+  width: 30%;
+}
+
+.study_reservation_date > table th:nth-child(2),
+.study_reservation_date > table th:nth-child(3) {
+  width: 35%;
+}
+
+.study_reservation_date > table tbody td {
+  padding: 13px 0;
+}
+
+.study_reservation_date > table tbody td:nth-child(1) {
+  background-color: #fff7f7;
+  font-weight: bold;
+  font-size: 17px;
+  color: #9e9d9d;
+}
+
+.reservation_enable {
+  cursor: pointer;
+}
+
+.reservation_enable:hover {
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+
+.reservation_unable {
+  color: #ff0000;
+  text-decoration: line-through;
+}
+
+.study_reservation_confirm {
+  position: sticky;
+  top: 100px;
+}
+
+.reservation_confirm_card {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.reservation_card_title {
+  font-weight: 800;
+  padding: 15px 0;
+  background-color: #fddacd;
+  border-bottom: 1px solid #dadada;
+  color: #fff;
+  margin: 0;
+}
+
+.reservation_card_info {
+  background-color: #918d8d;
+}
+
+.reservation_card_table {
+  background-color: #fff7f7;
+  padding: 0px 10px 10px;
+}
+
+.reservation_card_table > table {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+}
+
+.reservation_card_table th {
+  font-size: 22px;
+  padding: 30px 0;
+  color: #9e9d9d;
+  background-color: #fff7f7;
+  border-bottom: 1px solid #dadada;
+}
+
+.reservation_card_table th:nth-child(2),
+.reservation_card_table th:nth-child(4) {
+  width: 20%;
+}
+
+.reservation_card_table th:nth-child(1),
+.reservation_card_table th:nth-child(3) {
+  width: 30%;
+}
+
+.reservation_card_table tbody tr {
+  border: 1px solid #dadada;
+}
+
+.reservation_card_table td {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 30px 0;
+  border-right: 1px solid #dadada;
+}
+
+.reservation_card_btn {
+  padding: 25px 0;
+  margin-top: 15px;
+  font-size: 42px;
+  text-align: center;
+  background-color: #f8ebeb;
+  font-weight: bold;
+  color: #cfcfcf;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.reservation_card_btn:hover {
+  background-color: #f7d4d4;
+  color: #fff;
+}

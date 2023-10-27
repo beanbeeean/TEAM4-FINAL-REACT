@@ -1,0 +1,46 @@
+.cout_btn {
+  background-color: #9e9e9e;
+  border: none;
+}
+
+.cout_btn:hover {
+  background-color: #8a8a8a;
+}
+
+.cancle_btn {
+  background-color: #dadada;
+  border: none;
+}
+
+.cancle_btn:hover {
+  background-color: #b8b8b8;
+}
+
+.count {
+  margin-bottom: 20px;
+}
+
+.count > span,
+.book_state > span {
+  font-size: 1.1em;
+  margin-right: 30px;
+}
+
+.count input[type="text"] {
+  width: 80px;
+  height: 30px;
+  border: 1px solid #dadada;
+}
+
+.count input[type="button"] {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dadada;
+}
+
+.book_state select {
+  width: 70%;
+  border: 1px solid #dadada;
+  padding: 3px;
+  border-radius: 5px;
+}

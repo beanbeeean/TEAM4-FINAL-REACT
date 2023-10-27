@@ -1,0 +1,94 @@
+a {
+  color: #404040;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.book_nav {
+  background-color: #fd8a69;
+  margin-bottom: 30px;
+  color: #ffffff;
+  padding-top: 5px;
+}
+
+.book_nav .booklist_wrap {
+  border-right: 1px solid #ffffff;
+}
+
+.book_nav .booklist_wrap {
+  margin-bottom: 10px;
+}
+
+.book_nav .booklist_wrap:nth-child(4) {
+  border-right: none;
+}
+
+.mybook_cnt {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #4e4e4e;
+  margin-bottom: 10px;
+}
+
+.item_wrap {
+  position: relative;
+  float: left;
+  padding: 10px;
+  border-radius: 10px;
+  width: 270px;
+  height: 400px;
+  margin: 0 10px;
+  margin-bottom: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #f0f0f0;
+  transition: 0.5s;
+}
+
+.item_wrap:hover {
+  transform: scale(1.03);
+}
+
+.content_wrap img {
+  width: 250px;
+  height: 250px;
+}
+
+.content_wrap .book_title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 3px;
+}
+
+.content_wrap > ul li:nth-child(2) {
+  font-size: 0.9em;
+  color: #c4c4c4;
+}
+
+.buttons_wrap {
+  position: absolute;
+  bottom: 10px;
+}
+
+.buttons_wrap .ch_count {
+  font-size: 0.9em;
+}
+
+.buttons_wrap .checkout_date {
+  font-size: 0.9em;
+}
+
+.buttons_wrap input[type="button"] {
+  width: 250px;
+  padding: 3px;
+  border: none;
+  border-radius: 5px;
+  background-color: #feccbe;
+  color: #fff;
+}
+
+.buttons_wrap input[type="button"]:hover {
+  background-color: #fd8a69;
+}

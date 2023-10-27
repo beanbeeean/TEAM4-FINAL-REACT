@@ -1,0 +1,36 @@
+.chat_room {
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.chat_room_title:hover span {
+  color: #fd8a69;
+}
+
+.chat_room_title {
+  align-items: center;
+}
+
+.chat_room_title span {
+  font-size: 14px;
+}
+
+.chat_room_latest span:nth-child(1) {
+  font-size: 12px;
+}
+
+.chat_room_latest span:nth-child(2) {
+  margin-left: 10px;
+  font-size: 10px;
+  color: #bababa;
+}
+
+.group_icon {
+  font-size: 15px;
+  padding-left: 3px;
+}
+
+.group_name {
+  width: 150px;
+}

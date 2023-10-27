@@ -1,0 +1,159 @@
+.board_header {
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.board_title {
+  font-size: 32px;
+  margin-right: 20px;
+  width: 180px;
+  font-weight: 800;
+}
+
+button.write_btn {
+  position: absolute;
+  right: 0;
+  border: 0;
+  padding: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+button.write_btn * {
+  color: #969595;
+  font-weight: bold;
+}
+
+button.write_btn:hover * {
+  color: #242424;
+}
+
+.write_icon {
+  font-size: 15px;
+}
+
+div.search_area {
+  width: 520px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.category_box {
+  min-width: 520px;
+}
+
+div.search_box {
+  display: inline-block;
+}
+
+li.board_category {
+  margin-right: 15px;
+  font-size: 1.1em;
+  cursor: pointer;
+  float: left;
+  font-weight: bold;
+  color: #adabab;
+}
+
+li.board_category:hover {
+  color: #f7c7b6;
+}
+
+li.board_category.on {
+  color: #242424;
+  font-weight: bold;
+  border-bottom: 2px solid #ff0000;
+}
+
+div.search_box {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+select[name="search_category"] {
+  height: 40px;
+  font-size: 14px;
+  padding: 5px;
+  outline: none;
+  border-radius: 8px;
+  border: 0;
+  color: #646363;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-right: 5px;
+  position: relative;
+  left: 70px;
+  z-index: 100;
+}
+
+div.search_bar {
+  position: relative;
+}
+
+div.search_bar > input {
+  height: 40px;
+  font-size: 14px;
+  padding: 8px 25px 8px 70px;
+  width: 250px;
+  outline: none;
+  border: 1px solid #dadada;
+  color: #989696;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.search_btn {
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  color: #989696;
+}
+
+.search_btn:hover {
+  color: #242424;
+}
+
+div.board_content {
+  border-radius: 10px;
+  background-color: #fafafa;
+  padding: 20px;
+  min-height: 82vh;
+  max-height: 82vh;
+}
+
+table.board_table {
+  width: 100%;
+  border-top: 1px solid rgb(230, 227, 227);
+  border-bottom: 1px solid rgb(230, 227, 227);
+}
+
+table.board_table th {
+  padding: 10px 0;
+  color: #989696;
+  background-color: #f5f5f5;
+}
+
+table.board_table th:nth-child(2) {
+  width: 55%;
+}
+
+table.board_table th:nth-child(1),
+table.board_table th:nth-child(3),
+table.board_table th:nth-child(4) {
+  width: 15%;
+}
+
+table.board_table td {
+  padding: 10px 10px;
+  background-color: #fff;
+}
+
+table.board_table tbody tr {
+  border-top: 1px solid #dadada;
+}

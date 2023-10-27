@@ -1,0 +1,36 @@
+.book_search {
+  min-width: 400px;
+  margin-bottom: 10px;
+  border: 1px solid #feccbe;
+  border-radius: 15px;
+  padding: 5px;
+  padding-left: 10px;
+  position: relative;
+  outline: none;
+}
+
+.book_search_btn {
+  position: relative;
+  left: -25px;
+  color: #feccbe;
+}
+
+.book_search_btn:hover {
+  color: #fd8a69;
+}
+
+.booklist_nav {
+  display: flex;
+  /* width: 450px; */
+  background-color: #fd8a69;
+  margin-bottom: 20px;
+}
+
+.booklist_nav li {
+  color: #ffffff;
+  padding: 5px 20px;
+}
+
+.booklist_nav li:hover {
+  background-color: #feccbe;
+}

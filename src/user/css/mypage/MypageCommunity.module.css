@@ -1,0 +1,118 @@
+.commu_header {
+  display: inline-block;
+  position: relative;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.commu_header .write_btn {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  border: 0;
+  padding: 5px;
+  width: 100px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.commu_header .write_btn * {
+  color: #969595;
+  font-weight: bold;
+}
+
+.commu_header .write_btn:hover * {
+  color: #242424;
+}
+
+.write_icon {
+  font-size: 15px;
+}
+
+div.write_search_box {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.write_search_box select[name="search_category"] {
+  height: 40px;
+  font-size: 14px;
+  padding: 5px;
+  outline: none;
+  border-radius: 8px;
+  border: 0;
+  color: #646363;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-right: 5px;
+  position: relative;
+  left: 130px;
+  z-index: 100;
+}
+
+div.search_bar {
+  position: relative;
+}
+
+div.search_bar > input {
+  height: 40px;
+  font-size: 14px;
+  padding: 8px 25px 8px 130px;
+  width: 350px;
+  outline: none;
+  border: 1px solid #dadada;
+  color: #989696;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.search_btn {
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  color: #989696;
+}
+
+.search_btn:hover {
+  color: #242424;
+}
+
+div.board_content {
+  min-height: 82vh;
+  max-height: 82vh;
+}
+
+table.board_table {
+  width: 100%;
+  border-top: 1px solid rgb(230, 227, 227);
+  border-bottom: 1px solid rgb(230, 227, 227);
+}
+
+table.board_table th {
+  padding: 10px 0;
+  color: #989696;
+  background-color: #f5f5f5;
+}
+
+th:nth-child(2) {
+  width: 55%;
+}
+
+th:nth-child(1),
+th:nth-child(3),
+th:nth-child(4) {
+  width: 15%;
+}
+
+table.board_table td {
+  padding: 10px 10px;
+  background-color: #fff;
+}
+
+table.board_table tbody tr {
+  border-top: 1px solid #dadada;
+}
