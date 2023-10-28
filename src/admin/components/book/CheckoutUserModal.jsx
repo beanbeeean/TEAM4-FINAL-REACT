@@ -3,7 +3,11 @@ import { Modal, Button } from "react-bootstrap";
 import stylesAdmin from "../../css/book/CoutUserModal.module.css";
 
 const CheckoutUserModal = (props) => {
-  const [show, setShow] = useState(false);
+  const [state, setState] = useState([]);
+
+  const changeState = () => {
+    alert("반납하시겠습니까?");
+  };
 
   return (
     <Modal
@@ -33,18 +37,9 @@ const CheckoutUserModal = (props) => {
               <td>5</td>
               <td>2023.10.20</td>
               <td>2023.10.30</td>
-              <td>대여중</td>
+              <td>{state == 0 ? "대여중" : "대여가능"} </td>
               <td>
-                <input type="button" value="반납" />
-              </td>
-            </tr>
-            <tr className={stylesAdmin.user_item}>
-              <td>5</td>
-              <td>2023.10.20</td>
-              <td>2023.10.30</td>
-              <td>대여중</td>
-              <td>
-                <input type="button" value="반납" />
+                <input type="button" value="반납" onClick={changeState} />
               </td>
             </tr>
           </tbody>

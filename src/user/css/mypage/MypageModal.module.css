@@ -28,69 +28,19 @@
   position: fixed;
   bottom: 0px;
   right: 40px;
-  transition: all 0.5s;
 }
 
-.quick_btn:hover .msg_icon {
-  color: #000;
+.quick_btn:hover {
+  background-color: #dadada;
 }
 
 .msg_icon {
   font-size: 25px;
   color: #9c9898;
-  transition: transform 0.5s;
 }
 
-.rotated {
-  transform: rotate(45deg);
-}
-
-.profile_box {
-  width: 600px;
-  height: 360px;
-  background-color: #fff;
-  border: 1px solid #dadada;
-  border-radius: 10px;
-  display: flex;
-  position: absolute;
-  right: -30px;
-  transition: all 0.5s;
-  bottom: -450px;
-}
-
-.profile_wrap {
-  text-align: center;
-  justify-content: center;
-  padding: 30px;
-}
-
-.profile_wrap .profile_mail {
-  font-size: 0.9em;
-  color: #bababa;
-}
-
-.profile_wrap img {
-  width: 180px;
-  height: 180px;
-  border-radius: 250px;
-  margin-bottom: 20px;
-}
-
-.mypage_menu {
-  line-height: 150px;
-  text-align: center;
-  display: flex;
-  padding: 20px;
-}
-
-.mypage_menu .menu {
-  background-color: #fd8a69;
-  color: #fff;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 150px;
-  height: 150px;
-  border-radius: 15px;
+.icon_clicked {
+  color: #fd8a69;
 }
 
 .chat_box {
@@ -103,7 +53,7 @@
   position: absolute;
   right: -30px;
   transition: all 0.5s;
-  bottom: 120px;
+  top: -80px;
 }
 
 .chat_box .chat_list {

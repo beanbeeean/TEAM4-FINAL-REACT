@@ -25,11 +25,22 @@
   font-weight: bold;
   font-size: 1.1em;
   margin-bottom: 3px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em;
 }
 
 .content_wrap > ul li:nth-child(2) {
   font-size: 0.9em;
   color: #c4c4c4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .buttons_wrap {
@@ -52,4 +63,17 @@
 
 .buttons_wrap input[type="button"]:hover {
   background-color: #fd8a69;
+}
+
+.book_pagenation {
+  justify-content: center;
+}
+
+.pagenation .page-item .page-link {
+  color: #fd8a69 !important;
+}
+
+.pagenation .page-item.active .page-link {
+  background-color: #fd8a69 !important;
+  color: #fff !important;
 }

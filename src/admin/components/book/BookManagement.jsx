@@ -9,9 +9,14 @@ const BookManagement = () => {
   const [coutModalShow, setCoutModalShow] = useState(false);
   const [stateShow, setStateShow] = useState(false);
 
-  const changeState = () => {
-    console.log("changeState");
-    alert("수량변경");
+  const [bookCnt, setBookCnt] = useState(5);
+  const [bookState, setBookState] = useState(1);
+
+  const handleSave = (updatedValues) => {
+    console.log("Updated cnt:", updatedValues.cnt);
+    console.log("Updated bookState:", updatedValues.bookState);
+    setBookCnt(updatedValues.cnt);
+    setBookState(updatedValues.bookState);
   };
 
   return (
@@ -45,24 +50,8 @@ const BookManagement = () => {
               <td onClick={() => setCoutModalShow(true)}>잭과 콩나물</td>
               <td>siyeong</td>
               <td>beanbeeean</td>
-              <td>5</td>
-              <td>사용가능</td>
-              <td>
-                <input
-                  type="button"
-                  value="상태변경"
-                  onClick={() => setStateShow(true)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>15035</td>
-              <td onClick={() => setCoutModalShow(true)}>잭과 콩나물</td>
-              <td>siyeong</td>
-              <td>beanbeeean</td>
-              <td>5</td>
-              <td>사용가능</td>
+              <td>{bookCnt}</td>
+              <td>{bookState == 1 ? "사용가능" : "사용불가"}</td>
               <td>
                 <input
                   type="button"
@@ -78,6 +67,8 @@ const BookManagement = () => {
           />
           <ChangeStateModal
             show={stateShow}
+            onSave={handleSave}
+            stock={bookCnt}
             onHide={() => setStateShow(false)}
           />
         </table>

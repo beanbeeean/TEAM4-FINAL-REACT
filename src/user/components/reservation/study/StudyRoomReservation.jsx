@@ -8,11 +8,13 @@ const StudyRoomReservation = ({ space, setSpace }) => {
   const [price, setPrice] = useState();
   const [chosenMonth, setChosenMonth] = useState(new Date().getMonth() + 1);
   const [chosenDay, setChosenDay] = useState(new Date().getDate());
+  const [monthState, setMonthState] = useState(0);
   return (
     <>
       <StudyRoomHeader
         setChosenMonth={setChosenMonth}
         setChosenDay={setChosenDay}
+        setMonthState={setMonthState}
       />
       <StudyRoomBody
         selectedTime={selectedTime}
@@ -25,6 +27,7 @@ const StudyRoomReservation = ({ space, setSpace }) => {
         setSpace={setSpace}
         chosenMonth={chosenMonth}
         chosenDay={chosenDay}
+        monthState={monthState}
       />
     </>
   );
