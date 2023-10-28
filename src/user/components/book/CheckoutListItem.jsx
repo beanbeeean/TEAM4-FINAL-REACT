@@ -39,6 +39,7 @@ const CheckoutListItem = ({ book }) => {
         />
         <CheckoutModal
           show={modalShow}
+          setModalShow={setModalShow}
           onHide={() => setModalShow(false)}
           book={book}
         />

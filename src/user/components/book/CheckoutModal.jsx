@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styles from "../../css/book/BookCoutModal.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutModal = (props) => {
-  const [show, setShow] = useState(false);
-
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -53,6 +52,8 @@ const CheckoutModal = (props) => {
       )
       .then((response) => {
         console.log("서버 응답 데이터:", response.data);
+        alert("대여가 완료되었습니다.");
+        props.setModalShow(false);
       })
       .catch((error) => {
         console.error("Error:", error);

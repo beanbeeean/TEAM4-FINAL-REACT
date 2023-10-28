@@ -73,10 +73,10 @@ const StudyRoomBody = ({
       const response = await Bootpay.requestPayment({
         application_id: "652dd36500be04001b8e26f1", //가맹점ID
         price: 1000, // 총액 = items의 가격 합
-        order_name: "스터디룸(2~4인)", // 상품명
+        order_name: selectedRoom, // 상품명
         comapny_name: "파이널 4조",
         order_id: "TEST_ORDER_ID", // 고유 주문번호
-        pg: "나이스페이", // 카카오, 토스, 나이스페이(카카오페이, 카드결제, 네이버페이 포함) 2개 회사는 확인
+        pg: "카카오", // 카카오, 토스, 나이스페이(카카오페이, 카드결제, 네이버페이 포함) 2개 회사는 확인
         // method: "간편", // 카카오 - 간편, 토스 - 카드,
         tax_free: 0,
         user: {
