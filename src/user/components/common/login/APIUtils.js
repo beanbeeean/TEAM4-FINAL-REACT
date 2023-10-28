@@ -39,3 +39,7 @@ export function logout(loginRequest) {
 export function signup(signupRequest) {
     return axiosInstance.post("/auth/signup", signupRequest);
 }
+
+export function test(signupRequest) {
+    return axiosInstance.get("/test", signupRequest);
+}

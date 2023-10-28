@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/login/Login.css';
-import { NAVER_AUTH_URL, KAKAO_AUTH_URL, GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN, REFRESH_TOKEN } from './login';
+import { NAVER_AUTH_URL, KAKAO_AUTH_URL, GOOGLE_AUTH_URL, ACCESS_TOKEN, REFRESH_TOKEN } from './login';
 import { login } from './login/APIUtils';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
@@ -42,10 +42,8 @@ function LoginModal(props) {
           <Modal.Title id="contained-modal-title-vcenter">LOGIN</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Counter />
           <div className="login-container">
               <div className="login-content">
-                  
                   
                   <h1 className="login-title">admin</h1>
                   <SocialLogin />

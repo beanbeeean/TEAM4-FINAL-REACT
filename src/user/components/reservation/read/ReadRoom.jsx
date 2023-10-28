@@ -3,6 +3,8 @@ import ReadRoomReservation from "./ReadRoomReservation";
 import ReadRoomMap from "./ReadRoomMap";
 import styles from "../../../css/reservation/ReadRoom.module.css";
 import { useNavigate } from "react-router-dom/dist";
+import axios from "axios";
+import { test } from "../../common/login/APIUtils";
 
 const ReadRoom = () => {
   const [readRoom, setReadRoom] = useState(1);
@@ -12,6 +14,22 @@ const ReadRoom = () => {
     setSeat();
     setReadRoom(num);
   };
+
+  const seatHandle = (event) => {
+
+    test()
+        .then(response => {
+            console.log(JSON.stringify(response, null, 2));
+            alert("TEST에 성공하였습니다.");
+        }).catch(error => {
+            alert('TEST에 실패하였습니다.');
+        });
+  }
+
+  useEffect(() => {
+    console.log('마운트 될 때만 실행된다.');
+    seatHandle();
+  }, [readRoom] );
 
   return (
     <div className={styles.readroom_wrap}>
