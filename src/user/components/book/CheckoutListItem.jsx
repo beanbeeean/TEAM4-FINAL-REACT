@@ -10,17 +10,11 @@ const CheckoutListItem = ({ book }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const store = useSelector((state) => state);
-  const detailBook = store.book.bookDto.filter((e) => e.b_no === book.b_no * 1);
+  let detailBook = store.book.bookDto.filter((e) => e.b_no === book.b_no * 1);
 
   return (
     <div className={styles.item_wrap}>
       <Link to={`/checkout_books/${book.b_no}`}>
-        {/* <Link
-        to={{
-          to: `/checkout_books/${book.b_no}`,
-          state: { book: { book } },
-        }}
-      > */}
         <div className={styles.content_wrap}>
           <img src={book.b_cover} />
           <ul>

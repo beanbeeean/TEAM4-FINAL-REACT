@@ -16,56 +16,32 @@ const CheckoutList = () => {
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedBooks = books.slice(startIndex, endIndex);
+
   const dispatch = useDispatch();
-  const bookDtos = useSelector((state) => state.book);
-  console.log("bookDtos : ", bookDtos);
+  // let bookDtos;
+
   useEffect(() => {
-    // axios
-    //   .get(`/checkout_books/${navState}`)
-    //   .then((response) => setBooks(response.data.dtos))
-    //   .catch((error) => console.log(error));
     axios
-      .get("/checkout_books")
+      .get(`/checkout_books/nav/${navState}`)
       .then((response) => {
         setBooks(response.data.dtos);
-        console.log(response);
         const bookDtos = response.data;
+        // console.log("bookDtos : ", bookDtos)
 
         dispatch(bookActions.fetchBookDto(bookDtos));
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [navState]);
+
 
   return (
     <Container>
       <BookListNav onNavStateChange={setNavState} />
-      {/* <Row>
-        {books.map((book) => {
-          return <CheckoutListItem book={book} />;
-        })}
-      </Row> */}
       <Row>
         {displayedBooks.map((book) => {
           return <CheckoutListItem book={book} key={book.id} />;
         })}
       </Row>
-      {/* <Pagination className={styles.book_pagenation}>
-        <Pagination.Prev />
-        {Array.from(
-          { length: Math.ceil(books.length / itemsPerPage) },
-          (_, index) => (
-            <Pagination.Item
-              key={index + 1}
-              active={index + 1 === page}
-              onClick={() => setPage(index + 1)}
-            >
-              {index + 1}
-            </Pagination.Item>
-          )
-        )}
-        <Pagination.Next />
-      </Pagination> */}
-
       <PaginationControl
         page={page}
         between={4}
