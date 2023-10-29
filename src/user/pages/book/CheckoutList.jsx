@@ -3,29 +3,42 @@ import { Container, Row } from "react-bootstrap";
 import BookListNav from "../../components/book/BookListNav";
 import CheckoutListItem from "../../components/book/CheckoutListItem";
 import axios from "axios";
-import { Pagination } from "react-bootstrap";
-import styles from "../../css/book/BookCoutList.module.css";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import { useDispatch, useSelector } from "react-redux";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
 
 const CheckoutList = () => {
   const [books, setBooks] = useState([]);
+  const [navState, setNavState] = useState("all");
   const [page, setPage] = useState(1);
   const itemsPerPage = 20;
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedBooks = books.slice(startIndex, endIndex);
-
+  const dispatch = useDispatch();
+  const bookDtos = useSelector((state) => state.book);
+  console.log("bookDtos : ", bookDtos);
   useEffect(() => {
+    // axios
+    //   .get(`/checkout_books/${navState}`)
+    //   .then((response) => setBooks(response.data.dtos))
+    //   .catch((error) => console.log(error));
     axios
       .get("/checkout_books")
-      .then((response) => setBooks(response.data.dtos))
+      .then((response) => {
+        setBooks(response.data.dtos);
+        console.log(response);
+        const bookDtos = response.data;
+
+        dispatch(bookActions.fetchBookDto(bookDtos));
+      })
       .catch((error) => console.log(error));
   }, []);
 
   return (
     <Container>
-      <BookListNav />
+      <BookListNav onNavStateChange={setNavState} />
       {/* <Row>
         {books.map((book) => {
           return <CheckoutListItem book={book} />;

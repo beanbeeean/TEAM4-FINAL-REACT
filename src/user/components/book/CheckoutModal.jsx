@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styles from "../../css/book/BookCoutModal.module.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import bookSlice, { bookActions } from "../../../redux/book/slices/bookSlice";
 
 const CheckoutModal = (props) => {
   const date = new Date();
@@ -10,6 +11,7 @@ const CheckoutModal = (props) => {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const today = `${year}.${month}.${day}`;
+  const dispach = useDispatch();
 
   let daysInMonth = 0;
 
@@ -54,6 +56,7 @@ const CheckoutModal = (props) => {
         console.log("서버 응답 데이터:", response.data);
         alert("대여가 완료되었습니다.");
         props.setModalShow(false);
+        dispach(bookActions.updateStock(props.book.b_no));
       })
       .catch((error) => {
         console.error("Error:", error);

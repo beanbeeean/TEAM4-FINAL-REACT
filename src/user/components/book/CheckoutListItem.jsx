@@ -4,9 +4,14 @@ import styles from "../../css/book/BookCoutList.module.css";
 import { Link } from "react-router-dom";
 import CheckoutModal from "./CheckoutModal";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const CheckoutListItem = ({ book }) => {
   const [modalShow, setModalShow] = useState(false);
+
+  const store = useSelector((state) => state);
+  const detailBook = store.book.bookDto.filter((e) => e.b_no === book.b_no * 1);
+
   return (
     <div className={styles.item_wrap}>
       <Link to={`/checkout_books/${book.b_no}`}>
@@ -29,14 +34,24 @@ const CheckoutListItem = ({ book }) => {
       </Link>
       <div className={styles.buttons_wrap}>
         <span className={styles.ch_count}>
-          대여 가능 수량 <span>{book.b_stock}</span>
+          대여 가능 수량 <span>{detailBook[0].b_stock}</span>
         </span>
         <br />
-        <input
-          type="button"
-          value="대여하기"
-          onClick={() => setModalShow(true)}
-        />
+        {detailBook[0].b_stock > 0 ? (
+          <input
+            className={styles.checkout_btn}
+            type="button"
+            value="대여하기"
+            onClick={() => setModalShow(true)}
+          />
+        ) : (
+          <input
+            className={styles.checkoutDis_btn}
+            type="button"
+            value="대여하기"
+            disabled
+          />
+        )}
         <CheckoutModal
           show={modalShow}
           setModalShow={setModalShow}

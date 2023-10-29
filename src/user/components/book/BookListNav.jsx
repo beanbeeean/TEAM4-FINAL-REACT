@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styles from "../../css/book/BookListNav.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
-const BookListNav = () => {
+const BookListNav = ({ onNavStateChange }) => {
   return (
     <div>
       <input
@@ -18,18 +18,9 @@ const BookListNav = () => {
       />
 
       <ul className={styles.booklist_nav}>
-        <Link to="/">
-          <li>종합</li>
-        </Link>
-        <Link to="/">
-          <li>신간</li>
-        </Link>
-        <Link to="/">
-          <li>추천도서</li>
-        </Link>
-        <Link to="/">
-          <li>베스트셀러</li>
-        </Link>
+        <li onClick={() => onNavStateChange("all")}>종합</li>
+        <li onClick={() => onNavStateChange("new")}>신간</li>
+        <li onClick={() => onNavStateChange("bestseller")}>베스트셀러</li>
       </ul>
     </div>
   );

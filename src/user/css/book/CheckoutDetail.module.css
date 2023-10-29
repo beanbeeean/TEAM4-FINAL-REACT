@@ -79,6 +79,14 @@
   color: #ffffff;
   font-size: 1.1em;
 }
+.checkoutDis_btn {
+  padding: 10px 50px;
+  border: none;
+  border-radius: 8px;
+  background-color: #dadada;
+  color: #ffffff;
+  font-size: 1.1em;
+}
 
 .description {
   font-size: 1.2em;
