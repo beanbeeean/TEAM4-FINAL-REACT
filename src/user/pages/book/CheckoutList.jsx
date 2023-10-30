@@ -53,7 +53,15 @@ const CheckoutList = () => {
         onSearchBookChange={setSearchBook}
       />
       {loading ? (
-        <Loading />
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "800px",
+          }}
+        >
+          <Loading />
+        </div>
       ) : (
         <Row>
           {displayedBooks.map((book) => {

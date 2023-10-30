@@ -7,7 +7,12 @@ import axios from "axios";
 
 const BookListNav = ({ onNavStateChange, onSearchBookChange }) => {
   const [keyword, setKeyword] = useState("");
-  const [searchBooks, setSearchBooks] = useState([]);
+  const [selectedNav, setSelectedNav] = useState("all");
+
+  const handleNavClick = (nav) => {
+    setSelectedNav(nav);
+    onNavStateChange(nav);
+  };
 
   return (
     <div>
@@ -24,9 +29,24 @@ const BookListNav = ({ onNavStateChange, onSearchBookChange }) => {
       />
 
       <ul className={styles.booklist_nav}>
-        <li onClick={() => onNavStateChange("all")}>종합</li>
-        <li onClick={() => onNavStateChange("new")}>신간</li>
-        <li onClick={() => onNavStateChange("bestseller")}>베스트셀러</li>
+        <li
+          onClick={() => handleNavClick("all")}
+          className={selectedNav === "all" ? styles.nav_selected : ""}
+        >
+          종합
+        </li>
+        <li
+          onClick={() => handleNavClick("new")}
+          className={selectedNav === "new" ? styles.nav_selected : ""}
+        >
+          신간
+        </li>
+        <li
+          onClick={() => handleNavClick("bestseller")}
+          className={selectedNav === "bestseller" ? styles.nav_selected : ""}
+        >
+          베스트셀러
+        </li>
       </ul>
     </div>
   );

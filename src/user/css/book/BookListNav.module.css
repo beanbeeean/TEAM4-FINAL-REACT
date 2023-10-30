@@ -34,3 +34,7 @@
 .booklist_nav li:hover {
   background-color: #feccbe;
 }
+
+.nav_selected {
+  border-bottom: 5px solid #feccbe;
+}
