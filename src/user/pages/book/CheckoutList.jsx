@@ -38,8 +38,6 @@ const CheckoutList = () => {
       .then((response) => {
         setBooks(response.data.dtos);
         const bookDtos = response.data;
-        // console.log("bookDtos : ", bookDtos)
-
         dispatch(bookActions.fetchBookDto(bookDtos));
         setLoading(false);
       })
@@ -64,9 +62,24 @@ const CheckoutList = () => {
         </div>
       ) : (
         <Row>
-          {displayedBooks.map((book) => {
-            return <CheckoutListItem book={book} key={book.id} />;
-          })}
+          {books.length == 0 ? (
+            <Row
+              style={{
+                color: "#fd8a69",
+                fontSize: "1.2em",
+                justifyContent: "center",
+                marginTop: "50px",
+              }}
+            >
+              "{searchBook}" 에 대한 검색 결과가 없습니다.
+            </Row>
+          ) : (
+            <Row>
+              {displayedBooks.map((book) => {
+                return <CheckoutListItem book={book} key={book.id} />;
+              })}
+            </Row>
+          )}
         </Row>
       )}
 
