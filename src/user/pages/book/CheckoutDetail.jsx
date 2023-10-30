@@ -90,7 +90,12 @@ const CheckoutDetail = () => {
       {detailBook[0] !== null && (
         <Row>
           <div className={styles.description}>소개글</div>
-          <div>{detailBook[0].b_description}</div>
+
+          {detailBook[0].b_description == "" ? (
+            <div>등록된 소개글이 없습니다. </div>
+          ) : (
+            <div>{detailBook[0].b_description}</div>
+          )}
         </Row>
       )}
     </Container>
