@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styles from "../../css/community/Board.module.css";
+import CommunityItem from "../../components/community/CommunityItem";
+import axios from "axios";
 
-const Board = () => {
+const Community = () => {
   const [on, setOn] = useState(1);
+  const [community, setCommunity] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`/community`)
+      .then((response) => {
+        setCommunity(response.data.communityDtos);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <>
@@ -42,7 +54,7 @@ const Board = () => {
           </div>
         </div>
         <button className={styles.write_btn}>
-          <Link to="/board_write">
+          <Link to="/community_write">
             <FontAwesomeIcon className={styles.write_icon} icon={faPen} />
             &nbsp;&nbsp;WRITE
           </Link>
@@ -74,18 +86,9 @@ const Board = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="text-center">도서추천</td>
-              <td>이 책을 추천합니다.</td>
-              <td className="text-center">나요</td>
-              <td className="text-center">2023.10.19</td>
-            </tr>
-            <tr>
-              <td className="text-center">도서추천</td>
-              <td>이 책을 추천합니다.</td>
-              <td className="text-center">나요</td>
-              <td className="text-center">2023.10.19</td>
-            </tr>
+            {community.map((community) => (
+              <CommunityItem community={community} />
+            ))}
           </tbody>
         </table>
       </div>
@@ -93,4 +96,4 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default Community;

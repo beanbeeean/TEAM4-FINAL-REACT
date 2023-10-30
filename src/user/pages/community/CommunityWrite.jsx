@@ -5,6 +5,8 @@ import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftjsToHtml from "draftjs-to-html";
 import { Container } from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const RowBox = styled.div`
   width: 100%;
@@ -19,10 +21,12 @@ const Viewer = styled.div`
   border: 2px solid gray;
 `;
 
-const BoardWrite = () => {
+const CommunityWrite = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlString, setHtmlString] = useState("");
   const [selection, setSelection] = useState(1);
+  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
   const updateTextDescription = async (state) => {
     await setEditorState(state);
@@ -32,6 +36,25 @@ const BoardWrite = () => {
 
   const uploadCallback = () => {
     console.log("이미지 업로드");
+  };
+
+  const handleSubmit = () => {
+    axios
+      .get(`/community/write`, {
+        params: {
+          selection: selection,
+          title: title,
+          content: htmlString,
+        },
+      })
+      .then((response) => {
+        console.log("글 작성 성공", response.data);
+        alert("작성이 완료되었습니다.");
+        navigate(-1);
+      })
+      .catch((error) => {
+        console.error("글 작성 실패", error);
+      });
   };
 
   useEffect(() => {
@@ -49,7 +72,12 @@ const BoardWrite = () => {
           <option value="2">도서추천</option>
           <option value="3">스터디원 모집</option>
         </select>
-        <input type="text" placeholder="제목을 입력해주세요" />
+        <input
+          type="text"
+          placeholder="제목을 입력해주세요"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         {selection == 3 && <div>채팅방 개설</div>}
         <Editor
           placeholder="게시글을 작성해주세요"
@@ -67,7 +95,7 @@ const BoardWrite = () => {
           }}
         />
         <div>
-          <button>작성</button>
+          <button onClick={handleSubmit}>작성</button>
           <button>초기화</button>
         </div>
       </Container>
@@ -79,4 +107,4 @@ const BoardWrite = () => {
   );
 };
 
-export default BoardWrite;
+export default CommunityWrite;

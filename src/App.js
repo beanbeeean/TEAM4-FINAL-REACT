@@ -11,9 +11,9 @@ import Reservation from "./user/pages/reservation/Reservation";
 import StudyRoom from "./user/pages/reservation/StudyRoom";
 import SearchMain from "./user/pages/common/SearchMain";
 import CheckoutList from "./user/pages/book/CheckoutList";
-import Board from "./user/pages/community/Board";
-import BoardDetail from "./user/pages/community/BoardDetail";
-import BoardWrite from "./user/pages/community/BoardWrite";
+import Community from "./user/pages/community/Community";
+import CommunityDetail from "./user/pages/community/CommunityDetail";
+import CommunityWrite from "./user/pages/community/CommunityWrite";
 import CartPayConfirm from "./admin/pages/book/cart/CartPayConfirm";
 import MypageModal from "./user/components/mypage/MypageModal";
 import AdminLogin from "./admin/pages/common/AdminLogin";
@@ -59,9 +59,15 @@ function App() {
                     <Route path="/" element={<Home />} />
                     {/* <Route path="/books" element={<BookList />} /> */}
                     {/* <Route path="/books/:id" element={<BookDetail />} /> */}
-                    <Route path="/board" element={<Board />} />
-                    <Route path="/board/:id" element={<BoardDetail />} />
-                    <Route path="/board_write" element={<BoardWrite />} />
+                    <Route path="/community" element={<Community />} />
+                    <Route
+                      path="/community/:id"
+                      element={<CommunityDetail />}
+                    />
+                    <Route
+                      path="/community_write"
+                      element={<CommunityWrite />}
+                    />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/cart/confirm" element={<CartPayConfirm />} />
                     <Route path="/checkout_books" element={<CheckoutList />} />
