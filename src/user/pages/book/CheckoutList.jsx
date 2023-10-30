@@ -6,10 +6,17 @@ import axios from "axios";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
+import { Loading } from "../../components/common/Loading";
 
 const CheckoutList = () => {
+  const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [navState, setNavState] = useState("all");
+  const [searchBook, setSearchBook] = useState("");
+
+  console.log("navstate: ", navState);
+  console.log("searchBook: ", searchBook);
+
   const [page, setPage] = useState(1);
   const itemsPerPage = 20;
 
@@ -22,26 +29,39 @@ const CheckoutList = () => {
 
   useEffect(() => {
     axios
-      .get(`/checkout_books/nav/${navState}`)
+      .get(`/checkout_books/home`, {
+        params: {
+          category: navState,
+          keyword: searchBook,
+        },
+      })
       .then((response) => {
         setBooks(response.data.dtos);
         const bookDtos = response.data;
         // console.log("bookDtos : ", bookDtos)
 
         dispatch(bookActions.fetchBookDto(bookDtos));
+        setLoading(false);
       })
       .catch((error) => console.log(error));
-  }, [navState]);
-
+  }, [navState, searchBook]);
 
   return (
     <Container>
-      <BookListNav onNavStateChange={setNavState} />
-      <Row>
-        {displayedBooks.map((book) => {
-          return <CheckoutListItem book={book} key={book.id} />;
-        })}
-      </Row>
+      <BookListNav
+        onNavStateChange={setNavState}
+        onSearchBookChange={setSearchBook}
+      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <Row>
+          {displayedBooks.map((book) => {
+            return <CheckoutListItem book={book} key={book.id} />;
+          })}
+        </Row>
+      )}
+
       <PaginationControl
         page={page}
         between={4}

@@ -8,9 +8,16 @@ import { useSelector } from "react-redux";
 
 const CheckoutListItem = ({ book }) => {
   const [modalShow, setModalShow] = useState(false);
-
   const store = useSelector((state) => state);
-  let detailBook = store.book.bookDto.filter((e) => e.b_no === book.b_no * 1);
+  const [detailBook, setDetailBook] = useState(
+    store.book.bookDto.filter((e) => e.b_no === book.b_no * 1)
+  );
+
+  useEffect(() => {
+    let empty = [];
+    empty = store.book.bookDto.filter((e) => e.b_no === book.b_no * 1).slice();
+    setDetailBook(empty);
+  }, []);
 
   return (
     <div className={styles.item_wrap}>
