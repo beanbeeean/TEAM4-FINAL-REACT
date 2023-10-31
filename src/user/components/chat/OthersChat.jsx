@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./css/Chatting.module.css";
+import styles from "../../css/chat/Chat.module.css";
 const OthersChat = ({ chat }) => {
   return (
     <div className={styles.others}>
