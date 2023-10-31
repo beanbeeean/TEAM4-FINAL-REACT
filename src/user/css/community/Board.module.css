@@ -140,13 +140,14 @@ table.board_table th {
 }
 
 table.board_table th:nth-child(2) {
-  width: 55%;
+  width: 50%;
 }
 
 table.board_table th:nth-child(1),
 table.board_table th:nth-child(3),
-table.board_table th:nth-child(4) {
-  width: 15%;
+table.board_table th:nth-child(4),
+table.board_table th:nth-child(5) {
+  width: 11%;
 }
 
 table.board_table td {
