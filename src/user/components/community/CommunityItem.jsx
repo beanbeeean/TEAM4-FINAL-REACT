@@ -19,6 +19,7 @@ const CommunityItem = ({ community }) => {
       <Link to={`/community/${community.c_no}`}>
         <td>{community.c_title}</td>
       </Link>
+      <td className="text-center">{community.c_hit}</td>
       <td className="text-center">{community.u_no}</td>
       <td className="text-center">{`${yyyy}-${mm}-${dd}`}</td>
     </tr>

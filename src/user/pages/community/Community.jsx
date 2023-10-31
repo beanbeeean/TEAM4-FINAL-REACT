@@ -86,6 +86,7 @@ const Community = () => {
             <tr>
               <th className="text-center">TYPE</th>
               <th className="text-center">TITLE</th>
+              <th className="text-center">HIT</th>
               <th className="text-center">USER</th>
               <th className="text-center">DATE</th>
             </tr>

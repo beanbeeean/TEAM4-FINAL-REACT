@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "../../css/community/CommunityDetail.module.css";
 
 const CommunityDetail = () => {
@@ -8,6 +8,7 @@ const CommunityDetail = () => {
   console.log("id : ", id);
 
   const [content, setContent] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -17,6 +18,17 @@ const CommunityDetail = () => {
       })
       .catch((error) => console.log(error));
   }, [id]);
+
+  const deleteCommunity = () => {
+    axios
+      .post(`/community/delete${id}`)
+      .then((response) => {
+        setContent(response.data);
+        alert("삭제가 완료되었습니다.");
+        navigate(-1);
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div className={styles.section_wrap}>
@@ -30,7 +42,9 @@ const CommunityDetail = () => {
             </span>
             <span className={styles.modify_delete}>
               <span>
-                <a className={styles.delete_btn}>삭제하기</a>
+                <a className={styles.delete_btn} onClick={deleteCommunity}>
+                  삭제하기
+                </a>
               </span>
               <span>&nbsp;|&nbsp;</span>
               <span>
