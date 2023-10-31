@@ -4,42 +4,45 @@ import styles from "../../css/book/CheckoutDetail.module.css";
 import CheckoutModal from "../../components/book/CheckoutModal";
 import axios from "axios";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CheckoutDetail = () => {
   const [modalShow, setModalShow] = useState(false);
-  const [book, setBook] = useState(null);
   const id = useParams().id;
 
-  console.log("id : ", id);
+  const store = useSelector((state) => state);
+  const detailBook = store.book.bookDto.filter((e) => e.b_no === id * 1);
 
-  useEffect(() => {
-    axios
-      .get(`/checkout_books/${id}`)
-      .then((response) => {
-        setBook(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [id]);
+  // const [book, setBook] = useState(null);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`/checkout_books/${id}`)
+  //     .then((response) => {
+  //       setBook(response.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, [id]);
 
   return (
     <Container>
       <Row>
-        {book !== null && (
+        {detailBook[0] !== undefined && (
           <div className={styles.bookdetail_wrap}>
             <div>
-              <img className={styles.bookImg} src={book.b_cover} />
+              <img className={styles.bookImg} src={detailBook[0].b_cover} />
               <div className={styles.copyright}>
                 도서 DB 제공 : 알라딘 인터넷서점(www.aladin.co.kr)
               </div>
               {/* <div className={styles.more_detail}>도서 자세히보기</div> */}
             </div>
             <div className={styles.content_wrap}>
-              <h2>{book.b_title}</h2>
+              <h2>{detailBook[0].b_title}</h2>
               <div className={styles.name}>
-                <span>{book.b_author}</span> |{" "}
-                <span>{book.b_publisher}&nbsp;</span>
+                <span>{detailBook[0].b_author}</span> |{" "}
+                <span>{detailBook[0].b_publisher}&nbsp;</span>
                 <span className={styles.publish_date}>
-                  | {book.b_publish_date}
+                  | {detailBook[0].b_publish_date}
                 </span>
               </div>
 
@@ -53,20 +56,30 @@ const CheckoutDetail = () => {
 
                 <div className={styles.count_wrap}>
                   <span className={styles.count}>대여 가능 수량 :</span>&nbsp;
-                  <span>{book.b_stock}</span>
+                  <span>{detailBook[0].b_stock}</span>
                 </div>
 
                 <div className={styles.buttons}>
-                  <input
-                    className={styles.checkout_btn}
-                    type="button"
-                    value="대여하기"
-                    onClick={() => setModalShow(true)}
-                  />
+                  {detailBook[0].b_stock > 0 ? (
+                    <input
+                      className={styles.checkout_btn}
+                      type="button"
+                      value="대여하기"
+                      onClick={() => setModalShow(true)}
+                    />
+                  ) : (
+                    <input
+                      className={styles.checkoutDis_btn}
+                      type="button"
+                      value="대여하기"
+                      disabled
+                    />
+                  )}
                   <CheckoutModal
                     show={modalShow}
+                    setModalShow={setModalShow}
                     onHide={() => setModalShow(false)}
-                    book={book}
+                    book={detailBook[0]}
                   />
                 </div>
               </div>
@@ -74,10 +87,15 @@ const CheckoutDetail = () => {
           </div>
         )}
       </Row>
-      {book !== null && (
+      {detailBook[0] !== null && (
         <Row>
           <div className={styles.description}>소개글</div>
-          <div>{book.b_description}</div>
+
+          {detailBook[0].b_description == "" ? (
+            <div>등록된 소개글이 없습니다. </div>
+          ) : (
+            <div>{detailBook[0].b_description}</div>
+          )}
         </Row>
       )}
     </Container>

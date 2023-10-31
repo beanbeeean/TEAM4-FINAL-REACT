@@ -52,7 +52,7 @@
   font-size: 0.9em;
 }
 
-.buttons_wrap input[type="button"] {
+.buttons_wrap .checkout_btn {
   width: 250px;
   padding: 3px;
   border: none;
@@ -61,8 +61,17 @@
   color: #fff;
 }
 
-.buttons_wrap input[type="button"]:hover {
+.buttons_wrap .checkout_btn:hover {
   background-color: #fd8a69;
+}
+
+.buttons_wrap .checkoutDis_btn {
+  width: 250px;
+  padding: 3px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dadada;
+  color: #fff;
 }
 
 .book_pagenation {
