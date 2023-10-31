@@ -8,14 +8,12 @@ import Cart from "./admin/pages/book/cart/Cart";
 import CheckoutDetail from "./user/pages/book/CheckoutDetail";
 import MyPage from "./user/pages/common/MyPage";
 import Reservation from "./user/pages/reservation/Reservation";
-import StudyRoom from "./user/pages/reservation/StudyRoom";
 import SearchMain from "./user/pages/common/SearchMain";
 import CheckoutList from "./user/pages/book/CheckoutList";
 import Community from "./user/pages/community/Community";
 import CommunityDetail from "./user/pages/community/CommunityDetail";
 import CommunityWrite from "./user/pages/community/CommunityWrite";
 import CartPayConfirm from "./admin/pages/book/cart/CartPayConfirm";
-import MypageModal from "./user/components/mypage/MypageModal";
 import AdminLogin from "./admin/pages/common/AdminLogin";
 import AdminCreateAccount from "./admin/pages/common/AdminCreateAccount";
 import Admin from "./admin/pages/common/Admin";
@@ -25,6 +23,7 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import CommunityModify from "./user/pages/community/CommunityModify";
+import ChatModal from "./user/components/chat/ChatModal";
 
 function App() {
   const persistor = persistStore(store);
@@ -52,8 +51,7 @@ function App() {
             <div id="user_wrap">
               <Sidebar />
               <div id="section">
-                {/* <ChatModal /> */}
-                <MypageModal />
+                <ChatModal />
                 <Header />
                 <div className="section_area">
                   <Routes>
