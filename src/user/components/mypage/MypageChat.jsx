@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../../css/mypage/MypageChat.module.css";
-import MyChat from "../common/chat/MyChat";
-import OthersChat from "../common/chat/OthersChat";
+import MyChat from "../chat/MyChat";
+import OthersChat from "../chat/OthersChat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import MypageChatItem from "./MypageChatItem";
