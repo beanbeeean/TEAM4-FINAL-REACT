@@ -29,6 +29,9 @@ const Sidebar = () => {
       case 4:
         navigate("/community");
         break;
+      case 5:
+      navigate("/mypage");
+        break;
     }
   };
   return (
@@ -61,6 +64,13 @@ const Sidebar = () => {
         >
           COMMUNITY
         </li>
+        {user ? (
+        <li
+          onClick={() => movePage(5)}
+          className={`${currentMenu == 5 && styles.on}`}
+        >
+          MyPage
+        </li> ):<></>}
       </ul>
 
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />

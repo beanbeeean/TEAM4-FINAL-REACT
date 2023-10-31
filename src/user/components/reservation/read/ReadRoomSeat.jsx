@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styles from "../../../css/reservation/ReadRoom.module.css";
 const ReadRoomSeat = ({readRoom, setSeat, seat, test}) => {
 
-  const [currentTime, setCurrentTime] = useState(new Date().toISOString().replace('T', ' ').slice(0, 19));
+  let today = new Date(); 
+  let today2 = new Date(test[readRoom].re_reservation); 
 
   const selection = (e) => {
     console.log(e.target.textContent);
@@ -14,7 +15,7 @@ const ReadRoomSeat = ({readRoom, setSeat, seat, test}) => {
 
   return (
     <>
-      { (test[readRoom].re_state && currentTime>test[readRoom].re_reservation) ? (<td
+      { (test[readRoom].re_state && today.getTime() > today2.getTime()) ? (<td
             className={`${seat == test[readRoom].re_seat && styles.user_select}`}
             onClick={(e) => selection(e)}
           >

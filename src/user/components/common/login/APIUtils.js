@@ -40,6 +40,11 @@ export function signup(signupRequest) {
     return axiosInstance.post("/auth/signup", signupRequest);
 }
 
-export function test(signupRequest) {
-    return axiosInstance.get("/test", signupRequest);
+export function myPage() {
+    return axiosInstance.get("/user/myPage");
+}
+
+export function userUpdate(test) {
+    console.log("test : " + test);
+    return axiosInstance.get("/user/userUpdate",test);
 }

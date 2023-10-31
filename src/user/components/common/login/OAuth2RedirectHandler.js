@@ -1,8 +1,9 @@
 import React from 'react';
 import { ACCESS_TOKEN } from './';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { userLogin } from '../../../../redux/user/slices/userSlice';
+import { userLogin, userLogout } from '../../../../redux/user/slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { myPage } from './APIUtils';
 
 const OAuth2RedirectHandler = () => {
     
@@ -25,7 +26,13 @@ const OAuth2RedirectHandler = () => {
 
     if (token) {
         localStorage.setItem(ACCESS_TOKEN, token);
-        dispatch(userLogin());
+        myPage()
+        .then(response => {
+            dispatch(userLogin(response.data));
+        }).catch(error => {
+            alert((error && error.message) || '로그인에 실패하였습니다.');
+            dispatch(userLogout());
+        });
         navigate("/", { state: { from: location } });
         return null;
     } else {
