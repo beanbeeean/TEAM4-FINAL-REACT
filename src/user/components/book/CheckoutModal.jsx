@@ -55,8 +55,8 @@ const CheckoutModal = (props) => {
       .then((response) => {
         console.log("서버 응답 데이터:", response.data);
         alert("대여가 완료되었습니다.");
-        props.setModalShow(false);
         dispach(bookActions.updateStock(props.book.b_no));
+        props.setModalShow(false);
       })
       .catch((error) => {
         console.error("Error:", error);

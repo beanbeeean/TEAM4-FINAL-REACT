@@ -25,9 +25,10 @@ const CheckoutList = () => {
   const displayedBooks = books.slice(startIndex, endIndex);
 
   const dispatch = useDispatch();
-  // let bookDtos;
+  const { bookDto } = useSelector((state) => state.book);
 
   useEffect(() => {
+    let arr = [];
     axios
       .get(`/checkout_books/home`, {
         params: {
@@ -36,13 +37,18 @@ const CheckoutList = () => {
         },
       })
       .then((response) => {
-        setBooks(response.data.dtos);
         const bookDtos = response.data;
         dispatch(bookActions.fetchBookDto(bookDtos));
+        arr = Array.from(response.data.dtos);
         setLoading(false);
+        setBooks(arr);
       })
       .catch((error) => console.log(error));
   }, [navState, searchBook]);
+
+  useEffect(() => {
+    setBooks(bookDto);
+  }, [bookDto]);
 
   return (
     <Container>
@@ -75,9 +81,13 @@ const CheckoutList = () => {
             </Row>
           ) : (
             <Row>
-              {displayedBooks.map((book) => {
-                return <CheckoutListItem book={book} key={book.id} />;
-              })}
+              {displayedBooks.map((book) => (
+                <CheckoutListItem
+                  navState={navState}
+                  book={book}
+                  idx={book.b_no}
+                />
+              ))}
             </Row>
           )}
         </Row>

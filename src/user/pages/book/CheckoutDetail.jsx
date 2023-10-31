@@ -13,17 +13,6 @@ const CheckoutDetail = () => {
   const store = useSelector((state) => state);
   const detailBook = store.book.bookDto.filter((e) => e.b_no === id * 1);
 
-  // const [book, setBook] = useState(null);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/checkout_books/${id}`)
-  //     .then((response) => {
-  //       setBook(response.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, [id]);
-
   return (
     <Container>
       <Row>
@@ -34,7 +23,6 @@ const CheckoutDetail = () => {
               <div className={styles.copyright}>
                 도서 DB 제공 : 알라딘 인터넷서점(www.aladin.co.kr)
               </div>
-              {/* <div className={styles.more_detail}>도서 자세히보기</div> */}
             </div>
             <div className={styles.content_wrap}>
               <h2>{detailBook[0].b_title}</h2>
