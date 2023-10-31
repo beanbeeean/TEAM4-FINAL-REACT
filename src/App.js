@@ -24,6 +24,7 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import CommunityModify from "./user/pages/community/CommunityModify";
 
 function App() {
   const persistor = persistStore(store);
@@ -67,6 +68,10 @@ function App() {
                     <Route
                       path="/community_write"
                       element={<CommunityWrite />}
+                    />
+                    <Route
+                      path="/community_modify/:id"
+                      element={<CommunityModify />}
                     />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/cart/confirm" element={<CartPayConfirm />} />

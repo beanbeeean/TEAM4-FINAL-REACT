@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "../../css/community/CommunityDetail.module.css";
 
 const CommunityDetail = () => {
@@ -14,7 +14,6 @@ const CommunityDetail = () => {
       .get(`/community/${id}`)
       .then((response) => {
         setContent(response.data);
-        console.log("response : ", response);
       })
       .catch((error) => console.log(error));
   }, [id]);
@@ -35,11 +34,14 @@ const CommunityDetail = () => {
               </span>
               <span>&nbsp;|&nbsp;</span>
               <span>
-                <a href="/">수정하기</a>
+                <Link to={`/community_modify/${id}`}>수정하기</Link>
               </span>
             </span>
             <span className={styles.modify_delete}></span>
-            <div className={styles.content_area}>{content.c_content}</div>
+            <div
+              className={styles.content_area}
+              dangerouslySetInnerHTML={{ __html: content.c_content }}
+            ></div>
             <div className={styles.hit_wrap}>
               <span>조회 수 </span>
               <span className={styles.hit_num}>{content.c_hit}</span>

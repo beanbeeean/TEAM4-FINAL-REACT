@@ -5,16 +5,21 @@ import { Link } from "react-router-dom";
 import styles from "../../css/community/Board.module.css";
 import CommunityItem from "../../components/community/CommunityItem";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
 
 const Community = () => {
   const [on, setOn] = useState(1);
   const [community, setCommunity] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
       .get(`/community`)
       .then((response) => {
         setCommunity(response.data.communityDtos);
+        const communityDtos = response.data;
+        dispatch(communityActions.fetchCommunityDto(communityDtos));
       })
       .catch((error) => console.log(error));
   }, []);
