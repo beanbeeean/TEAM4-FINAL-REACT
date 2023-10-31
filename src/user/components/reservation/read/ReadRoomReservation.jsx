@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import styles from "../../../css/reservation/ReadRoom.module.css";
 import ReservationModal from "./ReservationModal";
 
-const ReadRoomReservation = ({ seat, readRoom }) => {
+const ReadRoomReservation = ({ seat, readRoom, setTest}) => {
   const [modalShow, setModalShow] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   const checkReservation = () => {
-    if (seat == 0) {
+    if (seat == null) {
       alert("자리를 선택해주세요.");
     } else {
       setModalShow(true);
@@ -50,6 +50,7 @@ const ReadRoomReservation = ({ seat, readRoom }) => {
         readRoom={readRoom}
         seat={seat}
         time={currentTime}
+        setTest={setTest}
         onHide={() => setModalShow(false)}
       />
     </div>

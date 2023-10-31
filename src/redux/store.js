@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './user/slices/counterSlice'
+import seatReducer from './user/slices/seatSlice'
 import userReducer from './user/slices/userSlice'
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -13,7 +13,7 @@ const persistedReducer = persistReducer(persistConfig, userReducer);
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    seat: seatReducer,
     user: persistedReducer,
   },
 })

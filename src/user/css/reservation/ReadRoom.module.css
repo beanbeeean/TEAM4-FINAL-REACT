@@ -69,6 +69,11 @@ div.readroom_map table {
   color: #fff;
 }
 
+.readroom_map td.impossible_select {
+  background-color: rgb(255, 0, 0);
+  color: #fff;
+}
+
 .rm_first_line {
   margin-bottom: 54px;
 }

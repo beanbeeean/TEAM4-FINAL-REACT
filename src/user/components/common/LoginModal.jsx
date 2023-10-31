@@ -5,7 +5,6 @@ import { login } from './login/APIUtils';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Counter from '../../../redux/user/Counter';
 import { userLogin, userLogout } from '../../../redux/user/slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -100,7 +99,6 @@ function LoginForm(props) {
             .then(response => {
                 console.log(JSON.stringify(response, null, 2));
                 localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
-                // localStorage.setItem(REFRESH_TOKEN, response.refreshToken);
                 alert("로그인에 성공하였습니다.");
                 dispatch(userLogin());
                 navigate("/");

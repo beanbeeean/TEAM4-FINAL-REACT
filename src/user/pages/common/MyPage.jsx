@@ -11,9 +11,9 @@ const MyPage = () => {
   const [on, setOn] = useState(1);
   const location = useLocation();
 
-  useEffect(() => {
-    setOn(location.state.page);
-  }, [location]);
+  // useEffect(() => {
+  //   setOn(location.state.page);
+  // }, [location]);
 
   return (
     <div className={styles.mypage_wrap}>

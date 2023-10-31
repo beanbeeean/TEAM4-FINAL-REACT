@@ -5,10 +5,16 @@ import styles from "../../../css/reservation/ReadRoom.module.css";
 import { useNavigate } from "react-router-dom/dist";
 import axios from "axios";
 import { test } from "../../common/login/APIUtils";
+import { seatChk } from "../../../../redux/user/slices/seatSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const ReadRoom = () => {
   const [readRoom, setReadRoom] = useState(1);
   const [seat, setSeat] = useState();
+  const [test, setTest] = useState();
+
+  const chk = useSelector((state) => state.seat.value);
+  const dispatch = useDispatch();
 
   const changeReadRoom = (num) => {
     setSeat();
@@ -16,18 +22,18 @@ const ReadRoom = () => {
   };
 
   const seatHandle = (event) => {
-
-    test()
-        .then(response => {
-            console.log(JSON.stringify(response, null, 2));
-            alert("TEST에 성공하였습니다.");
-        }).catch(error => {
-            alert('TEST에 실패하였습니다.');
-        });
+    axios.get('http://localhost:8090/read/seat?')
+    .then(response => {
+      console.log(response.data);
+      setTest(response.data);
+      // dispatch(seatChk());
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
   }
 
   useEffect(() => {
-    console.log('마운트 될 때만 실행된다.');
     seatHandle();
   }, [readRoom] );
 
@@ -60,8 +66,8 @@ const ReadRoom = () => {
         </div>
       </div>
       <div className={styles.readroom_content}>
-        <ReadRoomMap setSeat={setSeat} seat={seat} />
-        <ReadRoomReservation seat={seat} readRoom={readRoom} />
+        {test==null ? undefined : <ReadRoomMap readRoom={readRoom-1} setSeat={setSeat} seat={seat} test={test}/>}
+        <ReadRoomReservation seat={seat} readRoom={readRoom} setTest={setTest}/>
       </div>
     </div>
   );

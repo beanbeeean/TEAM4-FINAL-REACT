@@ -4,8 +4,41 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ReservationModal = (props) => {
+
+  const reservation = (e) => {
+
+    let today = new Date(); 
+    today.setHours(today.getHours() + 11); 
+    const time = today.toISOString().replace('T', ' ').slice(0, 19);
+    axios.post('http://localhost:8090/read/reservation', {
+      re_room_no: props.readRoom,
+      re_seat: props.seat,
+      re_reservation: time, 
+    })
+    .then(response => {
+      console.log(response.data);
+      // dispatch(seatChk());
+      axios.get('http://localhost:8090/read/seat?')
+      .then(response => {
+        console.log(response.data);
+        props.setTest(response.data);
+        // dispatch(seatChk());
+        props.onHide(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data: ', error);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+    console.log(props.readRoom +" "+props.seat +" "+time);
+  };
+
   return (
     <Modal
       {...props}
@@ -71,7 +104,7 @@ const ReservationModal = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary">예약</Button>
+        <Button variant="primary" onClick={() => reservation()}>예약</Button>
         <Button variant="secondary" onClick={props.onHide}>
           닫기
         </Button>
