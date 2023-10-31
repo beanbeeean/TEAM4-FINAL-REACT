@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const ReservationModal = (props) => {
 
@@ -28,6 +27,7 @@ const ReservationModal = (props) => {
         props.setTest(response.data);
         // dispatch(seatChk());
         props.onHide(false);
+        alert("좌석을 예약했습니다");
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
