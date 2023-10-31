@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import stylesAdmin from "../../css/book/CoutUserModal.module.css";
+import CheckoutUserList from "./CheckoutUserList";
+import axios from "axios";
 
 const CheckoutUserModal = (props) => {
   const [state, setState] = useState([]);
+  console.log("props : ", props);
+  const [users, setUsers] = useState([]);
 
-  const changeState = () => {
-    alert("반납하시겠습니까?");
-  };
+  useEffect(() => {
+    let arr = [];
+    axios
+      .get(`/admin/management/checkout_book_user_list${props.book.b_no}`)
+      .then((response) => {
+        const chkUserDtos = response.data;
+        arr = Array.from(response.data.dtos);
+        setUsers(arr);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  console.log("users : ", users);
 
   return (
     <Modal
@@ -18,7 +32,7 @@ const CheckoutUserModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          잭과 콩나물 (15035)
+          {props.book.b_title} ({props.book.b_isbn})
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={stylesAdmin.user_modal}>
@@ -33,15 +47,9 @@ const CheckoutUserModal = (props) => {
             </tr>
           </thead>
           <tbody>
-            <tr className={stylesAdmin.user_item}>
-              <td>5</td>
-              <td>2023.10.20</td>
-              <td>2023.10.30</td>
-              <td>{state == 0 ? "대여중" : "대여가능"} </td>
-              <td>
-                <input type="button" value="반납" onClick={changeState} />
-              </td>
-            </tr>
+            {users.map((user) => (
+              <CheckoutUserList user={user} />
+            ))}
           </tbody>
         </table>
       </Modal.Body>

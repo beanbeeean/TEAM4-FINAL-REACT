@@ -27,6 +27,24 @@ const bookSlice = createSlice({
   initialState: bookState,
   //action을 담자.
   reducers: {
+    updateBookInfo: (state, action) => {
+      state.bookDto.forEach((e, idx) => {
+        if (e.b_no === action.payload.b_no) {
+          const { cnt, bookState } = action.payload;
+          console.log("e.cnt : ", cnt);
+          console.log("e.bookState : ", bookState);
+
+          state.bookDto[idx].b_stock = cnt;
+          state.bookDto[idx].b_state = bookState;
+          console.log(
+            "state.bookDto[idx].b_stock : ",
+            state.bookDto[idx].b_stock
+          );
+          console.log("state.bookDto 1: ", state.bookDto);
+        }
+      });
+    },
+
     updateStock: (state, action) => {
       state.bookDto.forEach((e, idx) => {
         if (e.b_no === action.payload && e.b_stock > 0) {

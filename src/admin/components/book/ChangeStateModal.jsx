@@ -1,85 +1,24 @@
-// import React, { useState } from "react";
-// import { Modal, Button } from "react-bootstrap";
-// import stylesAdmin from "../../css/book/ChangeStateModal.module.css";
-
-// const ChangeStateModal = (props) => {
-//   const [show, setShow] = useState(false);
-//   const [cnt, setCnt] = useState(1);
-
-//   const decreaseCnt = () => {
-//     console.log("decreaseCnt");
-//     if (cnt > 1) {
-//       setCnt(cnt - 1);
-//     }
-//   };
-
-//   const increaseCnt = () => {
-//     console.log("increaseCnt");
-//     if (cnt < 5) {
-//       setCnt(cnt + 1);
-//     }
-//   };
-
-//   const onChange = (e) => {
-//     console.log("onChange");
-
-//     const newValue = parseInt(e.target.value);
-
-//     if (!isNaN(newValue) && newValue >= 1) {
-//       setCnt(newValue);
-//     }
-//   };
-
-//   return (
-//     <Modal
-//       {...props}
-//       size="md"
-//       aria-labelledby="contained-modal-title-vcenter"
-//       centered
-//     >
-//       <Modal.Header closeButton>
-//         <Modal.Title id="contained-modal-title-vcenter">
-//           잭과 콩나물 (15035)
-//         </Modal.Title>
-//       </Modal.Header>
-//       <Modal.Body>
-//         <div className={stylesAdmin.count}>
-//           <span>도서 수량</span>
-//           <input type="button" value="-" onClick={decreaseCnt}></input>
-//           <input type="text" value={cnt} onChange={onChange}></input>
-//           <input type="button" value="+" onClick={increaseCnt}></input>
-//         </div>
-//         <div className={stylesAdmin.book_state}>
-//           <span>도서 상태</span>
-//           <select>
-//             <option value="1">사용가능</option>
-//             <option value="2">사용불가</option>
-//           </select>
-//         </div>
-//       </Modal.Body>
-//       <Modal.Footer>
-//         <Button className={stylesAdmin.cout_btn}>변경하기</Button>
-//         <Button className={stylesAdmin.cancle_btn} onClick={props.onHide}>
-//           닫기
-//         </Button>
-//       </Modal.Footer>
-//     </Modal>
-//   );
-// };
-
-// export default ChangeStateModal;
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import stylesAdmin from "../../css/book/ChangeStateModal.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
 
 const ChangeStateModal = (props) => {
   console.log("props : ", props);
-  const [cnt, setCnt] = useState(props.stock);
-  const [bookState, setBookState] = useState("1");
+
+  const dispatch = useDispatch();
+  const [cnt, setCnt] = useState();
+  const [bookState, setBookState] = useState();
+
+  useEffect(() => {
+    setCnt(props.book.b_stock);
+    setBookState(props.book.b_state);
+  }, [props.book.b_no]);
 
   const decreaseCnt = () => {
-    if (cnt > 1) {
+    if (cnt > 0) {
       setCnt(cnt - 1);
     }
   };
@@ -103,8 +42,25 @@ const ChangeStateModal = (props) => {
   };
 
   const handleSave = () => {
-    props.onSave({ cnt, bookState });
-    props.onHide();
+    axios
+      .get(`/admin/management/change_book_state`, {
+        params: {
+          no: props.book.b_no,
+          stock: cnt,
+          state: bookState,
+        },
+      })
+      .then((response) => {
+        const result = response.data;
+        console.log("response.data : ", response.data);
+        const b_no = props.book.b_no;
+        dispatch(bookActions.updateBookInfo({ b_no, cnt, bookState }));
+        if (result == 1) {
+          alert("수정되었습니다.");
+          props.onHide(true);
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -116,21 +72,21 @@ const ChangeStateModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          잭과 콩나물 (15035)
+          {props.book.b_title} ({props.book.b_isbn})
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className={stylesAdmin.count}>
           <span>도서 수량</span>
           <input type="button" value="-" onClick={decreaseCnt}></input>
-          <input type="text" value={cnt} onChange={onChange}></input>
+          <input type="text" value={cnt} onChange={(e) => onChange(e)}></input>
           <input type="button" value="+" onClick={increaseCnt}></input>
         </div>
         <div className={stylesAdmin.book_state}>
           <span>도서 상태</span>
           <select value={bookState} onChange={onBookStateChange}>
             <option value="1">사용가능</option>
-            <option value="2">사용불가</option>
+            <option value="0">사용불가</option>
           </select>
         </div>
       </Modal.Body>

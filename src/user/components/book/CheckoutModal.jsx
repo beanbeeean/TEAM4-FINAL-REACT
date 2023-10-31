@@ -11,7 +11,7 @@ const CheckoutModal = (props) => {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const today = `${year}.${month}.${day}`;
-  const dispach = useDispatch();
+  const dispatch = useDispatch();
 
   let daysInMonth = 0;
 
@@ -55,7 +55,7 @@ const CheckoutModal = (props) => {
       .then((response) => {
         console.log("서버 응답 데이터:", response.data);
         alert("대여가 완료되었습니다.");
-        dispach(bookActions.updateStock(props.book.b_no));
+        dispatch(bookActions.updateStock(props.book.b_no));
         props.setModalShow(false);
       })
       .catch((error) => {
