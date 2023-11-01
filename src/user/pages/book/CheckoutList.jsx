@@ -7,15 +7,13 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { Loading } from "../../components/common/Loading";
+import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 
 const CheckoutList = () => {
   const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [navState, setNavState] = useState("all");
   const [searchBook, setSearchBook] = useState("");
-
-  console.log("navstate: ", navState);
-  console.log("searchBook: ", searchBook);
 
   const [page, setPage] = useState(1);
   const itemsPerPage = 20;
@@ -25,10 +23,26 @@ const CheckoutList = () => {
   const displayedBooks = books.slice(startIndex, endIndex);
 
   const dispatch = useDispatch();
+
   const { bookDto } = useSelector((state) => state.book);
 
   useEffect(() => {
     let arr = [];
+    axios
+      .get(`/checkout_books/checkout_book_list`, {
+        params: {
+          id: null,
+          u_email: null,
+        },
+      })
+      .then((response) => {
+        const chkBookDtos = response.data;
+        dispatch(chkBookActions.fetchChkBookDto(chkBookDtos));
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
     axios
       .get(`/checkout_books/home`, {
         params: {
@@ -40,6 +54,7 @@ const CheckoutList = () => {
         const bookDtos = response.data;
         dispatch(bookActions.fetchBookDto(bookDtos));
         arr = Array.from(response.data.dtos);
+
         setLoading(false);
         setBooks(arr);
       })

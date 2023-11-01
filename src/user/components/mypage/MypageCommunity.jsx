@@ -3,9 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styles from "../../css/mypage/MypageCommunity.module.css";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import MypageCommunityItem from "./MypageCommunityItem";
 
 const MypageCommunity = () => {
   const [on, setOn] = useState(1);
+  const { userDto } = useSelector((state) => state.user);
+  const { communityDto } = useSelector((state) => state.community);
+  console.log("communityDto : ", communityDto);
+
+  const dispatch = useDispatch();
+  const isChkBook = communityDto.communityDtos.filter(
+    (e) => e.u_email === userDto.u_email
+  );
+  console.log("isChkBook : ", isChkBook);
 
   return (
     <>
@@ -43,18 +54,9 @@ const MypageCommunity = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="text-center">도서추천</td>
-              <td>이 책을 추천합니다.</td>
-              <td className="text-center">나요</td>
-              <td className="text-center">2023.10.19</td>
-            </tr>
-            <tr>
-              <td className="text-center">도서추천</td>
-              <td>이 책을 추천합니다.</td>
-              <td className="text-center">나요</td>
-              <td className="text-center">2023.10.19</td>
-            </tr>
+            {isChkBook.map((item) => (
+              <MypageCommunityItem item={item} />
+            ))}
           </tbody>
         </table>
       </div>

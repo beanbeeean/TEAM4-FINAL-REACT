@@ -7,6 +7,7 @@ import draftjsToHtml from "draftjs-to-html";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const RowBox = styled.div`
   width: 100%;
@@ -28,6 +29,9 @@ const CommunityWrite = () => {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
+  const { userDto } = useSelector((state) => state.user);
+  console.log("userDto : ", userDto.u_email);
+
   const updateTextDescription = async (state) => {
     await setEditorState(state);
     const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
@@ -45,6 +49,7 @@ const CommunityWrite = () => {
           selection: selection,
           title: title,
           content: htmlString,
+          u_email: userDto.u_email,
         },
       })
       .then((response) => {

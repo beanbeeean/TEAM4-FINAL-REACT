@@ -7,16 +7,6 @@ const AdminBookListItem = ({ book }) => {
   const [coutModalShow, setCoutModalShow] = useState(false);
   const [stateShow, setStateShow] = useState(false);
 
-  const [bookCnt, setBookCnt] = useState(5);
-  const [bookState, setBookState] = useState(1);
-
-  const handleSave = (updatedValues) => {
-    console.log("Updated cnt:", updatedValues.cnt);
-    console.log("Updated bookState:", updatedValues.bookState);
-    setBookCnt(updatedValues.cnt);
-    setBookState(updatedValues.bookState);
-  };
-
   return (
     <tr>
       <td>{book.b_no}</td>

@@ -4,13 +4,27 @@ import styles from "../../css/book/BookCoutList.module.css";
 import { Link } from "react-router-dom";
 import CheckoutModal from "./CheckoutModal";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 
 const CheckoutListItem = ({ navState, book, idx }) => {
   const [modalShow, setModalShow] = useState(false);
+  const [unable, setUnable] = useState(true);
 
-  console.log("nav Staasdsa", navState);
-  console.log("idx", idx);
+  const { userDto } = useSelector((state) => state.user);
+  const { chkBookDto } = useSelector((state) => state.chkBook);
+  // console.log("chkBookDto==========>", chkBookDto);
+
+  const isChkBook = chkBookDto.filter((e) => e.u_email === userDto.u_email);
+  console.log("isChkBook : ", isChkBook);
+
+  useEffect(() => {
+    isChkBook.map((item) => {
+      if (item.b_no == book.b_no) {
+        setUnable(false);
+      }
+    });
+  }, [isChkBook]);
 
   return (
     <div className={styles.item_wrap}>
@@ -32,7 +46,14 @@ const CheckoutListItem = ({ navState, book, idx }) => {
             대여 가능 수량 <span>{book.b_stock}</span>
           </span>
           <br />
-          {book.b_stock > 0 ? (
+          {!unable ? (
+            <input
+              className={styles.checkoutDis_btn}
+              type="button"
+              value="대여중"
+              disabled
+            />
+          ) : book.b_stock > 0 ? (
             <input
               className={styles.checkout_btn}
               type="button"

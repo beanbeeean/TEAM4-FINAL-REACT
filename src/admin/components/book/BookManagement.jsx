@@ -21,7 +21,7 @@ const BookManagement = () => {
   console.log("searchBook: ", searchBook);
 
   const [page, setPage] = useState(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -56,13 +56,7 @@ const BookManagement = () => {
   return (
     <div className={stylesAdmin.management_wrap}>
       <h2 className={stylesAdmin.admin_title}>BOOK MANAGEMENT</h2>
-      <div className={stylesAdmin.search_book}>
-        <input type="text" placeholder="SEARCH BOOK" />
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className={stylesAdmin.search_book_btn}
-        />
-      </div>
+
       <AdminBookListNav
         onNavStateChange={setNavState}
         onSearchBookChange={setSearchBook}

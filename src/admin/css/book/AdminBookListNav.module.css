@@ -1,29 +1,35 @@
-.book_search {
-  min-width: 400px;
-  margin-bottom: 10px;
-  border: 1px solid #feccbe;
-  border-radius: 15px;
-  padding: 5px;
-  padding-left: 10px;
-  position: relative;
+.search_book {
+  margin-bottom: 20px;
+  border-top: 1px solid #dadada;
+  padding-top: 20px;
+}
+
+.search_book > input {
+  padding: 10px 40px 10px 20px;
+  width: 360px;
+  border: 1px solid #dadada;
+  border-radius: 30px;
   outline: none;
 }
 
-.book_search_btn {
+.search_book_btn {
+  color: #cac9c9;
   position: relative;
-  left: -25px;
-  color: #feccbe;
+  left: -33px;
+  top: 1px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-.book_search_btn:hover {
-  color: #fd8a69;
+.search_book_btn:hover {
+  color: #242424;
 }
 
 .booklist_nav {
   display: flex;
   /* width: 450px; */
-  background-color: #fd8a69;
-  margin-bottom: 20px;
+  background-color: rgb(33, 41, 66);
+  /* margin-bottom: 20px; */
 }
 
 .booklist_nav li {
@@ -32,9 +38,9 @@
 }
 
 .booklist_nav li:hover {
-  background-color: #feccbe;
+  background-color: #bababa;
 }
 
 .nav_selected {
-  border-bottom: 5px solid #feccbe;
+  border-bottom: 5px solid #fff;
 }
