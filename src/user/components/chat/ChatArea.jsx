@@ -71,33 +71,46 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
     //console.log("payload 들어오냐? :"+payload);
     let arr = [];
     var chat = JSON.parse(payload.body);
-
+    console.log("=========================");
+    console.log("chat은 이거야", chat);
+    let type = chat.type;
     let test = chat.currentUser;
 
     setCurrentUser(chat.currentUser);
 
-    if (chat.type === "ENTER") {
-      if (test == userName) {
-        chat.content = chat.sender + chat.message;
-        lastMsg.push(chat.content);
+    if (type == "ENTER") {
+      if (test == userName && !chat.first) {
+        // chat.content = chat.sender + chat.message;
+        lastMsg.push(chat);
         arr = lastMsg.slice();
         setLastMsg(arr);
+      }
+
+      if (chat.sender === "ADMIN" && chat.first) {
+        chat.content = chat.sender + chat.message;
+        // msg.push(chat.content);
+        // setMsg([...msg]);
+        msg.push(chat);
+        setMsg([...msg]);
       }
 
       // setEnteredUser({ userName: userName, entered: true });
 
       //   setMsg(chat.content);
+
       getUserList();
     } else if (chat.type === "LEAVE") {
       // chatType 가 leave 라면 아래 내용
 
-      chat.content = chat.sender + chat.message;
-      msg.push(chat.content);
+      // chat.content = chat.sender + chat.message;
+      msg.push(chat);
       setMsg([...msg]);
     } else {
       // chatType 이 talk 라면 아래 내용용
-      chat.content = chat.sender + chat.message;
-      msg.push(chat.content);
+      // chat.content = chat.sender + chat.message;
+      // msg.push(chat.content);
+      // setMsg([...msg]);
+      msg.push(chat);
       setMsg([...msg]);
     }
     console.log("[onMessageReceived] stompClient : ", stompClient);
@@ -166,16 +179,21 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
 
       <div className={styles.chatting}>
         <div className={styles.chatting_log}>
-          <div className={styles.chat_date}>
-            <span>2023년 10월 20일</span>
-          </div>
           <div>{roomId}</div>
-          {lastMsg.map((msg) => (
-            <MyChat msg={msg} />
-          ))}
-          {msg.map((msg) => (
-            <MyChat msg={msg} />
-          ))}
+          {lastMsg.map((item) =>
+            item.sender == userName ? (
+              <MyChat item={item} />
+            ) : (
+              <OthersChat item={item} />
+            )
+          )}
+          {msg.map((item) =>
+            item.sender == userName ? (
+              <MyChat item={item} />
+            ) : (
+              <OthersChat item={item} />
+            )
+          )}
           {/* <MyChat msg={msg} /> */}
           {/* {data.map((chat) =>
             chat.user == 1 ? <MyChat chat={chat} /> : <OthersChat chat={chat} />
@@ -186,6 +204,7 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
           <input
             type="text"
             placeholder="메세지를 입력하세요"
+            value={inputText}
             onChange={(e) => setInputText(e.target.value)}
           />
           <FontAwesomeIcon
