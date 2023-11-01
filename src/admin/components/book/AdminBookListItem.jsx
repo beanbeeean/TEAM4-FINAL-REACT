@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/book/BookManagement.module.css";
 import CheckoutUserModal from "./CheckoutUserModal";
 import ChangeStateModal from "./ChangeStateModal";
+import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const AdminBookListItem = ({ book }) => {
   const [coutModalShow, setCoutModalShow] = useState(false);
   const [stateShow, setStateShow] = useState(false);
+  // const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`/admin/management/checkout_book_user_list${book.b_no}`)
+  //     .then((response) => {
+  //       const chkBookDtos = response.data;
+  //       console.log("chkBookDtos: ", chkBookDtos);
+  //       dispatch(chkBookActions.fetchChkBookDto(chkBookDtos.dtos));
+
+  //       // setList(chkBookDtos.dtos);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   return (
     <tr>
@@ -23,11 +41,14 @@ const AdminBookListItem = ({ book }) => {
           onClick={() => setStateShow(true)}
         />
       </td>
-      <CheckoutUserModal
-        book={book}
-        show={coutModalShow}
-        onHide={() => setCoutModalShow(false)}
-      />
+      {coutModalShow && (
+        <CheckoutUserModal
+          book={book}
+          show={coutModalShow}
+          onHide={() => setCoutModalShow(false)}
+        />
+      )}
+
       <ChangeStateModal
         show={stateShow}
         // onSave={handleSave}
