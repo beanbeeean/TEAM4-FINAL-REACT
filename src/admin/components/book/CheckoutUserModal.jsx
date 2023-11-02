@@ -3,25 +3,38 @@ import { Modal, Button } from "react-bootstrap";
 import stylesAdmin from "../../css/book/CoutUserModal.module.css";
 import CheckoutUserList from "./CheckoutUserList";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 
 const CheckoutUserModal = (props) => {
-  const [state, setState] = useState([]);
-  console.log("props : ", props);
   const [users, setUsers] = useState([]);
+  const [state, setState] = useState([]);
+
+  const dispatch = useDispatch();
+  const { chkBookDto } = useSelector((state) => state.chkBook);
+
+  // useEffect(() => {
+  //   let arr = [];
+  //   arr = Array.from(chkBookDto);
+  //   console.log("arr : ", arr);
+  //   setState();
+  // }, [chkBookDto]);
 
   useEffect(() => {
+    console.log("props.book", props.book);
     let arr = [];
     axios
       .get(`/admin/management/checkout_book_user_list${props.book.b_no}`)
       .then((response) => {
-        const chkUserDtos = response.data;
+        // setUsers([]);
+        const chkBookDtos = response.data;
+        console.log("chkBookDtos: ", chkBookDtos.dtos);
+        dispatch(chkBookActions.fetchChkBookDto(chkBookDtos.dtos));
         arr = Array.from(response.data.dtos);
         setUsers(arr);
       })
       .catch((error) => console.log(error));
   }, []);
-
-  console.log("users : ", users);
 
   return (
     <Modal
@@ -39,9 +52,8 @@ const CheckoutUserModal = (props) => {
         <table className={stylesAdmin.book_wrap}>
           <thead>
             <tr>
-              <th>U_NO</th>
-              <th>START DATE</th>
-              <th>END DATE</th>
+              <th>U_EMAIL</th>
+              <th>START/END DATE</th>
               <th>STATE</th>
               <th>CHANGE</th>
             </tr>

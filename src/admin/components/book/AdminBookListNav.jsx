@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import stylesAdmin from "../../css/book/AdminBookListNav.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-import axios from "axios";
 
 const AdminBookListNav = ({ onNavStateChange, onSearchBookChange }) => {
   const [keyword, setKeyword] = useState("");
@@ -16,17 +14,18 @@ const AdminBookListNav = ({ onNavStateChange, onSearchBookChange }) => {
 
   return (
     <div>
-      <input
-        className={stylesAdmin.book_search}
-        type="text"
-        placeholder="도서 검색"
-        onChange={(e) => setKeyword(e.target.value)}
-      />
-      <FontAwesomeIcon
-        icon={faMagnifyingGlass}
-        className={stylesAdmin.book_search_btn}
-        onClick={() => onSearchBookChange(keyword)}
-      />
+      <div className={stylesAdmin.search_book}>
+        <input
+          type="text"
+          placeholder="SEARCH BOOK"
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          className={stylesAdmin.search_book_btn}
+          onClick={() => onSearchBookChange(keyword)}
+        />
+      </div>
 
       <ul className={stylesAdmin.booklist_nav}>
         <li
