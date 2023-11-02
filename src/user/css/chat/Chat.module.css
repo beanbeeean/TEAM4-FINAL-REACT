@@ -52,7 +52,7 @@
   min-width: 800px;
   height: 600px;
   background-color: #fff;
-  border: 1px solid #dadada;
+  /* border: 1px solid #dadada; */
   border-radius: 10px;
   display: flex;
   position: absolute;
@@ -63,17 +63,39 @@
 
 .icon_wrap {
   width: 100%;
+  /* border-bottom: 1px solid #dadada; */
+  padding-bottom: 5px;
 }
 
 .leave_icon {
   cursor: pointer;
-  text-align: left;
+  float: right;
   font-size: 12px;
   font-weight: bold;
   color: #b2b2b2;
 }
 
 .leave_icon:hover {
+  color: #535353;
+}
+
+.chatting_room_name {
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+}
+
+.close_chat_log {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  color: #b1b1b1;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.close_chat_log:hover {
   color: #535353;
 }
 
@@ -146,7 +168,7 @@
 .chat_area {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 30px 30px 10px;
   width: 70%;
   height: 600px;
   display: flex;
@@ -165,11 +187,13 @@
 }
 
 .chatting .chatting_log {
-  height: 450px;
+  height: 430px;
   width: 100%;
   overflow-y: scroll;
   padding: 10px;
   margin-bottom: 15px;
+  background-color: #fdf2ef;
+  border-radius: 10px;
 }
 
 .chat_date {
@@ -187,17 +211,29 @@
 
 .input_chat {
   width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
+  position: relative;
 }
 
 .input_chat input {
-  padding: 5px;
-  width: 98%;
+  padding: 10px 40px 10px 20px;
+  width: 100%;
   margin-right: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
+  outline: none;
+}
+
+.send_icon {
+  position: absolute;
+  right: 20px;
+  top: 14px;
+  cursor: pointer;
+  color: #999695;
+}
+
+.send_icon:hover {
+  color: #535353;
 }
 
 .chatting_log {
@@ -221,7 +257,7 @@
   float: right;
   max-width: 300px;
   padding: 10px 12px;
-  border-radius: 14px;
+  border-radius: 18px;
   border-top-right-radius: 0;
   background-color: #feccbe;
 }
@@ -230,13 +266,19 @@
   float: left;
   max-width: 300px;
   padding: 10px 12px;
-  border-radius: 14px;
+  border-radius: 18px;
   border-top-left-radius: 0;
-  background-color: #f5f0ed;
+  background-color: #e6e2df;
+}
+
+.others > .user_name {
+  font-size: 13px;
+  margin-bottom: 3px;
+  color: #747373;
 }
 
 .chat_time {
-  font-size: 12px;
+  font-size: 10px;
   display: inline-block;
   padding: 26px 5px 0;
   color: #999695;
@@ -250,8 +292,9 @@
   display: inline-block;
   margin: 5px;
   padding: 5px 13px;
-  background-color: #b2b2b2;
+  background-color: #818080;
   border-radius: 15px;
   font-size: 12px;
   font-weight: bold;
+  color: #d4d3d3;
 }

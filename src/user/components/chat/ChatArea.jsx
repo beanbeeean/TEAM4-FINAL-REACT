@@ -4,6 +4,7 @@ import MyChat from "./MyChat";
 import OthersChat from "./OthersChat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBackwardStep,
   faPaperPlane,
   faPeopleGroup,
   faRightFromBracket,
@@ -14,11 +15,11 @@ import api from "../../../redux/api";
 
 let stompClient = null;
 
-const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
-  let [userList, setUserList] = useState([]);
-  let [msg, setMsg] = useState([]);
-  let [inputText, setInputText] = useState("");
-  let [lastMsg, setLastMsg] = useState([]);
+const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
+  const [userList, setUserList] = useState([]);
+  const [msg, setMsg] = useState([]);
+  const [lastMsg, setLastMsg] = useState([]);
+  const [inputText, setInputText] = useState("");
 
   const [currentUser, setCurrentUser] = useState("");
 
@@ -31,11 +32,8 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
   }
 
   function onConnected() {
-    // sub 할 url => /sub/chat/room/roomId 로 구독한다
     stompClient.subscribe("/sub/chat/room/" + roomId, onMessageReceived);
 
-    // 서버에 userName 을 가진 유저가 들어왔다는 것을 알림
-    // /pub/chat/enterUser 로 메시지를 보냄
     stompClient.send(
       "/pub/chat/enterUser",
       {},
@@ -45,30 +43,25 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
         type: "ENTER",
       })
     );
-    //   console.log("[onConnected] stompClient : ", stompClient);
-    //   // connectingElement.classList.add("hidden");
   }
 
   function onDisConnected() {
-    // 서버에 userName 을 가진 유저가 들어왔다는 것을 알림
-    // /pub/chat/enterUser 로 메시지를 보냄
-    stompClient.send(
-      "/pub/chat/leaveUser",
-      {},
-      JSON.stringify({
-        roomId: roomId,
-        sender: userName,
-        type: "LEAVE",
-      })
-    );
+    if (window.confirm("채팅방을 나가겠습니까?")) {
+      stompClient.send(
+        "/pub/chat/leaveUser",
+        {},
+        JSON.stringify({
+          roomId: roomId,
+          sender: userName,
+          type: "LEAVE",
+        })
+      );
 
-    disConnect();
-    //   console.log("[onConnected] stompClient : ", stompClient);
-    //   // connectingElement.classList.add("hidden");
+      disConnect();
+    }
   }
 
   function onMessageReceived(payload) {
-    //console.log("payload 들어오냐? :"+payload);
     let arr = [];
     var chat = JSON.parse(payload.body);
     console.log("=========================");
@@ -78,40 +71,31 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
 
     setCurrentUser(chat.currentUser);
 
-    if (type == "ENTER") {
+    if (type == "REJECT" && test == userName) {
+      disConnect();
+      alert("채팅방 정원이 가득 차 입장이 불가합니다.");
+    } else if (type == "ENTER") {
       if (test == userName && !chat.first) {
-        // chat.content = chat.sender + chat.message;
         lastMsg.push(chat);
-        arr = lastMsg.slice();
+        arr = lastMsg.filter((c) => c.roomId == roomId);
+
         setLastMsg(arr);
+        console.log("lastMSG : ", lastMsg);
       }
 
       if (chat.sender === "ADMIN" && chat.first) {
         chat.content = chat.sender + chat.message;
-        // msg.push(chat.content);
-        // setMsg([...msg]);
         msg.push(chat);
         setMsg([...msg]);
       }
-
-      // setEnteredUser({ userName: userName, entered: true });
-
-      //   setMsg(chat.content);
-
-      getUserList();
     } else if (chat.type === "LEAVE") {
-      // chatType 가 leave 라면 아래 내용
-
-      // chat.content = chat.sender + chat.message;
       msg.push(chat);
       setMsg([...msg]);
     } else {
-      // chatType 이 talk 라면 아래 내용용
-      // chat.content = chat.sender + chat.message;
-      // msg.push(chat.content);
-      // setMsg([...msg]);
-      msg.push(chat);
-      setMsg([...msg]);
+      if (type !== "REJECT") {
+        msg.push(chat);
+        setMsg([...msg]);
+      }
     }
     console.log("[onMessageReceived] stompClient : ", stompClient);
   }
@@ -154,15 +138,16 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
   }
 
   function disConnect() {
+    console.log("disconnect");
     stompClient = null;
     setRoomId("");
   }
 
-  useEffect(() => {
-    if (leave) {
-      onDisConnected();
+  const pressEnterSending = (e) => {
+    if (e.key == "Enter") {
+      sendMessage();
     }
-  }, [leave]);
+  };
 
   useEffect(() => {
     connect();
@@ -171,7 +156,15 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
   return (
     <div className={styles.chat_area}>
       <div className={styles.icon_wrap}>
-        <span className={styles.leave_icon}>
+        <div className={styles.chatting_room_name}>
+          <FontAwesomeIcon
+            className={styles.close_chat_log}
+            icon={faBackwardStep}
+            onClick={() => disConnect()}
+          />
+          {roomName}
+        </div>
+        <span className={styles.leave_icon} onClick={onDisConnected}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           &nbsp; 채팅방 나가기
         </span>
@@ -179,7 +172,6 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
 
       <div className={styles.chatting}>
         <div className={styles.chatting_log}>
-          <div>{roomId}</div>
           {lastMsg.map((item) =>
             item.sender == userName ? (
               <MyChat item={item} />
@@ -206,6 +198,7 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
             placeholder="메세지를 입력하세요"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
+            onKeyDown={(e) => pressEnterSending(e)}
           />
           <FontAwesomeIcon
             title="Send"
@@ -213,7 +206,6 @@ const ChatArea = ({ roomId, setRoomId, userName, leave }) => {
             icon={faPaperPlane}
             onClick={sendMessage}
           />
-          <button onClick={() => disConnect()}>돌아가기</button>
         </div>
       </div>
     </div>
