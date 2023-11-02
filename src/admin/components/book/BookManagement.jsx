@@ -17,9 +17,6 @@ const BookManagement = () => {
   const [navState, setNavState] = useState("all");
   const [searchBook, setSearchBook] = useState("");
 
-  console.log("navstate: ", navState);
-  console.log("searchBook: ", searchBook);
-
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 

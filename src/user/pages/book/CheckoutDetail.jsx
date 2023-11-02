@@ -17,7 +17,9 @@ const CheckoutDetail = () => {
   const { userDto } = useSelector((state) => state.user);
   const { chkBookDto } = useSelector((state) => state.chkBook);
 
-  const isChkBook = chkBookDto.filter((e) => e.u_email === userDto.u_email);
+  const isChkBook = chkBookDto.dtos.filter(
+    (e) => e.u_email === userDto.u_email
+  );
   console.log("isChkBook : ", isChkBook);
 
   useEffect(() => {

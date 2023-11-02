@@ -22,21 +22,24 @@ const chkBookSlice = createSlice({
   //action을 담자.
   reducers: {
     updateReturnState: (state, action) => {
-      console.log("chkBookDto ::: ", state.chkBookDto);
       state.chkBookDto.forEach((e, idx) => {
-        if (e.chk_b_no === action.payload && e.chk_b_state > 0) {
-          const { no } = action.payload;
-          console.log("e.no : ", no);
-
-          state.chkBookDto[idx].chk_b_state = 0;
-
-          console.log("state.chkBookDto 1: ", state.chkBookDto);
+        if (
+          e.b_no === action.payload.b_no &&
+          e.chk_b_no === action.payload.chk_b_no
+        ) {
+          if (state.chkBookDto[idx].chk_b_state > 0) {
+            state.chkBookDto[idx].chk_b_state = 0;
+            console.log(
+              " state.chkBookDto[idx].chk_b_state ::: ",
+              state.chkBookDto[idx].chk_b_state
+            );
+          }
         }
       });
     },
 
     fetchChkBookDto: (state, action) => {
-      state.chkBookDto = action.payload.dtos;
+      state.chkBookDto = action.payload;
       console.log("state.chkBookDto: ", state.chkBookDto);
     },
   },

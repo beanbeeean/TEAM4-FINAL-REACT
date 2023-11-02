@@ -98,7 +98,9 @@ const CheckoutList = () => {
             <Row>
               {displayedBooks.map((book) => (
                 <CheckoutListItem
+                  page={page}
                   navState={navState}
+                  searchBook={searchBook}
                   book={book}
                   idx={book.b_no}
                 />

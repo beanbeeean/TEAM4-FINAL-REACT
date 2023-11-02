@@ -1,3 +1,23 @@
+.mybook_cnt {
+  margin-bottom: 20px;
+  color: #3f3f3f;
+}
+
+.no_chkBook {
+  color: #777777;
+  text-align: center;
+  font-size: 1.2em;
+  height: 500px;
+  padding-top: 200px;
+  background-color: #feccbe73;
+  border-radius: 30px;
+}
+
+.no_chkBook span {
+  text-decoration: underline;
+  color: #777777;
+}
+
 .item_wrap {
   position: relative;
   float: left;

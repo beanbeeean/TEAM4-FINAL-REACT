@@ -8,7 +8,7 @@ import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 
 const CheckoutUserModal = (props) => {
   const [users, setUsers] = useState([]);
-  const [chkBooks, setChkBooks] = useState([]);
+  const [state, setState] = useState([]);
 
   const dispatch = useDispatch();
   const { chkBookDto } = useSelector((state) => state.chkBook);
@@ -17,7 +17,7 @@ const CheckoutUserModal = (props) => {
   //   let arr = [];
   //   arr = Array.from(chkBookDto);
   //   console.log("arr : ", arr);
-  //   setUsers(arr);
+  //   setState();
   // }, [chkBookDto]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const CheckoutUserModal = (props) => {
       .then((response) => {
         // setUsers([]);
         const chkBookDtos = response.data;
-        console.log("chkBookDtos: ", chkBookDtos);
+        console.log("chkBookDtos: ", chkBookDtos.dtos);
         dispatch(chkBookActions.fetchChkBookDto(chkBookDtos.dtos));
         arr = Array.from(response.data.dtos);
         setUsers(arr);

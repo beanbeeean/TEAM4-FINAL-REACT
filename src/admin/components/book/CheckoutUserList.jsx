@@ -5,32 +5,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 
 const CheckoutUserList = ({ user }) => {
-  const [state, setState] = useState();
-  // console.log("user : ", user.user);
+  const [state, setState] = useState(false);
+  const [changeUser, setChangeuser] = useState(user);
   const dispatch = useDispatch();
+
   const { chkBookDto } = useSelector((state) => state.chkBook);
+  const isChkBook = chkBookDto.filter((e) => e.chk_b_no === user.chk_b_no);
+  console.log("isChkBook : ", isChkBook);
 
-  const dateFormat = (chk_date) => {
-    const date = new Date(chk_date);
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const dd = String(date.getDate()).padStart(2, "0");
-
-    return `${yyyy}-${mm}-${dd}`;
-  };
+  useEffect(() => {
+    setChangeuser(isChkBook);
+  }, [state]);
 
   const changeState = () => {
     if (window.confirm("반납하시겠습니까?")) {
       axios
-        .get(`/admin/management/return_book${user.chk_b_no}`)
+        .get(`/admin/management/return_book`, {
+          params: {
+            b_no: user.b_no,
+            chk_b_no: user.chk_b_no,
+          },
+        })
         .then((response) => {
           console.log("response.data : ", response.data);
           const result = response.data;
+          const b_no = user.b_no;
           const chk_b_no = user.chk_b_no;
-          dispatch(chkBookActions.updateReturnState(chk_b_no));
+          dispatch(chkBookActions.updateReturnState({ b_no, chk_b_no }));
           if (result == 1) {
             alert("반납 처리 되었습니다.");
-            // props.onHide(true);
+            setState(!state);
+            // setChangeuser(isChkBook);
           }
         })
         .catch((error) => console.log(error));
@@ -41,9 +46,9 @@ const CheckoutUserList = ({ user }) => {
     <tr className={stylesAdmin.user_item}>
       <td>{user.u_email}</td>
       <td>
-        {dateFormat(user.chk_b_start_date)} ~{dateFormat(user.chk_b_end_date)}
+        {user.chk_b_start_date} ~{user.chk_b_end_date}
       </td>
-      <td>{user.chk_b_state == 0 ? "반납완료" : "대여중"} </td>
+      <td>{isChkBook[0].chk_b_state == 0 ? "반납완료" : "대여중"} </td>
       <td>
         <input type="button" value="반납" onClick={changeState} />
       </td>
