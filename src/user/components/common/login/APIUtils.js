@@ -59,3 +59,13 @@ export function userUpdate(test) {
   console.log("test : " + test);
   return axiosInstance.get("/user/userUpdate", test);
 }
+export function userUpdate(user) {
+  return axiosInstance.post("/user/userUpdate", user);
+}
+
+export function userUpload(img) {
+  return axiosImgInstance.post("/user/upload", img);
+}
+export function test(signupRequest) {
+  return axiosInstance.get("/test", signupRequest);
+}
