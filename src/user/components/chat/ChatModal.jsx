@@ -7,19 +7,17 @@ import ChatArea from "./ChatArea";
 import ChatItem from "./ChatItem";
 
 const ChatModal = () => {
-  // const [show, setShow] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
   const [chatShow, setChatShow] = useState(0);
-  // const [isChatClicked, setIsChatClicked] = useState(false);
-  // const navigate = useNavigate();
 
-  const [showChatList, setShowChatList] = useState(0);
   const [newName, setNewName] = useState("");
   const [list, setList] = useState([]);
   const [roomId, setRoomId] = useState("");
   const [userMaxCount, setUserMaxCount] = useState(2);
   const [leave, setLeave] = useState();
   const [userName, setUserName] = useState("");
+
+  const [roomName, setRoomName] = useState("");
 
   const leaveConfirm = () => {
     setLeave(window.confirm("나갈래요?"));
@@ -66,6 +64,11 @@ const ChatModal = () => {
     getList();
   }, [userName]);
 
+  useEffect(() => {
+    // let arr = [];
+    setRoomId("");
+    setRoomId(roomId);
+  }, [roomId]);
   const showChat = () => {
     console.log("showChat");
     if (chatShow == 1) {
@@ -119,49 +122,11 @@ const ChatModal = () => {
               {list.map((item) => (
                 <ChatItem
                   setRoomId={setRoomId}
+                  setRoomName={setRoomName}
                   item={item}
                   leaveConfirm={leaveConfirm}
                 />
-                // <li className="list-group-item d-flex justify-content-between align-items-start">
-                //   <div className="ms-2 me-auto">
-                //     <div className="fw-bold">
-                //       <a onClick={() => setRoomId(item.roomId)}>
-                //         {item.roomName}
-                //       </a>
-                //     </div>
-                //   </div>
-                //   <span className="badge bg-primary rounded-pill">
-                //     {item.userCount}명
-                //   </span>
-                //   <button onClick={leaveConfirm}>채팅방 나가기</button>
-                // </li>
               ))}
-              {/* <div>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  id="roomName"
-                  onChange={(e) => setNewName(e.target.value)}
-                />
-                <button
-                  className="btn btn-secondary"
-                  id="create"
-                  onClick={test}
-                >
-                  개설하기
-                </button>
-                <br />
-                <input
-                  type="text"
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <br />
-                <input
-                  type="number"
-                  onChange={(e) => setUserMaxCount(e.target.value)}
-                />
-              </div> */}
             </div>
 
             {roomId !== "" ? (
@@ -169,7 +134,7 @@ const ChatModal = () => {
                 roomId={roomId}
                 setRoomId={setRoomId}
                 userName={userName}
-                leave={leave}
+                roomName={roomName}
               />
             ) : (
               <div className={styles.chat_area}>없음</div>

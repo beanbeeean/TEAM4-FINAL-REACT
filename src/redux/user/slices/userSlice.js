@@ -14,6 +14,7 @@ export const userSlice = createSlice({
     userLogin : (state, action) => {
       state.flag = 1;
       state.userDto=action.payload;
+      console.log(state.userDto);
     },
     userLogout : (state) => {
       localStorage.removeItem(ACCESS_TOKEN);

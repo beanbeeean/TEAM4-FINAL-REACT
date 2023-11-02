@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "../../css/chat/Chat.module.css";
-const MyChat = ({ msg }) => {
+const MyChat = ({ item }) => {
   return (
     <div className={styles.mine}>
-      <span className={styles.chat_time}>pm 10:10</span>
-      <span className={styles.chat_text}>{msg}</span>
+      <span className={styles.chat_time}>{item.time}</span>
+      <span className={styles.chat_text}>{item.message}</span>
     </div>
   );
 };

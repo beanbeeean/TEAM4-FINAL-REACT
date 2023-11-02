@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../css/chat/Chat.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FaTrashAlt } from "react-icons/fa";
 
-const ChatItem = ({ setRoomId, item }) => {
-  const deleteChat = () => {
-    alert("채팅방을 나가시겠습니까?");
+const ChatItem = ({ setRoomId, setRoomName, item }) => {
+  const changeChatRoom = (item) => {
+    setRoomId("");
+    setRoomId(item.roomId);
+    setRoomName(item.roomName);
   };
 
   return (
-    <div className={styles.chat_room} onClick={() => setRoomId(item.roomId)}>
+    <div className={styles.chat_room} onClick={() => changeChatRoom(item)}>
       <div className={styles.chat_room_title}>
         <div className={styles.chatting_room}>
           <FontAwesomeIcon className={styles.group_icon} icon={faPeopleGroup} />
