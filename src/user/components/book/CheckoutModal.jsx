@@ -49,7 +49,7 @@ const CheckoutModal = (props) => {
 
     axios
       .get(
-        `http://127.0.0.1:8090/checkout_books/checkout`,
+        `/checkout_books/checkout`,
         {
           params: {
             id: props.book.b_no,

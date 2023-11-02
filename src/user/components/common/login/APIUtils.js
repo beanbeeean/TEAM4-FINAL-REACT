@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL, ACCESS_TOKEN } from "./";
-import { redirect } from "react-router";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../../../redux/user/slices/userSlice";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -26,6 +27,46 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  (response) => {
+    console.log("Response:", response);
+    return response;
+  },
+  (error) => {
+    console.error("Error response:", error);
+    return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
+  }
+);
+
+axiosImgInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+    }
+    console.log(config);
+    return config;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      const dispatch = useDispatch();
+      dispatch(userLogout());
+    }
+    return Promise.reject(error);
+  }
+);
+
+axiosImgInstance.interceptors.response.use(
+  (response) => {
+    console.log("Response:", response);
+    return response;
+  },
+  (error) => {
+    console.error("Error response:", error);
+    return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
   }
 );
 
@@ -55,17 +96,10 @@ export function myPage() {
   return axiosInstance.get("/user/myPage");
 }
 
-export function userUpdate(test) {
-  console.log("test : " + test);
-  return axiosInstance.get("/user/userUpdate", test);
-}
 export function userUpdate(user) {
   return axiosInstance.post("/user/userUpdate", user);
 }
 
 export function userUpload(img) {
   return axiosImgInstance.post("/user/upload", img);
-}
-export function test(signupRequest) {
-  return axiosInstance.get("/test", signupRequest);
 }
