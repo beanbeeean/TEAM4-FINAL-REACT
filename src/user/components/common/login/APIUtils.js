@@ -8,6 +8,13 @@ const axiosInstance = axios.create({
     }
 });
 
+const axiosImgInstance = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    }
+});
+
 axiosInstance.interceptors.request.use((config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
@@ -17,6 +24,18 @@ axiosInstance.interceptors.request.use((config) => {
 }, (error) => {
     return Promise.reject(error);
 });
+
+axiosImgInstance.interceptors.request.use((config) => {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    if (token) {
+        config.headers['Authorization'] = 'Bearer ' + token;
+    }
+    console.log(config);
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});
+
 
 export function getCurrentUser() {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
@@ -44,7 +63,10 @@ export function myPage() {
     return axiosInstance.get("/user/myPage");
 }
 
-export function userUpdate(test) {
-    console.log("test : " + test);
-    return axiosInstance.get("/user/userUpdate",test);
+export function userUpdate(user) {
+    return axiosInstance.post("/user/userUpdate",user);
+}
+
+export function userUpload(img) {
+    return axiosImgInstance.post("/user/upload",img);
 }
