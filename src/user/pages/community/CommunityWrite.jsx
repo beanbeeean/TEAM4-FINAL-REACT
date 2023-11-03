@@ -28,9 +28,11 @@ const CommunityWrite = () => {
   const [htmlString, setHtmlString] = useState("");
   const [selection, setSelection] = useState(1);
   const [title, setTitle] = useState("");
-  const { userDto } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
+
+  const { userDto } = useSelector((state) => state.user);
+  console.log("userDto : ", userDto.u_email);
 
   const updateTextDescription = async (state) => {
     await setEditorState(state);
@@ -49,6 +51,7 @@ const CommunityWrite = () => {
           selection: selection,
           title: title,
           content: htmlString,
+          u_email: userDto.u_email,
         },
       })
       .then((response) => {

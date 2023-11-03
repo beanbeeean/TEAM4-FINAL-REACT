@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styles from "../../css/book/BookCoutModal.module.css";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import bookSlice, { bookActions } from "../../../redux/book/slices/bookSlice";
+import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 
 const CheckoutModal = (props) => {
   const date = new Date();
@@ -12,6 +13,7 @@ const CheckoutModal = (props) => {
   const day = date.getDate();
   const today = `${year}.${month}.${day}`;
   const dispatch = useDispatch();
+  const { userDto } = useSelector((state) => state.user);
 
   let daysInMonth = 0;
 
@@ -44,12 +46,16 @@ const CheckoutModal = (props) => {
 
   const checkoutBook = () => {
     console.log("checkoutBook");
-    console.log("props.book.b_no: ", props.book.b_no);
-    console.log("type : ", typeof props.book.b_no);
 
     axios
-      .post(
-        `http://127.0.0.1:8090/checkout_books/checkout/${props.book.b_no}`,
+      .get(
+        `/checkout_books/checkout`,
+        {
+          params: {
+            id: props.book.b_no,
+            u_email: userDto.u_email,
+          },
+        },
         props.book.b_no
       )
       .then((response) => {
@@ -57,6 +63,9 @@ const CheckoutModal = (props) => {
         alert("대여가 완료되었습니다.");
         dispatch(bookActions.updateStock(props.book.b_no));
         props.setModalShow(false);
+
+        const chkBookDtos = response.data;
+        dispatch(chkBookActions.fetchChkBookDto(chkBookDtos));
       })
       .catch((error) => {
         console.error("Error:", error);
