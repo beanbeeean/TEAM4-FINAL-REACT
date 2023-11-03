@@ -8,7 +8,6 @@ import AdminCommunityListNav from "./AdminCommunityListNav";
 import { Link } from "react-router-dom";
 
 const CommunityManagement = () => {
-  const [on, setOn] = useState(1);
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -16,16 +15,31 @@ const CommunityManagement = () => {
   const [navState, setNavState] = useState("RECOMMEND");
   const [searchCommunity, setSearchCommunity] = useState("");
 
-  console.log("navState :: ", navState);
-  console.log("searchCommunity :: ", searchCommunity);
-
   const dispatch = useDispatch();
   const { communityDto } = useSelector((state) => state.community);
-  console.log("communityDto : ", communityDto);
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedLists = communities.slice(startIndex, endIndex);
+
+  const changeState = (props) => {
+    axios
+      .get(`/admin/management/change_community_state`, {
+        params: {
+          no: props.c_no,
+        },
+      })
+      .then((response) => {
+        const result = response.data;
+        console.log("response.data : ", response.data);
+        dispatch(communityActions.updateState(props.c_no));
+        if (result == 1) {
+          alert("상태가 변경되었습니다.");
+          // props.onHide(true);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     let arr = [];
@@ -96,7 +110,11 @@ const CommunityManagement = () => {
                       <td>{community.c_reg_date}</td>
                       <td>{community.c_state}</td>
                       <td>
-                        <input type="button" value="변경" />
+                        <input
+                          type="button"
+                          value="변경"
+                          onClick={changeState.bind(this, community)}
+                        />
                       </td>
                     </tr>
                   ))}
