@@ -5,6 +5,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import bookSlice from "./book/slices/bookSlice";
 import communitySlice from "./community/slices/communitySlice";
+import chatSlice from "./chat/slices/chatSlice";
 
 const persistConfig = {
   key: "root",
@@ -19,5 +20,6 @@ export const store = configureStore({
     user: persistedReducer,
     book: bookSlice,
     community: communitySlice,
+    chat: chatSlice,
   },
 });

@@ -7,6 +7,8 @@ import draftjsToHtml from "draftjs-to-html";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import api from "../../../redux/api";
 
 const RowBox = styled.div`
   width: 100%;
@@ -26,6 +28,8 @@ const CommunityWrite = () => {
   const [htmlString, setHtmlString] = useState("");
   const [selection, setSelection] = useState(1);
   const [title, setTitle] = useState("");
+  const { userDto } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
 
   const updateTextDescription = async (state) => {
@@ -57,9 +61,25 @@ const CommunityWrite = () => {
       });
   };
 
+  // const createRoom = () => {
+  //   api
+  //     .post("http://127.0.0.1:8090/chat/createroom", {
+  //       newName: newName,
+  //       userMaxCount: userMaxCount,
+  //       userName: userName,
+  //     })
+  //     .then(function (response) {
+  //       console.log(response);
+  //       getList();
+  //     })
+  //     .catch(function (err) {
+  //       console.log(err);
+  //     });
+  // };
+
   useEffect(() => {
-    console.log(selection);
-  }, [selection]);
+    console.log("여기입니다.", userDto);
+  }, []);
 
   return (
     <>

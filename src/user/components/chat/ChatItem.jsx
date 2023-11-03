@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FaTrashAlt } from "react-icons/fa";
 
-const ChatItem = ({ setRoomId, setRoomName, item }) => {
+const ChatItem = ({ roomId, setRoomId, setRoomName, item }) => {
   const changeChatRoom = (item) => {
     setRoomId("");
     setRoomId(item.roomId);
@@ -13,7 +13,11 @@ const ChatItem = ({ setRoomId, setRoomName, item }) => {
 
   return (
     <div className={styles.chat_room} onClick={() => changeChatRoom(item)}>
-      <div className={styles.chat_room_title}>
+      <div
+        className={`${styles.chat_room_title} ${
+          roomId == item.roomId && styles.chat_room_on
+        }`}
+      >
         <div className={styles.chatting_room}>
           <FontAwesomeIcon className={styles.group_icon} icon={faPeopleGroup} />
           <br />
