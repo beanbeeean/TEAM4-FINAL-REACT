@@ -52,8 +52,8 @@
   min-width: 800px;
   height: 600px;
   background-color: #fff;
-  /* border: 1px solid #dadada; */
-  border-radius: 10px;
+  border: 1px solid #dbdbdb71;
+  border-radius: 20px;
   display: flex;
   position: absolute;
   right: -30px;
@@ -101,7 +101,6 @@
 
 .chat_box {
   /* width: 10px; */
-  /* border: 1px solid red; */
   /* height: 500px; */
   background-color: #fff;
   display: flex;
@@ -111,9 +110,9 @@
   width: 30%;
   height: 600px;
   overflow-y: auto;
-  background-color: #feccbe;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  border-right: 1px solid #dbdbdb71;
 }
 
 .chat_room {
@@ -124,8 +123,9 @@
 .chat_list_tit {
   text-align: center;
   padding: 15px 0;
-  border-bottom: 1px solid #dadada;
   margin-bottom: 10px;
+  font-weight: bold;
+  color: #fd8a69;
 }
 
 .chatting_room {
@@ -143,11 +143,15 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 1.2em;
+  color: #585858;
 }
 
 .chatting_room .group_name:hover {
   color: #fd8a69;
+}
+
+.chatting_room .group_icon {
+  color: #585858;
 }
 
 .delete_room {
@@ -163,20 +167,26 @@
 .chat_room_latest .chat_date {
   font-size: 0.8em;
   color: #646464;
+  /* width: 100%; */
 }
 
 .chat_area {
   display: flex;
   flex-direction: column;
-  padding: 30px 30px 10px;
+  padding: 15px 30px 10px;
   width: 70%;
   height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffeee8;
+  background-color: #fff1eb7a;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+}
+
+.chat_area img {
+  width: 200px;
+  height: 170px;
 }
 
 .chatting {
@@ -192,8 +202,8 @@
   overflow-y: scroll;
   padding: 10px;
   margin-bottom: 15px;
-  background-color: #fdf2ef;
   border-radius: 10px;
+  /* background-color: #fff; */
 }
 
 .chat_date {
@@ -259,7 +269,8 @@
   padding: 10px 12px;
   border-radius: 18px;
   border-top-right-radius: 0;
-  background-color: #feccbe;
+  /* background-color: #feccbe; */
+  background: linear-gradient(to top, #ffeeeb, #feccbe, #fff9f8);
 }
 
 .others > .chat_text {
@@ -268,7 +279,7 @@
   padding: 10px 12px;
   border-radius: 18px;
   border-top-left-radius: 0;
-  background-color: #e6e2df;
+  background: linear-gradient(to top, #e6e6e675, #fff, #fff);
 }
 
 .others > .user_name {

@@ -137,7 +137,9 @@ const ChatModal = () => {
                 roomName={roomName}
               />
             ) : (
-              <div className={styles.chat_area}>없음</div>
+              <div className={styles.chat_area}>
+                <img src="../imgs/chat_logo.png" />
+              </div>
             )}
           </div>
         </>
