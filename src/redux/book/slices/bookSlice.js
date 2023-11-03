@@ -34,6 +34,7 @@ const bookSlice = createSlice({
 
           state.bookDto[idx].b_stock = cnt;
           state.bookDto[idx].b_state = bookState;
+          state.bookDto[idx].b_mod_date = new Date();
           console.log(
             "state.bookDto[idx].b_stock : ",
             state.bookDto[idx].b_stock

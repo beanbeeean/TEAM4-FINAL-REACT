@@ -29,6 +29,7 @@ const chkBookSlice = createSlice({
         ) {
           if (state.chkBookDto[idx].chk_b_state > 0) {
             state.chkBookDto[idx].chk_b_state = 0;
+            state.chkBookDto[idx].chk_b_mod_date = new Date();
             console.log(
               " state.chkBookDto[idx].chk_b_state ::: ",
               state.chkBookDto[idx].chk_b_state
