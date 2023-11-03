@@ -12,7 +12,7 @@ const MypageProfile = () => {
   const [u_name,setU_name] = useState(user.u_name);
   const [u_phone,setU_phone] = useState(user.u_phone);
   const [u_email,setU_mail] = useState(user.u_email);
-  const [file, setFile] = useState(user.u_image);	//파일	
+  const [file, setFile] = useState(false);	//파일	
   const [file2, setFile2] = useState(user.u_image);	//파일	
 
   const dispatch = useDispatch();
@@ -33,21 +33,31 @@ const MypageProfile = () => {
 
   function Send(){
 
-    const update = new FormData();
-    Object.values(file).forEach((file) => update.append("file", file));
+    if(file){
+      const update = new FormData();
+      Object.values(file).forEach((file) => update.append("file", file));
 
-    userUpload(update)
-    .then((response) => {
+      userUpload(update)
+      .then((response) => {
+        userUpdate({u_name, u_phone, u_email})
+        .then(response => {
+          alert("수정이 성공하였습니다.");
+          dispatch(userLogin(response.data));
+      }).catch(error => {
+          alert((error && error.message) || '수정에 실패하였습니다.');
+      });
+      })
+      .catch((error) => {
+      })
+    } else {
       userUpdate({u_name, u_phone, u_email})
-      .then(response => {
-        alert("수정이 성공하였습니다.");
-        dispatch(userLogin(response.data));
-    }).catch(error => {
-        alert((error && error.message) || '수정에 실패하였습니다.');
-    });
-    })
-    .catch((error) => {
-    })
+        .then(response => {
+          alert("수정이 성공하였습니다.");
+          dispatch(userLogin(response.data));
+      }).catch(error => {
+          alert((error && error.message) || '수정에 실패하였습니다.');
+      });
+    }
   
   }
     return (

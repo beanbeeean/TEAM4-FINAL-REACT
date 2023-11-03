@@ -3,6 +3,7 @@ import styles from "../../../css/reservation/StudyRoom.module.css";
 import { Col, Row } from "react-bootstrap";
 import axios from "axios";
 import Bootpay from "@bootpay/client-js";
+import { chkRoom } from "../../common/login/APIUtils";
 
 const getBusinessHours = (start, end) => {
   const hours = [];
@@ -29,6 +30,16 @@ const StudyRoomBody = ({
   const [spaceNum, setSpaceNum] = useState();
 
   console.log("body -------------- monthState:", monthState);
+
+  const chkroom = (e) => {
+    setSpace(e);
+    chkRoom(chosenDay)
+      .then(response => {
+      })
+      .catch(error => {
+        console.error('Error fetching data: ', error);
+      });
+  }
 
   const roomNames = [
     "SPACE1 - A",
@@ -175,19 +186,19 @@ const StudyRoomBody = ({
     <div className={styles.study_reservation_wrap}>
       <ul className={styles.study_reservation_tap}>
         <li
-          onClick={() => setSpace(1)}
+          onClick={() => chkroom(1)}
           className={`${space == 1 && styles.reservation_tap_active}`}
         >
           SPACE1(2~4인)
         </li>
         <li
-          onClick={() => setSpace(2)}
+          onClick={() => chkroom(2)}
           className={`${space == 2 && styles.reservation_tap_active}`}
         >
           SPACE2(4~6인)
         </li>
         <li
-          onClick={() => setSpace(3)}
+          onClick={() => chkroom(3)}
           className={`${space == 3 && styles.reservation_tap_active}`}
         >
           SPACE3(6~8인)
