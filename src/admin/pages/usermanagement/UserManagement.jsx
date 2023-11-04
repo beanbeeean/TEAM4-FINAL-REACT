@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchUserDto, userAction } from "../../../redux/user/slices/userSlice";
 import AdminUserListItem from "../../components/user/AdminUserListItem";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -85,6 +86,16 @@ const UserManagement = () => {
           </tbody>
         </table>
       </div>
+      <PaginationControl
+        page={page}
+        between={4}
+        total={users.length}
+        limit={20}
+        changePage={(page) => {
+          setPage(page);
+        }}
+        ellipsis={1}
+      />
     </div>
   );
 };
