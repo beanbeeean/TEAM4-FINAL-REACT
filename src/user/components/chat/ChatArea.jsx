@@ -5,6 +5,7 @@ import OthersChat from "./OthersChat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBackwardStep,
+  faBars,
   faPaperPlane,
   faPeopleGroup,
   faRightFromBracket,
@@ -12,16 +13,20 @@ import {
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import api from "../../../redux/api";
+import { useDispatch, useSelector } from "react-redux";
+import { chatActions } from "../../../redux/chat/slices/chatSlice";
 
 let stompClient = null;
 
-const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
+const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   const [userList, setUserList] = useState([]);
   const [msg, setMsg] = useState([]);
   const [lastMsg, setLastMsg] = useState([]);
   const [inputText, setInputText] = useState("");
 
   const [currentUser, setCurrentUser] = useState("");
+  const dispatch = useDispatch();
+  let { storeUserList } = useSelector((state) => state.chat);
 
   function connect() {
     var socket = new SockJS("/ws-stomp");
@@ -39,7 +44,8 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
       {},
       JSON.stringify({
         roomId: roomId,
-        sender: userName,
+        sender: user.u_email,
+        sendName: user.u_name,
         type: "ENTER",
       })
     );
@@ -52,11 +58,11 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
         {},
         JSON.stringify({
           roomId: roomId,
-          sender: userName,
+          sender: user.u_email,
+          sendName: user.u_name,
           type: "LEAVE",
         })
       );
-
       disConnect();
     }
   }
@@ -71,16 +77,17 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
 
     setCurrentUser(chat.currentUser);
 
-    if (type == "REJECT" && test == userName) {
+    if (type == "REJECT" && test == user.u_email) {
       disConnect();
       alert("채팅방 정원이 가득 차 입장이 불가합니다.");
     } else if (type == "ENTER") {
-      if (test == userName && !chat.first) {
+      if (test == user.u_email && !chat.first) {
         lastMsg.push(chat);
         arr = lastMsg.filter((c) => c.roomId == roomId);
 
         setLastMsg(arr);
         console.log("lastMSG : ", lastMsg);
+        getUserList();
       }
 
       if (chat.sender === "ADMIN" && chat.first) {
@@ -88,16 +95,19 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
         msg.push(chat);
         setMsg([...msg]);
       }
+      getUserList();
+      getList();
     } else if (chat.type === "LEAVE") {
       msg.push(chat);
       setMsg([...msg]);
+      getUserList();
+      getList();
     } else {
       if (type !== "REJECT") {
         msg.push(chat);
         setMsg([...msg]);
       }
     }
-    console.log("[onMessageReceived] stompClient : ", stompClient);
   }
 
   function getUserList() {
@@ -108,8 +118,8 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
         },
       })
       .then(function (res) {
-        setUserList(res.data);
-        console.log(userList);
+        dispatch(chatActions.getUserList(res.data.userList));
+        console.log(res);
       })
       .catch(function (err) {
         console.log("getUserList", err);
@@ -122,7 +132,7 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
     if (stompClient) {
       var chatMessage = {
         roomId: roomId,
-        sender: userName,
+        sender: user.u_email,
         message: inputText,
         type: "TALK",
       };
@@ -153,6 +163,15 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
     connect();
   }, [roomId]);
 
+  useEffect(() => {
+    setUserList(storeUserList);
+  }, [storeUserList]);
+
+  useEffect(() => {
+    getUserList();
+    setUserList(storeUserList);
+  }, []);
+
   return (
     <div className={styles.chat_area}>
       <div className={styles.icon_wrap}>
@@ -164,6 +183,9 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
           />
           {roomName}
         </div>
+        <span className={styles.chat_menu}>
+          <FontAwesomeIcon icon={faBars} />
+        </span>
         <span className={styles.leave_icon} onClick={onDisConnected}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           &nbsp; 채팅방 나가기
@@ -173,17 +195,17 @@ const ChatArea = ({ roomId, setRoomId, userName, roomName }) => {
       <div className={styles.chatting}>
         <div className={styles.chatting_log}>
           {lastMsg.map((item) =>
-            item.sender == userName ? (
+            item.sender == user.u_email ? (
               <MyChat item={item} />
             ) : (
-              <OthersChat item={item} />
+              <OthersChat item={item} userList={userList} />
             )
           )}
           {msg.map((item) =>
-            item.sender == userName ? (
+            item.sender == user.u_email ? (
               <MyChat item={item} />
             ) : (
-              <OthersChat item={item} />
+              <OthersChat item={item} userList={userList} />
             )
           )}
           {/* <MyChat msg={msg} /> */}

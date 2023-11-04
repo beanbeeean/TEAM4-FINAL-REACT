@@ -128,6 +128,10 @@
   color: #fd8a69;
 }
 
+.chat_room_on {
+  border: 1px solid #ff0000;
+}
+
 .chatting_room {
   display: flex;
   align-items: center;

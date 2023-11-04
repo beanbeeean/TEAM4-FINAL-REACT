@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../redux/api";
 import ChatArea from "./ChatArea";
 import ChatItem from "./ChatItem";
+import { useDispatch, useSelector } from "react-redux";
+import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import { get } from "jquery";
 
 const ChatModal = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -15,7 +18,11 @@ const ChatModal = () => {
   const [roomId, setRoomId] = useState("");
   const [userMaxCount, setUserMaxCount] = useState(2);
   const [leave, setLeave] = useState();
-  const [userName, setUserName] = useState("");
+
+  const { userDto } = useSelector((state) => state.user);
+  let { storeChatRoomList } = useSelector((state) => state.chat);
+  const dispatch = useDispatch();
+  // const [userName, setUserName] = useState("");
 
   const [roomName, setRoomName] = useState("");
 
@@ -24,11 +31,13 @@ const ChatModal = () => {
   };
 
   const createRoom = () => {
+    console.log("dddd", userDto.u_mail);
     api
       .post("http://127.0.0.1:8090/chat/createroom", {
         newName: newName,
         userMaxCount: userMaxCount,
-        userName: userName,
+        userMail: userDto.u_email,
+        userName: userDto.u_name,
       })
       .then(function (response) {
         console.log(response);
@@ -43,12 +52,12 @@ const ChatModal = () => {
     api
       .get("http://127.0.0.1:8090/chat/list", {
         params: {
-          userName: userName,
+          user: userDto.u_email,
         },
       })
       .then(function (res) {
-        setList(res.data.list);
-        console.log("list res", list);
+        dispatch(chatActions.getChatRoomList(res.data.list));
+        console.log("dsdsdsds", res.data.list);
       })
       .catch(function (err) {
         console.log("list err", err);
@@ -56,21 +65,16 @@ const ChatModal = () => {
   };
 
   useEffect(() => {
-    // console.log("show ", showChatList);
-    console.log(newName);
-  }, [newName]);
-
-  useEffect(() => {
     getList();
-  }, [userName]);
+  }, []);
 
   useEffect(() => {
-    // let arr = [];
     setRoomId("");
     setRoomId(roomId);
   }, [roomId]);
+
   const showChat = () => {
-    console.log("showChat");
+    console.log("userDto", userDto);
     if (chatShow == 1) {
       setChatShow(0);
       setIsClicked(0);
@@ -108,10 +112,10 @@ const ChatModal = () => {
                   개설하기
                 </button>
                 <br />
-                <input
+                {/* <input
                   type="text"
                   onChange={(e) => setUserName(e.target.value)}
-                />
+                /> */}
                 <br />
                 <input
                   type="number"
@@ -119,8 +123,9 @@ const ChatModal = () => {
                 />
               </div>
 
-              {list.map((item) => (
+              {storeChatRoomList.map((item) => (
                 <ChatItem
+                  roomId={roomId}
                   setRoomId={setRoomId}
                   setRoomName={setRoomName}
                   item={item}
@@ -133,8 +138,9 @@ const ChatModal = () => {
               <ChatArea
                 roomId={roomId}
                 setRoomId={setRoomId}
-                userName={userName}
+                user={userDto}
                 roomName={roomName}
+                getList={getList}
               />
             ) : (
               <div className={styles.chat_area}>
