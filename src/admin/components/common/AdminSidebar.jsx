@@ -11,6 +11,12 @@ const AdminSidebar = ({ menu, setMenu }) => {
           onClick={() => setMenu(1)}
           className={`${menu == 1 && stylesAdmin.on}`}
         >
+          ADMIN
+        </li>
+        <li
+          onClick={() => setMenu(2)}
+          className={`${menu == 2 && stylesAdmin.on}`}
+        >
           USER
         </li>
         {/* <li
@@ -20,20 +26,20 @@ const AdminSidebar = ({ menu, setMenu }) => {
           ADMIN
         </li> */}
         <li
-          onClick={() => setMenu(2)}
-          className={`${menu == 2 && stylesAdmin.on}`}
+          onClick={() => setMenu(3)}
+          className={`${menu == 3 && stylesAdmin.on}`}
         >
           RESERVATION
         </li>
         <li
-          onClick={() => setMenu(3)}
-          className={`${menu == 3 && stylesAdmin.on}`}
+          onClick={() => setMenu(4)}
+          className={`${menu == 4 && stylesAdmin.on}`}
         >
           BOOK
         </li>
         <li
-          onClick={() => setMenu(4)}
-          className={`${menu == 4 && stylesAdmin.on}`}
+          onClick={() => setMenu(5)}
+          className={`${menu == 5 && stylesAdmin.on}`}
         >
           COMMUNITY
         </li>

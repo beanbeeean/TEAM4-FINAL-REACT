@@ -1,6 +1,6 @@
 import React from "react";
 
-const AdminUserListItem = ({ user }) => {
+const AdminAdminListItem = ({ admin }) => {
   const dateFormat = (chk_date) => {
     const date = new Date(chk_date);
     const yyyy = date.getFullYear();
@@ -12,12 +12,11 @@ const AdminUserListItem = ({ user }) => {
 
   return (
     <>
-      <td>{user.u_no}</td>
-      <td>{user.u_name}</td>
-      <td>{user.u_provider}</td>
-      <td>{user.u_email}</td>
-      <td>{dateFormat(user.u_reg_date)}</td>
-      <td>{user.u_state}</td>
+      <td>{admin.u_no}</td>
+      <td>{admin.u_name}</td>
+      <td>{admin.u_email}</td>
+      <td>{dateFormat(admin.u_reg_date)}</td>
+      <td>{admin.u_state}</td>
       <td>
         <input type="button" value="변경" />
       </td>
@@ -25,4 +24,4 @@ const AdminUserListItem = ({ user }) => {
   );
 };
 
-export default AdminUserListItem;
+export default AdminAdminListItem;

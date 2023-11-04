@@ -26,10 +26,16 @@ export const userSlice = createSlice({
       state.userDto = action.payload.dtos;
       console.log("state.userDto: ", state.userDto);
     },
+
+    fetchAdminDto: (state, action) => {
+      state.userDto = action.payload.dtos;
+      console.log("state.userDto: ", state.userDto);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { userLogin, userLogout, fetchUserDto } = userSlice.actions;
+export const { userLogin, userLogout, fetchUserDto, fetchAdminDto } =
+  userSlice.actions;
 
 export default userSlice.reducer;
