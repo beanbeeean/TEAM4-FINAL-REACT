@@ -5,6 +5,7 @@ import OthersChat from "./OthersChat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBackwardStep,
+  faBars,
   faPaperPlane,
   faPeopleGroup,
   faRightFromBracket,
@@ -182,6 +183,9 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
           />
           {roomName}
         </div>
+        <span className={styles.chat_menu}>
+          <FontAwesomeIcon icon={faBars} />
+        </span>
         <span className={styles.leave_icon} onClick={onDisConnected}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           &nbsp; 채팅방 나가기
