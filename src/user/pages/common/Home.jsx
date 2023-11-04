@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
 import styles from "../../css/common/Home.module.css";
-import RecommendItem from "../../components/common/HomeRecommendItem";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -9,10 +7,73 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/common/Recommend.css";
 import "swiper/css/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
+import HomeRecommendItem from "../../components/common/HomeRecommendItem";
+import HomeCommunityItem from "../../components/common/HomeCommunityItem";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { readroomActions } from "../../../redux/readroom/slices/readroomSlice";
 
 const Home = () => {
-  // 연결된거 확인
-  const [data, setData] = useState([]);
+  const [books, setBooks] = useState([]);
+  const dispatch = useDispatch();
+  const { bookDto } = useSelector((state) => state.book);
+  const { roomDto } = useSelector((state) => state.readroom);
+
+  const [communities, setCommunities] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [firRooms, setFirRooms] = useState([]);
+  const [sndRooms, setSndRooms] = useState([]);
+  const [thdRooms, setThdRooms] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`/checkout_books/home`, {
+        params: {
+          category: null,
+          keyword: null,
+        },
+      })
+      .then((response) => {
+        const bookDtos = response.data;
+        dispatch(bookActions.fetchBookDto(bookDtos));
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/community`)
+      .then((response) => {
+        setCommunities(response.data.communityDtos);
+        const communityDtos = response.data;
+        dispatch(communityActions.fetchCommunityDto(communityDtos));
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/read/seat`)
+      .then((response) => {
+        const roomDtos = response.data;
+        console.log("roomDtos :: ", roomDtos);
+        dispatch(readroomActions.fetchRoomDto(roomDtos));
+        setRooms(roomDtos);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    setBooks(bookDto.filter((e) => e.b_category === 3));
+  }, [bookDto]);
+
+  useEffect(() => {
+    setFirRooms(roomDto.filter((e) => e.re_room_no === 1 && e.re_state == 1));
+    setSndRooms(roomDto.filter((e) => e.re_room_no === 2 && e.re_state == 1));
+    setThdRooms(roomDto.filter((e) => e.re_room_no === 3 && e.re_state == 1));
+  }, [roomDto]);
+
+  console.log("firRooms :: ", firRooms.length);
+  console.log("sndRooms :: ", sndRooms);
+  console.log("thdRooms :: ", thdRooms);
 
   return (
     <div className={`${styles.content_wrap}`}>
@@ -33,33 +94,20 @@ const Home = () => {
               delay: 4000,
               disableOnInteraction: false,
             }}
-            //   pagination={{
-            //     clickable: true,
-            //   }}
           >
             <SwiperSlide className="swiper_slide">
-              <RecommendItem />
-              <RecommendItem />
-              <RecommendItem />
-              <RecommendItem />
-              <RecommendItem />
+              {books.map(
+                (book, idx) => idx < 5 && <HomeRecommendItem book={book} />
+              )}
             </SwiperSlide>
             <SwiperSlide className="swiper_slide">
-              <RecommendItem />
-              <RecommendItem />
-              <RecommendItem />
-              <RecommendItem />
-              <RecommendItem />
+              {books.map(
+                (book, idx) =>
+                  idx > 4 && idx < 10 && <HomeRecommendItem book={book} />
+              )}
             </SwiperSlide>
           </Swiper>
         </div>
-
-        {/* <div className={`${styles.my_info_wrap} ${styles.block}`}>
-          <div className={styles.mini_nav}>
-            <span className={styles.title}>내 정보</span>
-          </div>
-          <Profile />
-        </div> */}
       </div>
 
       <div className={styles.second_wrap}>
@@ -81,36 +129,10 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
+                {communities.map(
+                  (community, idx) =>
+                    idx < 5 && <HomeCommunityItem community={community} />
+                )}
               </tbody>
             </table>
           </div>
@@ -126,20 +148,29 @@ const Home = () => {
           <div className={styles.graph}>
             <div className={styles.bar}>
               <div className={styles.barLabel}>1열람실</div>
-              <div className={styles.barFill} style={{ width: "70%" }}>
-                <span className={styles.barValue}>35</span>
+              <div
+                className={styles.barFill}
+                style={{ width: `${(firRooms.length / 44) * 100}%` }}
+              >
+                <span className={styles.barValue}>{firRooms.length}/44</span>
               </div>
             </div>
             <div className={styles.bar}>
               <div className={styles.barLabel}>2열람실</div>
-              <div className={styles.barFill} style={{ width: "50%" }}>
-                <span className={styles.barValue}>22</span>
+              <div
+                className={styles.barFill}
+                style={{ width: `${(sndRooms.length / 44) * 100}%` }}
+              >
+                <span className={styles.barValue}>{sndRooms.length}/44</span>
               </div>
             </div>
             <div className={styles.bar}>
               <div className={styles.barLabel}>3열람실</div>
-              <div className={styles.barFill} style={{ width: "90%" }}>
-                <span className={styles.barValue}>40</span>
+              <div
+                className={styles.barFill}
+                style={{ width: `${(thdRooms.length / 44) * 100}%` }}
+              >
+                <span className={styles.barValue}>{thdRooms.length}/44</span>
               </div>
             </div>
           </div>

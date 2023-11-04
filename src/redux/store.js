@@ -7,6 +7,7 @@ import bookSlice from "./book/slices/bookSlice";
 import communitySlice from "./community/slices/communitySlice";
 import chatSlice from "./chat/slices/chatSlice";
 import chkBookSlice from "./book/slices/chkBookSlice";
+import readroomSlice from "./readroom/slices/readroomSlice";
 
 const persistConfig = {
   key: "root",
@@ -23,5 +24,6 @@ export const store = configureStore({
     community: communitySlice,
     chat: chatSlice,
     chkBook: chkBookSlice,
+    readroom: readroomSlice,
   },
 });
