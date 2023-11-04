@@ -43,6 +43,12 @@ const AdminSidebar = ({ menu, setMenu }) => {
         >
           COMMUNITY
         </li>
+        <li
+          onClick={() => setMenu(6)}
+          className={`${menu == 6 && stylesAdmin.on}`}
+        >
+          MY PAGE
+        </li>
       </ul>
       <div className={stylesAdmin.logout}>LogOut</div>
     </div>

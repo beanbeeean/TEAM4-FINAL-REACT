@@ -9,7 +9,6 @@ import {
   fetchUserDto,
   userAction,
 } from "../../../redux/user/slices/userSlice";
-import AdminUserListItem from "../user/AdminUserListItem";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import AdminAdminListItem from "./AdminAdminListItem";
 
@@ -72,6 +71,7 @@ const AdminManagement = () => {
               <th>ADMIN</th>
               <th>EMAIL</th>
               <th>JOIN DATE</th>
+              <th>ROLE</th>
               <th>STATE</th>
               <th>CHANGE</th>
             </tr>

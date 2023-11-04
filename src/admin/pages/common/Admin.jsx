@@ -6,6 +6,7 @@ import ReservationManagement from "../../components/reservation/ReservationManag
 import BookManagement from "../../components/book/BookManagement";
 import CommunityManagement from "../../components/community/CommunityManagement";
 import AdminManagement from "../../components/admin/AdminManagement";
+import AdminMypageProfile from "../../components/mypage/AdminMypageProfile";
 
 const Admin = () => {
   const [menu, setMenu] = useState(1);
@@ -18,6 +19,7 @@ const Admin = () => {
         {menu == 3 && <ReservationManagement />}
         {menu == 4 && <BookManagement />}
         {menu == 5 && <CommunityManagement />}
+        {menu == 6 && <AdminMypageProfile />}
       </div>
     </div>
   );
