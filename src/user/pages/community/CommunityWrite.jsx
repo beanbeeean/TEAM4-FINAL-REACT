@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, DraftHandleValue } from "draft-js";
+import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftjsToHtml from "draftjs-to-html";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
-import api from "../../../redux/api";
+import styles from "../../css/community/CommunityWrite.module.css";
 
 const RowBox = styled.div`
   width: 100%;
@@ -28,6 +28,9 @@ const CommunityWrite = () => {
   const [htmlString, setHtmlString] = useState("");
   const [selection, setSelection] = useState(1);
   const [title, setTitle] = useState("");
+
+  const [newName, setNewName] = useState("");
+  const [userMaxCount, setUserMaxCount] = useState(2);
 
   const navigate = useNavigate();
 
@@ -86,8 +89,14 @@ const CommunityWrite = () => {
 
   return (
     <>
-      <Container>
+      <div className={styles.write_btns}>
+        <button onClick={handleSubmit}>등록</button>
+        <button>취소</button>
+      </div>
+      <div className={styles.write_title}>
+        <h4>제목</h4>
         <select
+          className={styles.wrtie_select_category}
           name="write_category"
           onChange={(e) => setSelection(e.target.value)}
         >
@@ -101,7 +110,9 @@ const CommunityWrite = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        {selection == 3 && <div>채팅방 개설</div>}
+      </div>
+
+      <div className={styles.editor_wrap}>
         <Editor
           placeholder="게시글을 작성해주세요"
           editorState={editorState}
@@ -113,19 +124,38 @@ const CommunityWrite = () => {
           editorStyle={{
             height: "400px",
             width: "100%",
-            border: "3px solid lightgray",
+            border: "none",
             padding: "20px",
+            backgroundColor: "#fff",
           }}
         />
-        <div>
-          <button onClick={handleSubmit}>작성</button>
-          <button>초기화</button>
+      </div>
+
+      {selection == 3 ? (
+        <div className={styles.create_wrap}>
+          <h4>채팅방 개설</h4>
+          <div className={styles.create_input}>
+            방 이름
+            <input
+              type="text"
+              name="name"
+              placeholder="채팅방 이름을 입력해주세요"
+              onChange={(e) => setNewName(e.target.value)}
+            />
+            <input type="button" value={"중복체크"} />
+            최대 인원
+            <input
+              type="number"
+              value={userMaxCount}
+              min={2}
+              max={10}
+              onChange={(e) => setUserMaxCount(e.target.value)}
+            />
+          </div>
         </div>
-      </Container>
-      <RowBox>
-        <Viewer dangerouslySetInnerHTML={{ __html: htmlString }} />
-        <Viewer>{htmlString}</Viewer>
-      </RowBox>
+      ) : (
+        ""
+      )}
     </>
   );
 };

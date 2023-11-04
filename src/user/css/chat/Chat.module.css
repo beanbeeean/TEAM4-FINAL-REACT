@@ -73,8 +73,8 @@
 
 .chat_title_wrap > span {
   position: absolute;
-  bottom: -20px;
-  left: 3px;
+  right: -30px;
+  top: 4px;
   font-size: 15px;
   font-weight: 400;
   display: flex;
@@ -146,8 +146,6 @@
 }
 
 .chat_box {
-  /* width: 10px; */
-  /* height: 500px; */
   background-color: #fff;
   display: flex;
 }
@@ -175,13 +173,8 @@
 }
 
 .chat_room_on {
-  border: 1px solid #ff0000;
-}
-
-.chatting_room {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  background-color: #f8f8f8;
+  font-weight: bold;
 }
 
 .group_icon {
@@ -202,6 +195,16 @@
 
 .chatting_room .group_icon {
   color: #585858;
+}
+
+.chat_room_on * {
+  color: #f59e86;
+}
+
+.chatting_room {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .delete_room {

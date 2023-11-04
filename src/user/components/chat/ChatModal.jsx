@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../css/chat/Chat.module.css";
 import { BiChat } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 import api from "../../../redux/api";
 import ChatArea from "./ChatArea";
 import ChatItem from "./ChatItem";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
-import { get } from "jquery";
 
 const ChatModal = () => {
   const [isClicked, setIsClicked] = useState(false);
