@@ -10,6 +10,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
@@ -43,6 +44,14 @@ const MyPage = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    axios
+      .get(`/community`)
+      .then((response) => {
+        const communityDtos = response.data;
+        dispatch(communityActions.fetchCommunityDto(communityDtos));
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   return (

@@ -17,7 +17,7 @@ const CheckoutListItem = (props) => {
   const { bookDto } = useSelector((state) => state.book);
 
   const isChkBook = chkBookDto.dtos.filter(
-    (e) => e.u_email === userDto.u_email
+    (e) => e.u_email === userDto.u_email && e.chk_b_state == 1
   );
 
   useEffect(() => {
