@@ -186,10 +186,10 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
         <span className={styles.chat_menu}>
           <FontAwesomeIcon icon={faBars} />
         </span>
-        <span className={styles.leave_icon} onClick={onDisConnected}>
+        {/* <span className={styles.leave_icon} onClick={onDisConnected}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           &nbsp; 채팅방 나가기
-        </span>
+        </span> */}
       </div>
 
       <div className={styles.chatting}>

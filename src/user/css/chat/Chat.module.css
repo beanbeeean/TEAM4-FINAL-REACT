@@ -70,12 +70,28 @@
 .leave_icon {
   cursor: pointer;
   float: right;
-  font-size: 12px;
+  font-size: 15px;
+  margin-right: 20px;
   font-weight: bold;
   color: #b2b2b2;
 }
 
 .leave_icon:hover {
+  color: #535353;
+}
+
+.chat_menu {
+  cursor: pointer;
+  float: right;
+  font-size: 15px;
+  font-weight: bold;
+  color: #b2b2b2;
+  margin-right: 5px;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.chat_menu:hover {
   color: #535353;
 }
 
