@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/book/BookManagement.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import BookListItem from "./AdminBookListItem";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
