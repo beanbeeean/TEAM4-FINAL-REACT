@@ -78,7 +78,7 @@
   color: #717171;
   font-size: 17px;
 }
-.create_input > input {
+.create_input input {
   font-size: 15px;
   margin: 0px 30px 0 10px;
   padding: 5px 8px;
@@ -87,15 +87,28 @@
   outline: none;
 }
 
-.create_input > input[type="text"] {
+.create_input input[type="text"] {
   width: 450px;
   margin-right: 0;
 }
 
-.create_input > input[type="button"] {
+.create_input input[type="button"] {
   background-color: #f9f9f9;
 }
 
-.create_input > input[type="number"] {
+.create_input input[type="number"] {
   width: 55px;
+}
+
+.duplicate_txt {
+  font-size: 11px;
+  margin: 0 10px;
+}
+
+.duplicate_txt_enable > svg {
+  color: #00ff00;
+}
+
+.duplicate_txt_disable > svg {
+  color: #ff0000;
 }

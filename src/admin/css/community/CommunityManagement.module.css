@@ -146,7 +146,7 @@ select[name="search_category"] {
   margin-right: 5px;
   position: relative;
   left: 70px;
-  z-index: 100;
+  z-index: 50;
 }
 
 div.search_bar {
