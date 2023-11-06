@@ -6,8 +6,6 @@ import { useDispatch } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 
 const HomeRecommendItem = (book) => {
-  console.log("book.book.b_no :: ", book.book.b_no);
-
   return (
     <Link to={`/checkout_books/${book.book.b_no}`}>
       <div className={styles.slide_block}>

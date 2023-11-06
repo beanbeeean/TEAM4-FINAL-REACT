@@ -10,16 +10,18 @@ const CheckoutDetail = () => {
   const [modalShow, setModalShow] = useState(false);
   const id = useParams().id;
 
-  const store = useSelector((state) => state);
-  const detailBook = store.book.bookDto.filter((e) => e.b_no === id * 1);
+  const { bookDto } = useSelector((state) => state.book);
+
+  console.log("bookDto :: ", bookDto);
+
+  const detailBook = bookDto.filter((e) => e.b_no === id * 1);
+  console.log("detailBook :: ", detailBook[0]);
 
   const [unable, setUnable] = useState(true);
   const { userDto } = useSelector((state) => state.user);
   const { chkBookDto } = useSelector((state) => state.chkBook);
 
-  const isChkBook = chkBookDto.dtos.filter(
-    (e) => e.u_email === userDto.u_email
-  );
+  const isChkBook = chkBookDto.filter((e) => e.u_email === userDto.u_email);
   console.log("isChkBook : ", isChkBook);
 
   useEffect(() => {

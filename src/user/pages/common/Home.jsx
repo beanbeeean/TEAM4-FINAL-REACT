@@ -22,6 +22,7 @@ const Home = () => {
   const { bookDto } = useSelector((state) => state.book);
   const { roomDto } = useSelector((state) => state.readroom);
   const { userDto } = useSelector((state) => state.user);
+  const { communityDto } = useSelector((state) => state.community);
 
   const [communities, setCommunities] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -38,7 +39,6 @@ const Home = () => {
       })
       .then((response) => {
         const userDtos = response.data;
-        console.log("userDtos :: ", userDtos);
         dispatch(fetchUserDtos(userDtos));
       })
       .catch((error) => console.log(error));
@@ -60,6 +60,10 @@ const Home = () => {
       .get(`/community`)
       .then((response) => {
         setCommunities(response.data.communityDtos);
+        console.log(
+          "response.data.communityDtos :: ",
+          response.data.communityDtos
+        );
         const communityDtos = response.data;
         dispatch(communityActions.fetchCommunityDto(communityDtos));
       })
@@ -69,7 +73,6 @@ const Home = () => {
       .get(`/read/seat`)
       .then((response) => {
         const roomDtos = response.data;
-        console.log("roomDtos :: ", roomDtos);
         dispatch(readroomActions.fetchRoomDto(roomDtos));
         setRooms(roomDtos);
       })
@@ -81,9 +84,15 @@ const Home = () => {
   }, [bookDto]);
 
   useEffect(() => {
-    setFirRooms(roomDto.filter((e) => e.re_room_no === 1 && e.re_state == 1));
-    setSndRooms(roomDto.filter((e) => e.re_room_no === 2 && e.re_state == 1));
-    setThdRooms(roomDto.filter((e) => e.re_room_no === 3 && e.re_state == 1));
+    setFirRooms(
+      roomDto.filter((e) => e.re_room_no === 1 && e.re_reservation == null)
+    );
+    setSndRooms(
+      roomDto.filter((e) => e.re_room_no === 2 && e.re_reservation == null)
+    );
+    setThdRooms(
+      roomDto.filter((e) => e.re_room_no === 3 && e.re_reservation == null)
+    );
   }, [roomDto]);
 
   return (
@@ -92,6 +101,9 @@ const Home = () => {
         <div className={`${styles.recommend_books}`}>
           <div className={styles.mini_nav}>
             <span className={styles.title}>추천도서</span>
+            <Link to="/checkout_books">
+              <span className={styles.more}>+ more</span>
+            </Link>
           </div>
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
@@ -125,7 +137,7 @@ const Home = () => {
         <div className={`${styles.community} ${styles.block}`}>
           <div className={styles.mini_nav}>
             <span className={styles.title}>커뮤니티 최신 글</span>
-            <Link to="/board">
+            <Link to="/community">
               <span className={styles.more}>+ more</span>
             </Link>
           </div>

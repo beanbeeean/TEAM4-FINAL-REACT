@@ -39,7 +39,7 @@ const MyPage = () => {
       })
       .then((response) => {
         const chkBookDtos = response.data;
-        dispatch(chkBookActions.fetchChkBookDto(chkBookDtos.dtos));
+        dispatch(chkBookActions.fetchChkBookDto(chkBookDtos));
       })
       .catch((error) => {
         console.error("Error:", error);

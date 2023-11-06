@@ -16,7 +16,7 @@ const CheckoutListItem = (props) => {
 
   const { bookDto } = useSelector((state) => state.book);
 
-  const isChkBook = chkBookDto.dtos.filter(
+  const isChkBook = chkBookDto.filter(
     (e) => e.u_email === userDto.u_email && e.chk_b_state == 1
   );
 
@@ -30,10 +30,6 @@ const CheckoutListItem = (props) => {
         setUnable(false);
       }
     });
-    //   if (item.b_no == book.b_no) {
-    //     setUnable(false);
-    //   }
-    // });
   }, [isChkBook]);
 
   return (
