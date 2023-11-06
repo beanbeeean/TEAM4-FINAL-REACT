@@ -234,6 +234,11 @@
   border-right: 1px solid #dadada;
 }
 
+.reservation_badge {
+
+  color: #cfcfcf;
+}
+
 .reservation_card_btn {
   padding: 25px 0;
   margin-top: 15px;
