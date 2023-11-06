@@ -102,3 +102,7 @@ export function userUpload(img) {
 export function chkRoom(space) {
     return axiosInstance.post("/study/room",space);
 }
+
+export function reservationRoom(reservationRequest) {
+    return axiosInstance.post("/study/reservation",reservationRequest);
+}
