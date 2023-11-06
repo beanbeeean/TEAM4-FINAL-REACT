@@ -14,7 +14,7 @@ import HomeRecommendItem from "../../components/common/HomeRecommendItem";
 import HomeCommunityItem from "../../components/common/HomeCommunityItem";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { readroomActions } from "../../../redux/readroom/slices/readroomSlice";
-import { fetchUserDto } from "../../../redux/user/slices/userSlice";
+import { fetchUserDtos } from "../../../redux/user/slices/userSlice";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -39,7 +39,7 @@ const Home = () => {
       .then((response) => {
         const userDtos = response.data;
         console.log("userDtos :: ", userDtos);
-        dispatch(fetchUserDto(userDtos));
+        dispatch(fetchUserDtos(userDtos));
       })
       .catch((error) => console.log(error));
 

@@ -4,6 +4,7 @@ import { ACCESS_TOKEN } from "../../../user/components/common/login";
 const initialState = {
   userDto: {},
   flag: 0,
+  userDtos:{},
 };
 
 export const userSlice = createSlice({
@@ -22,9 +23,9 @@ export const userSlice = createSlice({
       state.userDto = {};
     },
 
-    fetchUserDto: (state, action) => {
-      state.userDto = action.payload.dtos;
-      console.log("state.userDto: ", state.userDto);
+    fetchUserDtos: (state, action) => {
+      state.userDtos = action.payload.dtos;
+      console.log("state.userDto: ", state.userDtos);
     },
 
     fetchAdminDto: (state, action) => {
@@ -47,7 +48,7 @@ export const userSlice = createSlice({
 export const {
   userLogin,
   userLogout,
-  fetchUserDto,
+  fetchUserDtos,
   fetchAdminDto,
   updateUserState,
 } = userSlice.actions;

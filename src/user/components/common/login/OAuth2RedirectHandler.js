@@ -28,6 +28,7 @@ const OAuth2RedirectHandler = () => {
         localStorage.setItem(ACCESS_TOKEN, token);
         myPage()
         .then(response => {
+            console.log("response.data",response.data);
             dispatch(userLogin(response.data));
         }).catch(error => {
             alert((error && error.message) || '로그인에 실패하였습니다.');

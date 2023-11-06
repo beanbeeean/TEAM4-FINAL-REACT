@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
-  fetchUserDto,
+  fetchUserDtos,
   updateUserState,
   userAction,
 } from "../../../redux/user/slices/userSlice";
@@ -40,7 +40,7 @@ const UserManagement = () => {
       .then((response) => {
         const userDtos = response.data;
         console.log("userDtos :: ", userDtos);
-        dispatch(fetchUserDto(userDtos));
+        dispatch(fetchUserDtos(userDtos));
         arr = Array.from(userDtos.dtos);
         setUsers(arr);
       })

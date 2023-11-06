@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const HomeCommunityItem = (props) => {
-  const { userDto } = useSelector((state) => state.user);
-
-  const user_name = userDto.filter((e) => e.u_email == props.community.u_email);
+  const { userDtos } = useSelector((state) => state.user);
+  const user_name =  userDtos.filter((e) => e.u_email == props.community.u_email);
 
   const dateFormat = (chk_date) => {
     const date = new Date(chk_date);
@@ -14,6 +13,7 @@ const HomeCommunityItem = (props) => {
 
     return `${yyyy}-${mm}-${dd}`;
   };
+
 
   return (
     <tr>
