@@ -4,7 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { fetchUserDto, userAction } from "../../../redux/user/slices/userSlice";
+import {
+  fetchUserDto,
+  updateUserState,
+  userAction,
+} from "../../../redux/user/slices/userSlice";
 import AdminUserListItem from "../../components/user/AdminUserListItem";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 
@@ -43,11 +47,11 @@ const UserManagement = () => {
       .catch((error) => console.log(error));
   }, [searchUser]);
 
-  console.log("users :: ", users);
+  console.log("userDto :: ", userDto);
 
-  // useEffect(() => {
-  //   setUsers(userDto);
-  // }, [userDto]);
+  useEffect(() => {
+    setUsers(userDto);
+  }, [userDto]);
 
   return (
     <div className={stylesAdmin.management_wrap}>

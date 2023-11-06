@@ -31,11 +31,25 @@ export const userSlice = createSlice({
       state.userDto = action.payload.dtos;
       console.log("state.userDto: ", state.userDto);
     },
+
+    updateUserState: (state, action) => {
+      state.userDto.forEach((e, idx) => {
+        if (e.u_no === action.payload) {
+          state.userDto[idx].u_state = e.u_state === 0 ? 1 : 0;
+          console.log("state.userDto 1: ", state.userDto);
+        }
+      });
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { userLogin, userLogout, fetchUserDto, fetchAdminDto } =
-  userSlice.actions;
+export const {
+  userLogin,
+  userLogout,
+  fetchUserDto,
+  fetchAdminDto,
+  updateUserState,
+} = userSlice.actions;
 
 export default userSlice.reducer;
