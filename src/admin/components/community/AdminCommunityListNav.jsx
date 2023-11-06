@@ -3,21 +3,23 @@ import stylesAdmin from "../../css/book/AdminBookListNav.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const AdminBookListNav = ({ onNavStateChange, onSearchBookChange }) => {
+const AdminCommunityListNav = ({ onNavStateChange, onSearchBookChange }) => {
   const [keyword, setKeyword] = useState("");
-  const [selectedNav, setSelectedNav] = useState("all");
+  const [selectedNav, setSelectedNav] = useState("RECOMMEND");
 
   const handleNavClick = (nav) => {
     setSelectedNav(nav);
     onNavStateChange(nav);
   };
 
+  console.log("selectedNav :: ", selectedNav);
+
   return (
     <div>
       <div className={stylesAdmin.search_book}>
         <input
           type="text"
-          placeholder="SEARCH BOOK"
+          placeholder="SEARCH COMMUNITY"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <FontAwesomeIcon
@@ -29,28 +31,28 @@ const AdminBookListNav = ({ onNavStateChange, onSearchBookChange }) => {
 
       <ul className={stylesAdmin.booklist_nav}>
         <li
-          onClick={() => handleNavClick("all")}
-          className={selectedNav === "all" ? stylesAdmin.nav_selected : ""}
-        >
-          종합
-        </li>
-        <li
-          onClick={() => handleNavClick("new")}
-          className={selectedNav === "new" ? stylesAdmin.nav_selected : ""}
-        >
-          신간
-        </li>
-        <li
-          onClick={() => handleNavClick("bestseller")}
+          onClick={() => handleNavClick("RECOMMEND")}
           className={
-            selectedNav === "bestseller" ? stylesAdmin.nav_selected : ""
+            selectedNav === "RECOMMEND" ? stylesAdmin.nav_selected : ""
           }
         >
-          베스트셀러
+          RECOMMEND
+        </li>
+        <li
+          onClick={() => handleNavClick("GATHER")}
+          className={selectedNav === "GATHER" ? stylesAdmin.nav_selected : ""}
+        >
+          GATHER
+        </li>
+        <li
+          onClick={() => handleNavClick("FREE")}
+          className={selectedNav === "FREE" ? stylesAdmin.nav_selected : ""}
+        >
+          FREE
         </li>
       </ul>
     </div>
   );
 };
 
-export default AdminBookListNav;
+export default AdminCommunityListNav;

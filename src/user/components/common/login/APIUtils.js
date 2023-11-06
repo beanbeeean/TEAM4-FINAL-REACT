@@ -4,28 +4,31 @@ import { useDispatch } from 'react-redux';
 import { userLogout } from '../../../../redux/user/slices/userSlice';
 
 const axiosInstance = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    }
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 const axiosImgInstance = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-        'Content-Type': 'multipart/form-data',
-    }
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
 });
 
-axiosInstance.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use(
+  (config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
-        config.headers['Authorization'] = 'Bearer ' + token;
+      config.headers["Authorization"] = "Bearer " + token;
     }
     return config;
-}, (error) => {
+  },
+  (error) => {
     return Promise.reject(error);
-});
+  }
+);
 
 axiosInstance.interceptors.response.use(
     (response) => {
@@ -41,7 +44,7 @@ axiosInstance.interceptors.response.use(
 axiosImgInstance.interceptors.request.use((config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
-        config.headers['Authorization'] = 'Bearer ' + token;
+      config.headers["Authorization"] = "Bearer " + token;
     }
     console.log(config);
     return config;
@@ -51,7 +54,8 @@ axiosImgInstance.interceptors.request.use((config) => {
         dispatch(userLogout());
     }
     return Promise.reject(error);
-});
+  }
+);
 
 axiosImgInstance.interceptors.response.use(
     (response) => {
@@ -66,33 +70,33 @@ axiosImgInstance.interceptors.response.use(
 
 
 export function getCurrentUser() {
-    if (!localStorage.getItem(ACCESS_TOKEN)) {
-        return Promise.reject("No access token set.");
-    }
+  if (!localStorage.getItem(ACCESS_TOKEN)) {
+    return Promise.reject("No access token set.");
+  }
 
-    return axiosInstance.get("/auth/");
+  return axiosInstance.get("/auth/");
 }
 
 export function login(loginRequest) {
-    return axiosInstance.post("/auth/signin", loginRequest, {
-        withCredentials: true
-    });
+  return axiosInstance.post("/auth/signin", loginRequest, {
+    withCredentials: true,
+  });
 }
 
 export function logout(loginRequest) {
-    return axiosInstance.post("/auth/signout", loginRequest);
+  return axiosInstance.post("/auth/signout", loginRequest);
 }
 
 export function signup(signupRequest) {
-    return axiosInstance.post("/auth/signup", signupRequest);
+  return axiosInstance.post("/auth/signup", signupRequest);
 }
 
 export function myPage() {
-    return axiosInstance.get("/user/myPage");
+  return axiosInstance.get("/user/myPage");
 }
 
 export function userUpdate(user) {
-    return axiosInstance.post("/user/userUpdate",user);
+  return axiosInstance.post("/user/userUpdate", user);
 }
 
 export function userUpload(img) {

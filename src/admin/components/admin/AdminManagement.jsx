@@ -4,23 +4,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { fetchUserDto, userAction } from "../../../redux/user/slices/userSlice";
-import AdminUserListItem from "../../components/user/AdminUserListItem";
+import {
+  fetchAdminDto,
+  fetchUserDto,
+  userAction,
+} from "../../../redux/user/slices/userSlice";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import AdminAdminListItem from "./AdminAdminListItem";
 
-const UserManagement = () => {
-  const [users, setUsers] = useState([]);
-  const [searchUser, setSearchUser] = useState("");
+const AdminManagement = () => {
+  const [admins, setAdmins] = useState([]);
+  const [searchAdmin, setSearchAdmin] = useState("");
   const [keyword, setKeyword] = useState("");
-
-  console.log("keyword :: ", keyword);
 
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedUsers = users.slice(startIndex, endIndex);
+  const displayedAdmins = admins.slice(startIndex, endIndex);
 
   const dispatch = useDispatch();
   const { userDto } = useSelector((state) => state.user);
@@ -28,22 +30,19 @@ const UserManagement = () => {
   useEffect(() => {
     let arr = [];
     axios
-      .get(`/admin/management/userManagement`, {
+      .get(`/admin/management/adminManagement`, {
         params: {
-          keyword: searchUser,
+          keyword: searchAdmin,
         },
       })
       .then((response) => {
-        const userDtos = response.data;
-        console.log("userDtos :: ", userDtos);
-        dispatch(fetchUserDto(userDtos));
-        arr = Array.from(userDtos.dtos);
-        setUsers(arr);
+        const adminDtos = response.data;
+        dispatch(fetchAdminDto(adminDtos));
+        arr = Array.from(adminDtos.dtos);
+        setAdmins(arr);
       })
       .catch((error) => console.log(error));
-  }, [searchUser]);
-
-  console.log("users :: ", users);
+  }, [searchAdmin]);
 
   // useEffect(() => {
   //   setUsers(userDto);
@@ -61,7 +60,7 @@ const UserManagement = () => {
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           className={stylesAdmin.search_user_btn}
-          onClick={() => setSearchUser(keyword)}
+          onClick={() => setSearchAdmin(keyword)}
         />
       </div>
       <div className={stylesAdmin.user_list}>
@@ -69,18 +68,18 @@ const UserManagement = () => {
           <thead>
             <tr>
               <th>NO</th>
-              <th>USER</th>
-              <th>PROVIDER</th>
+              <th>ADMIN</th>
               <th>EMAIL</th>
               <th>JOIN DATE</th>
+              <th>ROLE</th>
               <th>STATE</th>
               <th>CHANGE</th>
             </tr>
           </thead>
           <tbody>
-            {displayedUsers.map((user) => (
+            {displayedAdmins.map((admin) => (
               <tr className={stylesAdmin.user_item}>
-                <AdminUserListItem user={user} />
+                <AdminAdminListItem admin={admin} />
               </tr>
             ))}
           </tbody>
@@ -89,7 +88,7 @@ const UserManagement = () => {
       <PaginationControl
         page={page}
         between={4}
-        total={users.length}
+        total={admins.length}
         limit={20}
         changePage={(page) => {
           setPage(page);
@@ -100,4 +99,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default AdminManagement;

@@ -13,6 +13,23 @@ const CheckoutDetail = () => {
   const store = useSelector((state) => state);
   const detailBook = store.book.bookDto.filter((e) => e.b_no === id * 1);
 
+  const [unable, setUnable] = useState(true);
+  const { userDto } = useSelector((state) => state.user);
+  const { chkBookDto } = useSelector((state) => state.chkBook);
+
+  const isChkBook = chkBookDto.dtos.filter(
+    (e) => e.u_email === userDto.u_email
+  );
+  console.log("isChkBook : ", isChkBook);
+
+  useEffect(() => {
+    isChkBook.map((item) => {
+      if (item.b_no == detailBook[0].b_no) {
+        setUnable(false);
+      }
+    });
+  }, [isChkBook]);
+
   return (
     <Container>
       <Row>
@@ -48,7 +65,14 @@ const CheckoutDetail = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                  {detailBook[0].b_stock > 0 ? (
+                  {!unable ? (
+                    <input
+                      className={styles.checkoutDis_btn}
+                      type="button"
+                      value="대여중"
+                      disabled
+                    />
+                  ) : detailBook[0].b_stock > 0 ? (
                     <input
                       className={styles.checkout_btn}
                       type="button"

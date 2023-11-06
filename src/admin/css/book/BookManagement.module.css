@@ -35,6 +35,10 @@
   color: #242424;
 }
 
+.book_list {
+  margin-bottom: 20px;
+}
+
 .book_list table.book_wrap {
   width: 100%;
 }

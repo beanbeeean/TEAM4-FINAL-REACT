@@ -35,6 +35,10 @@
   color: #242424;
 }
 
+.user_list {
+  margin-bottom: 20px;
+}
+
 .user_list table {
   width: 100%;
 }

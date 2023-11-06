@@ -6,16 +6,53 @@ import MypageBook from "../../components/mypage/MypageBook";
 import MypageCommunity from "../../components/mypage/MypageCommunity";
 import MypageChat from "../../components/mypage/MypageChat";
 import { useLocation } from "react-router";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
-  const location = useLocation();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    axios
+      .get(`/checkout_books/home`, {
+        params: {
+          category: null,
+          keyword: null,
+        },
+      })
+      .then((response) => {
+        const bookDtos = response.data;
+        dispatch(bookActions.fetchBookDto(bookDtos));
+      })
+      .catch((error) => console.log(error));
 
+    axios
+      .get(`/checkout_books/checkout_book_list`, {
+        params: {
+          id: null,
+          u_email: null,
+        },
+      })
+      .then((response) => {
+        const chkBookDtos = response.data;
+        dispatch(chkBookActions.fetchChkBookDto(chkBookDtos.dtos));
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-  // useEffect(() => {
-  //   setOn(location.state.page);
-  // }, [location]);
+    axios
+      .get(`/community`)
+      .then((response) => {
+        const communityDtos = response.data;
+        dispatch(communityActions.fetchCommunityDto(communityDtos));
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <div className={styles.mypage_wrap}>

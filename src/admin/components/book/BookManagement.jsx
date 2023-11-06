@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/book/BookManagement.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import BookListItem from "./AdminBookListItem";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
@@ -17,11 +14,8 @@ const BookManagement = () => {
   const [navState, setNavState] = useState("all");
   const [searchBook, setSearchBook] = useState("");
 
-  console.log("navstate: ", navState);
-  console.log("searchBook: ", searchBook);
-
   const [page, setPage] = useState(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -56,13 +50,7 @@ const BookManagement = () => {
   return (
     <div className={stylesAdmin.management_wrap}>
       <h2 className={stylesAdmin.admin_title}>BOOK MANAGEMENT</h2>
-      <div className={stylesAdmin.search_book}>
-        <input type="text" placeholder="SEARCH BOOK" />
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className={stylesAdmin.search_book_btn}
-        />
-      </div>
+
       <AdminBookListNav
         onNavStateChange={setNavState}
         onSearchBookChange={setSearchBook}

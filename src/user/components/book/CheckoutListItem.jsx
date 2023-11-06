@@ -4,35 +4,66 @@ import styles from "../../css/book/BookCoutList.module.css";
 import { Link } from "react-router-dom";
 import CheckoutModal from "./CheckoutModal";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 
-const CheckoutListItem = ({ navState, book, idx }) => {
+const CheckoutListItem = (props) => {
   const [modalShow, setModalShow] = useState(false);
+  const [unable, setUnable] = useState(true);
 
-  console.log("nav Staasdsa", navState);
-  console.log("idx", idx);
+  const { userDto } = useSelector((state) => state.user);
+  const { chkBookDto } = useSelector((state) => state.chkBook);
+
+  const { bookDto } = useSelector((state) => state.book);
+
+  const isChkBook = chkBookDto.dtos.filter(
+    (e) => e.u_email === userDto.u_email && e.chk_b_state == 1
+  );
+
+  useEffect(() => {
+    setUnable(true);
+  }, [props]);
+
+  useEffect(() => {
+    isChkBook.map((item) => {
+      if (item.b_no == props.book.b_no) {
+        setUnable(false);
+      }
+    });
+    //   if (item.b_no == book.b_no) {
+    //     setUnable(false);
+    //   }
+    // });
+  }, [isChkBook]);
 
   return (
     <div className={styles.item_wrap}>
       <div>
-        <Link to={`/checkout_books/${book.b_no}`}>
+        <Link to={`/checkout_books/${props.book.b_no}`}>
           <div className={styles.content_wrap}>
-            <img src={book.b_cover} />
+            <img src={props.book.b_cover} />
             <ul>
-              <li className={styles.book_title}>{book.b_title}</li>
+              <li className={styles.book_title}>{props.book.b_title}</li>
               <li>
-                <span>{book.b_author} 저</span>&nbsp;|&nbsp;
-                <span>{book.b_publisher}</span>
+                <span>{props.book.b_author} 저</span>&nbsp;|&nbsp;
+                <span>{props.book.b_publisher}</span>
               </li>
             </ul>
           </div>
         </Link>
         <div className={styles.buttons_wrap}>
           <span className={styles.ch_count}>
-            대여 가능 수량 <span>{book.b_stock}</span>
+            대여 가능 수량 <span>{props.book.b_stock}</span>
           </span>
           <br />
-          {book.b_stock > 0 ? (
+          {!unable ? (
+            <input
+              className={styles.checkoutDis_btn}
+              type="button"
+              value="대여중"
+              disabled
+            />
+          ) : props.book.b_stock > 0 ? (
             <input
               className={styles.checkout_btn}
               type="button"
@@ -51,7 +82,7 @@ const CheckoutListItem = ({ navState, book, idx }) => {
             show={modalShow}
             setModalShow={setModalShow}
             onHide={() => setModalShow(false)}
-            book={book}
+            book={props.book}
           />
         </div>
       </div>

@@ -10,9 +10,9 @@ const CommunityItem = ({ community }) => {
   return (
     <tr>
       <td className="text-center">
-        {community.c_no == 1
+        {community.c_category == 1
           ? "FREE"
-          : community.c_no == 2
+          : community.c_category == 2
           ? "RECOMMEND"
           : "GATHER"}
       </td>
@@ -20,7 +20,7 @@ const CommunityItem = ({ community }) => {
         <td>{community.c_title}</td>
       </Link>
       <td className="text-center">{community.c_hit}</td>
-      <td className="text-center">{community.u_no}</td>
+      <td className="text-center">{community.u_email}</td>
       <td className="text-center">{`${yyyy}-${mm}-${dd}`}</td>
     </tr>
   );

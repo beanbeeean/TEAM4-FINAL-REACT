@@ -6,8 +6,6 @@ import axios from "axios";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 
 const ChangeStateModal = (props) => {
-  console.log("props : ", props);
-
   const dispatch = useDispatch();
   const [cnt, setCnt] = useState();
   const [bookState, setBookState] = useState();

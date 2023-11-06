@@ -5,32 +5,39 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../redux/api";
 import ChatArea from "./ChatArea";
 import ChatItem from "./ChatItem";
+import { useDispatch, useSelector } from "react-redux";
+import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import { get } from "jquery";
 
 const ChatModal = () => {
-  // const [show, setShow] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
   const [chatShow, setChatShow] = useState(0);
-  // const [isChatClicked, setIsChatClicked] = useState(false);
-  // const navigate = useNavigate();
 
-  const [showChatList, setShowChatList] = useState(0);
   const [newName, setNewName] = useState("");
   const [list, setList] = useState([]);
   const [roomId, setRoomId] = useState("");
   const [userMaxCount, setUserMaxCount] = useState(2);
   const [leave, setLeave] = useState();
-  const [userName, setUserName] = useState("");
+
+  const { userDto } = useSelector((state) => state.user);
+  let { storeChatRoomList } = useSelector((state) => state.chat);
+  const dispatch = useDispatch();
+  // const [userName, setUserName] = useState("");
+
+  const [roomName, setRoomName] = useState("");
 
   const leaveConfirm = () => {
     setLeave(window.confirm("나갈래요?"));
   };
 
   const createRoom = () => {
+    console.log("dddd", userDto.u_mail);
     api
       .post("http://127.0.0.1:8090/chat/createroom", {
         newName: newName,
         userMaxCount: userMaxCount,
-        userName: userName,
+        userMail: userDto.u_email,
+        userName: userDto.u_name,
       })
       .then(function (response) {
         console.log(response);
@@ -45,12 +52,12 @@ const ChatModal = () => {
     api
       .get("http://127.0.0.1:8090/chat/list", {
         params: {
-          userName: userName,
+          user: userDto.u_email,
         },
       })
       .then(function (res) {
-        setList(res.data.list);
-        console.log("list res", list);
+        dispatch(chatActions.getChatRoomList(res.data.list));
+        console.log("dsdsdsds", res.data.list);
       })
       .catch(function (err) {
         console.log("list err", err);
@@ -58,16 +65,16 @@ const ChatModal = () => {
   };
 
   useEffect(() => {
-    // console.log("show ", showChatList);
-    console.log(newName);
-  }, [newName]);
+    getList();
+  }, []);
 
   useEffect(() => {
-    getList();
-  }, [userName]);
+    setRoomId("");
+    setRoomId(roomId);
+  }, [roomId]);
 
   const showChat = () => {
-    console.log("showChat");
+    console.log("userDto", userDto);
     if (chatShow == 1) {
       setChatShow(0);
       setIsClicked(0);
@@ -105,10 +112,10 @@ const ChatModal = () => {
                   개설하기
                 </button>
                 <br />
-                <input
+                {/* <input
                   type="text"
                   onChange={(e) => setUserName(e.target.value)}
-                />
+                /> */}
                 <br />
                 <input
                   type="number"
@@ -116,63 +123,29 @@ const ChatModal = () => {
                 />
               </div>
 
-              {list.map((item) => (
+              {storeChatRoomList.map((item) => (
                 <ChatItem
+                  roomId={roomId}
                   setRoomId={setRoomId}
+                  setRoomName={setRoomName}
                   item={item}
                   leaveConfirm={leaveConfirm}
                 />
-                // <li className="list-group-item d-flex justify-content-between align-items-start">
-                //   <div className="ms-2 me-auto">
-                //     <div className="fw-bold">
-                //       <a onClick={() => setRoomId(item.roomId)}>
-                //         {item.roomName}
-                //       </a>
-                //     </div>
-                //   </div>
-                //   <span className="badge bg-primary rounded-pill">
-                //     {item.userCount}명
-                //   </span>
-                //   <button onClick={leaveConfirm}>채팅방 나가기</button>
-                // </li>
               ))}
-              {/* <div>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  id="roomName"
-                  onChange={(e) => setNewName(e.target.value)}
-                />
-                <button
-                  className="btn btn-secondary"
-                  id="create"
-                  onClick={test}
-                >
-                  개설하기
-                </button>
-                <br />
-                <input
-                  type="text"
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <br />
-                <input
-                  type="number"
-                  onChange={(e) => setUserMaxCount(e.target.value)}
-                />
-              </div> */}
             </div>
 
             {roomId !== "" ? (
               <ChatArea
                 roomId={roomId}
                 setRoomId={setRoomId}
-                userName={userName}
-                leave={leave}
+                user={userDto}
+                roomName={roomName}
+                getList={getList}
               />
             ) : (
-              <div className={styles.chat_area}>없음</div>
+              <div className={styles.chat_area}>
+                <img src="../imgs/chat_logo.png" />
+              </div>
             )}
           </div>
         </>

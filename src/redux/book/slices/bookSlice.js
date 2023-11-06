@@ -31,11 +31,10 @@ const bookSlice = createSlice({
       state.bookDto.forEach((e, idx) => {
         if (e.b_no === action.payload.b_no) {
           const { cnt, bookState } = action.payload;
-          console.log("e.cnt : ", cnt);
-          console.log("e.bookState : ", bookState);
 
           state.bookDto[idx].b_stock = cnt;
           state.bookDto[idx].b_state = bookState;
+          state.bookDto[idx].b_mod_date = new Date();
           console.log(
             "state.bookDto[idx].b_stock : ",
             state.bookDto[idx].b_stock

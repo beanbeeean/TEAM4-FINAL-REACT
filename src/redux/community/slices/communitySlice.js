@@ -22,9 +22,10 @@ const communitySlice = createSlice({
   initialState: communityState,
   //action을 담자.
   reducers: {
-    updateStock: (state, action) => {
+    updateState: (state, action) => {
       state.communityDto.forEach((e, idx) => {
         if (e.c_no === action.payload) {
+          state.communityDto[idx].c_state = e.c_state === 0 ? 1 : 0;
           console.log("state.communityDto 1: ", state.communityDto);
         }
       });
