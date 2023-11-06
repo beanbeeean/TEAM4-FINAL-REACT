@@ -15,8 +15,20 @@ const CommunityDetail = () => {
   const [content, setContent] = useState(null);
   const [chatRoom, setChatRoom] = useState(null);
   const [comment, setComment] = useState("");
-  const [target, setTarget] = useState(0);
-  const { userDto } = useSelector((state) => state.user);
+  const [recomment, setRecomment] = useState("");
+
+  const [userInput, setUserInput] = useState(false);
+
+  const [reply, setReply] = useState([]);
+  const [reReply, setReReply] = useState(false);
+  const [secondReply, setSecondReply] = useState(false);
+
+  const [modify, setModify] = useState(false);
+
+  const [rNo, setRNo] = useState(0);
+  const [reIdx, setReIdx] = useState();
+
+  const { userDto, userDtos } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -67,13 +79,52 @@ const CommunityDetail = () => {
         c_no: id,
         u_no: userDto.u_no,
         r_comment: comment,
-        r_target_r_no: target,
+        r_target_r_no: rNo,
       })
       .then((response) => {
         console.log(response.data);
         getComments();
+        setReReply(false);
+        setReIdx();
+        setComment("");
+        setUserInput(false);
       })
       .catch((error) => console.log(error));
+  };
+
+  const modify_comment = () => {
+    axios
+      .post(`/community/modify_comment`, {
+        r_no: rNo,
+        r_comment: comment,
+      })
+      .then((response) => {
+        console.log(response.data);
+        getComments();
+        setReReply(false);
+        setReIdx();
+        setComment("");
+        setModify(false);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const delete_comment = (no) => {
+    if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      axios
+        .post(`/community/delete_comment`, {
+          r_no: no,
+        })
+        .then((response) => {
+          console.log(response.data);
+          getComments();
+          setReReply(false);
+          setReIdx();
+          setComment("");
+          setModify(false);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const getComments = () => {
@@ -84,14 +135,67 @@ const CommunityDetail = () => {
         },
       })
       .then((response) => {
+        setReply(response.data.dtos);
         console.log("ddd", response.data.dtos);
       })
       .catch((error) => console.log(error));
   };
 
+  const showReReply = (rNo, idx) => {
+    setComment("");
+    setReReply(true);
+    setSecondReply(false);
+    setRNo(rNo);
+    setReIdx(idx);
+    setModify(false);
+    setUserInput(false);
+  };
+
+  const showSecondReply = (rNo, idx) => {
+    setComment("");
+    setSecondReply(true);
+    setReReply(false);
+    setRNo(rNo);
+    setReIdx(idx);
+    setModify(false);
+    setUserInput(false);
+  };
+
+  const closeReRly = () => {
+    setReReply(false);
+    setReIdx();
+    setComment("");
+  };
+
+  const showModify = (rNo, comment) => {
+    setModify(true);
+    setReReply(false);
+    setSecondReply(false);
+    setRNo(rNo);
+    setComment(comment);
+    setUserInput(false);
+  };
+
+  const hideAll = () => {
+    setRNo(0);
+    setReReply(false);
+    setSecondReply(false);
+    setModify(false);
+    setUserInput(true);
+  };
+
+  useEffect(() => {
+    getComments();
+    console.log("userDtos :: ", userDtos);
+  }, []);
+
   useEffect(() => {
     console.log("content :: ", content);
   }, [content]);
+
+  useEffect(() => {
+    console.log("comment :: ", comment);
+  }, [comment]);
 
   return (
     <div className={styles.section_wrap}>
@@ -159,94 +263,226 @@ const CommunityDetail = () => {
             <p>댓글</p>
             <div className={styles.user_input}>
               <img src="../imgs/logo.png" alt="" />
-              <div className={styles.user_input_area}>
-                <input
-                  className={styles.input_comment}
-                  type="text"
-                  placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. :)"
-                  onChange={(e) => setComment(e.target.value)}
-                />
-                <div className={styles.user_input_btns}>
-                  <button onClick={write_comment}>댓글</button>
-                  <button>취소</button>
+              {userInput ? (
+                <div className={styles.user_input_area}>
+                  <input
+                    className={styles.input_comment}
+                    type="text"
+                    placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. :)"
+                    onChange={(e) => setComment(e.target.value)}
+                    onClick={() => setRNo(0)}
+                  />
+                  <div className={styles.user_input_btns}>
+                    <button onClick={write_comment}>댓글</button>
+                    <button onClick={() => setUserInput(false)}>취소</button>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className={styles.user_input_area}>
+                  <div
+                    className={styles.input_comment_unable}
+                    onClick={() => hideAll()}
+                  >
+                    칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. :)
+                  </div>
+                </div>
+              )}
             </div>
             <table className={styles.comment_wrap}>
               <tbody>
-                <tr>
-                  <td className={styles.comment_img}>
-                    <img src="../imgs/logo.png" alt="" />
-                  </td>
-                  <td>
-                    <div className={styles.comment_user}>
-                      홍재희
-                      <span className={styles.comment_date}>
-                        2023.11.06 00:02
-                      </span>
-                    </div>
-                    <div className={styles.comment_text}>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ipsam asperiores blanditiis libero veniam ad, soluta
-                      corporis exercitationem obcaecati ab accusamus odit
-                      tempore in nemo illo. Eius adipisci consequuntur dolores
-                      veniam.
-                    </div>
-                    <div className={styles.comment_btns}>
-                      <span>답글달기</span>
-                      <span>수정하기</span>
-                      <span>삭제하기</span>
-                    </div>
-                    <div className={styles.comment_reply_wrap}>
-                      <div className={styles.comment_reply}>
-                        <img src="./logo.png" alt="" />
-                        <div className={styles.reply_content}>
-                          <div className={styles.comment_user}>
-                            홍재희
-                            <span className={styles.comment_date}>
-                              2023.11.06 00:02
+                {reply
+                  .filter((e) => e.r_target_r_no == 0)
+                  .map((item, idx) => (
+                    <tr>
+                      <td className={styles.comment_img}>
+                        <img src="../imgs/logo.png" alt="" />
+                      </td>
+                      <td className={styles.comment_content}>
+                        <div className={styles.comment_user}>
+                          {
+                            userDtos.filter((dto) => dto.u_no == item.u_no)[0]
+                              .u_name
+                          }
+                          <span className={styles.comment_date}>
+                            {item.r_mod_date}
+                          </span>
+                        </div>
+
+                        {modify && item.r_no == rNo ? (
+                          <div className={styles.comment_text}>
+                            <input
+                              type="text"
+                              className={styles.comment_modify}
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
+                            />
+                            <div className={styles.modify_comment_btns}>
+                              <button onClick={modify_comment}>수정</button>
+                              <button onClick={() => setModify(false)}>
+                                취소
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className={styles.comment_text}>
+                            {item.r_comment}
+                          </div>
+                        )}
+                        {userDto.u_no == item.u_no ? (
+                          <div className={styles.comment_btns}>
+                            <span onClick={() => showReReply(item.r_no, idx)}>
+                              답글달기
+                            </span>
+                            <span
+                              onClick={() =>
+                                showModify(item.r_no, item.r_comment)
+                              }
+                            >
+                              수정하기
+                            </span>
+                            <span onClick={() => delete_comment(item.r_no)}>
+                              삭제하기
                             </span>
                           </div>
-                          <div className={styles.comment_text}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Ipsam asperiores blanditiis libero veniam ad,
-                            soluta corporis exercitationem obcaecati ab
-                            accusamus odit tempore in nemo illo. Eius adipisci
-                            consequuntur dolores veniam.
-                          </div>
-                          <input
-                            type="text"
-                            className={styles.comment_modify}
-                            value="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ipsam asperiores blanditiis libero veniam ad, soluta
-                      corporis exercitationem obcaecati ab accusamus odit
-                      tempore in nemo illo. Eius adipisci consequuntur dolores
-                      veniam."
-                          />
-                          <div className={styles.modify_comment_btns}>
-                            <button>수정</button>
-                            <button>취소</button>
-                          </div>
+                        ) : (
                           <div className={styles.comment_btns}>
-                            <span>답글달기</span>
-                            <span>수정하기</span>
-                            <span>삭제하기</span>
+                            <span onClick={() => showReReply(item.r_no, idx)}>
+                              답글달기
+                            </span>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.write_reply_wrap}>
-                      <div className={styles.write_reply}>
-                        <img src="./logo.png" alt="" />
-                        <input type="text" placeholder="답글 추가.." />
-                      </div>
-                      <div className={styles.write_reply_btns}>
-                        <button>답글</button>
-                        <button>취소</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                        )}
+                        {reReply && idx == reIdx && (
+                          <div className={styles.write_reply_wrap}>
+                            <div className={styles.write_reply}>
+                              <img src="./logo.png" alt="" />
+                              <input
+                                type="text"
+                                placeholder="답글 추가.."
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                              />
+                            </div>
+                            <div className={styles.write_reply_btns}>
+                              <button onClick={write_comment}>답글</button>
+                              <button onClick={closeReRly}>취소</button>
+                            </div>
+                          </div>
+                        )}
+                        {reply
+                          .filter((e) => e.r_target_r_no == item.r_no)
+                          .map((reply, repIdx) => (
+                            <div className={styles.comment_reply_wrap}>
+                              <div className={styles.comment_reply}>
+                                <img src="./logo.png" alt="" />
+                                <div className={styles.reply_content}>
+                                  <div className={styles.comment_user}>
+                                    {
+                                      userDtos.filter(
+                                        (dto) => dto.u_no == reply.u_no
+                                      )[0].u_name
+                                    }
+                                    <span className={styles.comment_date}>
+                                      {reply.r_mod_date}
+                                    </span>
+                                  </div>
+
+                                  {modify && reply.r_no == rNo ? (
+                                    <div className={styles.comment_text}>
+                                      <input
+                                        type="text"
+                                        className={styles.comment_modify}
+                                        value={comment}
+                                        onChange={(e) =>
+                                          setComment(e.target.value)
+                                        }
+                                      />
+                                      <div
+                                        className={styles.modify_comment_btns}
+                                      >
+                                        <button onClick={modify_comment}>
+                                          수정
+                                        </button>
+                                        <button
+                                          onClick={() => setModify(false)}
+                                        >
+                                          취소
+                                        </button>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div className={styles.comment_text}>
+                                      {reply.r_comment}
+                                    </div>
+                                  )}
+
+                                  {userDto.u_no == reply.u_no ? (
+                                    <div className={styles.comment_btns}>
+                                      <span
+                                        onClick={() =>
+                                          showSecondReply(item.r_no, repIdx)
+                                        }
+                                      >
+                                        답글달기
+                                      </span>
+                                      <span
+                                        onClick={() =>
+                                          showModify(
+                                            reply.r_no,
+                                            reply.r_comment
+                                          )
+                                        }
+                                      >
+                                        수정하기
+                                      </span>
+                                      <span
+                                        onClick={() =>
+                                          delete_comment(reply.r_no)
+                                        }
+                                      >
+                                        삭제하기
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <div className={styles.comment_btns}>
+                                      <span
+                                        onClick={() =>
+                                          showSecondReply(item.r_no, repIdx)
+                                        }
+                                      >
+                                        답글달기
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              {secondReply &&
+                                repIdx == reIdx &&
+                                rNo == item.r_no && (
+                                  <div className={styles.write_reply_wrap}>
+                                    <div className={styles.write_reply}>
+                                      <img src="./logo.png" alt="" />
+                                      <input
+                                        type="text"
+                                        placeholder="답글 추가.."
+                                        value={comment}
+                                        onChange={(e) =>
+                                          setComment(e.target.value)
+                                        }
+                                      />
+                                    </div>
+                                    <div className={styles.write_reply_btns}>
+                                      <button onClick={write_comment}>
+                                        답글
+                                      </button>
+                                      <button onClick={closeReRly}>취소</button>
+                                    </div>
+                                  </div>
+                                )}
+                            </div>
+                          ))}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
