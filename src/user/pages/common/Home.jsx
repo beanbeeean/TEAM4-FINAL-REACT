@@ -14,12 +14,14 @@ import HomeRecommendItem from "../../components/common/HomeRecommendItem";
 import HomeCommunityItem from "../../components/common/HomeCommunityItem";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { readroomActions } from "../../../redux/readroom/slices/readroomSlice";
+import { fetchUserDto } from "../../../redux/user/slices/userSlice";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   const dispatch = useDispatch();
   const { bookDto } = useSelector((state) => state.book);
   const { roomDto } = useSelector((state) => state.readroom);
+  const { userDto } = useSelector((state) => state.user);
 
   const [communities, setCommunities] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -28,6 +30,19 @@ const Home = () => {
   const [thdRooms, setThdRooms] = useState([]);
 
   useEffect(() => {
+    axios
+      .get(`/admin/management/userManagement`, {
+        params: {
+          keyword: "",
+        },
+      })
+      .then((response) => {
+        const userDtos = response.data;
+        console.log("userDtos :: ", userDtos);
+        dispatch(fetchUserDto(userDtos));
+      })
+      .catch((error) => console.log(error));
+
     axios
       .get(`/checkout_books/home`, {
         params: {
@@ -70,10 +85,6 @@ const Home = () => {
     setSndRooms(roomDto.filter((e) => e.re_room_no === 2 && e.re_state == 1));
     setThdRooms(roomDto.filter((e) => e.re_room_no === 3 && e.re_state == 1));
   }, [roomDto]);
-
-  console.log("firRooms :: ", firRooms.length);
-  console.log("sndRooms :: ", sndRooms);
-  console.log("thdRooms :: ", thdRooms);
 
   return (
     <div className={`${styles.content_wrap}`}>
