@@ -39,7 +39,7 @@ const ChatModal = () => {
   };
 
   useEffect(() => {
-    getList();
+    // getList();
   }, []);
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import styles from "../../css/community/CommunityDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import api from "../../../redux/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
 
 const CommunityDetail = () => {
@@ -14,6 +14,9 @@ const CommunityDetail = () => {
 
   const [content, setContent] = useState(null);
   const [chatRoom, setChatRoom] = useState(null);
+  const [comment, setComment] = useState("");
+  const [target, setTarget] = useState(0);
+  const { userDto } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -56,6 +59,34 @@ const CommunityDetail = () => {
     dispatch(
       chatActions.getRoomId({ id: chatRoom.roomId, name: chatRoom.roomName })
     );
+  };
+
+  const write_comment = () => {
+    axios
+      .post(`/community/write_comment`, {
+        c_no: id,
+        u_no: userDto.u_no,
+        r_comment: comment,
+        r_target_r_no: target,
+      })
+      .then((response) => {
+        console.log(response.data);
+        getComments();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const getComments = () => {
+    axios
+      .get(`/community/get_comments`, {
+        params: {
+          c_no: id,
+        },
+      })
+      .then((response) => {
+        console.log("ddd", response.data.dtos);
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -127,36 +158,93 @@ const CommunityDetail = () => {
             <hr />
             <p>댓글</p>
             <div className={styles.user_input}>
-              <input
-                className={styles.input_comment}
-                type="text"
-                placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. :)"
-              />
-              <input
-                type="button"
-                className={styles.submitBtn}
-                value="입력"
-                // onclick={registReply}
-              />
+              <img src="../imgs/logo.png" alt="" />
+              <div className={styles.user_input_area}>
+                <input
+                  className={styles.input_comment}
+                  type="text"
+                  placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. :)"
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <div className={styles.user_input_btns}>
+                  <button onClick={write_comment}>댓글</button>
+                  <button>취소</button>
+                </div>
+              </div>
             </div>
-            <div className={styles.user_input}>
-              <input
-                type="text"
-                placeholder="로그인 후 이용가능한 서비스입니다. :)"
-                readonly
-              />
-              <input type="button" value="입력" disabled />
-            </div>
-
-            <table className={styles.comments}>
+            <table className={styles.comment_wrap}>
               <tbody>
                 <tr>
-                  <td className={styles.comments_img}>
-                    <img src="../imgs/kakao-logo.png" alt="" />
+                  <td className={styles.comment_img}>
+                    <img src="../imgs/logo.png" alt="" />
                   </td>
                   <td>
-                    <div>유저이름</div>
-                    <div>ㅇㄴㅇㄴㅇ</div>
+                    <div className={styles.comment_user}>
+                      홍재희
+                      <span className={styles.comment_date}>
+                        2023.11.06 00:02
+                      </span>
+                    </div>
+                    <div className={styles.comment_text}>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ipsam asperiores blanditiis libero veniam ad, soluta
+                      corporis exercitationem obcaecati ab accusamus odit
+                      tempore in nemo illo. Eius adipisci consequuntur dolores
+                      veniam.
+                    </div>
+                    <div className={styles.comment_btns}>
+                      <span>답글달기</span>
+                      <span>수정하기</span>
+                      <span>삭제하기</span>
+                    </div>
+                    <div className={styles.comment_reply_wrap}>
+                      <div className={styles.comment_reply}>
+                        <img src="./logo.png" alt="" />
+                        <div className={styles.reply_content}>
+                          <div className={styles.comment_user}>
+                            홍재희
+                            <span className={styles.comment_date}>
+                              2023.11.06 00:02
+                            </span>
+                          </div>
+                          <div className={styles.comment_text}>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Ipsam asperiores blanditiis libero veniam ad,
+                            soluta corporis exercitationem obcaecati ab
+                            accusamus odit tempore in nemo illo. Eius adipisci
+                            consequuntur dolores veniam.
+                          </div>
+                          <input
+                            type="text"
+                            className={styles.comment_modify}
+                            value="Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ipsam asperiores blanditiis libero veniam ad, soluta
+                      corporis exercitationem obcaecati ab accusamus odit
+                      tempore in nemo illo. Eius adipisci consequuntur dolores
+                      veniam."
+                          />
+                          <div className={styles.modify_comment_btns}>
+                            <button>수정</button>
+                            <button>취소</button>
+                          </div>
+                          <div className={styles.comment_btns}>
+                            <span>답글달기</span>
+                            <span>수정하기</span>
+                            <span>삭제하기</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.write_reply_wrap}>
+                      <div className={styles.write_reply}>
+                        <img src="./logo.png" alt="" />
+                        <input type="text" placeholder="답글 추가.." />
+                      </div>
+                      <div className={styles.write_reply_btns}>
+                        <button>답글</button>
+                        <button>취소</button>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               </tbody>
