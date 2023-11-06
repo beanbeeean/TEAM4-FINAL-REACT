@@ -25,14 +25,14 @@ export const userSlice = createSlice({
 
     fetchUserDtos: (state, action) => {
       state.userDtos = action.payload;
-      console.log("state.userDto: ", state.userDtos);
+      console.log("state.userDtos: ", state.userDtos);
     },
 
     updateUserState: (state, action) => {
       state.userDtos.forEach((e, idx) => {
         if (e.u_no === action.payload) {
           state.userDtos[idx].u_state = e.u_state === 0 ? 1 : 0;
-          console.log("state.userDto 1: ", state.userDtos);
+          console.log("state.userDtos 1: ", state.userDtos);
         }
       });
     },

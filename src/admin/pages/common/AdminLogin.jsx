@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import stylesAdmin from "../../css/common/AdminLogin.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../../user/components/common/login/APIUtils";
+import { login, myPage } from "../../../user/components/common/login/APIUtils";
 import { ACCESS_TOKEN } from "../../../user/components/common/login";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin, userLogout } from "../../../redux/user/slices/userSlice";
 
 const AdminLogin = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.flag);
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -25,10 +26,18 @@ const AdminLogin = () => {
 
     login(loginRequest)
       .then((response) => {
-        console.log(JSON.stringify(response, null, 2));
         localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
         alert("로그인에 성공하였습니다.");
-        dispatch(userLogin());
+        // dispatch(userLogin(response.data));
+        myPage()
+          .then((response) => {
+            console.log("response.data", response.data);
+            dispatch(userLogin(response.data));
+          })
+          .catch((error) => {
+            alert((error && error.message) || "로그인에 실패하였습니다.");
+            dispatch(userLogout());
+          });
         navigate("/admin/management");
       })
       .catch((error) => {
@@ -63,10 +72,10 @@ const AdminLogin = () => {
             type="password"
             name="password"
             placeholder="Passsword"
+            id="pwd"
             value={password}
             onChange={handleInputChange}
             required
-            id="pwd"
           />
 
           <input

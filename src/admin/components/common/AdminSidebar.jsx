@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import stylesAdmin from "../../css/common/AdminSidebar.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "../../../redux/user/slices/userSlice";
+import { useNavigate } from "react-router";
 
 const AdminSidebar = ({ menu, setMenu }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={stylesAdmin.side_bar}>
       <img className={stylesAdmin.logo} src="../imgs/admin_logo.png" alt="" />
@@ -19,12 +24,6 @@ const AdminSidebar = ({ menu, setMenu }) => {
         >
           USER
         </li>
-        {/* <li
-          onClick={() => movePage(2)}
-          className={`${currentMenu == 2 && stylesAdmin.on}`}
-        >
-          ADMIN
-        </li> */}
         <li
           onClick={() => setMenu(3)}
           className={`${menu == 3 && stylesAdmin.on}`}
@@ -50,7 +49,12 @@ const AdminSidebar = ({ menu, setMenu }) => {
           MY PAGE
         </li>
       </ul>
-      <div className={stylesAdmin.logout}>LogOut</div>
+      <div
+        className={stylesAdmin.logout}
+        onClick={() => navigate("/admin/login")}
+      >
+        LogOut
+      </div>
     </div>
   );
 };

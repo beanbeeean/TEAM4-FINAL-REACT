@@ -8,19 +8,14 @@ import {
 import { userLogin } from "../../../redux/user/slices/userSlice";
 
 const AdminMypageProfile = () => {
-  const user = useSelector((state) => state.user.userDto);
-  const [u_name, setU_name] = useState(user.u_name);
-  const [u_phone, setU_phone] = useState(user.u_phone);
-  const [u_email, setU_mail] = useState(user.u_email);
-  const [file, setFile] = useState(user.u_image); //파일
-  const [file2, setFile2] = useState(user.u_image); //파일
+  const loginedUser = useSelector((state) => state.user.userDto);
+  console.log("loginedUser :: ", loginedUser);
 
-  const { userDto } = useSelector((state) => state.user);
-  console.log("userDto : ", userDto);
-
-  console.log("user : ", user);
-  console.log("u_name : ", u_name);
-  console.log("u_email : ", u_email);
+  const [u_name, setU_name] = useState(loginedUser.u_name);
+  const [u_phone, setU_phone] = useState(loginedUser.u_phone);
+  const [u_email, setU_mail] = useState(loginedUser.u_email);
+  const [file, setFile] = useState(loginedUser.u_image); //파일
+  const [file2, setFile2] = useState(loginedUser.u_image); //파일
 
   const dispatch = useDispatch();
 
