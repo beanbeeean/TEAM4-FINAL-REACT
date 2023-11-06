@@ -32,13 +32,13 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`/admin/management/userManagement`, {
+      .get(`/admin/management/memberManagement`, {
         params: {
           keyword: "",
         },
       })
       .then((response) => {
-        const userDtos = response.data;
+        const userDtos = response.data.dtos;
         dispatch(fetchUserDtos(userDtos));
       })
       .catch((error) => console.log(error));

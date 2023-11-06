@@ -17,7 +17,7 @@ const UserManagement = () => {
   const [searchUser, setSearchUser] = useState("");
   const [keyword, setKeyword] = useState("");
 
-  console.log("keyword :: ", keyword);
+  console.log("users :: ", users);
 
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
@@ -27,31 +27,33 @@ const UserManagement = () => {
   const displayedUsers = users.slice(startIndex, endIndex);
 
   const dispatch = useDispatch();
-  const { userDto } = useSelector((state) => state.user);
+  const { userDtos } = useSelector((state) => state.user);
+  console.log("userDto :: ", userDtos);
 
   useEffect(() => {
-    let arr = [];
     axios
-      .get(`/admin/management/userManagement`, {
+      .get(`/admin/management/memberManagement`, {
         params: {
           keyword: searchUser,
         },
       })
       .then((response) => {
-        const userDtos = response.data;
-        console.log("userDtos :: ", userDtos);
-        dispatch(fetchUserDtos(userDtos));
-        arr = Array.from(userDtos.dtos);
-        setUsers(arr);
+        const dtos = response.data.dtos;
+        console.log("userDtos :: ", dtos);
+        dispatch(fetchUserDtos(dtos));
+        console.log(
+          "userDto ===========:: ",
+          dtos.filter((e) => e.u_role === "ROLE_USER")
+        );
+        setUsers(dtos.filter((e) => e.u_role === "ROLE_USER"));
       })
       .catch((error) => console.log(error));
   }, [searchUser]);
 
-  console.log("userDto :: ", userDto);
-
   useEffect(() => {
-    setUsers(userDto);
-  }, [userDto]);
+    let arr = userDtos.filter((e) => e.u_role === "ROLE_USER");
+    setUsers(arr);
+  }, [userDtos]);
 
   return (
     <div className={stylesAdmin.management_wrap}>

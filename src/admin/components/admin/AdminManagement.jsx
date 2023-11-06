@@ -5,8 +5,8 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
-  fetchAdminDto,
   fetchUserDto,
+  fetchUserDtos,
   userAction,
 } from "../../../redux/user/slices/userSlice";
 import { PaginationControl } from "react-bootstrap-pagination-control";
@@ -25,28 +25,27 @@ const AdminManagement = () => {
   const displayedAdmins = admins.slice(startIndex, endIndex);
 
   const dispatch = useDispatch();
-  const { userDto } = useSelector((state) => state.user);
+  const { userDtos } = useSelector((state) => state.user);
 
   useEffect(() => {
-    let arr = [];
     axios
-      .get(`/admin/management/adminManagement`, {
+      .get(`/admin/management/memberManagement`, {
         params: {
           keyword: searchAdmin,
         },
       })
       .then((response) => {
-        const adminDtos = response.data;
-        dispatch(fetchAdminDto(adminDtos));
-        arr = Array.from(adminDtos.dtos);
-        setAdmins(arr);
+        const dtos = response.data.dtos;
+        dispatch(fetchUserDtos(dtos));
+        setAdmins(dtos.filter((e) => e.u_role === "ROLE_ADMIN"));
       })
       .catch((error) => console.log(error));
   }, [searchAdmin]);
 
   useEffect(() => {
-    setAdmins(userDto);
-  }, [userDto]);
+    let arr = userDtos.filter((e) => e.u_role === "ROLE_ADMIN");
+    setAdmins(arr);
+  }, [userDtos]);
 
   return (
     <div className={stylesAdmin.management_wrap}>

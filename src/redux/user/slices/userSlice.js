@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from "../../../user/components/common/login";
 const initialState = {
   userDto: {},
   flag: 0,
-  userDtos:{},
+  userDtos: {},
 };
 
 export const userSlice = createSlice({
@@ -24,20 +24,15 @@ export const userSlice = createSlice({
     },
 
     fetchUserDtos: (state, action) => {
-      state.userDtos = action.payload.dtos;
+      state.userDtos = action.payload;
       console.log("state.userDto: ", state.userDtos);
     },
 
-    fetchAdminDto: (state, action) => {
-      state.userDto = action.payload.dtos;
-      console.log("state.userDto: ", state.userDto);
-    },
-
     updateUserState: (state, action) => {
-      state.userDto.forEach((e, idx) => {
+      state.userDtos.forEach((e, idx) => {
         if (e.u_no === action.payload) {
-          state.userDto[idx].u_state = e.u_state === 0 ? 1 : 0;
-          console.log("state.userDto 1: ", state.userDto);
+          state.userDtos[idx].u_state = e.u_state === 0 ? 1 : 0;
+          console.log("state.userDto 1: ", state.userDtos);
         }
       });
     },
@@ -45,12 +40,7 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {
-  userLogin,
-  userLogout,
-  fetchUserDtos,
-  fetchAdminDto,
-  updateUserState,
-} = userSlice.actions;
+export const { userLogin, userLogout, fetchUserDtos, updateUserState } =
+  userSlice.actions;
 
 export default userSlice.reducer;
