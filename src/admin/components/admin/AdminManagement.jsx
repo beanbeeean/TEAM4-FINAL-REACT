@@ -44,9 +44,9 @@ const AdminManagement = () => {
       .catch((error) => console.log(error));
   }, [searchAdmin]);
 
-  // useEffect(() => {
-  //   setUsers(userDto);
-  // }, [userDto]);
+  useEffect(() => {
+    setAdmins(userDto);
+  }, [userDto]);
 
   return (
     <div className={stylesAdmin.management_wrap}>
