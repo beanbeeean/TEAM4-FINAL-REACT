@@ -196,3 +196,93 @@ tr {
   font-size: 0.9em;
   color: #9a9a9a;
 }
+
+.chat_enter_card {
+  display: flex;
+  justify-content: center;
+}
+
+.ce_card {
+  display: flex;
+  width: 450px;
+  background-color: #fcf8f6;
+  border: 15px solid #fff1ed;
+  border-radius: 20px;
+}
+
+.ce_card img {
+  max-width: 200px;
+}
+
+.ce_card_info {
+  padding: 10px;
+  width: 300px;
+}
+
+.ce_title {
+  font-size: 20px;
+  font-weight: bold;
+  width: 200px;
+  height: 60px;
+  word-break: break-all;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ce_user_count {
+  padding-right: 15px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ce_user_count > .can_join {
+  color: #00ff00;
+  margin-right: 5px;
+}
+
+.ce_user_count > .can_not_join {
+  color: #ff0000;
+  margin-right: 5px;
+}
+
+.ce_button {
+  float: right;
+  margin-right: 12px;
+  outline: none;
+  border: none;
+  background-color: #fff1ea;
+  border-radius: 12px;
+  padding: 8px;
+  font-weight: bold;
+  color: #797777;
+}
+
+.ce_button:hover {
+  color: #fd8a69;
+}
+
+.comments tr {
+  height: 80px;
+}
+
+.comments td {
+  display: flex;
+  align-items: start;
+  height: 80px;
+}
+.comments_img {
+  width: 60px;
+}
+
+.comments_img > img {
+  max-width: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+}

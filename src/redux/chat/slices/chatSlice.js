@@ -4,6 +4,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   storeUserList: [],
   storeChatRoomList: [],
+  isClick: false,
+  storeRoomId: "",
+  storeRoomName: "",
 };
 
 const chatSlice = createSlice({
@@ -17,6 +20,13 @@ const chatSlice = createSlice({
     getChatRoomList: (state, action) => {
       state.storeChatRoomList = action.payload;
       console.log("방 목록 ", action.payload);
+    },
+    clickToggle: (state, action) => {
+      state.isClick = action.payload;
+    },
+    getRoomId: (state, action) => {
+      state.storeRoomId = action.payload.id;
+      state.storeRoomName = action.payload.name;
     },
   },
 });
