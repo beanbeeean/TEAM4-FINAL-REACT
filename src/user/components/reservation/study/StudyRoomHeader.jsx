@@ -4,7 +4,7 @@ import Year from "react-live-clock";
 import Month from "react-live-clock";
 import styles from "../../../css/reservation/StudyRoom.module.css";
 
-const StudyRoomHeader = ({ setChosenMonth, setChosenDay, setMonthState }) => {
+const StudyRoomHeader = ({ setChosenMonth, setChosenDay, setMonthState, setLoad }) => {
   const now = new Date();
   const todayWeak = now.getDay();
   const today = now.getDate();
@@ -94,6 +94,7 @@ const StudyRoomHeader = ({ setChosenMonth, setChosenDay, setMonthState }) => {
     }
 
     setSelectedDay(idx);
+    setLoad(false);
     setChosenDay(day);
   };
 

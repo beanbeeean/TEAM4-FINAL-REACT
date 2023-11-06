@@ -26,11 +26,12 @@ const StudyRoomBody = ({
   chosenMonth,
   chosenDay,
   monthState,
+  load,
+  setLoad
 }) => {
   const [times, setTimes] = useState(getBusinessHours(8, 22));
   const [spaceNum, setSpaceNum] = useState();
   const [impossible, setImpossible] = useState();
-  const [load, setLoad] = useState(false);
   const [selectMonth, setSelectMonth] = useState(null);
   const [selectday, setSelectday] = useState(null);
   const [modalShow, setModalShow] = useState(false);
@@ -47,8 +48,11 @@ const StudyRoomBody = ({
     setSpace(e);
     chkRoom({ date , space:e})
       .then(response => {
-        console.log(response);
-        setImpossible(response.data);
+        // console.log(response);
+        // setImpossible(response.data);
+        let impossible = response.data
+        setImpossible(impossible.slice());
+        console.log("3333")
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
@@ -98,13 +102,28 @@ const StudyRoomBody = ({
     chkRoom({date, space})
     .then(response => {
       if(!load){
-        setImpossible(response.data);
+        let impossible = response.data
+        setImpossible(impossible.slice());
+        console.log("3333")
       }
       setLoad(true);
     })
     .catch(error => {
     });
-  }, [impossible]);
+  }, [impossible,chosenDay]);
+
+  // useEffect(() => {
+  //   console.log(chosenDay);
+  //   chkRoom({date, space})
+  //   .then(response => {
+  //     if(!load){
+  //       setImpossible(response.data);
+  //     }
+  //     setLoad(true);
+  //   })
+  //   .catch(error => {
+  //   });
+  // }, [chosenDay]);
 
   useEffect(() => {
     if (space == 1) {
