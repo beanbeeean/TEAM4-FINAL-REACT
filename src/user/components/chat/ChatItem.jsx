@@ -12,12 +12,13 @@ const ChatItem = ({ roomId, setRoomId, setRoomName, item }) => {
   };
 
   return (
-    <div className={styles.chat_room} onClick={() => changeChatRoom(item)}>
-      <div
-        className={`${styles.chat_room_title} ${
-          roomId == item.roomId && styles.chat_room_on
-        }`}
-      >
+    <div
+      className={`${styles.chat_room} ${
+        roomId == item.roomId && styles.chat_room_on
+      }`}
+      onClick={() => changeChatRoom(item)}
+    >
+      <div className={styles.chat_room_title}>
         <div className={styles.chatting_room}>
           <FontAwesomeIcon className={styles.group_icon} icon={faUserGroup} />
           <br />

@@ -75,7 +75,7 @@ div.search_box {
   position: relative;
 }
 
-select[name="search_category"] {
+.board_content select[name="search_category"] {
   height: 40px;
   font-size: 14px;
   padding: 5px;
@@ -86,8 +86,8 @@ select[name="search_category"] {
   background-color: rgba(255, 255, 255, 0.1);
   margin-right: 5px;
   position: relative;
-  left: 70px;
-  z-index: 100;
+  left: 80px;
+  z-index: 50;
 }
 
 div.search_bar {
@@ -97,7 +97,7 @@ div.search_bar {
 div.search_bar > input {
   height: 40px;
   font-size: 14px;
-  padding: 8px 25px 8px 70px;
+  padding: 8px 25px 8px 75px;
   width: 250px;
   outline: none;
   border: 1px solid #dadada;

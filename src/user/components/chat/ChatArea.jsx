@@ -9,6 +9,7 @@ import {
   faPaperPlane,
   faPeopleGroup,
   faRightFromBracket,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
@@ -25,6 +26,8 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   const [inputText, setInputText] = useState("");
 
   const [currentUser, setCurrentUser] = useState("");
+  const [userListShow, setUserListShow] = useState(false);
+
   const dispatch = useDispatch();
   let { storeUserList } = useSelector((state) => state.chat);
 
@@ -159,6 +162,12 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     }
   };
 
+  const dropDownStateChange = () => {
+    if (userListShow) {
+      setUserListShow(false);
+    }
+  };
+
   useEffect(() => {
     connect();
   }, [roomId]);
@@ -173,7 +182,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   }, []);
 
   return (
-    <div className={styles.chat_area}>
+    <div className={styles.chat_area} onClick={dropDownStateChange}>
       <div className={styles.icon_wrap}>
         <div className={styles.chatting_room_name}>
           <FontAwesomeIcon
@@ -181,11 +190,28 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
             icon={faBackwardStep}
             onClick={() => disConnect()}
           />
-          {roomName}
+          <span className={styles.chat_title_wrap}>
+            {roomName}
+            <span>
+              <div className={styles.chat_user_list}>
+                <span onClick={() => setUserListShow(!userListShow)}>
+                  <FontAwesomeIcon icon={faUser} className={styles.user_icon} />
+                  {storeUserList.length}
+                </span>
+                {userListShow && (
+                  <ul className={styles.chat_user_list_drop}>
+                    {storeUserList.map((n) => (
+                      <li>{n.u_name}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </span>
+          </span>
         </div>
-        <span className={styles.chat_menu}>
+        {/* <span className={styles.chat_menu}>
           <FontAwesomeIcon icon={faBars} />
-        </span>
+        </span> */}
         <span className={styles.leave_icon} onClick={onDisConnected}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           &nbsp; 채팅방 나가기
