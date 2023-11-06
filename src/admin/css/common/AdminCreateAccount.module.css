@@ -16,7 +16,7 @@
   border-top: 10px solid #79a6fe;
   border-bottom: 10px solid #79a6fe;
   width: 400px;
-  height: 500px;
+  height: 680px;
   box-shadow: 1px 1px 108.8px 19.2px rgb(25, 31, 53);
 }
 
@@ -79,4 +79,9 @@ img.admin_logo {
   margin-top: 10px;
   display: inline-block;
   text-align: center;
+}
+
+.error_message {
+  color: #fff;
+  font-size: 0.7em;
 }
