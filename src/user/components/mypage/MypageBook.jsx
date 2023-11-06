@@ -19,6 +19,8 @@ const MypageBook = () => {
 
   const dispatch = useDispatch();
 
+  console.log("chkBookDto : ", chkBookDto);
+
   const [isNowChkBook, setIsNowChkBook] = useState(
     chkBookDto.filter(
       (e) => e.u_email === userDto.u_email && e.chk_b_state == 1

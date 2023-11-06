@@ -1,17 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import stylesAdmin from "../../css/common/AdminLogin.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../../user/components/common/login/APIUtils";
+import { ACCESS_TOKEN } from "../../../user/components/common/login";
+import { useDispatch } from "react-redux";
+import { userLogin, userLogout } from "../../../redux/user/slices/userSlice";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
-  const userLogin = () => {
-    navigate("/admin/management");
+  const dispatch = useDispatch();
+
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "email") setEmail(value);
+    if (name === "password") setPassword(value);
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const loginRequest = { email, password };
+
+    login(loginRequest)
+      .then((response) => {
+        console.log(JSON.stringify(response, null, 2));
+        localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
+        alert("로그인에 성공하였습니다.");
+        dispatch(userLogin());
+        navigate("/admin/management");
+      })
+      .catch((error) => {
+        alert((error && error.message) || "로그인에 실패하였습니다.");
+        dispatch(userLogout());
+      });
+  };
+
   return (
     <div className={stylesAdmin.admin_login_wrap}>
       <div className={stylesAdmin.login_container}>
         <form
-          onSubmit={userLogin}
+          onSubmit={handleSubmit}
           name="login_form"
           className={stylesAdmin.login_form}
         >
@@ -21,11 +51,21 @@ const AdminLogin = () => {
             alt=""
           />
           <h5>Sign in to your account.</h5>
-          <input type="text" name="id" placeholder="ID" />
+          <input
+            type="text"
+            name="email"
+            placeholder="ID"
+            value={email}
+            onChange={handleInputChange}
+            required
+          />
           <input
             type="password"
             name="password"
             placeholder="Passsword"
+            value={password}
+            onChange={handleInputChange}
+            required
             id="pwd"
           />
 

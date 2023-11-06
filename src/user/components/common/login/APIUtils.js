@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { API_BASE_URL, ACCESS_TOKEN } from './';
-import { useDispatch } from 'react-redux';
-import { userLogout } from '../../../../redux/user/slices/userSlice';
+import axios from "axios";
+import { API_BASE_URL, ACCESS_TOKEN } from "./";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../../../redux/user/slices/userSlice";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -31,43 +31,44 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => {
-        console.log('Response:', response);
-        return response; 
-    },
-    (error) => {
-        console.error('Error response:', error);
-        return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
-    }
+  (response) => {
+    console.log("Response:", response);
+    return response;
+  },
+  (error) => {
+    console.error("Error response:", error);
+    return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
+  }
 );
 
-axiosImgInstance.interceptors.request.use((config) => {
+axiosImgInstance.interceptors.request.use(
+  (config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
     }
     console.log(config);
     return config;
-}, (error) => {
+  },
+  (error) => {
     if (error.response && error.response.status === 401) {
-        const dispatch = useDispatch();
-        dispatch(userLogout());
+      const dispatch = useDispatch();
+      dispatch(userLogout());
     }
     return Promise.reject(error);
   }
 );
 
 axiosImgInstance.interceptors.response.use(
-    (response) => {
-        console.log('Response:', response);
-        return response; 
-    },
-    (error) => {
-        console.error('Error response:', error);
-        return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
-    }
+  (response) => {
+    console.log("Response:", response);
+    return response;
+  },
+  (error) => {
+    console.error("Error response:", error);
+    return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
+  }
 );
-
 
 export function getCurrentUser() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
@@ -100,13 +101,13 @@ export function userUpdate(user) {
 }
 
 export function userUpload(img) {
-    return axiosImgInstance.post("/user/upload",img);
+  return axiosImgInstance.post("/user/upload", img);
 }
 
 export function chkRoom(space) {
-    return axiosInstance.post("/study/room",space);
+  return axiosInstance.post("/study/room", space);
 }
 
 export function reservationRoom(reservationRequest) {
-    return axiosInstance.post("/study/reservation",reservationRequest);
+  return axiosInstance.post("/study/reservation", reservationRequest);
 }
