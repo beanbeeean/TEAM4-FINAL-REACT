@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../css/mypage/MypageReservation.module.css";
-import MypageReserveItem from "./MypageReserveItem";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { myPageRead, myPageStudy } from "../common/login/APIUtils";
+import ReadReserveItem from "./ReadReserveItem";
+import StudyReserveItem from "./StudyReserveItem";
 
 const MypageReservation = () => {
   const currentDate = new Date();
+
   const startOfCurrentMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
@@ -19,6 +22,43 @@ const MypageReservation = () => {
 
   const [startDate, setStartDate] = useState(startOfCurrentMonth);
   const [endDate, setEndDate] = useState(endOfCurrentMonth);
+  const [seat, setSeat] = useState(null);
+  const [study, setStudy] = useState(null);
+
+  if(seat==null){
+    myPageRead({startDate,endDate})
+    .then(response => {
+      console.log(response.data);
+      setSeat(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  }
+
+  if(study==null){
+    myPageStudy({startDate,endDate})
+    .then(response => {
+      console.log(response.data);
+      setStudy(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  }
+
+  
+  useEffect(() => {
+    myPageRead({startDate,endDate})
+    .then(response => {
+      console.log(response.data);
+      setSeat(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+
+  }, [startDate, endDate]);
 
   return (
     <div className={styles.reserve_wrap}>
@@ -45,12 +85,19 @@ const MypageReservation = () => {
       </div>
 
       <div className={styles.reserve_seat_content}>
-        <MypageReserveItem />
-        <MypageReserveItem />
+        {
+          seat && seat.map((item, index) => (
+            <ReadReserveItem seat={item}/>
+          ))
+        }
       </div>
 
       <div className={styles.reserve_studyroom_content}>
-        <MypageReserveItem />
+      {
+          study && study.map((item, index) => (
+            <StudyReserveItem study={item}/>
+          ))
+        }
       </div>
     </div>
   );
