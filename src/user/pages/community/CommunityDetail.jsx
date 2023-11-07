@@ -262,7 +262,7 @@ const CommunityDetail = () => {
             <hr />
             <p>댓글</p>
             <div className={styles.user_input}>
-              <img src="../imgs/logo.png" alt="" />
+              <img src={`${userDto.u_image}`} alt="" />
               {userInput ? (
                 <div className={styles.user_input_area}>
                   <input
@@ -295,7 +295,13 @@ const CommunityDetail = () => {
                   .map((item, idx) => (
                     <tr>
                       <td className={styles.comment_img}>
-                        <img src="../imgs/logo.png" alt="" />
+                        <img
+                          src={
+                            userDtos.filter((dto) => dto.u_no == item.u_no)[0]
+                              .u_image
+                          }
+                          alt=""
+                        />
                       </td>
                       <td className={styles.comment_content}>
                         <div className={styles.comment_user}>
@@ -354,7 +360,7 @@ const CommunityDetail = () => {
                         {reReply && idx == reIdx && (
                           <div className={styles.write_reply_wrap}>
                             <div className={styles.write_reply}>
-                              <img src="./logo.png" alt="" />
+                              <img src={userDto.u_image} alt="" />
                               <input
                                 type="text"
                                 placeholder="답글 추가.."
@@ -373,7 +379,14 @@ const CommunityDetail = () => {
                           .map((reply, repIdx) => (
                             <div className={styles.comment_reply_wrap}>
                               <div className={styles.comment_reply}>
-                                <img src="./logo.png" alt="" />
+                                <img
+                                  src={
+                                    userDtos.filter(
+                                      (dto) => dto.u_no == reply.u_no
+                                    )[0].u_image
+                                  }
+                                  alt=""
+                                />
                                 <div className={styles.reply_content}>
                                   <div className={styles.comment_user}>
                                     {
@@ -460,7 +473,7 @@ const CommunityDetail = () => {
                                 rNo == item.r_no && (
                                   <div className={styles.write_reply_wrap}>
                                     <div className={styles.write_reply}>
-                                      <img src="./logo.png" alt="" />
+                                      <img src={userDto.u_image} alt="" />
                                       <input
                                         type="text"
                                         placeholder="답글 추가.."
