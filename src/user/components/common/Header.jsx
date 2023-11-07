@@ -3,8 +3,54 @@ import React, { useState } from "react";
 import styles from "../../css/common/Header.module.css";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const [keyword, setKeyword] = useState("");
+  console.log("keyword :: ", keyword);
+
+  const [books, setBooks] = useState([]);
+
+  // const onSearch = () => {
+  //   // navigate(`/search&keyword=${keyword}`);
+
+  //   axios
+  //     .get(`/checkout_books/home`, {
+  //       params: {
+  //         category: "",
+  //         keyword: keyword,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const bookDtos = response.data;
+  //       dispatch(bookActions.fetchBookDto(bookDtos));
+  //       console.log("bookDtos", response.data.dtos);
+  //       setBooks(response.data.dtos);
+  //     })
+  //     .catch((error) => console.log(error));
+
+  //   axios
+  //     .get(`/community`, {
+  //       params: {
+  //         keyword: keyword,
+  //         category: "",
+  //         searchOption: "",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       // setCommunity(response.data.communityDtos);
+  //       const communityDtos = response.data;
+  //       dispatch(communityActions.fetchCommunityDto(communityDtos));
+  //       console.log("community", response.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
   return (
     // <Container className="main_header">
     //   <div className="search_bar">
@@ -28,11 +74,18 @@ const Header = () => {
     // </Container>
     <div className={styles.header}>
       <div className={styles.main_search}>
-        <input type="text" placeholder="Search" />
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className={styles.search_btn}
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => setKeyword(e.target.value)}
         />
+        <Link to={`/search/${keyword}`}>
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className={styles.search_btn}
+            // onClick={() => onSearch(keyword)}
+          />
+        </Link>
       </div>
       <div className={styles.today}>
         <span className={styles.today_day}>Friday, </span>

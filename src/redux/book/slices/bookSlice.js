@@ -20,6 +20,7 @@ const bookState = {
       b_mod_date: "",
     },
   ],
+  searchBookDto: [{}],
 };
 
 const bookSlice = createSlice({
@@ -55,6 +56,11 @@ const bookSlice = createSlice({
           console.log("state.bookDto 1: ", state.bookDto);
         }
       });
+    },
+
+    fetchSearchBook: (state, action) => {
+      state.searchBookDto = action.payload;
+      console.log("state.searchBookDto: ", state.searchBookDto);
     },
 
     fetchBookDto: (state, action) => {

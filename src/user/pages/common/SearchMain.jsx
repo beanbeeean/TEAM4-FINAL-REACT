@@ -1,11 +1,79 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../css/common/SearchMain.module.css";
-import { Link } from "react-router-dom";
-import SearchCommunity from "../../components/common/SearchCommunity";
-import HomeRecommendItem from "../../components/common/HomeRecommendItem";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
 
 const SearchMain = () => {
-  const [on, setOn] = useState(1);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  let keyword = useParams().keyword;
+  console.log("keyword search ======> : ", keyword);
+
+  const [books, setBooks] = useState([]);
+  const [communities, setCommunities] = useState([]);
+
+  const { userDtos } = useSelector((state) => state.user);
+
+  const goBookPage = () => {
+    dispatch(bookActions.fetchSearchBook({ keyword: "" }));
+    navigate(`/checkout_books`);
+  };
+
+  const goCommunityPage = () => {
+    dispatch(communityActions.fetchSearchCommunity({ keyword: "" }));
+    navigate("/community");
+  };
+
+  const dateFormat = (chk_date) => {
+    const date = new Date(chk_date);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  useEffect(() => {
+    axios
+      .get(`/checkout_books/home`, {
+        params: {
+          category: "",
+          keyword: keyword,
+        },
+      })
+      .then((response) => {
+        const bookDtos = response.data;
+        console.log("bookDtos", bookDtos.dtos);
+        dispatch(bookActions.fetchSearchBook({ bookDtos, keyword }));
+        setBooks(response.data.dtos);
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/community`, {
+        params: {
+          keyword: keyword,
+          category: "",
+          searchOption: "",
+        },
+      })
+      .then((response) => {
+        const communityDtos = response.data;
+        console.log("communityDtos", communityDtos);
+        dispatch(
+          communityActions.fetchSearchCommunity({
+            communityDtos,
+            keyword,
+          })
+        );
+        setCommunities(communityDtos.communityDtos);
+      })
+      .catch((error) => console.log(error));
+  }, [keyword]);
 
   return (
     <div>
@@ -14,66 +82,48 @@ const SearchMain = () => {
           <span className={styles.title}>도서</span>
         </div>
         <div className={styles.search_books}>
-          <div className={styles.book_wrap}>
-            <img className={styles.book_img} src="../imgs/default.png" />
-            <div className={styles.book_content_wrap}>
-              <span className={styles.book_title}>달러구트의 꿈 백화점</span>
-              <br />
-              <span className={styles.author}>이시영 저 |</span>
-              <span className={styles.publisher}> 홍재희 출판사</span>
+          {books.length == 0 ? (
+            <div className={`${styles.no_result} ${styles.book_result}`}>
+              "{keyword}"에 대한 검색 결과가 없습니다. <br />
+              <span onClick={goBookPage}>도서 페이지로 이동</span>
             </div>
-          </div>
-          <div className={styles.book_wrap}>
-            <img className={styles.book_img} src="../imgs/default.png" />
-            <div className={styles.book_content_wrap}>
-              <span className={styles.book_title}>달러구트의 꿈 백화점</span>
-              <br />
-              <span className={styles.author}>이시영 저 |</span>
-              <span className={styles.publisher}> 홍재희 출판사</span>
-            </div>
-          </div>
-          <div className={styles.book_wrap}>
-            <img className={styles.book_img} src="../imgs/default.png" />
-            <div className={styles.book_content_wrap}>
-              <span className={styles.book_title}>달러구트의 꿈 백화점</span>
-              <br />
-              <span className={styles.author}>이시영 저 |</span>
-              <span className={styles.publisher}> 홍재희 출판사</span>
-            </div>
-          </div>
-          <div className={styles.book_wrap}>
-            <img className={styles.book_img} src="../imgs/default.png" />
-            <div className={styles.book_content_wrap}>
-              <span className={styles.book_title}>달러구트의 꿈 백화점</span>
-              <br />
-              <span className={styles.author}>이시영 저 |</span>
-              <span className={styles.publisher}> 홍재희 출판사</span>
-            </div>
-          </div>
-          <div className={styles.book_wrap}>
-            <img className={styles.book_img} src="../imgs/default.png" />
-            <div className={styles.book_content_wrap}>
-              <span className={styles.book_title}>달러구트의 꿈 백화점</span>
-              <br />
-              <span className={styles.author}>이시영 저 |</span>
-              <span className={styles.publisher}> 홍재희 출판사</span>
-            </div>
-          </div>
-          <Link to="/checkout_books">
-            <span className={`${styles.block} ${styles.more}`}>+ more</span>
-          </Link>
+          ) : (
+            <>
+              {books.map((book, idx) => {
+                if (idx < 5) {
+                  return (
+                    <div className={styles.book_wrap}>
+                      <img className={styles.book_img} src={book.b_cover} />
+                      <div className={styles.book_content_wrap}>
+                        <span className={styles.book_title}>
+                          {book.b_title}
+                        </span>
+                        <br />
+                        <span className={styles.author}>
+                          {book.b_author} 저 |{" "}
+                        </span>
+                        <span className={styles.publisher}>
+                          {book.b_publisher}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+
+              <Link to="/checkout_books">
+                <span className={`${styles.block} ${styles.more}`}>+ more</span>
+              </Link>
+            </>
+          )}
         </div>
-        {/* <div className={styles.cannot_result}>
-          검색 결과가 없습니다.
-          <br />
-          <Link to="/checkout_books">도서 페이지로 이동</Link>
-        </div> */}
       </div>
+
       <div className={styles.second_wrap}>
         <div className={`${styles.community} ${styles.block}`}>
           <div className={styles.mini_nav}>
-            <span className={styles.title}>커뮤니티</span>
-            <Link to="/board">
+            <span className={styles.title}>자유게시판</span>
+            <Link to="/community">
               <li className={styles.more}>+ more</li>
             </Link>
           </div>
@@ -83,49 +133,187 @@ const SearchMain = () => {
                 <tr>
                   <th className="text-center">구분</th>
                   <th className="text-center">제목</th>
+                  <th className="text-center">조회수</th>
                   <th className="text-center">작성자</th>
                   <th className="text-center">작성일</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
-                <tr>
-                  <td className="text-center">도서추천</td>
-                  <td>이 책을 추천합니다.</td>
-                  <td className="text-center">나요</td>
-                  <td className="text-center">2023.10.19</td>
-                </tr>
+                {communities.filter((e) => e.c_category === 1).length == 0 ? (
+                  <tr>
+                    <td colSpan="5" className={styles.no_result}>
+                      "{keyword}"에 대한 검색 결과가 없습니다. <br />
+                      <span onClick={goCommunityPage}>
+                        커뮤니티 페이지로 이동
+                      </span>
+                    </td>
+                  </tr>
+                ) : (
+                  communities
+                    .filter((e) => e.c_category === 1)
+                    .map((community, idx) => {
+                      if (idx < 5) {
+                        return (
+                          <tr>
+                            <td className="text-center">
+                              {community.c_category == 1
+                                ? "자유"
+                                : community.c_category == 2
+                                ? "도서추천"
+                                : "스터디원 모집"}
+                            </td>
+                            <Link to={`/community/${community.c_no}`}>
+                              <td>{community.c_title}</td>
+                            </Link>
+                            <td className="text-center">{community.c_hit}</td>
+                            <td className="text-center">
+                              {
+                                userDtos.filter(
+                                  (e) => e.u_email == community.u_email
+                                )[0].u_name
+                              }
+                            </td>
+                            <td className="text-center">
+                              {dateFormat(community.c_reg_date)}
+                            </td>
+                          </tr>
+                        );
+                      }
+                    })
+                )}
               </tbody>
             </table>
           </div>
-          {/* <div className={styles.cannot_result}>
-            검색 결과가 없습니다.
-            <br />
-            <Link to="/board">커뮤니티 페이지로 이동</Link>
-          </div> */}
+        </div>
+        <div className={`${styles.community} ${styles.block}`}>
+          <div className={styles.mini_nav}>
+            <span className={styles.title}>도서 추천</span>
+            <Link to="/community">
+              <li className={styles.more}>+ more</li>
+            </Link>
+          </div>
+          <div className={styles.commu_wrap}>
+            <table className={styles.commu_table}>
+              <thead>
+                <tr>
+                  <th className="text-center">구분</th>
+                  <th className="text-center">제목</th>
+                  <th className="text-center">조회수</th>
+                  <th className="text-center">작성자</th>
+                  <th className="text-center">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                {communities.filter((e) => e.c_category === 2).length == 0 ? (
+                  <tr>
+                    <td colSpan="5" className={styles.no_result}>
+                      "{keyword}"에 대한 검색 결과가 없습니다. <br />
+                      <span onClick={goCommunityPage}>
+                        커뮤니티 페이지로 이동
+                      </span>
+                    </td>
+                  </tr>
+                ) : (
+                  communities
+                    .filter((e) => e.c_category === 2)
+                    .map((community, idx) => {
+                      if (idx < 5) {
+                        return (
+                          <tr>
+                            <td className="text-center">
+                              {community.c_category == 1
+                                ? "자유"
+                                : community.c_category == 2
+                                ? "도서추천"
+                                : "스터디원 모집"}
+                            </td>
+                            <Link to={`/community/${community.c_no}`}>
+                              <td>{community.c_title}</td>
+                            </Link>
+                            <td className="text-center">{community.c_hit}</td>
+                            <td className="text-center">
+                              {
+                                userDtos.filter(
+                                  (e) => e.u_email == community.u_email
+                                )[0].u_name
+                              }
+                            </td>
+                            <td className="text-center">
+                              {dateFormat(community.c_reg_date)}
+                            </td>
+                          </tr>
+                        );
+                      }
+                    })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className={`${styles.community} ${styles.block}`}>
+          <div className={styles.mini_nav}>
+            <span className={styles.title}>스터디원 모집</span>
+            <Link to="/community">
+              <li className={styles.more}>+ more</li>
+            </Link>
+          </div>
+          <div className={styles.commu_wrap}>
+            <table className={styles.commu_table}>
+              <thead>
+                <tr>
+                  <th className="text-center">구분</th>
+                  <th className="text-center">제목</th>
+                  <th className="text-center">조회수</th>
+                  <th className="text-center">작성자</th>
+                  <th className="text-center">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                {communities.filter((e) => e.c_category === 3).length == 0 ? (
+                  <tr>
+                    <td colSpan="5" className={styles.no_result}>
+                      "{keyword}"에 대한 검색 결과가 없습니다. <br />
+                      <span onClick={goCommunityPage}>
+                        커뮤니티 페이지로 이동
+                      </span>
+                    </td>
+                  </tr>
+                ) : (
+                  communities
+                    .filter((e) => e.c_category === 3)
+                    .map((community, idx) => {
+                      if (idx < 5) {
+                        return (
+                          <tr>
+                            <td className="text-center">
+                              {community.c_category == 1
+                                ? "자유"
+                                : community.c_category == 2
+                                ? "도서추천"
+                                : "스터디원 모집"}
+                            </td>
+                            <Link to={`/community/${community.c_no}`}>
+                              <td>{community.c_title}</td>
+                            </Link>
+                            <td className="text-center">{community.c_hit}</td>
+                            <td className="text-center">
+                              {
+                                userDtos.filter(
+                                  (e) => e.u_email == community.u_email
+                                )[0].u_name
+                              }
+                            </td>
+                            <td className="text-center">
+                              {dateFormat(community.c_reg_date)}
+                            </td>
+                          </tr>
+                        );
+                      }
+                    })
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

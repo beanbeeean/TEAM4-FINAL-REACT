@@ -73,7 +73,10 @@ function App() {
                     />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/cart/confirm" element={<CartPayConfirm />} />
-                    <Route path="/checkout_books" element={<CheckoutList />} />
+                    <Route
+                      path="/checkout_books"
+                      element={<CheckoutList j />}
+                    />
                     <Route
                       path="/checkout_books/:id"
                       element={<CheckoutDetail />}
@@ -81,7 +84,7 @@ function App() {
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/reservation" element={<Reservation />} />
 
-                    <Route path="/search" element={<SearchMain />} />
+                    <Route path="/search/:keyword" element={<SearchMain />} />
 
                     <Route
                       path="/oauth2/redirect"

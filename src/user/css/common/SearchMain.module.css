@@ -4,12 +4,21 @@
 }
 
 .search_books {
-  /* text-align: center; */
   margin-bottom: 50px;
+  display: flex;
+  flex: 5;
+  flex-wrap: wrap;
 }
 
 .book_wrap {
   text-align: center;
+  height: 360px;
+  margin-bottom: 10px;
+}
+
+.book_wrap .book_img {
+  min-height: 220px;
+  min-width: 180px;
 }
 
 .search_books .more {
@@ -72,12 +81,23 @@
 .book_content_wrap .book_title {
   font-weight: bold;
   font-size: 1.1em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em;
 }
 
 .book_content_wrap .author,
 .book_content_wrap .publisher {
   font-size: 0.9em;
   color: #bababa;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .community {
@@ -93,9 +113,8 @@
 
 .commu_wrap {
   width: 100%;
-  border: 1px solid #feccbe;
+  /* border: 1px solid #feccbe; */
   border-radius: 10px;
-  height: 300px;
 }
 
 .commu_table {
@@ -104,17 +123,20 @@
 }
 
 table.commu_table th {
-  background-color: #feccbe;
+  /* background-color: #feccbe; */
   color: #ffffff;
-  padding: 12px 0;
+  /* color: #fd8a69; */
+  background-color: #feccbe;
+  padding: 8px;
+  border: none;
 }
 
 table.commu_table th:nth-child(1) {
-  border-radius: 10px 0 0 0;
+  width: 10%;
 }
 
-table.commu_table th:nth-child(4) {
-  border-radius: 0 10px 0 0;
+table.commu_table th:nth-child(2) {
+  width: 40%;
 }
 
 table.commu_table td {
@@ -125,14 +147,22 @@ table.commu_table td {
 }
 
 table.commu_table tbody tr {
-  border-top: 1px solid #feccbe;
-}
-
-.cannot_result {
   text-align: center;
-  font-size: 1.2em;
+  border-bottom: 1px solid #feccbe;
 }
 
-.cannot_result a {
-  color: #fd8a69;
+.book_result {
+  width: 100%;
+  text-align: center;
+}
+
+.no_result {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #bababa;
+}
+
+.no_result span {
+  color: #bababa;
+  text-decoration: underline;
 }

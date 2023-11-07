@@ -35,11 +35,7 @@ const AdminBookListItem = ({ book }) => {
       <td>{book.b_stock}</td>
       <td>{book.b_state == 1 ? "사용가능" : "사용불가"}</td>
       <td>
-        <input
-          type="button"
-          value="상태변경"
-          onClick={() => setStateShow(true)}
-        />
+        <input type="button" value="변경" onClick={() => setStateShow(true)} />
       </td>
       {coutModalShow && (
         <CheckoutUserModal

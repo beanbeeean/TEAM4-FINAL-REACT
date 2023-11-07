@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LoginModal from "./LoginModal";
 import { userLogout } from "../../../redux/user/slices/userSlice";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
 
 const Sidebar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -24,9 +26,11 @@ const Sidebar = () => {
         navigate("/reservation");
         break;
       case 3:
+        dispatch(bookActions.fetchSearchBook({ keyword: "" }));
         navigate("/checkout_books");
         break;
       case 4:
+        dispatch(communityActions.fetchSearchCommunity({ keyword: "" }));
         navigate("/community");
         break;
       case 5:

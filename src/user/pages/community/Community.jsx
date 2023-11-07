@@ -9,11 +9,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 
 const Community = () => {
-  const [keyword, setKeyword] = useState("");
-  const [category, setCategory] = useState(1);
+  const { communityDto, searchCommunityDto } = useSelector(
+    (state) => state.community
+  );
+  const [category, setCategory] = useState(
+    searchCommunityDto.category === undefined ? 1 : searchCommunityDto.category
+  );
   const [searchOption, setSearchOption] = useState(1);
   const dispatch = useDispatch();
-  const { communityDto } = useSelector((state) => state.community);
+  const [keyword, setKeyword] = useState(
+    searchCommunityDto.keyword === undefined ? "" : searchCommunityDto.keyword
+  );
+
+  console.log("searchCommunityDto.keyword : ", searchCommunityDto.keyword);
+  console.log("searchCommunityDto.category : ", searchCommunityDto.category);
 
   const getCommunity = () => {
     axios

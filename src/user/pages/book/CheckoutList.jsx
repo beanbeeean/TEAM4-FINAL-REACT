@@ -8,12 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { Loading } from "../../components/common/Loading";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import { useLocation } from "react-router";
 
 const CheckoutList = () => {
   const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [navState, setNavState] = useState("all");
-  const [searchBook, setSearchBook] = useState("");
+
+  const { bookDto, searchBookDto } = useSelector((state) => state.book);
+  const [searchBook, setSearchBook] = useState(
+    searchBookDto.keyword === undefined ? "" : searchBookDto.keyword
+  );
 
   const [page, setPage] = useState(1);
   const itemsPerPage = 20;
@@ -24,7 +29,7 @@ const CheckoutList = () => {
 
   const dispatch = useDispatch();
 
-  const { bookDto } = useSelector((state) => state.book);
+  console.log("searchBookDto.keyword :: ", searchBookDto.keyword);
 
   useEffect(() => {
     let arr = [];
@@ -54,7 +59,7 @@ const CheckoutList = () => {
         const bookDtos = response.data;
         dispatch(bookActions.fetchBookDto(bookDtos));
         arr = Array.from(response.data.dtos);
-
+        // setSearchBook(searchBookDto.keyword);
         setLoading(false);
         setBooks(arr);
       })

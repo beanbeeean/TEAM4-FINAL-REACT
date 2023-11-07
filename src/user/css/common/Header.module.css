@@ -13,7 +13,7 @@
   color: #999898;
 }
 
-.main_search > .search_btn {
+.main_search a > .search_btn {
   position: relative;
   left: -30px;
   cursor: pointer;

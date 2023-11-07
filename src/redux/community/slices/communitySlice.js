@@ -15,6 +15,7 @@ const communityState = {
       c_mod_date: "",
     },
   ],
+  searchCommunityDto: [{}],
 };
 
 const communitySlice = createSlice({
@@ -29,6 +30,11 @@ const communitySlice = createSlice({
           console.log("state.communityDto 1: ", state.communityDto);
         }
       });
+    },
+
+    fetchSearchCommunity: (state, action) => {
+      state.searchCommunityDto = action.payload;
+      console.log("state.searchCommunityDto: ", state.searchCommunityDto);
     },
 
     fetchCommunityDto: (state, action) => {
