@@ -39,8 +39,9 @@ const ChatModal = () => {
   };
 
   useEffect(() => {
-    // getList();
-  }, []);
+    getList();
+    console.log("userDto  ", userDto);
+  }, [userDto]);
 
   useEffect(() => {
     if (isClicked) {
@@ -60,48 +61,54 @@ const ChatModal = () => {
   }, [roomId]);
 
   return (
-    <div className={`${styles.quick_menu} ${styles.on}`}>
-      <div
-        className={styles.quick_btn}
-        // onClick={() => setIsClicked(!isClicked)}
-        onClick={() => dispatch(chatActions.clickToggle(!isClicked))}
-      >
-        <BiChat
-          className={`${styles.msg_icon} ${isClicked && styles.icon_clicked} `}
-        />
-      </div>
-      {isClicked && (
-        <>
-          <div className={styles.chat_box}>
-            <div className={styles.chat_list}>
-              <h4 className={styles.chat_list_tit}>CHAT LIST</h4>
-              {storeChatRoomList.map((item) => (
-                <ChatItem
-                  roomId={roomId}
-                  setRoomId={setRoomId}
-                  setRoomName={setRoomName}
-                  item={item}
-                />
-              ))}
-            </div>
-
-            {roomId !== "" ? (
-              <ChatArea
-                roomId={roomId}
-                setRoomId={setRoomId}
-                user={userDto}
-                roomName={roomName}
-                getList={getList}
-              />
-            ) : (
-              <div className={styles.chat_area}>
-                <img src="../imgs/chat_logo.png" />
-              </div>
-            )}
+    <>
+      {userDto.u_no && (
+        <div className={`${styles.quick_menu} ${styles.on}`}>
+          <div
+            className={styles.quick_btn}
+            // onClick={() => setIsClicked(!isClicked)}
+            onClick={() => dispatch(chatActions.clickToggle(!isClicked))}
+          >
+            <BiChat
+              className={`${styles.msg_icon} ${
+                isClicked && styles.icon_clicked
+              } `}
+            />
           </div>
-        </>
+          {isClicked && (
+            <>
+              <div className={styles.chat_box}>
+                <div className={styles.chat_list}>
+                  <h4 className={styles.chat_list_tit}>CHAT LIST</h4>
+                  {storeChatRoomList.map((item) => (
+                    <ChatItem
+                      roomId={roomId}
+                      setRoomId={setRoomId}
+                      setRoomName={setRoomName}
+                      item={item}
+                    />
+                  ))}
+                </div>
+
+                {roomId !== "" ? (
+                  <ChatArea
+                    roomId={roomId}
+                    setRoomId={setRoomId}
+                    user={userDto}
+                    roomName={roomName}
+                    getList={getList}
+                  />
+                ) : (
+                  <div className={styles.chat_area}>
+                    <img src="../imgs/chat_logo.png" />
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -21,10 +21,10 @@ const HomeCommunityItem = (props) => {
     <tr>
       <td className="text-center">
         {props.community.c_category == 1
-          ? "FREE"
+          ? "자유"
           : props.community.c_category == 2
-          ? "RECOMMEND"
-          : "GATHER"}
+          ? "도서추천"
+          : "스터디 모집"}
       </td>
       <Link to={`/community/${props.community.c_no}`}>
         <td>{props.community.c_title}</td>
