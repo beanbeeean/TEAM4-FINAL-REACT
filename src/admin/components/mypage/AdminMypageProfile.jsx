@@ -14,7 +14,7 @@ const AdminMypageProfile = () => {
   const [u_name, setU_name] = useState(loginedUser.u_name);
   const [u_phone, setU_phone] = useState(loginedUser.u_phone);
   const [u_email, setU_mail] = useState(loginedUser.u_email);
-  const [file, setFile] = useState(loginedUser.u_image); //파일
+  const [file, setFile] = useState(false); //파일
   const [file2, setFile2] = useState(loginedUser.u_image); //파일
 
   const dispatch = useDispatch();
@@ -33,23 +33,39 @@ const AdminMypageProfile = () => {
     }
   };
 
-  function Send() {
-    const update = new FormData();
-    Object.values(file).forEach((file) => update.append("file", file));
+  const Send = () => {
+    if (file) {
+      const update = new FormData();
+      Object.values(file).forEach((file) => update.append("file", file));
 
-    userUpload(update)
-      .then((response) => {
-        userUpdate({ u_name, u_phone, u_email })
-          .then((response) => {
-            alert("수정이 성공하였습니다.");
-            dispatch(userLogin(response.data));
-          })
-          .catch((error) => {
-            alert((error && error.message) || "수정에 실패하였습니다.");
-          });
-      })
-      .catch((error) => {});
-  }
+      userUpload(update)
+        .then((response) => {
+          userUpdate({ u_name, u_phone, u_email })
+            .then((response) => {
+              alert("수정이 성공하였습니다.");
+              dispatch(userLogin(response.data));
+            })
+            .catch((error) => {
+              alert((error && error.message) || "수정에 실패하였습니다.");
+            });
+        })
+        .catch((error) => {});
+    } else {
+      userUpdate({ u_name, u_phone, u_email })
+        .then((response) => {
+          alert("수정이 성공하였습니다.");
+          dispatch(userLogin(response.data));
+        })
+        .catch((error) => {
+          alert((error && error.message) || "수정에 실패하였습니다.");
+        });
+    }
+  };
+
+  const deleteAccount = () => {
+    window.confirm("계정을 탈퇴하시겠습니까?");
+  };
+
   return (
     <div className={stylesAdmin.management_wrap}>
       <h2 className={stylesAdmin.admin_title}>MY PAGE</h2>
@@ -93,16 +109,15 @@ const AdminMypageProfile = () => {
           />
           <br />
           <span className={stylesAdmin.title}>이메일 &emsp;&emsp;</span>
-          <input
-            type="mail"
-            value={u_email}
-            onChange={(e) => setU_mail(e.target.value)}
-          />
+          <input type="mail" value={u_email} readOnly disabled />
         </div>
 
         <div className={stylesAdmin.btn_wrap}>
           <input type="button" onClick={() => Send()} value="적용" />
           <input type="button" value="취소" />
+        </div>
+        <div className={stylesAdmin.btn_delete}>
+          계정을 탈퇴하시겠습니까? <span onClick={deleteAccount}>계정탈퇴</span>
         </div>
       </div>
     </div>

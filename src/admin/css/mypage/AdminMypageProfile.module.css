@@ -76,3 +76,17 @@
   background-color: rgb(33, 41, 66);
   color: #ffffff;
 }
+
+.btn_delete {
+  margin-top: 5px;
+  font-size: 0.75em;
+  color: #bababa;
+}
+
+.btn_delete span {
+  text-decoration: underline;
+}
+
+.btn_delete span:hover {
+  color: #3f3f3f;
+}
