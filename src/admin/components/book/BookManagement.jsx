@@ -78,7 +78,7 @@ const BookManagement = () => {
                   <th>PUBLISHER</th>
                   <th>STOCK</th>
                   <th>STATE</th>
-                  <th>CHANGE</th>
+                  <th>BTN</th>
                 </tr>
               </thead>
               <tbody>

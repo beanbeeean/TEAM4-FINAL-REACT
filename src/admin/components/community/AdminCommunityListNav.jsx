@@ -36,19 +36,19 @@ const AdminCommunityListNav = ({ onNavStateChange, onSearchBookChange }) => {
             selectedNav === "RECOMMEND" ? stylesAdmin.nav_selected : ""
           }
         >
-          RECOMMEND
+          도서 추천
         </li>
         <li
           onClick={() => handleNavClick("GATHER")}
           className={selectedNav === "GATHER" ? stylesAdmin.nav_selected : ""}
         >
-          GATHER
+          스터디원 모집
         </li>
         <li
           onClick={() => handleNavClick("FREE")}
           className={selectedNav === "FREE" ? stylesAdmin.nav_selected : ""}
         >
-          FREE
+          자유 게시판
         </li>
       </ul>
     </div>

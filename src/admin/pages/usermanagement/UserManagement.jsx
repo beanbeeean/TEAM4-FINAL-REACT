@@ -79,8 +79,8 @@ const UserManagement = () => {
               <th>PROVIDER</th>
               <th>EMAIL</th>
               <th>JOIN DATE</th>
-              <th>STATE</th>
-              <th>CHANGE</th>
+              <th>LOGIN</th>
+              <th>BTN</th>
             </tr>
           </thead>
           <tbody>

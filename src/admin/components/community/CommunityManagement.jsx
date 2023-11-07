@@ -100,15 +100,15 @@ const CommunityManagement = () => {
                     <tr>
                       <td className="text-center">
                         {community.c_category == 1
-                          ? "FREE"
+                          ? "자유 게시판"
                           : community.c_category == 2
-                          ? "RECOMMEND"
-                          : "GATHER"}
+                          ? "도서 추천"
+                          : "스터디원 모집"}
                       </td>
                       <td>{community.c_title}</td>
                       <td>{community.u_email}</td>
                       <td>{community.c_reg_date}</td>
-                      <td>{community.c_state}</td>
+                      <td>{community.c_state == 1 ? "표시" : "숨김"}</td>
                       <td>
                         <input
                           type="button"

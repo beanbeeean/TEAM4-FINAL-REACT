@@ -37,13 +37,13 @@ const AdminManagement = () => {
       .then((response) => {
         const dtos = response.data.dtos;
         dispatch(fetchUserDtos(dtos));
-        setAdmins(dtos.filter((e) => e.u_role === "ROLE_ADMIN"));
+        setAdmins(dtos.filter((e) => e.u_role !== "ROLE_USER"));
       })
       .catch((error) => console.log(error));
   }, [searchAdmin]);
 
   useEffect(() => {
-    let arr = userDtos.filter((e) => e.u_role === "ROLE_ADMIN");
+    let arr = userDtos.filter((e) => e.u_role !== "ROLE_USER");
     setAdmins(arr);
   }, [userDtos]);
 
@@ -71,8 +71,8 @@ const AdminManagement = () => {
               <th>EMAIL</th>
               <th>JOIN DATE</th>
               <th>ROLE</th>
-              <th>STATE</th>
-              <th>CHANGE</th>
+              <th>APPROVE</th>
+              <th>BTN</th>
             </tr>
           </thead>
           <tbody>

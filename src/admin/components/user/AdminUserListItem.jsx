@@ -41,7 +41,7 @@ const AdminUserListItem = ({ user }) => {
       <td>{user.u_provider}</td>
       <td>{user.u_email}</td>
       <td>{dateFormat(user.u_reg_date)}</td>
-      <td>{user.u_state}</td>
+      <td>{user.u_state == 1 ? "가능" : "불가"}</td>
       <td>
         <input
           type="button"

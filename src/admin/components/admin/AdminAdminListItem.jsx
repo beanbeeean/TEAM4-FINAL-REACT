@@ -39,14 +39,16 @@ const AdminAdminListItem = ({ admin }) => {
       <td>{admin.u_name}</td>
       <td>{admin.u_email}</td>
       <td>{dateFormat(admin.u_reg_date)}</td>
-      <td>{admin.u_role}</td>
-      <td>{admin.u_state}</td>
+      <td>{admin.u_role == "ROLE_SUPER" ? "슈퍼 관리자" : "일반관리자"}</td>
+      <td>{admin.u_state == 0 ? "승인대기" : "승인완료"}</td>
       <td>
-        <input
-          type="button"
-          value="변경"
-          onClick={changeState.bind(this, admin)}
-        />
+        {admin.u_role != "ROLE_SUPER" && (
+          <input
+            type="button"
+            value="변경"
+            onClick={changeState.bind(this, admin)}
+          />
+        )}
       </td>
     </>
   );
