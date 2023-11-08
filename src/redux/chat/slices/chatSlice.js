@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 //initialState
 const initialState = {
   storeUserList: [],
+  storeUserDetail: [],
   storeChatRoomList: [],
   isClick: false,
   storeRoomId: "",
@@ -16,6 +17,9 @@ const chatSlice = createSlice({
   reducers: {
     getUserList: (state, action) => {
       state.storeUserList = action.payload;
+    },
+    getUserDetail: (state, action) => {
+      state.storeUserDetail = action.payload;
     },
     getChatRoomList: (state, action) => {
       state.storeChatRoomList = action.payload;

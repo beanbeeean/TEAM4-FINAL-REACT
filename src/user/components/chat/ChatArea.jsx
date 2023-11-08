@@ -29,7 +29,8 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   const [userListShow, setUserListShow] = useState(false);
 
   const dispatch = useDispatch();
-  let { storeUserList } = useSelector((state) => state.chat);
+  let { storeUserList, storeUserDetail } = useSelector((state) => state.chat);
+  // let { userDtos } = useSelector((state) => state.user);
 
   function connect() {
     var socket = new SockJS("/ws-stomp");
@@ -122,6 +123,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       })
       .then(function (res) {
         dispatch(chatActions.getUserList(res.data.userList));
+        dispatch(chatActions.getUserDetail(res.data.userDetail));
         console.log(res);
       })
       .catch(function (err) {
@@ -170,6 +172,19 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
 
   useEffect(() => {
     connect();
+    api
+      .get("/chat/user_detail", {
+        params: {
+          roomId: roomId,
+        },
+      })
+      .then(function (res) {
+        // dispatch(chatActions.getChatRoomList(res.data.list));
+        console.log("가져왔어  ", res.data);
+      })
+      .catch(function (err) {
+        console.log("list", err);
+      });
   }, [roomId]);
 
   useEffect(() => {
@@ -201,7 +216,17 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
                 {userListShow && (
                   <ul className={styles.chat_user_list_drop}>
                     {storeUserList.map((n) => (
-                      <li>{n.u_name}</li>
+                      <li>
+                        <img
+                          src={
+                            storeUserDetail.filter(
+                              (u) => u.u_email == n.u_mail
+                            )[0].u_image
+                          }
+                          alt=""
+                        />
+                        {n.u_name}
+                      </li>
                     ))}
                   </ul>
                 )}

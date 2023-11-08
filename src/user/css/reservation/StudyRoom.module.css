@@ -235,7 +235,6 @@
 }
 
 .reservation_badge {
-
   color: #cfcfcf;
 }
 
@@ -254,4 +253,37 @@
 .reservation_card_btn:hover {
   background-color: #f7d4d4;
   color: #fff;
+}
+
+.studyroom_items {
+  display: flex;
+  max-width: 1200px;
+  min-width: 1200px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.studyroom_item {
+  text-align: center;
+  cursor: pointer;
+}
+
+.studyroom_item > img {
+  max-width: 350px;
+}
+
+.studyroom_item > span {
+  margin-bottom: 20px;
+  margin-right: 20px;
+  font-weight: bold;
+  color: #9e9d9d;
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.studyroom_item > span.reservation_tap_active {
+  color: #000;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #ff0000;
 }

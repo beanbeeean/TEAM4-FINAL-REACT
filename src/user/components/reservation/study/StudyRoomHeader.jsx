@@ -4,7 +4,12 @@ import Year from "react-live-clock";
 import Month from "react-live-clock";
 import styles from "../../../css/reservation/StudyRoom.module.css";
 
-const StudyRoomHeader = ({ setChosenMonth, setChosenDay, setMonthState, setLoad }) => {
+const StudyRoomHeader = ({
+  setChosenMonth,
+  setChosenDay,
+  setMonthState,
+  setLoad,
+}) => {
   const now = new Date();
   const todayWeak = now.getDay();
   const today = now.getDate();
@@ -100,6 +105,48 @@ const StudyRoomHeader = ({ setChosenMonth, setChosenDay, setMonthState, setLoad 
 
   return (
     <>
+      <div className={styles.studyroom_items}>
+        <div className={styles.studyroom_item}>
+          <span
+            className={styles.reservation_tap_active}
+            // onClick={() => chkroom(1)}
+            // className={`${space == 1 && styles.reservation_tap_active}`}
+          >
+            SPACE1(2~4인)
+          </span>
+          <img
+            className={styles.studyroom_img}
+            src="../imgs/space-4_3.jpeg"
+            alt=""
+          />
+        </div>
+        <div className={styles.studyroom_item}>
+          <span
+          // onClick={() => chkroom(1)}
+          // className={`${space == 1 && styles.reservation_tap_active}`}
+          >
+            SPACE2(4~6인)
+          </span>
+          <img
+            className={styles.studyroom_img}
+            src="../imgs/space-6_3.jpeg"
+            alt=""
+          />
+        </div>
+        <div className={styles.studyroom_item}>
+          <span
+          // onClick={() => chkroom(1)}
+          // className={`${space == 1 && styles.reservation_tap_active}`}
+          >
+            SPACE3(6~8인)
+          </span>
+          <img
+            className={styles.studyroom_img}
+            src="../imgs/space-8_3.jpeg"
+            alt=""
+          />
+        </div>
+      </div>
       <div className={styles.calendar}>
         <div className={styles.year_month_list}>
           <p>

@@ -96,11 +96,24 @@
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: default;
+  text-align: left;
 }
 
 .chat_user_list_drop > li {
-  width: 150px;
+  width: 200px;
   padding: 15px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.chat_user_list_drop > li > img {
+  max-width: 40px;
+  max-height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 1px solid #f3f0f0;
 }
 
 .chat_user_list_drop > li:hover {
@@ -307,14 +320,16 @@
 
 .mine,
 .others {
-  display: inline-block;
-  width: 100%;
+  display: flex;
+  /* width: 100%; */
   margin: 5px 0;
   position: relative;
+  font-size: 13px;
 }
 
 .mine {
   text-align: right;
+  justify-content: end;
 }
 .mine > .chat_text {
   float: right;
@@ -326,7 +341,16 @@
   background: linear-gradient(to top, #ffeeeb, #feccbe, #fff9f8);
 }
 
-.others > .chat_text {
+.others_img > img {
+  max-width: 40px;
+  max-height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.others .chat_text {
   float: left;
   max-width: 300px;
   padding: 10px 12px;
@@ -335,7 +359,7 @@
   background: linear-gradient(to top, #e6e6e675, #fff, #fff);
 }
 
-.others > .user_name {
+.others .user_name {
   font-size: 13px;
   margin-bottom: 3px;
   color: #747373;

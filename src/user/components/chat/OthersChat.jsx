@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../../css/chat/Chat.module.css";
 import { useSelector } from "react-redux";
 const OthersChat = ({ item, userList }) => {
-  let { storeUserList } = useSelector((state) => state.chat);
+  let { storeUserList, storeUserDetail } = useSelector((state) => state.chat);
   let [user, setUser] = useState(
     storeUserList.filter((e) => e.u_mail == item.sender)
   );
@@ -10,7 +10,7 @@ const OthersChat = ({ item, userList }) => {
   return (
     <>
       {item.type == "NOTICE" ? (
-        <div className={styles.chat_date}>
+        <div className={styles.admins}>
           <span>{item.message}</span>
         </div>
       ) : item.sender == "ADMIN" ? (
@@ -19,12 +19,22 @@ const OthersChat = ({ item, userList }) => {
         </div>
       ) : (
         <div className={styles.others}>
-          <p className={styles.user_name}>
-            {user.length > 0 ? user[0].u_name : "(알 수 없음)"}
-          </p>
-          {/* <p className={styles.user_name}>{item.sender}</p> */}
-          <span className={styles.chat_text}>{item.message}</span>
-          <span className={styles.chat_time}>{item.time}</span>
+          <div className={styles.others_img}>
+            <img
+              src={
+                storeUserDetail.filter((u) => u.u_email == user[0].u_mail)[0]
+                  .u_image
+              }
+              alt=""
+            />
+          </div>
+          <div>
+            <p className={styles.user_name}>
+              {user.length > 0 ? user[0].u_name : "(알 수 없음)"}
+            </p>
+            <span className={styles.chat_text}>{item.message}</span>
+            <span className={styles.chat_time}>{item.time}</span>
+          </div>
         </div>
       )}
     </>
