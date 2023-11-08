@@ -82,13 +82,7 @@ const MyPage = () => {
               className={`${styles.board_category} ${on == 4 && styles.on}`}
               onClick={() => setOn(4)}
             >
-              CONTENTS
-            </li>
-            <li
-              className={`${styles.board_category} ${on == 5 && styles.on}`}
-              onClick={() => setOn(5)}
-            >
-              MY CHAT
+              COMMUNITY
             </li>
           </ul>
         </div>
@@ -97,7 +91,6 @@ const MyPage = () => {
       {on == 2 && <MypageReservation />}
       {on == 3 && <MypageBook />}
       {on == 4 && <MypageCommunity />}
-      {on == 5 && <MypageChat />}
     </div>
   );
 };

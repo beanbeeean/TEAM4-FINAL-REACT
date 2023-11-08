@@ -6,12 +6,12 @@ const ReadRoomReservationList = () => {
     <table className={stylesAdmin.reservation_seat_table}>
       <thead>
         <tr>
-          <th>NO</th>
-          <th>USER</th>
-          <th>FLOOR</th>
-          <th>SEAT</th>
-          <th>IN</th>
-          <th>OUT</th>
+          <th>번호</th>
+          <th>이메일</th>
+          <th>열람실</th>
+          <th>좌석</th>
+          <th>입실 시간</th>
+          <th>퇴실 시간</th>
         </tr>
       </thead>
       <tbody>

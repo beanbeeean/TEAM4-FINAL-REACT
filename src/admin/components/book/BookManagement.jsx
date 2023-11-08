@@ -71,14 +71,14 @@ const BookManagement = () => {
             <table className={stylesAdmin.book_wrap}>
               <thead>
                 <tr>
-                  <th>NO</th>
+                  <th>번호</th>
                   <th>ISBN</th>
-                  <th>TITLE</th>
-                  <th>AUTHOR</th>
-                  <th>PUBLISHER</th>
-                  <th>STOCK</th>
-                  <th>STATE</th>
-                  <th>BTN</th>
+                  <th>제목</th>
+                  <th>제목</th>
+                  <th>작가</th>
+                  <th>재고</th>
+                  <th>상태</th>
+                  <th>변경</th>
                 </tr>
               </thead>
               <tbody>

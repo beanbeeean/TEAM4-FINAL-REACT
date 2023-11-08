@@ -30,6 +30,34 @@ const Home = () => {
   const [sndRooms, setSndRooms] = useState([]);
   const [thdRooms, setThdRooms] = useState([]);
 
+  const todayDate = () => {
+    let now = new Date();
+    let todayYear = now.getFullYear();
+    let todayMonth =
+      now.getMonth() + 1 < 10 ? "0" + now.getMonth() + 1 : now.getMonth() + 1;
+    let todayDate = now.getDate() < 10 ? "0" + now.getDate() : now.getDate();
+    let todayHour = now.getHours() < 10 ? "0" + now.getHours() : now.getHours();
+    let todayMinute =
+      now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes();
+    let todaySecond =
+      now.getSeconds() < 10 ? "0" + now.getSeconds() : now.getSeconds();
+    return (
+      todayYear +
+      "-" +
+      todayMonth +
+      "-" +
+      todayDate +
+      " " +
+      todayHour +
+      ":" +
+      todayMinute +
+      ":" +
+      todaySecond
+    );
+  };
+  const [now, setNow] = useState(todayDate());
+  console.log("todd", now);
+
   useEffect(() => {
     axios
       .get(`/admin/management/memberManagement`, {
@@ -85,7 +113,12 @@ const Home = () => {
 
   useEffect(() => {
     setFirRooms(
-      roomDto.filter((e) => e.re_room_no === 1 && e.re_reservation == null)
+      roomDto.filter(
+        (e) =>
+          e.re_room_no === 1 &&
+          e.re_reservation == null &&
+          now < e.re_reservation
+      )
     );
     setSndRooms(
       roomDto.filter((e) => e.re_room_no === 2 && e.re_reservation == null)
@@ -102,7 +135,7 @@ const Home = () => {
           <div className={styles.mini_nav}>
             <span className={styles.title}>추천도서</span>
             <Link to="/checkout_books">
-              <span className={styles.more}>+ more</span>
+              <span className={styles.more}>+ 더보기</span>
             </Link>
           </div>
           <Swiper
@@ -138,7 +171,7 @@ const Home = () => {
           <div className={styles.mini_nav}>
             <span className={styles.title}>커뮤니티 최신 글</span>
             <Link to="/community">
-              <span className={styles.more}>+ more</span>
+              <span className={styles.more}>+ 더보기</span>
             </Link>
           </div>
           <div className={styles.table_wrap}>
@@ -165,7 +198,7 @@ const Home = () => {
           <div className={styles.mini_nav}>
             <span className={styles.title}>열람실 예약 현황</span>
             <Link to="/reservation">
-              <span className={styles.more}>+ more</span>
+              <span className={styles.more}>+ 더보기</span>
             </Link>
           </div>
           <div className={styles.graph}>
