@@ -1,17 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReadRoomSetting.module.css";
+import axios from "axios";
+import { adminSeat } from "../../../user/components/common/login/APIUtils";
 const ReadRoomSetting = () => {
+
   const [seat, setSeat] = useState();
   const [activeTap, setActiveTap] = useState(1);
+  const [state, setState] = useState();
+  const [readRoom, setReadRoom] = useState();
+
   const selection = (e) => {
     console.log(e.target.textContent);
+    console.log(activeTap);
+    console.log((e.target.textContent-1)*(activeTap-1)*44);
+    console.log(readRoom[(e.target.textContent-1)+(activeTap-1)*44].re_state);
+    if(readRoom[(e.target.textContent-1)+(activeTap-1)*44].re_state){
+      setState(1);
+    } else {
+      setState(0);
+    }
     setSeat(e.target.textContent);
   };
+
+  const saveState = (e) => {
+    adminSeat({re_state:e, re_room_no:activeTap, re_seat:seat})
+    .then((response) => {
+      alert("수정되었습니다.");
+      seatHandle();
+      setSeat(0);
+    })
+    .catch((error) => console.log(error));
+  }
 
   const floorSelect = (num) => {
     setSeat();
     setActiveTap(num);
   };
+
+  const seatHandle = (event) => {
+    axios.get('http://localhost:8090/read/seat?')
+    .then(response => {
+      console.log(response.data);
+      setReadRoom(response.data);
+      // dispatch(seatChk());
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  }
+
+  useEffect(() => {
+    seatHandle();
+  }, [activeTap] );
 
   return (
     <div className={stylesAdmin.readroom_content}>
@@ -362,12 +402,12 @@ const ReadRoomSetting = () => {
           </div>
           <div>
             <div>현재 상태</div>
-            <div>가능</div>
+            <div>{seat > 0 ? state ? "가능" : "불가능" : ""}</div>
           </div>
         </div>
         <div className={stylesAdmin.status_btn}>
-          <div>예약 가능</div>
-          <div>예약 불가능</div>
+          <div onClick={(e) => saveState(1)}>예약 가능</div>
+          <div onClick={(e) => saveState(0)}>예약 불가능</div>
         </div>
       </div>
     </div>

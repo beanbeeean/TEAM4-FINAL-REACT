@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import stylesAdmin from "../../css/mypage/AdminMypageProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  myDelete,
   userUpdate,
   userUpload,
 } from "../../../user/components/common/login/APIUtils";
 import { userLogin } from "../../../redux/user/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const AdminMypageProfile = () => {
   const loginedUser = useSelector((state) => state.user.userDto);
@@ -18,6 +20,7 @@ const AdminMypageProfile = () => {
   const [file2, setFile2] = useState(loginedUser.u_image); //파일
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChangeFile = (event) => {
     setFile(event.target.files);
@@ -63,7 +66,18 @@ const AdminMypageProfile = () => {
   };
 
   const deleteAccount = () => {
-    window.confirm("계정을 탈퇴하시겠습니까?");
+    
+    if(window.confirm("계정을 탈퇴하시겠습니까?")){
+      myDelete()
+      .then((response) => {
+        alert("회원 탈퇴에 성공하였습니다.");
+        dispatch(userLogin());
+        navigate("/admin/login");
+      })
+      .catch((error) => {
+        alert((error && error.message) || "회원 탈퇴에 실패하였습니다.");
+      });
+    }
   };
 
   return (
@@ -94,6 +108,10 @@ const AdminMypageProfile = () => {
           ></input>
         </div>
         <div className={`${stylesAdmin.block} ${stylesAdmin.my_info}`}>
+
+          <span className={stylesAdmin.title}>이메일 &emsp;&emsp;</span>
+          <input type="mail" value={u_email} readOnly disabled />
+          <br />
           <span className={stylesAdmin.title}>별명 &emsp;&emsp;&emsp;</span>
           <input
             type="text"
@@ -107,9 +125,6 @@ const AdminMypageProfile = () => {
             value={u_phone}
             onChange={(e) => setU_phone(e.target.value)}
           />
-          <br />
-          <span className={stylesAdmin.title}>이메일 &emsp;&emsp;</span>
-          <input type="mail" value={u_email} readOnly disabled />
         </div>
 
         <div className={stylesAdmin.btn_wrap}>
