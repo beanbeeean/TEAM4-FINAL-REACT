@@ -113,13 +113,13 @@ export function reservationRoom(reservationRequest) {
 }
 
 export function reservationRead(reservationRequest) {
-  return axiosInstance.post("/read/reservation",reservationRequest);
+  return axiosInstance.post("/read/reservation", reservationRequest);
 }
 
 export function myPageRead(reservationRequest) {
-  return axiosInstance.post("/user/myReadReservation",reservationRequest);
+  return axiosInstance.post("/user/myReadReservation", reservationRequest);
 }
 
 export function myPageStudy(reservationRequest) {
-  return axiosInstance.post("/user/myStudyReservation",reservationRequest);
+  return axiosInstance.post("/user/myStudyReservation", reservationRequest);
 }
