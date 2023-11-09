@@ -207,18 +207,20 @@ const CommunityDetail = () => {
             <span className={styles.content_reg_date}>
               {content.c_reg_date}
             </span>
-            <span className={styles.modify_delete}>
-              <span>
-                <a className={styles.delete_btn} onClick={deleteCommunity}>
-                  삭제하기
-                </a>
+            {userDto.u_no == content.u_no && (
+              <span className={styles.modify_delete}>
+                <span>
+                  <a className={styles.delete_btn} onClick={deleteCommunity}>
+                    삭제하기
+                  </a>
+                </span>
+                <span>&nbsp;|&nbsp;</span>
+                <span>
+                  <Link to={`/community_modify/${id}`}>수정하기</Link>
+                </span>
               </span>
-              <span>&nbsp;|&nbsp;</span>
-              <span>
-                <Link to={`/community_modify/${id}`}>수정하기</Link>
-              </span>
-            </span>
-            <span className={styles.modify_delete}></span>
+            )}
+            {/* <span className={styles.modify_delete}></span> */}
             <div
               className={styles.content_area}
               dangerouslySetInnerHTML={{ __html: content.c_content }}

@@ -6,10 +6,15 @@
   padding-left: 20px;
 }
 
-.commu_header .write_btn {
-  position: absolute;
-  left: 0;
-  top: 50px;
+.board_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.board_content .write_btn {
+  display: inline-block;
   border: 0;
   padding: 5px;
   width: 100px;
@@ -17,12 +22,12 @@
   cursor: pointer;
 }
 
-.commu_header .write_btn * {
+.board_content .write_btn {
   color: #969595;
   font-weight: bold;
 }
 
-.commu_header .write_btn:hover * {
+.board_content .write_btn:hover {
   color: #242424;
 }
 
@@ -33,7 +38,7 @@
 div.write_search_box {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 30px;
+
   position: relative;
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../css/mypage/MypageCommunity.module.css";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,8 @@ const MypageCommunity = () => {
   console.log("communityDto : ", communityDto);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const isChkBook = communityDto.communityDtos.filter(
     (e) => e.u_email === userDto.u_email
   );
@@ -20,30 +22,33 @@ const MypageCommunity = () => {
 
   return (
     <>
-      <div className={styles.commu_header}>
-        <button className={styles.write_btn}>
-          <Link to="/board_write">
+      <div className={styles.commu_header}></div>
+      <div className={styles.board_content}>
+        <div className={styles.board_header}>
+          <button
+            className={styles.write_btn}
+            onClick={() => navigate("/community_write")}
+          >
             <FontAwesomeIcon className={styles.write_icon} icon={faPen} />
             &nbsp;&nbsp;글쓰기
-          </Link>
-        </button>
-      </div>
-      <div className={styles.board_content}>
-        <div className={styles.write_search_box}>
-          <select name="search_category">
-            <option value="all">전체</option>
-            <option value="recommend">도서추천</option>
-            <option value="gather">스터디원 모집</option>
-            <option value="free_board">자유 게시판</option>
-          </select>
-          <div className={styles.search_bar}>
-            <input type="text" placeholder="Search" />
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              className={styles.search_btn}
-            />
+          </button>
+          <div className={styles.write_search_box}>
+            <select name="search_category">
+              <option value="all">전체</option>
+              <option value="recommend">도서추천</option>
+              <option value="gather">스터디원 모집</option>
+              <option value="free_board">자유 게시판</option>
+            </select>
+            <div className={styles.search_bar}>
+              <input type="text" placeholder="Search" />
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className={styles.search_btn}
+              />
+            </div>
           </div>
         </div>
+
         <table className={styles.board_table}>
           <thead>
             <tr>

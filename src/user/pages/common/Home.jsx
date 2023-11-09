@@ -113,18 +113,31 @@ const Home = () => {
 
   useEffect(() => {
     setFirRooms(
-      roomDto.filter(
-        (e) =>
-          e.re_room_no === 1 &&
-          e.re_reservation == null &&
-          now < e.re_reservation
-      )
+      roomDto.filter((e) => {
+        if (e.re_room_no === 1 && e.re_reservation == null) {
+          return e;
+        } else if (e.re_room_no === 1 && now > e.re_reservation) {
+          return e;
+        }
+      })
     );
     setSndRooms(
-      roomDto.filter((e) => e.re_room_no === 2 && e.re_reservation == null)
+      roomDto.filter((e) => {
+        if (e.re_room_no === 2 && e.re_reservation == null) {
+          return e;
+        } else if (e.re_room_no === 2 && now > e.re_reservation) {
+          return e;
+        }
+      })
     );
     setThdRooms(
-      roomDto.filter((e) => e.re_room_no === 3 && e.re_reservation == null)
+      roomDto.filter((e) => {
+        if (e.re_room_no === 3 && e.re_reservation == null) {
+          return e;
+        } else if (e.re_room_no === 3 && now > e.re_reservation) {
+          return e;
+        }
+      })
     );
   }, [roomDto]);
 
