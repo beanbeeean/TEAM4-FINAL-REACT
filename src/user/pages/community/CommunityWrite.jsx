@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from "draft-js";
+import React, { useEffect, useRef, useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftjsToHtml from "draftjs-to-html";
-import { Container } from "react-bootstrap";
+import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,22 +12,29 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import ReactQuill, { Quill } from "react-quill";
+import ImageResize from "quill-image-resize-module-react";
 
-const RowBox = styled.div`
-  width: 100%;
-  display: flex;
-`;
+Quill.register("modules/imageResize", ImageResize);
 
-const Viewer = styled.div`
-  width: calc(50% - 40px);
-  height: 400px;
-  padding: 20px;
-  margin-top: 20px;
-  border: 2px solid gray;
-`;
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "align",
+  "color",
+  "background",
+];
 
 const CommunityWrite = () => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlString, setHtmlString] = useState("");
   const [selection, setSelection] = useState(1);
   const [title, setTitle] = useState("");
@@ -39,23 +42,44 @@ const CommunityWrite = () => {
   const [newName, setNewName] = useState("");
   const [userMaxCount, setUserMaxCount] = useState(2);
   const [enable, setEnable] = useState();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [quillValue, setQuillValue] = useState("");
+
   const { userDto } = useSelector((state) => state.user);
-  console.log("userDto : ", userDto.u_email);
 
-  const updateTextDescription = async (state) => {
-    console.log("updateTextDescription");
-    await setEditorState(state);
-    const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
-    setHtmlString(html);
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      [{ align: [] }, { color: [] }, { background: [] }],
+      ["clean"],
+    ],
+
+    imageResize: {
+      parchment: Quill.import("parchment"),
+      modules: ["Resize", "DisplaySize", "Toolbar"],
+    },
   };
 
-  const uploadCallback = () => {
-    console.log("이미지 업로드");
+  const handleQuillChange = (content, delta, source, editor) => {
+    console.log("content :: ", content);
+    console.log("editor.getContents() :: ", editor.getContents());
+    setQuillValue(editor.getContents());
+    setHtmlString(content);
   };
+
+  useEffect(() => {
+    console.log("여기입니다.", userDto);
+  }, []);
 
   const handleSubmit = () => {
     if (selection == 3) {
@@ -66,14 +90,12 @@ const CommunityWrite = () => {
       } else {
         console.log("같이 쓰기", htmlString);
         axios
-          .get(`/community/write`, {
-            params: {
-              selection: selection,
-              title: title,
-              content: htmlString,
-              u_email: userDto.u_email,
-              // u_name: userDto.u_name,
-            },
+          .post(`/community/write`, {
+            selection: selection,
+            title: title,
+            content: htmlString,
+            u_email: userDto.u_email,
+            // u_name: userDto.u_name,
           })
           .then((response) => {
             console.log("글 작성 성공", response.data);
@@ -91,14 +113,12 @@ const CommunityWrite = () => {
       } else {
         console.log("글만 쓰기", htmlString);
         axios
-          .get(`/community/write`, {
-            params: {
-              selection: selection,
-              title: title,
-              content: htmlString,
-              u_email: userDto.u_email,
-              // u_name: userDto.u_name,
-            },
+          .post(`/community/write`, {
+            selection: selection,
+            title: title,
+            content: htmlString,
+            u_email: userDto.u_email,
+            // u_name: userDto.u_name,
           })
           .then((response) => {
             console.log("글 작성 성공", response.data);
@@ -161,10 +181,6 @@ const CommunityWrite = () => {
       });
   };
 
-  useEffect(() => {
-    console.log("여기입니다.", userDto);
-  }, []);
-
   return (
     <>
       <div className={styles.write_btns}>
@@ -191,21 +207,13 @@ const CommunityWrite = () => {
       </div>
 
       <div className={styles.editor_wrap}>
-        <Editor
-          placeholder="게시글을 작성해주세요"
-          editorState={editorState}
-          onEditorStateChange={updateTextDescription}
-          toolbar={{
-            image: { uploadCallback: uploadCallback },
-          }}
-          localization={{ locale: "ko" }}
-          editorStyle={{
-            height: "400px",
-            width: "100%",
-            border: "none",
-            padding: "20px",
-            backgroundColor: "#fff",
-          }}
+        <ReactQuill
+          style={{ height: "600px" }}
+          theme="snow"
+          modules={modules}
+          formats={formats}
+          value={quillValue || ""}
+          onChange={handleQuillChange}
         />
       </div>
 
