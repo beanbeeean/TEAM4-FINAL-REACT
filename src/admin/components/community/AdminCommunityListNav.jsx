@@ -19,7 +19,7 @@ const AdminCommunityListNav = ({ onNavStateChange, onSearchBookChange }) => {
       <div className={stylesAdmin.search_book}>
         <input
           type="text"
-          placeholder="SEARCH COMMUNITY"
+          placeholder="커뮤니티 검색"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <FontAwesomeIcon
@@ -30,6 +30,12 @@ const AdminCommunityListNav = ({ onNavStateChange, onSearchBookChange }) => {
       </div>
 
       <ul className={stylesAdmin.booklist_nav}>
+        <li
+          onClick={() => handleNavClick("FREE")}
+          className={selectedNav === "FREE" ? stylesAdmin.nav_selected : ""}
+        >
+          자유 게시판
+        </li>
         <li
           onClick={() => handleNavClick("RECOMMEND")}
           className={
@@ -43,12 +49,6 @@ const AdminCommunityListNav = ({ onNavStateChange, onSearchBookChange }) => {
           className={selectedNav === "GATHER" ? stylesAdmin.nav_selected : ""}
         >
           스터디원 모집
-        </li>
-        <li
-          onClick={() => handleNavClick("FREE")}
-          className={selectedNav === "FREE" ? stylesAdmin.nav_selected : ""}
-        >
-          자유 게시판
         </li>
       </ul>
     </div>

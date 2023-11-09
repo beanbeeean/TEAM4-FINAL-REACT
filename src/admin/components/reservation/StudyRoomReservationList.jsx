@@ -32,12 +32,12 @@ const StudyRoomReservationList = () => {
     <table className={stylesAdmin.reservation_studyroom_table}>
       <thead>
         <tr>
-          <th>NO</th>
-          <th>USER</th>
-          <th>ROOM</th>
-          <th>IN</th>
-          <th>OUT</th>
-          <th>RES_DATE</th>
+          <th>번호</th>
+          <th>이메일</th>
+          <th>스터디룸</th>
+          <th>입실 시간</th>
+          <th>퇴실 시간</th>
+          <th>예약 시간</th>
         </tr>
       </thead>
       <tbody>

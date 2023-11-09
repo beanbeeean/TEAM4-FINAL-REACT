@@ -61,7 +61,7 @@ const UserManagement = () => {
       <div className={stylesAdmin.search_user}>
         <input
           type="text"
-          placeholder="SEARCH USER"
+          placeholder="사용자 검색"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <FontAwesomeIcon
@@ -74,13 +74,13 @@ const UserManagement = () => {
         <table>
           <thead>
             <tr>
-              <th>NO</th>
-              <th>USER</th>
-              <th>PROVIDER</th>
-              <th>EMAIL</th>
-              <th>JOIN DATE</th>
-              <th>LOGIN</th>
-              <th>BTN</th>
+              <th>번호</th>
+              <th>이름</th>
+              <th>간편 로그인</th>
+              <th>이메일</th>
+              <th>등록일</th>
+              <th>계정 사용</th>
+              <th>상태변경</th>
             </tr>
           </thead>
           <tbody>

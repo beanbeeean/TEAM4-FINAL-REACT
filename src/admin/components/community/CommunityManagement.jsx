@@ -75,12 +75,12 @@ const CommunityManagement = () => {
           <table className={stylesAdmin.book_wrap}>
             <thead>
               <tr>
-                <th className="text-center">TYPE</th>
-                <th className="text-center">TITLE</th>
-                <th className="text-center">USER</th>
-                <th className="text-center">DATE</th>
-                <th className="text-center">STATE</th>
-                <th className="text-center">BTN</th>
+                <th className="text-center">유형</th>
+                <th className="text-center">제목</th>
+                <th className="text-center">작성자(이메일)</th>
+                <th className="text-center">작성일</th>
+                <th className="text-center">상태</th>
+                <th className="text-center">변경</th>
               </tr>
             </thead>
             <tbody>
@@ -107,7 +107,7 @@ const CommunityManagement = () => {
                       </td>
                       <td>{community.c_title}</td>
                       <td>{community.u_email}</td>
-                      <td>{community.c_reg_date}</td>
+                      <td>{community.c_reg_date.replace("T", " ")}</td>
                       <td>{community.c_state == 1 ? "표시" : "숨김"}</td>
                       <td>
                         <input

@@ -24,17 +24,17 @@ const MypageCommunity = () => {
         <button className={styles.write_btn}>
           <Link to="/board_write">
             <FontAwesomeIcon className={styles.write_icon} icon={faPen} />
-            &nbsp;&nbsp;WRITE
+            &nbsp;&nbsp;글쓰기
           </Link>
         </button>
       </div>
       <div className={styles.board_content}>
         <div className={styles.write_search_box}>
           <select name="search_category">
-            <option value="all">ALL</option>
-            <option value="recommend">RECOMMEND</option>
-            <option value="gather">GATHER</option>
-            <option value="free_board">FREE BOARD</option>
+            <option value="all">전체</option>
+            <option value="recommend">도서추천</option>
+            <option value="gather">스터디원 모집</option>
+            <option value="free_board">자유 게시판</option>
           </select>
           <div className={styles.search_bar}>
             <input type="text" placeholder="Search" />
@@ -47,10 +47,10 @@ const MypageCommunity = () => {
         <table className={styles.board_table}>
           <thead>
             <tr>
-              <th className="text-center">TYPE</th>
-              <th className="text-center">TITLE</th>
-              <th className="text-center">USER</th>
-              <th className="text-center">DATE</th>
+              <th className="text-center">유형</th>
+              <th className="text-center">제목</th>
+              <th className="text-center">작성자</th>
+              <th className="text-center">작성일</th>
             </tr>
           </thead>
           <tbody>

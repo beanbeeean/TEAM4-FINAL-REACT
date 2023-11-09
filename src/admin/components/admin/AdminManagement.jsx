@@ -49,11 +49,11 @@ const AdminManagement = () => {
 
   return (
     <div className={stylesAdmin.management_wrap}>
-      <h2 className={stylesAdmin.admin_title}>USER MANAGEMENT</h2>
+      <h2 className={stylesAdmin.admin_title}>ADMIN MANAGEMENT</h2>
       <div className={stylesAdmin.search_user}>
         <input
           type="text"
-          placeholder="SEARCH USER"
+          placeholder="관리자 검색"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <FontAwesomeIcon
@@ -66,13 +66,13 @@ const AdminManagement = () => {
         <table>
           <thead>
             <tr>
-              <th>NO</th>
-              <th>ADMIN</th>
-              <th>EMAIL</th>
-              <th>JOIN DATE</th>
-              <th>ROLE</th>
-              <th>APPROVE</th>
-              <th>BTN</th>
+              <th>번호</th>
+              <th>이름</th>
+              <th>이메일</th>
+              <th>등록일</th>
+              <th>권한</th>
+              <th>승인여부</th>
+              <th>상태변경</th>
             </tr>
           </thead>
           <tbody>

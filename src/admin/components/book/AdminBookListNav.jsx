@@ -17,7 +17,7 @@ const AdminBookListNav = ({ onNavStateChange, onSearchBookChange }) => {
       <div className={stylesAdmin.search_book}>
         <input
           type="text"
-          placeholder="SEARCH BOOK"
+          placeholder="도서 검색"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <FontAwesomeIcon

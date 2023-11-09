@@ -13,7 +13,7 @@ const ReservationHeader = ({ category, setCategory }) => {
               }`}
               onClick={() => setCategory(1)}
             >
-              ReadRoom
+              열람실
             </li>
             <li
               className={`${styles.reservation_category} ${
@@ -21,7 +21,7 @@ const ReservationHeader = ({ category, setCategory }) => {
               }`}
               onClick={() => setCategory(2)}
             >
-              StudyRoom
+              스터디룸
             </li>
           </ul>
         </div>

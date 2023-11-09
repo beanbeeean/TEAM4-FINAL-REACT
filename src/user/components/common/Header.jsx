@@ -14,69 +14,34 @@ const Header = () => {
   const [keyword, setKeyword] = useState("");
   console.log("keyword :: ", keyword);
 
-  const [books, setBooks] = useState([]);
+  const todayDate = () => {
+    let now = new Date();
+    let todayYear = now.getFullYear();
+    let todayMonth = now.getMonth() + 1;
+    let todayDate = now.getDate();
+    return todayYear + ". " + todayMonth + ". " + todayDate;
+  };
 
-  // const onSearch = () => {
-  //   // navigate(`/search&keyword=${keyword}`);
-
-  //   axios
-  //     .get(`/checkout_books/home`, {
-  //       params: {
-  //         category: "",
-  //         keyword: keyword,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const bookDtos = response.data;
-  //       dispatch(bookActions.fetchBookDto(bookDtos));
-  //       console.log("bookDtos", response.data.dtos);
-  //       setBooks(response.data.dtos);
-  //     })
-  //     .catch((error) => console.log(error));
-
-  //   axios
-  //     .get(`/community`, {
-  //       params: {
-  //         keyword: keyword,
-  //         category: "",
-  //         searchOption: "",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       // setCommunity(response.data.communityDtos);
-  //       const communityDtos = response.data;
-  //       dispatch(communityActions.fetchCommunityDto(communityDtos));
-  //       console.log("community", response.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+  const todayDay = () => {
+    const week = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    let day = week[new Date().getDay()];
+    return day;
+  };
 
   return (
-    // <Container className="main_header">
-    //   <div className="search_bar">
-    //     <a className="logo">
-    //       <img src="../imgs/logo.png" />
-    //     </a>
-    //     <div className="search_bar_wrap">
-    //       <input
-    //         className="main_search_bar"
-    //         type="text"
-    //         placeholder="통합 검색"
-    //       />
-    //     </div>
-    //   </div>
-    //   <div id="user-actions">
-    //     <p className="show_modal" onClick={() => setModalShow(true)}>
-    //       Login
-    //     </p>
-    //     <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
-    //   </div>
-    // </Container>
     <div className={styles.header}>
       <div className={styles.main_search}>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="통합 검색"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <Link to={`/search/${keyword}`}>
@@ -88,8 +53,8 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles.today}>
-        <span className={styles.today_day}>Friday, </span>
-        20 October 2023{" "}
+        <span className={styles.today_day}> {todayDay()}, </span>
+        {todayDate()}
       </div>
     </div>
   );
