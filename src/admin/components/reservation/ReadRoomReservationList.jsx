@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReservationManagement.module.css";
 import { PaginationControl } from "react-bootstrap-pagination-control";
-import { adminReadRoom } from "../../../user/components/common/login/APIUtils";
+import { adminReadRoomLog } from "../../../user/components/common/login/APIUtils";
 
 const ReadRoomReservationList = () => {
 
@@ -16,7 +16,7 @@ const ReadRoomReservationList = () => {
   const displayedLists = readRoom.slice(startIndex, endIndex);
 
   useEffect(() => {
-    adminReadRoom({keyword})
+    adminReadRoomLog({keyword})
     .then((response) => {
       const result = response.data;
       console.log("response.data : ", response.data);

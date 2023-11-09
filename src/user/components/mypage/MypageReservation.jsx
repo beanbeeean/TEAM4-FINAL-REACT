@@ -57,6 +57,14 @@ const MypageReservation = () => {
     .catch(error => {
       console.error('Error fetching data: ', error);
     });
+    myPageStudy({startDate,endDate})
+    .then(response => {
+      console.log(response.data);
+      setStudy(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
 
   }, [startDate, endDate]);
 

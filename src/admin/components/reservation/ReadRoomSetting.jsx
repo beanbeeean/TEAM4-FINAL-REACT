@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReadRoomSetting.module.css";
 import axios from "axios";
-import { adminSeat } from "../../../user/components/common/login/APIUtils";
+import { adminReadRoom } from "../../../user/components/common/login/APIUtils";
 const ReadRoomSetting = () => {
 
   const [seat, setSeat] = useState();
@@ -23,7 +23,7 @@ const ReadRoomSetting = () => {
   };
 
   const saveState = (e) => {
-    adminSeat({re_state:e, re_room_no:activeTap, re_seat:seat})
+    adminReadRoom({re_state:e, re_room_no:activeTap, re_seat:seat})
     .then((response) => {
       alert("수정되었습니다.");
       seatHandle();

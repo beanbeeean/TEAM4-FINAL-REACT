@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReservationManagement.module.css";
-import { adminStudyRoom } from "../../../user/components/common/login/APIUtils";
+import { adminStudyRoomLog } from "../../../user/components/common/login/APIUtils";
 import { PaginationControl } from "react-bootstrap-pagination-control";
-const StudyRoomReservationList = () => {
+const StudyRoomReservationList = (props) => {
 
   const [page, setPage] = useState(1);
   const [studyRoom, setStudyRoom] = useState([]);
@@ -15,7 +15,7 @@ const StudyRoomReservationList = () => {
   const displayedLists = studyRoom.slice(startIndex, endIndex);
 
   useEffect(() => {
-    adminStudyRoom({keyword})
+    adminStudyRoomLog({keyword})
     .then((response) => {
       const result = response.data;
       console.log("response.data : ", response.data);

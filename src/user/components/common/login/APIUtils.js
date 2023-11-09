@@ -128,15 +128,20 @@ export function myPageStudy(reservationRequest) {
   return axiosInstance.post("/user/myStudyReservation", reservationRequest);
 }
 
-export function adminReadRoom(adminRequest){
+export function adminReadRoomLog(adminRequest){
   return axiosInstance.post("/admin/reservation/readRoom", adminRequest);
 }
 
-export function adminStudyRoom(adminRequest){
+export function adminStudyRoomLog(adminRequest){
   return axiosInstance.post("/admin/reservation/studyRoom", adminRequest);
 }
 
-export function adminSeat(adminRequest){
+export function adminReadRoom(adminRequest){
   console.log(adminRequest);
   return axiosInstance.post("/admin/reservation/seat", adminRequest);
+}
+
+export function adminStudyRoom(adminRequest){
+  console.log(adminRequest);
+  return axiosInstance.post("/admin/reservation/room", adminRequest);
 }

@@ -78,7 +78,9 @@ const ReservationModal = (props) => {
         };
         reservationRoom(data)
         .then(response => {
+          alert("예약이 완료되었습니다.");
           props.setModalShow(false);
+          props.selectedRoom("");
         })
         .catch(error => {
           console.error('Error fetching data: ', error);
