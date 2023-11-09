@@ -128,7 +128,7 @@ const CommunityManagement = () => {
         page={page}
         between={4}
         total={communities.length}
-        limit={10}
+        limit={itemsPerPage}
         changePage={(page) => {
           setPage(page);
         }}

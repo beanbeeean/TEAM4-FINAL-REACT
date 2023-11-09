@@ -25,39 +25,45 @@ const MypageReservation = () => {
   const [seat, setSeat] = useState(null);
   const [study, setStudy] = useState(null);
 
-  if(seat==null){
-    myPageRead({startDate,endDate})
-    .then(response => {
-      console.log(response.data);
-      setSeat(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching data: ', error);
-    });
+  if (seat == null) {
+    myPageRead({ startDate, endDate })
+      .then((response) => {
+        console.log(response.data);
+        console.log("resresres :: ", response.data);
+        if (response.data.length > 0) {
+          setSeat(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
   }
 
-  if(study==null){
-    myPageStudy({startDate,endDate})
-    .then(response => {
-      console.log(response.data);
-      setStudy(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching data: ', error);
-    });
+  if (study == null) {
+    myPageStudy({ startDate, endDate })
+      .then((response) => {
+        console.log("myPageStudy : ", response.data);
+        if (response.data.length > 0) {
+          // setSeat(response.data);
+          setStudy(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
   }
 
-  
   useEffect(() => {
-    myPageRead({startDate,endDate})
-    .then(response => {
-      console.log(response.data);
-      setSeat(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching data: ', error);
-    });
-
+    myPageRead({ startDate, endDate })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.length > 0) {
+          setSeat(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
   }, [startDate, endDate]);
 
   return (
@@ -84,20 +90,22 @@ const MypageReservation = () => {
         <div className={styles.reserve_tap_item}>스터디룸</div>
       </div>
 
-      <div className={styles.reserve_seat_content}>
-        {
-          seat && seat.map((item, index) => (
-            <ReadReserveItem seat={item}/>
-          ))
-        }
-      </div>
+      <div className={styles.reserve_list}>
+        <div className={styles.reserve_seat_content}>
+          {seat ? (
+            seat.map((item, index) => <ReadReserveItem seat={item} />)
+          ) : (
+            <div className={styles.no_result}>예약 내역이 없습니다.</div>
+          )}
+        </div>
 
-      <div className={styles.reserve_studyroom_content}>
-      {
-          study && study.map((item, index) => (
-            <StudyReserveItem study={item}/>
-          ))
-        }
+        <div className={styles.reserve_studyroom_content}>
+          {study ? (
+            study.map((item, index) => <StudyReserveItem study={item} />)
+          ) : (
+            <div className={styles.no_result}>예약 내역이 없습니다.</div>
+          )}
+        </div>
       </div>
     </div>
   );

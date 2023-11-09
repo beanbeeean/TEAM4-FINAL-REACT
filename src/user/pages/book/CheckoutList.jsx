@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { Loading } from "../../components/common/Loading";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
-import { useLocation } from "react-router";
 
 const CheckoutList = () => {
   const [loading, setLoading] = useState(true);
@@ -119,7 +118,7 @@ const CheckoutList = () => {
         page={page}
         between={4}
         total={books.length}
-        limit={20}
+        limit={itemsPerPage}
         changePage={(page) => {
           setPage(page);
         }}

@@ -53,6 +53,10 @@ div.reserve_tap_item.current_room {
   font-weight: bold;
 }
 
+.reserve_list {
+  display: flex;
+}
+
 div.reserve_seat_content {
   padding: 30px;
   width: 555px;
@@ -61,19 +65,19 @@ div.reserve_seat_content {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
+  overflow-y: scroll;
 }
 
 div.reserve_studyroom_content {
   padding: 30px;
   width: 555px;
   height: 800px;
-  position: relative;
-  bottom: 800px;
-  left: 578px;
+  margin-left: 23px;
   background-color: #feccbe;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
+  overflow-y: scroll;
 }
 
 .common .items {
@@ -127,4 +131,10 @@ div.reserve_studyroom_content {
   top: 0;
   left: 50%; /* 가운데 정렬 */
   transform: translateX(-50%); /* 가운데 정렬 */
+}
+
+.no_result {
+  color: #fff;
+  font-size: 1.2em;
+  margin-top: 20px;
 }

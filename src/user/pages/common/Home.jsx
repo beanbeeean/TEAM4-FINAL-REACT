@@ -15,8 +15,10 @@ import HomeCommunityItem from "../../components/common/HomeCommunityItem";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { readroomActions } from "../../../redux/readroom/slices/readroomSlice";
 import { fetchUserDtos } from "../../../redux/user/slices/userSlice";
+import { Loading } from "../../components/common/Loading";
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const dispatch = useDispatch();
   const { bookDto } = useSelector((state) => state.book);
@@ -94,6 +96,7 @@ const Home = () => {
         );
         const communityDtos = response.data;
         dispatch(communityActions.fetchCommunityDto(communityDtos));
+        setLoading(false);
       })
       .catch((error) => console.log(error));
 
@@ -185,9 +188,24 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {communities.map(
-                  (community, idx) =>
-                    idx < 5 && <HomeCommunityItem community={community} />
+                {loading ? (
+                  <div
+                    style={{
+                      position: "relative",
+                      top: "32%",
+                      left: "240px",
+                      width: "100px",
+                    }}
+                  >
+                    <Loading />
+                  </div>
+                ) : (
+                  <>
+                    {communities.map(
+                      (community, idx) =>
+                        idx < 5 && <HomeCommunityItem community={community} />
+                    )}
+                  </>
                 )}
               </tbody>
             </table>
