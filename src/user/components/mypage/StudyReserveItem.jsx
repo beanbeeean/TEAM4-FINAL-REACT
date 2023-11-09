@@ -19,8 +19,7 @@ const StudyReserveItem = ({study}) => {
       </div> 
       <div className={`${styles.detail_content} ${styles.items}`}>
         <span className={styles.reserve_time}>{study.sr_time}:00~{study.sr_time+1}:00</span>
-        <span className={styles.room_num}>{study.sr_room}열람실 </span>
-        <span className={styles.seat_num}>{study.sr_room}번</span>
+        <span className={styles.room_num}>{study.sr_name} </span>
       </div>
     </div>
   );

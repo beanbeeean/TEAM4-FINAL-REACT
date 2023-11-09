@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReservationManagement.module.css";
+import { PaginationControl } from "react-bootstrap-pagination-control";
+import { adminReadRoom } from "../../../user/components/common/login/APIUtils";
 
 const ReadRoomReservationList = () => {
+
+  const [page, setPage] = useState(1);
+  const [readRoom, setReadRoom] = useState([]);
+  const [keyword, setKeyword] = useState("");
+
+  const itemsPerPage = 10;
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedLists = readRoom.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    adminReadRoom({keyword})
+    .then((response) => {
+      const result = response.data;
+      console.log("response.data : ", response.data);
+      setReadRoom(response.data);
+      if (result == 1) {
+        alert("상태가 변경되었습니다.");
+      }
+    })
+    .catch((error) => console.log(error));
+  }, [keyword]);
+
+
   return (
+    <div>
     <table className={stylesAdmin.reservation_seat_table}>
       <thead>
         <tr>
@@ -15,40 +43,32 @@ const ReadRoomReservationList = () => {
         </tr>
       </thead>
       <tbody>
-        <tr className={stylesAdmin.reservation_list}>
-          <td>1</td>
-          <td>beanbeeean</td>
-          <td>3F</td>
-          <td>44</td>
-          <td>2023.10.25 17:14</td>
-          <td>2023.10.25 19:14</td>
-        </tr>
-        <tr className={stylesAdmin.reservation_list}>
-          <td>1</td>
-          <td>beanbeeean</td>
-          <td>3F</td>
-          <td>44</td>
-          <td>2023.10.25 17:14</td>
-          <td>2023.10.25 19:14</td>
-        </tr>
-        <tr className={stylesAdmin.reservation_list}>
-          <td>1</td>
-          <td>beanbeeean</td>
-          <td>3F</td>
-          <td>44</td>
-          <td>2023.10.25 17:14</td>
-          <td>2023.10.25 19:14</td>
-        </tr>
-        <tr className={stylesAdmin.reservation_list}>
-          <td>1</td>
-          <td>beanbeeean</td>
-          <td>3F</td>
-          <td>44</td>
-          <td>2023.10.25 17:14</td>
-          <td>2023.10.25 19:14</td>
-        </tr>
+        {displayedLists.map((item)=> (
+            <tr className={stylesAdmin.reservation_list}>
+              <td>1</td>
+              <td>{item.l_email}</td>
+              <td>{item.l_room_no}F</td>
+              <td>{item.l_seat}번</td>
+              <td>{item.l_reg_date.substring(0, 16)}</td>
+              <td>{item.l_end_date.substring(0, 16)}</td>
+            </tr>
+        ))
+        }
       </tbody>
+      
     </table>
+    <br/>
+    <PaginationControl
+        page={page}
+        between={4}
+        total={readRoom.length}
+        limit={10}
+        changePage={(page) => {
+          setPage(page);
+        }}
+        ellipsis={1}
+      />
+    </div>
   );
 };
 

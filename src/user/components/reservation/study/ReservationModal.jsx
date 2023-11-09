@@ -11,6 +11,10 @@ const ReservationModal = (props) => {
 
   const [selectedTime, setSelectedTime] = useState([]);
   const [setTime, SetsetTime] = useState();
+  const [total, SetTotal] = useState(props.price);
+
+  let timeform = String(props.date);
+  timeform = timeform.substring(0,4)+"."+timeform.substring(4, 6)+"."+timeform.substring(6, 8);
 
   const times = Array.from({ length: props.maxTime + 1 }).map((_, i) => {
     const hour = String(i + 1).padStart(2, '0');
@@ -20,14 +24,20 @@ const ReservationModal = (props) => {
   const handleTimeClick = (time) => {
     setSelectedTime((prev) => {
       SetsetTime(time);
+      SetTotal(time*props.price);
       return [time];
     });
   };
+  const handleTest = async () => {
+    SetTotal();
+    setSelectedTime([]);
+    props.onHide();
+  }
 
   const handlePayment = async () => {
     const response = await Bootpay.requestPayment({
         application_id: "652dd36500be04001b8e26f1", //가맹점ID
-        price: 1000, // 총액 = items의 가격 합
+        price: (props.price * setTime), // 총액 = items의 가격 합
         order_name: props.selectedRoom, // 상품명
         comapny_name: "파이널 4조",
         order_id: "TEST_ORDER_ID", // 고유 주문번호
@@ -46,7 +56,7 @@ const ReservationModal = (props) => {
             id: "space1",
             name: "space1(2~4인)",
             qty: 1,
-            price: 1000,
+            price: (props.price * setTime),
           },
         ],
         extra: {
@@ -55,13 +65,13 @@ const ReservationModal = (props) => {
           escrow: false,
         },
       });
-      
-      console.log("결제 : " + response);  
+    
 
       if(response!=null){
 
         let data={
           sr_room:props.selectRoom, 
+          sr_name:props.selectedRoom, 
           sr_date:props.date,
           sr_time:props.selectedTime,
           time:setTime,
@@ -97,28 +107,22 @@ const ReservationModal = (props) => {
               <Form.Control type="text" defaultValue={props.selectedRoom} readOnly />
             </Col>
             <Form.Label column sm={4}>
-              가격
-            </Form.Label>
-            <Col sm={8}>
-              <Form.Control type="text" defaultValue={props.price} readOnly />
-            </Col>
-            <Form.Label column sm={4}>
-              스터디룸
-            </Form.Label>
-            <Col sm={8}>
-              <Form.Control type="text" defaultValue={props.selectRoom} readOnly />
-            </Col>
-            <Form.Label column sm={4}>
               날짜
             </Form.Label>
             <Col sm={8}>
-              <Form.Control type="text" defaultValue={props.date} readOnly />
+              <Form.Control type="text" defaultValue={timeform} readOnly />
             </Col>
             <Form.Label column sm={4}>
               시간
             </Form.Label>
             <Col sm={8}>
-              <Form.Control type="text" defaultValue={props.selectedTime} readOnly />
+              <Form.Control type="text" defaultValue={props.selectedTime+":00"} readOnly />
+            </Col>
+            <Form.Label column sm={4}>
+              가격
+            </Form.Label>
+            <Col sm={8}>
+              <Form.Control type="text" defaultValue={total} readOnly />
             </Col>
           </Form.Group>
 
@@ -142,7 +146,7 @@ const ReservationModal = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={handlePayment}>예약</Button>
-        <Button variant="secondary" onClick={props.onHide}>닫기</Button>
+        <Button variant="secondary" onClick={handleTest}>닫기</Button>
       </Modal.Footer>
     </Modal>
   );
