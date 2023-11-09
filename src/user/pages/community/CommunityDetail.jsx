@@ -12,6 +12,8 @@ const CommunityDetail = () => {
   let id = useParams().id;
   console.log("id : ", id);
 
+  const { communityDto } = useSelector((state) => state.community);
+
   const [content, setContent] = useState(null);
   const [chatRoom, setChatRoom] = useState(null);
   const [comment, setComment] = useState("");
@@ -203,7 +205,7 @@ const CommunityDetail = () => {
         <div>
           <div className={styles.view_content}>
             <h1 className={styles.content_title}>{content.c_title}</h1>
-            <span className={styles.user_name}>{content.u_no}</span> |{" "}
+            <span className={styles.user_name}>{content.u_email}</span> |{" "}
             <span className={styles.content_reg_date}>
               {content.c_reg_date}
             </span>
