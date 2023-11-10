@@ -7,6 +7,7 @@ import CommunityItem from "../../components/community/CommunityItem";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const Community = () => {
   const { communityDto, searchCommunityDto } = useSelector(
@@ -15,6 +16,8 @@ const Community = () => {
   const [category, setCategory] = useState(
     searchCommunityDto.category === undefined ? 1 : searchCommunityDto.category
   );
+
+  const { communityMenu } = useSelector((state) => state.common);
   const [searchOption, setSearchOption] = useState(1);
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState(
@@ -29,7 +32,7 @@ const Community = () => {
       .get(`/community`, {
         params: {
           keyword: keyword,
-          category: category,
+          category: communityMenu,
           searchOption: searchOption,
         },
       })
@@ -44,13 +47,16 @@ const Community = () => {
 
   useEffect(() => {
     getCommunity();
+    dispatch(commonActions.setMainMenu(4));
+    // dispatch(commonActions.setCommunityMenu(1));
   }, []);
 
   useEffect(() => {
     getCommunity();
     // getCommunity(keyword, on, searchOption);
     console.log("바뀜");
-  }, [category]);
+    console.log("communityMenu : ", communityMenu);
+  }, [communityMenu]);
 
   return (
     <>
@@ -61,25 +67,25 @@ const Community = () => {
             <ul>
               <li
                 className={`${styles.board_category} ${
-                  category == 1 && styles.on
+                  communityMenu == 1 && styles.on
                 }`}
-                onClick={() => setCategory(1)}
+                onClick={() => dispatch(commonActions.setCommunityMenu(1))}
               >
                 자유 게시판
               </li>
               <li
                 className={`${styles.board_category} ${
-                  category == 2 && styles.on
+                  communityMenu == 2 && styles.on
                 }`}
-                onClick={() => setCategory(2)}
+                onClick={() => dispatch(commonActions.setCommunityMenu(2))}
               >
                 도서 추천
               </li>
               <li
                 className={`${styles.board_category} ${
-                  category == 3 && styles.on
+                  communityMenu == 3 && styles.on
                 }`}
-                onClick={() => setCategory(3)}
+                onClick={() => dispatch(commonActions.setCommunityMenu(3))}
               >
                 스터디원 모집
               </li>

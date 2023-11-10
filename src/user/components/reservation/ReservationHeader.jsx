@@ -1,6 +1,11 @@
 import React from "react";
 import styles from "../../css/reservation/ReservationHeader.module.css";
-const ReservationHeader = ({ category, setCategory }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
+const ReservationHeader = () => {
+  const dispatch = useDispatch();
+  const { reservationMenu } = useSelector((state) => state.common);
+
   return (
     <div className={styles.reservation_header}>
       <h3 className={styles.reservation_title}>Reservation</h3>
@@ -9,17 +14,17 @@ const ReservationHeader = ({ category, setCategory }) => {
           <ul>
             <li
               className={`${styles.reservation_category} ${
-                category == 1 && styles.on
+                reservationMenu == 1 && styles.on
               }`}
-              onClick={() => setCategory(1)}
+              onClick={() => dispatch(commonActions.setReservationMenu(1))}
             >
               열람실
             </li>
             <li
               className={`${styles.reservation_category} ${
-                category == 2 && styles.on
+                reservationMenu == 2 && styles.on
               }`}
-              onClick={() => setCategory(2)}
+              onClick={() => dispatch(commonActions.setReservationMenu(2))}
             >
               스터디룸
             </li>

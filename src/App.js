@@ -73,10 +73,7 @@ function App() {
                     />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/cart/confirm" element={<CartPayConfirm />} />
-                    <Route
-                      path="/checkout_books"
-                      element={<CheckoutList j />}
-                    />
+                    <Route path="/checkout_books" element={<CheckoutList />} />
                     <Route
                       path="/checkout_books/:id"
                       element={<CheckoutDetail />}

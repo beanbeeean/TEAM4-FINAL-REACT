@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const SearchMain = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const SearchMain = () => {
 
   const goBookPage = () => {
     dispatch(bookActions.fetchSearchBook({ keyword: "" }));
+    dispatch(commonActions.setBookMenu("all"));
     navigate(`/checkout_books`);
   };
 

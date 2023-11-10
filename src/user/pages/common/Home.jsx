@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../css/common/Home.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -15,10 +15,13 @@ import HomeCommunityItem from "../../components/common/HomeCommunityItem";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { readroomActions } from "../../../redux/readroom/slices/readroomSlice";
 import { fetchUserDtos } from "../../../redux/user/slices/userSlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { bookDto } = useSelector((state) => state.book);
   const { roomDto } = useSelector((state) => state.readroom);
   const { userDto } = useSelector((state) => state.user);
@@ -58,6 +61,10 @@ const Home = () => {
   const [now, setNow] = useState(todayDate());
   console.log("todd", now);
 
+  const moveToBook = () => {
+    dispatch(commonActions.setBookMenu("bestseller"));
+    navigate("/checkout_books");
+  };
   useEffect(() => {
     axios
       .get(`/admin/management/memberManagement`, {
@@ -105,6 +112,7 @@ const Home = () => {
         setRooms(roomDtos);
       })
       .catch((error) => console.log(error));
+    dispatch(commonActions.setMainMenu(1));
   }, []);
 
   useEffect(() => {
@@ -147,9 +155,9 @@ const Home = () => {
         <div className={`${styles.recommend_books}`}>
           <div className={styles.mini_nav}>
             <span className={styles.title}>추천도서</span>
-            <Link to="/checkout_books">
-              <span className={styles.more}>+ 더보기</span>
-            </Link>
+            <span onClick={moveToBook} className={styles.more}>
+              + 더보기
+            </span>
           </div>
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
