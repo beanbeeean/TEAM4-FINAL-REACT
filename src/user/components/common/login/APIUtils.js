@@ -36,7 +36,18 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error("Error response:", error);
+    if (error.response && error.response.status === 401) {
+      console.log("Response !!:", error.respons);
+      refresh()
+      .then(response => {
+        console.error('response: ', response);
+        localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
+        window.location.reload();
+      })
+      .catch(error2 => {
+        console.error('Error fetching data: ', error2);
+      });
+    }
     return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
   }
 );
@@ -77,6 +88,13 @@ export function getCurrentUser() {
 
   return axiosInstance.get("/auth/");
 }
+
+export function refresh(tokenRefreshRequest) {
+  return axiosInstance.post("/auth/refresh", tokenRefreshRequest, {
+    withCredentials: true,
+  });
+}
+
 
 export function login(loginRequest) {
   return axiosInstance.post("/auth/signin", loginRequest, {

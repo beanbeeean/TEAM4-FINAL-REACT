@@ -7,6 +7,8 @@ import LoginModal from "./LoginModal";
 import { userLogout } from "../../../redux/user/slices/userSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { refresh } from "./login/APIUtils";
+import { ACCESS_TOKEN } from "./login";
 
 const Sidebar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -14,7 +16,22 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.flag);
+
+  const email = useSelector((state) => state.user.userDto);
   const dispatch = useDispatch();
+
+  const test = () => {
+    console.log(email.u_email);
+
+    refresh({email:email.u_email})
+    .then(response => {
+      console.error('response: ', response);
+      localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  };
 
   const movePage = (num) => {
     setCurrentMenu(num);
@@ -82,8 +99,13 @@ const Sidebar = () => {
 
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       {user ? (
+        <div>
         <div className={styles.logout} onClick={() => dispatch(userLogout())}>
           LogOut
+        </div>
+        <div onClick={() => test()}>
+          refresh
+        </div>
         </div>
       ) : (
         <div className={styles.logout} onClick={() => setModalShow(true)}>
