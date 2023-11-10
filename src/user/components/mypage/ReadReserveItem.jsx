@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../../css/mypage/MypageReservation.module.css";
 
 const ReadReserveItem = ({ seat }) => {
+  console.log("seat :: ", seat);
   return (
     <div className={styles.common}>
       <div className={`${styles.reserve_date} ${styles.items}`}>

@@ -8,11 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { Loading } from "../../components/common/Loading";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import { useLocation } from "react-router";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const CheckoutList = () => {
   const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
-  const [navState, setNavState] = useState("all");
+  const { bookMenu } = useSelector((state) => state.common);
+  const [navState, setNavState] = useState(bookMenu);
 
   const { bookDto, searchBookDto } = useSelector((state) => state.book);
   const [searchBook, setSearchBook] = useState(
@@ -27,8 +30,13 @@ const CheckoutList = () => {
   const displayedBooks = books.slice(startIndex, endIndex);
 
   const dispatch = useDispatch();
-
   console.log("searchBookDto.keyword :: ", searchBookDto.keyword);
+
+  useEffect(() => {
+    dispatch(commonActions.setMainMenu(3));
+    // dispatch(commonActions.setBookMenu("all"));
+    console.log("bookMenu", bookMenu);
+  }, []);
 
   useEffect(() => {
     let arr = [];
@@ -50,7 +58,7 @@ const CheckoutList = () => {
     axios
       .get(`/checkout_books/home`, {
         params: {
-          category: navState,
+          category: bookMenu,
           keyword: searchBook,
         },
       })
@@ -63,7 +71,7 @@ const CheckoutList = () => {
         setBooks(arr);
       })
       .catch((error) => console.log(error));
-  }, [navState, searchBook]);
+  }, [bookMenu, searchBook]);
 
   useEffect(() => {
     setBooks(bookDto);
@@ -72,6 +80,7 @@ const CheckoutList = () => {
   return (
     <Container>
       <BookListNav
+        bookMenu={bookMenu}
         onNavStateChange={setNavState}
         onSearchBookChange={setSearchBook}
       />

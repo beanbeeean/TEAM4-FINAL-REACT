@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "../../css/community/CommunityDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBackwardStep,
+  faEllipsisVertical,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import api from "../../../redux/api";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
@@ -32,6 +36,7 @@ const CommunityDetail = () => {
 
   const [rNo, setRNo] = useState(0);
   const [reIdx, setReIdx] = useState();
+  const [showBtns, setShowBtns] = useState(false);
 
   const { userDto, userDtos } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -202,7 +207,9 @@ const CommunityDetail = () => {
 
   useEffect(() => {
     getComments();
-    console.log("userDtos :: ", userDtos);
+    // console.log("userDtos :: ", userDtos);
+    console.log("userDto :: ", userDto);
+    console.log("content :: ", content);
   }, []);
 
   useEffect(() => {
@@ -218,7 +225,7 @@ const CommunityDetail = () => {
   return (
     <div className={styles.section_wrap}>
       {content != null && (
-        <div>
+        <div className={styles.community_detail_wrap}>
           <div className={styles.view_content}>
             <h1 className={styles.content_title}>{content.c_title}</h1>
             <span className={styles.user_name}>
@@ -227,18 +234,37 @@ const CommunityDetail = () => {
             <span className={styles.content_reg_date}>
               {content.c_reg_date}
             </span>
-            <span className={styles.modify_delete}>
-              <span>
-                <a className={styles.delete_btn} onClick={deleteCommunity}>
-                  삭제하기
-                </a>
+            {userDto.u_email == content.u_email && (
+              <span className={styles.c_d_btns_wrap}>
+                <FontAwesomeIcon
+                  className={styles.community_detail_btns}
+                  icon={faEllipsisVertical}
+                  onClick={() => setShowBtns(!showBtns)}
+                />
+                {showBtns && (
+                  <span className={styles.modify_delete}>
+                    <div>
+                      <Link to={`/community_modify/${id}`}>수정하기</Link>
+                    </div>
+                    <div>
+                      <a
+                        className={styles.delete_btn}
+                        onClick={deleteCommunity}
+                      >
+                        삭제하기
+                      </a>
+                    </div>
+                  </span>
+                )}
               </span>
-              <span>&nbsp;|&nbsp;</span>
-              <span>
-                <Link to={`/community_modify/${id}`}>수정하기</Link>
-              </span>
+            )}
+            <span
+              className={styles.back_to_list}
+              onClick={() => navigate("/community")}
+            >
+              목록보기
             </span>
-            <span className={styles.modify_delete}></span>
+            {/* <span className={styles.modify_delete}></span> */}
             <div
               className={styles.content_area}
               dangerouslySetInnerHTML={{ __html: content.c_content }}

@@ -36,6 +36,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     var socket = new SockJS("/ws-stomp");
     stompClient = Stomp.over(socket);
 
+    dispatch(chatActions.setLoading(true));
     stompClient.connect({}, onConnected, console.log("error"));
     console.log("[connect] stompClient : ", stompClient);
   }
@@ -112,6 +113,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
         setMsg([...msg]);
       }
     }
+    dispatch(chatActions.setLoading(false));
   }
 
   function getUserList() {

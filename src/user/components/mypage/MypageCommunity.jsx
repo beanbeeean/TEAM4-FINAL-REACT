@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../css/mypage/MypageCommunity.module.css";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -88,6 +88,7 @@ const MypageCommunity = () => {
             />
           </div>
         </div>
+
         <table className={styles.board_table}>
           <thead>
             <tr>

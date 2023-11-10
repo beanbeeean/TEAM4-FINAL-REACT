@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
@@ -52,6 +53,7 @@ const MyPage = () => {
         dispatch(communityActions.fetchCommunityDto(communityDtos));
       })
       .catch((error) => console.log(error));
+    dispatch(commonActions.setMainMenu(5));
   }, []);
 
   return (
