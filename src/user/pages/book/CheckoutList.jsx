@@ -111,19 +111,18 @@ const CheckoutList = () => {
               ))}
             </Row>
           )}
+          <PaginationControl
+            page={page}
+            between={4}
+            total={books.length}
+            limit={itemsPerPage}
+            changePage={(page) => {
+              setPage(page);
+            }}
+            ellipsis={1}
+          />
         </Row>
       )}
-
-      <PaginationControl
-        page={page}
-        between={4}
-        total={books.length}
-        limit={itemsPerPage}
-        changePage={(page) => {
-          setPage(page);
-        }}
-        ellipsis={1}
-      />
     </Container>
   );
 };

@@ -70,14 +70,16 @@ const CommunityDetail = () => {
   }, []);
 
   const deleteCommunity = () => {
-    axios
-      .post(`/community/delete${id}`)
-      .then((response) => {
-        setContent(response.data);
-        alert("삭제가 완료되었습니다.");
-        navigate(-1);
-      })
-      .catch((error) => console.log(error));
+    if (window.confirm("삭제하시겠습니까?")) {
+      axios
+        .post(`/community/delete${id}`)
+        .then((response) => {
+          setContent(response.data);
+          alert("삭제가 완료되었습니다.");
+          navigate(-1);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const showChatHandler = () => {
