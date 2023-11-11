@@ -386,3 +386,10 @@
   font-weight: bold;
   color: #d4d3d3;
 }
+
+.loading_chat_area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 550px;
+}
