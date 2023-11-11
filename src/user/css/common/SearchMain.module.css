@@ -22,7 +22,7 @@
 }
 
 .search_books .more {
-  background-color: #ffdad0;
+  background-color: #c4dd8b;
   padding: 10px 12px;
   margin-top: 150px;
   color: #ffffff;
@@ -50,7 +50,7 @@
 .title {
   font-size: 1.5em;
   font-weight: bold;
-  color: #fd8a69;
+  color: #000;
   margin-bottom: 10px;
 }
 
@@ -126,7 +126,7 @@ table.commu_table th {
   /* background-color: #feccbe; */
   color: #ffffff;
   /* color: #fd8a69; */
-  background-color: #feccbe;
+  background-color: #aaaaaa;
   padding: 8px;
   border: none;
 }
@@ -148,7 +148,7 @@ table.commu_table td {
 
 table.commu_table tbody tr {
   text-align: center;
-  border-bottom: 1px solid #feccbe;
+  border-bottom: 1px solid #dadada;
 }
 
 .book_result {

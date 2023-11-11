@@ -1,6 +1,6 @@
 div.side_bar {
   width: 13%;
-  background-color: #d6f198;
+  background-color: #9495ed;
   border-radius: 20px;
   height: 98vh;
   padding: 30px 0 30px 20px;
@@ -33,30 +33,31 @@ div.side_bar {
 }
 
 .nav_menu > li:hover {
-  color: #ffeee8;
+  color: #cbccff;
   font-size: 1.1em;
 }
 
 li.on {
   background-color: #fff;
-  color: #d6f198;
+  color: #889aff;
   font-size: 1.1em;
 }
 
 li.on:hover {
-  color: #d6f198;
+  color: #cbccff;
 }
 
 .logout {
   position: absolute;
   bottom: 60px;
-  left: 25%;
+  left: 20%;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
 }
 
 .logout:hover {
-  color: #ffeee8;
+  color: #cbccff;
   font-size: 1.1em;
+  transition: all 0.2s;
 }

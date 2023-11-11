@@ -1,5 +1,5 @@
 .mypage_wrap h4 {
-  color: #fd8a69;
+  color: #000;
   font-weight: bold;
   margin-top: 30px;
   margin-bottom: 20px;
@@ -30,11 +30,11 @@ li.board_category {
 }
 
 li.board_category:hover {
-  color: #f7c7b6;
+  color: #4d4d4d;
 }
 
 li.board_category.on {
-  color: #fd8a69;
+  color: #000;
   font-weight: bold;
-  border-bottom: 2px solid #fd8a69;
+  border-bottom: 2px solid red;
 }

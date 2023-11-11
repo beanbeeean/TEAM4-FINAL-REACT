@@ -57,12 +57,12 @@
   padding: 3px;
   border: none;
   border-radius: 5px;
-  background-color: #feccbe;
+  background-color: #d0def8;
   color: #fff;
 }
 
 .buttons_wrap .checkout_btn:hover {
-  background-color: #fd8a69;
+  background-color: #889aff;
 }
 
 .buttons_wrap .checkoutDis_btn {
@@ -72,17 +72,4 @@
   border-radius: 5px;
   background-color: #dadada;
   color: #fff;
-}
-
-.book_pagenation {
-  justify-content: center;
-}
-
-.pagenation .page-item .page-link {
-  color: #fd8a69 !important;
-}
-
-.pagenation .page-item.active .page-link {
-  background-color: #fd8a69 !important;
-  color: #fff !important;
 }

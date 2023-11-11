@@ -48,7 +48,7 @@ const Sidebar = () => {
   return (
     <div className={styles.side_bar}>
       <Link to="/">
-        <img className={styles.logo} src="../imgs/logo.png" alt="" />
+        <img className={styles.logo} src="../imgs/admin_logo.png" alt="" />
       </Link>
       <ul className={styles.nav_menu}>
         <li
@@ -90,11 +90,11 @@ const Sidebar = () => {
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       {user ? (
         <div className={styles.logout} onClick={() => dispatch(userLogout())}>
-          LogOut
+          LOGOUT
         </div>
       ) : (
         <div className={styles.logout} onClick={() => setModalShow(true)}>
-          LogIn
+          LOGIN
         </div>
       )}
     </div>

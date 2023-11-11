@@ -28,7 +28,7 @@ button.write_btn * {
 }
 
 button.write_btn:hover * {
-  color: #242424;
+  color: #4d4d4d;
 }
 
 .write_icon {
@@ -59,7 +59,7 @@ li.board_category {
 }
 
 li.board_category:hover {
-  color: #f7c7b6;
+  color: #4d4d4d;
 }
 
 li.board_category.on {

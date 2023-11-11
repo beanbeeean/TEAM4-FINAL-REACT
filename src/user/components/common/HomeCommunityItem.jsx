@@ -21,7 +21,7 @@ const HomeCommunityItem = (props) => {
     <tr>
       <td className="text-center">
         {props.community.c_category == 1
-          ? "자유"
+          ? "자유 게시판"
           : props.community.c_category == 2
           ? "도서추천"
           : "스터디 모집"}

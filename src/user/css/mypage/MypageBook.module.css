@@ -16,7 +16,7 @@
   font-size: 1.2em;
   height: 500px;
   padding-top: 200px;
-  background-color: #feccbe73;
+  background-color: #eeeeee;
   border-radius: 30px;
 }
 
@@ -84,12 +84,12 @@
   padding: 3px;
   border: none;
   border-radius: 5px;
-  background-color: #feccbe;
+  background-color: #cbccff;
   color: #fff;
 }
 
 .buttons_wrap input[type="button"]:hover {
-  background-color: #fd8a69;
+  background-color: #889aff;
 }
 
 .list_table {
@@ -97,7 +97,7 @@
 }
 
 .list_table thead {
-  background-color: #ffeeeb;
+  background-color: #cbccff;
 }
 
 .list_table thead tr th {

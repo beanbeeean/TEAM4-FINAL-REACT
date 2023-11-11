@@ -235,12 +235,16 @@ const Home = () => {
 
         <div className={`${styles.reservation} ${styles.block}`}>
           <div className={styles.mini_nav}>
-            <span className={styles.title}>열람실 예약 현황</span>
+            <span className={styles.title}>열람실 잔여 좌석</span>
+            <span style={{ fontSize: "12px", color: "#b1b1b1" }}>
+              {" "}
+              (현재 시간 기준)
+            </span>
             <Link to="/reservation">
               <span className={styles.more}>+ 더보기</span>
             </Link>
           </div>
-          <div className={styles.graph}>
+          {/* <div className={styles.graph}>
             <div className={styles.bar}>
               <div className={styles.barLabel}>1열람실</div>
               <div
@@ -268,7 +272,128 @@ const Home = () => {
                 <span className={styles.barValue}>{thdRooms.length}/44</span>
               </div>
             </div>
-          </div>
+          </div> */}
+          {/* 기존 테이블 */}
+          {/* <table className={styles.table_room}>
+            <thead>
+              <th>열람실명</th>
+              <th>전체 좌석수</th>
+              <th>사용 좌석수</th>
+              <th>잔여 좌석수</th>
+              <th>이용률</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 열람실</td>
+                <td>44</td>
+                <td>{44 - firRooms.length}</td>
+                <td>{firRooms.length}</td>
+                <td>
+                  <div
+                    className={styles.barFill}
+                    style={{
+                      width: `${((44 - firRooms.length) / 44) * 100 + 1}%`,
+                    }}
+                  ></div>
+                  <span>
+                    {(((44 - firRooms.length) / 44) * 100).toFixed(2)}%
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>2 열람실</td>
+                <td>44</td>
+                <td>{44 - sndRooms.length}</td>
+                <td>{sndRooms.length}</td>
+                <td>
+                  <div
+                    className={styles.barFill}
+                    style={{
+                      width: `${((44 - sndRooms.length) / 44) * 100 + 1}%`,
+                    }}
+                  ></div>
+                  <span>
+                    {(((44 - sndRooms.length) / 44) * 100).toFixed(2)}%
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>3 열람실</td>
+                <td>44</td>
+                <td>{44 - thdRooms.length}</td>
+                <td>{thdRooms.length}</td>
+                <td>
+                  <div
+                    className={styles.barFill}
+                    style={{
+                      width: `${((44 - thdRooms.length) / 44) * 100 + 1}%`,
+                    }}
+                  ></div>
+                  <span>
+                    {(((44 - thdRooms.length) / 44) * 100).toFixed(2)}%
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table> */}
+
+          <table className={styles.table_room}>
+            <thead>
+              <tr>
+                <th>1 열람실</th>
+                <th>2 열람실</th>
+                <th>3 열람실</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span>
+                    <span
+                      className={`${styles.circle} ${
+                        firRooms.length > 29
+                          ? styles.circle_green
+                          : firRooms.length > 14
+                          ? styles.circle_yellow
+                          : styles.circle_red
+                      }`}
+                    ></span>
+                    {firRooms.length}석
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    {" "}
+                    <span
+                      className={`${styles.circle} ${
+                        sndRooms.length > 29
+                          ? styles.circle_green
+                          : sndRooms.length > 14
+                          ? styles.circle_yellow
+                          : styles.circle_red
+                      }`}
+                    ></span>
+                    {sndRooms.length}석
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    {" "}
+                    <span
+                      className={`${styles.circle} ${
+                        thdRooms.length > 29
+                          ? styles.circle_green
+                          : thdRooms.length > 14
+                          ? styles.circle_yellow
+                          : styles.circle_red
+                      }`}
+                    ></span>
+                    {thdRooms.length}석
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
