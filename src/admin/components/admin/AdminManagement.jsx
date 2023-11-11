@@ -88,7 +88,7 @@ const AdminManagement = () => {
         page={page}
         between={4}
         total={admins.length}
-        limit={20}
+        limit={itemsPerPage}
         changePage={(page) => {
           setPage(page);
         }}

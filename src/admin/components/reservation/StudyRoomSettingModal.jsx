@@ -22,10 +22,17 @@ const StudyRoomSettingModal = (props) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
+
+  const roomSetting = () => {
+      alert("");
+  }
+
   useEffect(() => {
     setStartDate();
     setEndDate();
   }, [props.onHide]);
+
+
   return (
     <Modal
       {...props}

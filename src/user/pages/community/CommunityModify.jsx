@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Editor } from "react-draft-wysiwyg";
-import { ContentState, EditorState, convertToRaw } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftjsToHtml from "draftjs-to-html";
+import "react-quill/dist/quill.snow.css";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 import htmlToDraft from "html-to-draftjs";
+import ReactQuill, { Quill } from "react-quill";
+import ImageResize from "quill-image-resize-module-react";
+import styles from "../../css/community/CommunityWrite.module.css";
 
 const RowBox = styled.div`
   width: 100%;
@@ -23,42 +23,83 @@ const Viewer = styled.div`
   border: 2px solid gray;
 `;
 
-const CommunityModify = () => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [htmlString, setHtmlString] = useState("");
-  const [selection, setSelection] = useState(1);
+Quill.register("modules/imageResize", ImageResize);
 
-  const navigate = useNavigate();
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "align",
+  "color",
+  "background",
+  "float",
+  "height",
+  "width",
+];
+
+const CommunityModify = () => {
+  const { communityDto } = useSelector((state) => state.community);
+  console.log("communityDto :: ", communityDto);
 
   let id = useParams().id;
   console.log("id : ", id);
 
-  const store = useSelector((state) => state);
-  const modifyCommunity = store.community.communityDto.communityDtos.filter(
+  const modifyCommunity = communityDto.communityDtos.filter(
     (e) => e.c_no === id * 1
   );
+  console.log("modifyCommunity :: ", modifyCommunity);
+
+  const [htmlString, setHtmlString] = useState(modifyCommunity[0].c_content);
+  console.log("htmlString :: ", htmlString);
+  const [selection, setSelection] = useState(1);
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState(modifyCommunity[0].c_title);
-  console.log("modifyCommunity : ", modifyCommunity);
+  // const [content, setContent] = useState(modifyCommunity[0].c_content);
 
-  const updateTextDescription = async (state) => {
-    await setEditorState(state);
-    const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
-    setHtmlString(html);
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      [{ align: [] }, { color: [] }, { background: [] }],
+      ["clean"],
+    ],
+
+    imageResize: {
+      parchment: Quill.import("parchment"),
+      modules: ["Resize", "DisplaySize", "Toolbar"],
+    },
   };
 
-  const uploadCallback = () => {
-    console.log("이미지 업로드");
+  const handleQuillChange = (content, delta, source, editor) => {
+    console.log("content :: ", content);
+    // console.log("editor.getContents() :: ", editor.getContents());
+    // setQuillValue(editor.getContents());
+    setHtmlString(content);
   };
 
   const handleSubmit = () => {
     axios
-      .get(`/community/community_modify/${id}`, {
-        params: {
-          selection: selection,
-          title: title,
-          content: htmlString,
-        },
+      .post(`/community/community_modify/${id}`, {
+        selection: selection,
+        title: title,
+        content: htmlString,
       })
       .then((response) => {
         console.log("수정 성공", response.data);
@@ -74,25 +115,17 @@ const CommunityModify = () => {
     console.log(selection);
   }, [selection]);
 
-  const htmlToEditor = modifyCommunity[0].c_content;
-  useEffect(() => {
-    const blocksFromHtml = htmlToDraft(htmlToEditor);
-    if (blocksFromHtml) {
-      const { contentBlocks, entityMap } = blocksFromHtml;
-      const contentState = ContentState.createFromBlockArray(
-        contentBlocks,
-        entityMap
-      );
-      const editorState = EditorState.createWithContent(contentState);
-      setEditorState(editorState);
-    }
-  }, []);
-
   return (
     <>
-      <Container>
+      <div className={styles.write_btns}>
+        <button onClick={handleSubmit}>수정</button>
+        <button>초기화</button>
+      </div>
+      <div className={styles.write_title}>
+        <h4>제목</h4>
         <select
           name="write_category"
+          className={styles.wrtie_select_category}
           value={modifyCommunity[0].c_category}
           onChange={(e) => setSelection(e.target.value)}
         >
@@ -106,31 +139,18 @@ const CommunityModify = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+      </div>
+      <div className={styles.editor_wrap}>
         {selection == 3 && <div>채팅방 개설</div>}
-        <Editor
-          placeholder="게시글을 작성해주세요"
-          editorState={editorState}
-          onEditorStateChange={updateTextDescription}
-          toolbar={{
-            image: { uploadCallback: uploadCallback },
-          }}
-          localization={{ locale: "ko" }}
-          editorStyle={{
-            height: "400px",
-            width: "100%",
-            border: "3px solid lightgray",
-            padding: "20px",
-          }}
+        <ReactQuill
+          style={{ height: "600px" }}
+          theme="snow"
+          modules={modules}
+          formats={formats}
+          value={modifyCommunity[0].c_content}
+          onChange={handleQuillChange}
         />
-        <div>
-          <button onClick={handleSubmit}>수정</button>
-          <button>초기화</button>
-        </div>
-      </Container>
-      <RowBox>
-        <Viewer dangerouslySetInnerHTML={{ __html: htmlString }} />
-        <Viewer>{htmlString}</Viewer>
-      </RowBox>
+      </div>
     </>
   );
 };

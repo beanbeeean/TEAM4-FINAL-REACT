@@ -16,10 +16,15 @@ const CommunityDetail = () => {
   let id = useParams().id;
   console.log("id : ", id);
 
+  const { communityDto } = useSelector((state) => state.community);
+  console.log("communityDto :: ", communityDto);
+
   const [content, setContent] = useState(null);
   const [chatRoom, setChatRoom] = useState(null);
   const [comment, setComment] = useState("");
   const [recomment, setRecomment] = useState("");
+
+  const [userName, setUserName] = useState([]);
 
   const [userInput, setUserInput] = useState(false);
 
@@ -37,11 +42,20 @@ const CommunityDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log("userDtos :: ", userDtos);
+
+  console.log("content :: ", content);
+  console.log("userName : ", userName);
+
   useEffect(() => {
     axios
       .get(`/community/${id}`)
       .then((response) => {
         setContent(response.data);
+        setUserName(
+          userDtos.filter((e) => e.u_email === response.data.u_email)
+        );
+        console.log("res:::::", response.data);
       })
       .catch((error) => console.log(error));
 
@@ -58,17 +72,19 @@ const CommunityDetail = () => {
       .catch(function (err) {
         console.log(" err", err);
       });
-  }, [id]);
+  }, []);
 
   const deleteCommunity = () => {
-    axios
-      .post(`/community/delete${id}`)
-      .then((response) => {
-        setContent(response.data);
-        alert("삭제가 완료되었습니다.");
-        navigate(-1);
-      })
-      .catch((error) => console.log(error));
+    if (window.confirm("삭제하시겠습니까?")) {
+      axios
+        .post(`/community/delete${id}`)
+        .then((response) => {
+          setContent(response.data);
+          alert("삭제가 완료되었습니다.");
+          navigate(-1);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const showChatHandler = () => {
@@ -200,6 +216,8 @@ const CommunityDetail = () => {
     console.log("content :: ", content);
   }, [content]);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     console.log("comment :: ", comment);
   }, [comment]);
@@ -210,7 +228,9 @@ const CommunityDetail = () => {
         <div className={styles.community_detail_wrap}>
           <div className={styles.view_content}>
             <h1 className={styles.content_title}>{content.c_title}</h1>
-            <span className={styles.user_name}>{content.u_no}</span> |{" "}
+            <span className={styles.user_name}>
+              {userName[0].u_name}
+            </span> |{" "}
             <span className={styles.content_reg_date}>
               {content.c_reg_date}
             </span>

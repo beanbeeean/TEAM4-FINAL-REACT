@@ -7,6 +7,7 @@ import CommunityItem from "../../components/community/CommunityItem";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const Community = () => {
@@ -24,8 +25,14 @@ const Community = () => {
     searchCommunityDto.keyword === undefined ? "" : searchCommunityDto.keyword
   );
 
-  console.log("searchCommunityDto.keyword : ", searchCommunityDto.keyword);
-  console.log("searchCommunityDto.category : ", searchCommunityDto.category);
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
+
+  let arr = communityDto.communityDtos.filter((e) => e.c_category === category);
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedCommunities = arr.slice(startIndex, endIndex);
 
   const getCommunity = () => {
     axios
@@ -37,10 +44,8 @@ const Community = () => {
         },
       })
       .then((response) => {
-        // setCommunity(response.data.communityDtos);
-        const communityDtos = response.data;
-        dispatch(communityActions.fetchCommunityDto(communityDtos));
-        console.log("res", response.data);
+        const community = response.data;
+        dispatch(communityActions.fetchCommunityDto(community));
       })
       .catch((error) => console.log(error));
   };
@@ -134,12 +139,30 @@ const Community = () => {
             </tr>
           </thead>
           <tbody>
-            {communityDto?.communityDtos?.map((community) => (
-              <CommunityItem community={community} />
-            ))}
+            {arr.length == 0 ? (
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                게시물이 없습니다.
+              </td>
+            ) : (
+              <>
+                {displayedCommunities.map((community) => (
+                  <CommunityItem community={community} />
+                ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>
+      <PaginationControl
+        page={page}
+        between={4}
+        total={communityDto.communityDtos.length}
+        limit={itemsPerPage}
+        changePage={(page) => {
+          setPage(page);
+        }}
+        ellipsis={1}
+      />
     </>
   );
 };

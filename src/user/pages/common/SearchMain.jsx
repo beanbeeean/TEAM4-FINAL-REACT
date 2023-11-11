@@ -95,19 +95,21 @@ const SearchMain = () => {
                 if (idx < 5) {
                   return (
                     <div className={styles.book_wrap}>
-                      <img className={styles.book_img} src={book.b_cover} />
-                      <div className={styles.book_content_wrap}>
-                        <span className={styles.book_title}>
-                          {book.b_title}
-                        </span>
-                        <br />
-                        <span className={styles.author}>
-                          {book.b_author} 저 |{" "}
-                        </span>
-                        <span className={styles.publisher}>
-                          {book.b_publisher}
-                        </span>
-                      </div>
+                      <Link to={`/checkout_books/${book.b_no}`}>
+                        <img className={styles.book_img} src={book.b_cover} />
+                        <div className={styles.book_content_wrap}>
+                          <span className={styles.book_title}>
+                            {book.b_title}
+                          </span>
+                          <br />
+                          <span className={styles.author}>
+                            {book.b_author} 저 |{" "}
+                          </span>
+                          <span className={styles.publisher}>
+                            {book.b_publisher}
+                          </span>
+                        </div>
+                      </Link>
                     </div>
                   );
                 }

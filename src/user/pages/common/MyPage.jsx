@@ -78,7 +78,7 @@ const MyPage = () => {
               className={`${styles.board_category} ${on == 3 && styles.on}`}
               onClick={() => setOn(3)}
             >
-              CHECK-OUT BOOKS
+              RENTAL BOOKS
             </li>
             <li
               className={`${styles.board_category} ${on == 4 && styles.on}`}
