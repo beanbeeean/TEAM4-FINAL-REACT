@@ -32,7 +32,7 @@ button.write_btn:hover * {
 div.write_search_box {
   display: flex;
   justify-content: flex-end;
-
+  margin-bottom: 20px;
   position: relative;
 }
 

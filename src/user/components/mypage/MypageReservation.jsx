@@ -93,16 +93,23 @@ const MypageReservation = () => {
   //     });
   // }
 
+  const [show, setShow] = useState(false);
+
   useEffect(() => {
-    dispatch(myPageAction.setLoading(true));
-  }, []);
+    if (show) {
+      dispatch(myPageAction.setLoading(false));
+    }
+  }, [show]);
 
   useEffect(() => {
     dispatch(myPageAction.setLoading(true));
+
     myPageRead({ startDate, endDate })
       .then((response) => {
-        console.log("33");
-        // console.log(response.data);
+        console.log("11 :: ", response.data);
+        if (response.data.length == 0) {
+          setShow(true);
+        }
 
         if (response.data.length > 0) {
           setSeat(response.data);
@@ -115,12 +122,12 @@ const MypageReservation = () => {
 
     myPageStudy({ startDate, endDate })
       .then((response) => {
-        console.log("44");
-        // console.log("myPageStudy : ", response.data);
+        console.log("22 :: ", response.data);
+        if (response.data.length == 0) {
+          setShow(true);
+        }
         if (response.data.length > 0) {
           setStudy(response.data);
-          console.log("startDate : ", startDate);
-          console.log("endDate : ", endDate);
           dispatch(myPageAction.setLoading(false));
         }
       })
@@ -143,6 +150,7 @@ const MypageReservation = () => {
       </div>
     );
   }
+
   return (
     <div className={styles.reserve_wrap}>
       <div className={styles.datePicker_wrap}>
@@ -171,16 +179,20 @@ const MypageReservation = () => {
         <div className={styles.reserve_seat_content}>
           {seat ? (
             seat.map((item, index) => <ReadReserveItem seat={item} />)
-          ) : (
+          ) : show ? (
             <div className={styles.no_result}>예약 내역이 없습니다.</div>
+          ) : (
+            <></>
           )}
         </div>
 
         <div className={styles.reserve_studyroom_content}>
           {study ? (
             study.map((item, index) => <StudyReserveItem study={item} />)
-          ) : (
+          ) : show ? (
             <div className={styles.no_result}>예약 내역이 없습니다.</div>
+          ) : (
+            <></>
           )}
         </div>
       </div>

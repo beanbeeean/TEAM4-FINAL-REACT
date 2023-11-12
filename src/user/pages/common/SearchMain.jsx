@@ -26,7 +26,8 @@ const SearchMain = () => {
   };
 
   const goCommunityPage = (category) => {
-    dispatch(communityActions.fetchSearchCommunity({ keyword: "" }));
+    console.log("keyword =-====> ", keyword);
+    dispatch(communityActions.fetchSearchCommunity({ keyword: keyword }));
     dispatch(commonActions.setCommunityMenu(category));
     navigate("/community");
   };
@@ -57,7 +58,7 @@ const SearchMain = () => {
       .catch((error) => console.log(error));
 
     axios
-      .get(`/community`, {
+      .get(`/community/`, {
         params: {
           keyword: keyword,
           category: "",

@@ -22,7 +22,7 @@
 }
 
 .search_books .more {
-  background-color: #c4dd8b;
+  background-color: #889aff;
   padding: 10px 12px;
   margin-top: 150px;
   color: #ffffff;
@@ -126,7 +126,7 @@ table.commu_table th {
   /* background-color: #feccbe; */
   color: #ffffff;
   /* color: #fd8a69; */
-  background-color: #aaaaaa;
+  background-color: #dadada;
   padding: 8px;
   border: none;
 }

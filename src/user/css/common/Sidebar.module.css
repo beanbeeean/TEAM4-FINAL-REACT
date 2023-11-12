@@ -9,11 +9,18 @@ div.side_bar {
 }
 
 .logo {
-  max-width: 80%;
+  position: relative;
+  z-index: 500;
+  /* max-width: 80%; */
+  max-width: 140px;
+  min-width: 140px;
+  min-height: 50.85px;
+  max-height: 50.85px;
   margin: 30px 30px 110px 10px;
 }
 
 .nav_menu {
+  position: relative;
   width: 100%;
   margin: 0;
   padding: 0;

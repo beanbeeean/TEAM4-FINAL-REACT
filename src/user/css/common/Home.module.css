@@ -85,7 +85,7 @@
 table.board_table th {
   background-color: #dadada;
   color: #ffffff;
-  padding: 12px 0;
+  padding: 10px 0;
 }
 
 table.board_table th:nth-child(2) {
@@ -145,7 +145,7 @@ table.board_table tbody tr {
 }
 
 .table_room thead th {
-  padding: 12px 10px;
+  padding: 10px;
   color: #fff;
   width: 33%;
   /* border-right: 1px solid #c5c4c4; */

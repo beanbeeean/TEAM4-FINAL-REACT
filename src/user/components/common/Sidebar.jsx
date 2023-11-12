@@ -42,14 +42,23 @@ const Sidebar = () => {
     }
   };
 
+  const goHome = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     setCurrentMenu(mainMenu);
   }, [mainMenu]);
   return (
     <div className={styles.side_bar}>
-      <Link to="/">
-        <img className={styles.logo} src="../imgs/admin_logo.png" alt="" />
-      </Link>
+      {/* <Link to="/"> */}
+      <img
+        className={styles.logo}
+        src="../imgs/admin_logo.png"
+        alt=""
+        onClick={goHome}
+      />
+      {/* </Link> */}
       <ul className={styles.nav_menu}>
         <li
           onClick={() => movePage(1)}
