@@ -12,9 +12,8 @@ const ChatModal = () => {
   const [roomId, setRoomId] = useState("");
   const [roomName, setRoomName] = useState("");
 
-  // const [chatShow, setChatShow] = useState(0);
-  // const [newName, setNewName] = useState("");
-  // const [list, setList] = useState([]);
+  const [msg, setMsg] = useState([]);
+  const [lastMsg, setLastMsg] = useState([]);
 
   const dispatch = useDispatch();
   const { userDto } = useSelector((state) => state.user);
@@ -56,8 +55,13 @@ const ChatModal = () => {
   }, [storeRoomId]);
 
   useEffect(() => {
-    setRoomId("");
-    setRoomId(roomId);
+    // dispatch(chatActions.setLoading(true));
+    // setRoomId("");
+    // setRoomId(roomId);
+    // lastMsg.splice(0, lastMsg.length);
+    // msg.splice(0, msg.length);
+    // setLastMsg([]);
+    // setMsg([]);
   }, [roomId]);
 
   return (
@@ -82,6 +86,10 @@ const ChatModal = () => {
                   <h4 className={styles.chat_list_tit}>CHAT LIST</h4>
                   {storeChatRoomList.map((item) => (
                     <ChatItem
+                      msg={msg}
+                      setMsg={setMsg}
+                      lastMsg={lastMsg}
+                      setLastMsg={setLastMsg}
                       roomId={roomId}
                       setRoomId={setRoomId}
                       setRoomName={setRoomName}
@@ -92,6 +100,10 @@ const ChatModal = () => {
 
                 {roomId !== "" ? (
                   <ChatArea
+                    msg={msg}
+                    setMsg={setMsg}
+                    lastMsg={lastMsg}
+                    setLastMsg={setLastMsg}
                     roomId={roomId}
                     setRoomId={setRoomId}
                     user={userDto}

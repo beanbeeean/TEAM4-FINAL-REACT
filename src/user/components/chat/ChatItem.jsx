@@ -3,12 +3,29 @@ import styles from "../../css/chat/Chat.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { BsFillPeopleFill } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { chatActions } from "../../../redux/chat/slices/chatSlice";
 
-const ChatItem = ({ roomId, setRoomId, setRoomName, item }) => {
+const ChatItem = ({
+  msg,
+  setMsg,
+  lastMsg,
+  setLastMsg,
+  roomId,
+  setRoomId,
+  setRoomName,
+  item,
+}) => {
+  const dispatch = useDispatch();
   const changeChatRoom = (item) => {
     setRoomId("");
     setRoomId(item.roomId);
     setRoomName(item.roomName);
+    lastMsg.splice(0, lastMsg.length);
+    msg.splice(0, msg.length);
+    setLastMsg([]);
+    setMsg([]);
+    // dispatch(chatActions.setLoading(true));
   };
 
   return (
