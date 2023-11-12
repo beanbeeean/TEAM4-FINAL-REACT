@@ -16,6 +16,7 @@ import { Stomp } from "@stomp/stompjs";
 import api from "../../../redux/api";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import { Loading } from "../common/Loading";
 
 let stompClient = null;
 
@@ -29,7 +30,9 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   const [userListShow, setUserListShow] = useState(false);
 
   const dispatch = useDispatch();
-  let { storeUserList, storeUserDetail } = useSelector((state) => state.chat);
+  let { storeUserList, storeUserDetail, loading } = useSelector(
+    (state) => state.chat
+  );
   // let { userDtos } = useSelector((state) => state.user);
 
   function connect() {
@@ -198,6 +201,13 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     setUserList(storeUserList);
   }, []);
 
+  if (loading) {
+    return (
+      <div className={styles.loading_chat_area}>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className={styles.chat_area} onClick={dropDownStateChange}>
       <div className={styles.icon_wrap}>
