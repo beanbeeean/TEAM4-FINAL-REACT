@@ -11,15 +11,15 @@ const ChatModal = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [roomId, setRoomId] = useState("");
   const [roomName, setRoomName] = useState("");
-
   const [msg, setMsg] = useState([]);
   const [lastMsg, setLastMsg] = useState([]);
+  // const [chatShow, setChatShow] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const dispatch = useDispatch();
   const { userDto } = useSelector((state) => state.user);
-  let { storeChatRoomList, isClick, storeRoomId, storeRoomName } = useSelector(
-    (state) => state.chat
-  );
+  let { storeChatRoomList, isClick, storeRoomId, storeRoomName, chatShow } =
+    useSelector((state) => state.chat);
 
   const getList = () => {
     api
@@ -37,6 +37,9 @@ const ChatModal = () => {
       });
   };
 
+  const handleButtonClick = () => {
+    setIsVisible(!isVisible);
+  };
   useEffect(() => {
     getList();
     console.log("userDto  ", userDto);
@@ -82,14 +85,16 @@ const ChatModal = () => {
           {isClicked && (
             <>
               <div className={styles.chat_box}>
-                <div className={styles.chat_list}>
+                <div
+                  className={`${styles.chat_list} ${
+                    isVisible ? styles.cr_visible : styles.cr_hidden
+                  }`}
+                >
                   <h4 className={styles.chat_list_tit}>CHAT LIST</h4>
                   {storeChatRoomList.map((item) => (
                     <ChatItem
-                      msg={msg}
-                      setMsg={setMsg}
-                      lastMsg={lastMsg}
-                      setLastMsg={setLastMsg}
+                      isVisible={isVisible}
+                      setIsVisible={setIsVisible}
                       roomId={roomId}
                       setRoomId={setRoomId}
                       setRoomName={setRoomName}
@@ -97,13 +102,18 @@ const ChatModal = () => {
                     />
                   ))}
                 </div>
-
-                {roomId !== "" ? (
+                <div
+                  className={`${styles.chat_area} ${
+                    !isVisible ? styles.ca_visible : styles.ca_hidden
+                  }`}
+                >
+                  <img src="../imgs/chat_logo.png" />
+                  <button onClick={handleButtonClick}>dd</button>
+                </div>
+                {/* {roomId !== "" ? (
                   <ChatArea
-                    msg={msg}
-                    setMsg={setMsg}
-                    lastMsg={lastMsg}
-                    setLastMsg={setLastMsg}
+                    isVisible={isVisible}
+                    setIsVisible={setIsVisible}
                     roomId={roomId}
                     setRoomId={setRoomId}
                     user={userDto}
@@ -111,10 +121,33 @@ const ChatModal = () => {
                     getList={getList}
                   />
                 ) : (
-                  <div className={styles.chat_area}>
+                  <div
+                    className={`${styles.chat_area} ${
+                      !isVisible ? styles.ca_visible : styles.ca_hidden
+                    }`}
+                  >
                     <img src="../imgs/chat_logo.png" />
+                    <button onClick={handleButtonClick}>dd</button>
                   </div>
-                )}
+                )} */}
+                {/* {roomId !== "" ? (
+                  <ChatArea
+                    // msg={msg}
+                    // setMsg={setMsg}
+                    // lastMsg={lastMsg}
+                    // setLastMsg={setLastMsg}
+                    roomId={roomId}
+                    setRoomId={setRoomId}
+                    user={userDto}
+                    roomName={roomName}
+                    getList={getList}
+                  />
+                ) : (
+                  <div className={styles.chat_area} isVisible ? styles.cr_visible : styles.cr_hidden>
+                    <img src="../imgs/chat_logo.png" />
+                    <button onClick={handleButtonClick}>dd</button>
+                  </div>
+                )} */}
               </div>
             </>
           )}

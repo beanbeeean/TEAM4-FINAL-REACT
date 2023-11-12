@@ -48,17 +48,17 @@
 }
 
 .chat_box {
-  width: 800px;
+  /* width: 800px; */
   min-width: 800px;
   height: 600px;
   background-color: #fff;
   border: 1px solid #dbdbdb71;
   border-radius: 20px;
-  display: flex;
-  position: absolute;
-  right: -30px;
+  position: fixed;
+  right: 30px;
   transition: all 0.5s;
-  top: -80px;
+  bottom: 80px;
+  overflow: hidden;
 }
 
 .icon_wrap {
@@ -160,11 +160,15 @@
 
 .chat_box {
   background-color: #fff;
-  display: flex;
+  /* display: flex; */
+  width: 800px;
+  /* flex-wrap: nowrap; */
+  /* overflow-x: visible; */
+  /* position: relative; */
 }
 
 .chat_list {
-  width: 30%;
+  /* width: 100%; */
   height: 600px;
   overflow-y: auto;
   border-top-left-radius: 20px;
@@ -392,4 +396,38 @@
   align-items: center;
   justify-content: center;
   width: 550px;
+}
+
+.chat_list {
+  /* display: flex; */
+  position: absolute;
+  width: 800px;
+  left: 0;
+  transition: all 0.5s ease-in-out; /* 트랜지션 속성을 사용하여 부드럽게 이동 */
+}
+
+.cr_visible {
+  left: 0;
+  /* transform: translateX(0);  */
+}
+
+.cr_hidden {
+  left: -800px;
+  /* transform: translateX(-100%);  */
+}
+
+.chat_area {
+  position: absolute;
+  left: 800px;
+  width: 800px;
+  background-color: red;
+  transition: all 0.5s ease-in-out; /* 트랜지션 속성을 사용하여 부드럽게 이동 */
+}
+
+.ca_hidden {
+  left: 800px;
+}
+
+.ca_visible {
+  left: 0;
 }

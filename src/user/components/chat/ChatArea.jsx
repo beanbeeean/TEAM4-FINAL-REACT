@@ -19,12 +19,9 @@ import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import { Loading } from "../common/Loading";
 
 let stompClient = null;
-
 const ChatArea = ({
-  msg,
-  setMsg,
-  lastMsg,
-  setLastMsg,
+  isVisible,
+  setIsVisible,
   roomId,
   setRoomId,
   user,
@@ -33,23 +30,27 @@ const ChatArea = ({
 }) => {
   const dispatch = useDispatch();
   const [userList, setUserList] = useState([]);
-  // const [msg, setMsg] = useState([]);
-  // const [lastMsg, setLastMsg] = useState([]);
   const [inputText, setInputText] = useState("");
 
+  const [msg, setMsg] = useState(null);
+  const [lastMsg, setLastMsg] = useState(null);
   const [currentUser, setCurrentUser] = useState("");
   const [userListShow, setUserListShow] = useState(false);
 
-  let { storeUserList, storeUserDetail, loading } = useSelector(
-    (state) => state.chat
-  );
+  let { storeUserList, storeUserDetail, storeRoomId, storeRoomName, loading } =
+    useSelector((state) => state.chat);
+  let newArr = [];
+  // console.log("이펙트 안쓰고 갱신되는 부분");
+  // setLastMsg([]);
   // let { userDtos } = useSelector((state) => state.user);
 
+  ////////////////////////////
   function connect() {
     // dispatch(chatActions.setLoading(true));
+    // setLastMsg([]);
+    // setMsg([]);
     var socket = new SockJS("/ws-stomp");
     stompClient = Stomp.over(socket);
-
     // dispatch(chatActions.setLoading(true));
     stompClient.connect({}, onConnected, console.log("error"));
 
@@ -57,11 +58,6 @@ const ChatArea = ({
   }
 
   function onConnected() {
-    // lastMsg.splice(0, lastMsg.length);
-    // msg.splice(0, msg.length);
-
-    // setLastMsg([]);
-    // setMsg([]);
     stompClient.subscribe("/sub/chat/room/" + roomId, onMessageReceived);
 
     stompClient.send(
@@ -95,6 +91,7 @@ const ChatArea = ({
   function onMessageReceived(payload) {
     let arr = [];
     let temp = {};
+
     var chat = JSON.parse(payload.body);
     console.log("=========================");
     console.log("chat은 이거야", chat);
@@ -109,13 +106,21 @@ const ChatArea = ({
     } else if (type == "ENTER") {
       if (test == user.u_email && !chat.first) {
         console.log("lastMSG 넣기 전 : ", lastMsg);
+        // lastMsg.push(chat);
         lastMsg.push(chat);
+
         // temp = chat;
         // lastMsg.push(temp);
         console.log("lastMSG 넣은 후: ", lastMsg);
-        arr = lastMsg.filter((c) => c.roomId == roomId);
-        // console.log(" ARRRRRRR :: ", arr);
-        setLastMsg([...arr]);
+        arr = newArr.filter((c) => c.roomId == roomId);
+
+        let sortArr = arr.sort((a, b) => {
+          if (a.idx > b.idx) return 1;
+          if (a.idx < b.idx) return -1;
+          return 0;
+        });
+
+        setLastMsg(sortArr);
         // console.log("lastMSG : ", lastMsg);
         getUserList();
       }
@@ -154,7 +159,7 @@ const ChatArea = ({
       .then(function (res) {
         dispatch(chatActions.getUserList(res.data.userList));
         dispatch(chatActions.getUserDetail(res.data.userDetail));
-        console.log(res);
+        // console.log(res);
       })
       .catch(function (err) {
         console.log("getUserList", err);
@@ -186,6 +191,7 @@ const ChatArea = ({
     console.log("disconnect");
     stompClient = null;
     setRoomId("");
+    // dispatch(chatActions.getRoomId(""));
   }
 
   const pressEnterSending = (e) => {
@@ -201,21 +207,9 @@ const ChatArea = ({
   };
 
   useEffect(() => {
-    // stompClient = null;
-    // console.log("roomID 바뀜 :: ", roomId);
-    // for (let i = 0; i < lastMsg.length; i++) {
-    //   lastMsg.pop();
-    // }
-    // disConnect();
-    // let arr = [];
-
-    // lastMsg.splice(0, lastMsg.length);
-    // msg.splice(0, msg.length);
-
-    // setLastMsg([]);
-    // setMsg([]);
-
-    connect();
+    // setLastMsg(null);
+    // setMsg(null);
+    // connect();
 
     api
       .get("/chat/user_detail", {
@@ -237,6 +231,8 @@ const ChatArea = ({
   }, [storeUserList]);
 
   useEffect(() => {
+    // connect();
+    console.log("새로 갱신됨");
     getUserList();
     setUserList(storeUserList);
   }, []);
@@ -257,7 +253,12 @@ const ChatArea = ({
   //   );
   // }
   return (
-    <div className={styles.chat_area} onClick={dropDownStateChange}>
+    <div
+      className={`${styles.chat_area} ${
+        !isVisible ? styles.ca_visible : styles.ca_hidden
+      }`}
+      onClick={dropDownStateChange}
+    >
       <div className={styles.icon_wrap}>
         <div className={styles.chatting_room_name}>
           <FontAwesomeIcon
@@ -294,9 +295,6 @@ const ChatArea = ({
             </span>
           </span>
         </div>
-        {/* <span className={styles.chat_menu}>
-          <FontAwesomeIcon icon={faBars} />
-        </span> */}
         <span className={styles.leave_icon} onClick={onDisConnected}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           &nbsp; 채팅방 나가기
@@ -305,24 +303,22 @@ const ChatArea = ({
 
       <div className={styles.chatting}>
         <div className={styles.chatting_log} ref={chattingLogRef}>
-          {lastMsg.map((item) =>
-            item.sender == user.u_email ? (
-              <MyChat item={item} />
-            ) : (
-              <OthersChat item={item} userList={userList} />
-            )
-          )}
-          {msg.map((item) =>
-            item.sender == user.u_email ? (
-              <MyChat item={item} />
-            ) : (
-              <OthersChat item={item} userList={userList} />
-            )
-          )}
-          {/* <MyChat msg={msg} /> */}
-          {/* {data.map((chat) =>
-            chat.user == 1 ? <MyChat chat={chat} /> : <OthersChat chat={chat} />
-          )} */}
+          {/* {lastMsg.length > 0 &&
+            lastMsg.map((item) =>
+              item.sender == user.u_email ? (
+                <MyChat item={item} />
+              ) : (
+                <OthersChat item={item} userList={userList} />
+              )
+            )}
+          {msg.length > 0 &&
+            msg.map((item) =>
+              item.sender == user.u_email ? (
+                <MyChat item={item} />
+              ) : (
+                <OthersChat item={item} userList={userList} />
+              )
+            )} */}
         </div>
 
         <div className={styles.input_chat}>

@@ -7,10 +7,8 @@ import { useDispatch } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
 
 const ChatItem = ({
-  msg,
-  setMsg,
-  lastMsg,
-  setLastMsg,
+  isVisible,
+  setIsVisible,
   roomId,
   setRoomId,
   setRoomName,
@@ -21,18 +19,21 @@ const ChatItem = ({
     setRoomId("");
     setRoomId(item.roomId);
     setRoomName(item.roomName);
-    lastMsg.splice(0, lastMsg.length);
-    msg.splice(0, msg.length);
-    setLastMsg([]);
-    setMsg([]);
+    // lastMsg.splice(0, lastMsg.length);
+    // msg.splice(0, msg.length);
+    // setLastMsg([]);
+    // setMsg([]);
+    // dispatch(chatActions.chatShowToggle(true));
+    dispatch(chatActions.getRoomId(item.roomId));
     // dispatch(chatActions.setLoading(true));
+    setIsVisible(false);
   };
 
   return (
     <div
       className={`${styles.chat_room} ${
         roomId == item.roomId && styles.chat_room_on
-      }`}
+      } `}
       onClick={() => changeChatRoom(item)}
     >
       <div className={styles.chat_room_title}>

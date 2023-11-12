@@ -9,6 +9,7 @@ const initialState = {
   storeRoomId: "",
   storeRoomName: "",
   loading: false,
+  // chatShow: false,
 };
 
 const chatSlice = createSlice({
@@ -36,6 +37,9 @@ const chatSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    // chatShowToggle: (state, action) => {
+    //   state.chatShow = action.payload;
+    // },
   },
 });
 
