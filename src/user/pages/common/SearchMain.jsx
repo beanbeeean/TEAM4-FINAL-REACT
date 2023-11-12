@@ -25,8 +25,9 @@ const SearchMain = () => {
     navigate(`/checkout_books`);
   };
 
-  const goCommunityPage = () => {
+  const goCommunityPage = (category) => {
     dispatch(communityActions.fetchSearchCommunity({ keyword: "" }));
+    dispatch(commonActions.setCommunityMenu(category));
     navigate("/community");
   };
 
@@ -116,7 +117,9 @@ const SearchMain = () => {
               })}
 
               <Link to="/checkout_books">
-                <span className={`${styles.block} ${styles.more}`}>+ more</span>
+                <span className={`${styles.block} ${styles.more}`}>
+                  +더보기
+                </span>
               </Link>
             </>
           )}
@@ -127,9 +130,9 @@ const SearchMain = () => {
         <div className={`${styles.community} ${styles.block}`}>
           <div className={styles.mini_nav}>
             <span className={styles.title}>자유게시판</span>
-            <Link to="/community">
-              <li className={styles.more}>+ more</li>
-            </Link>
+            <li onClick={() => goCommunityPage(1)} className={styles.more}>
+              + 더보기
+            </li>
           </div>
           <div className={styles.commu_wrap}>
             <table className={styles.commu_table}>
@@ -147,7 +150,7 @@ const SearchMain = () => {
                   <tr>
                     <td colSpan="5" className={styles.no_result}>
                       "{keyword}"에 대한 검색 결과가 없습니다. <br />
-                      <span onClick={goCommunityPage}>
+                      <span onClick={() => goCommunityPage(1)}>
                         커뮤니티 페이지로 이동
                       </span>
                     </td>
@@ -192,9 +195,9 @@ const SearchMain = () => {
         <div className={`${styles.community} ${styles.block}`}>
           <div className={styles.mini_nav}>
             <span className={styles.title}>도서 추천</span>
-            <Link to="/community">
-              <li className={styles.more}>+ more</li>
-            </Link>
+            <li className={styles.more} onClick={() => goCommunityPage(2)}>
+              + 더보기
+            </li>
           </div>
           <div className={styles.commu_wrap}>
             <table className={styles.commu_table}>
@@ -212,7 +215,7 @@ const SearchMain = () => {
                   <tr>
                     <td colSpan="5" className={styles.no_result}>
                       "{keyword}"에 대한 검색 결과가 없습니다. <br />
-                      <span onClick={goCommunityPage}>
+                      <span onClick={() => goCommunityPage(2)}>
                         커뮤니티 페이지로 이동
                       </span>
                     </td>
@@ -258,7 +261,9 @@ const SearchMain = () => {
           <div className={styles.mini_nav}>
             <span className={styles.title}>스터디원 모집</span>
             <Link to="/community">
-              <li className={styles.more}>+ more</li>
+              <li className={styles.more} onClick={() => goCommunityPage(3)}>
+                + 더보기
+              </li>
             </Link>
           </div>
           <div className={styles.commu_wrap}>
@@ -277,7 +282,7 @@ const SearchMain = () => {
                   <tr>
                     <td colSpan="5" className={styles.no_result}>
                       "{keyword}"에 대한 검색 결과가 없습니다. <br />
-                      <span onClick={goCommunityPage}>
+                      <span onClick={() => goCommunityPage(3)}>
                         커뮤니티 페이지로 이동
                       </span>
                     </td>

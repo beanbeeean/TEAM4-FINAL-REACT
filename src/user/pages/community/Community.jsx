@@ -9,18 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
+import { Loading } from "../../components/common/Loading";
 
 const Community = () => {
-  const { communityDto, searchCommunityDto } = useSelector(
+  const { communityDto, searchCommunityDto, loading } = useSelector(
     (state) => state.community
   );
-  const [category, setCategory] = useState(
-    searchCommunityDto.category === undefined ? 1 : searchCommunityDto.category
-  );
-
+  const dispatch = useDispatch();
   const { communityMenu } = useSelector((state) => state.common);
   const [searchOption, setSearchOption] = useState(1);
-  const dispatch = useDispatch();
   const [keyword, setKeyword] = useState(
     searchCommunityDto.keyword === undefined ? "" : searchCommunityDto.keyword
   );
@@ -28,7 +25,9 @@ const Community = () => {
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
-  let arr = communityDto.communityDtos.filter((e) => e.c_category === category);
+  let arr = communityDto.communityDtos.filter(
+    (e) => e.c_category === communityMenu
+  );
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -46,23 +45,33 @@ const Community = () => {
       .then((response) => {
         const community = response.data;
         dispatch(communityActions.fetchCommunityDto(community));
+        console.log("commu res :: ", response.data);
+        dispatch(communityActions.setLoading(false));
       })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
+    dispatch(communityActions.setLoading(true));
     getCommunity();
     dispatch(commonActions.setMainMenu(4));
     // dispatch(commonActions.setCommunityMenu(1));
   }, []);
 
   useEffect(() => {
+    dispatch(communityActions.setLoading(true));
     getCommunity();
     // getCommunity(keyword, on, searchOption);
     console.log("바뀜");
     console.log("communityMenu : ", communityMenu);
   }, [communityMenu]);
-
+  if (loading) {
+    return (
+      <div className={styles.loading_community_area}>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <>
       <div className={styles.board_header}>

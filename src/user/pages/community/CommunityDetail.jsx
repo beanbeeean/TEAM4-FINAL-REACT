@@ -88,10 +88,14 @@ const CommunityDetail = () => {
   };
 
   const showChatHandler = () => {
-    dispatch(chatActions.clickToggle(true));
-    dispatch(
-      chatActions.getRoomId({ id: chatRoom.roomId, name: chatRoom.roomName })
-    );
+    if (chatRoom.userCount < chatRoom.userMaxCount) {
+      dispatch(chatActions.clickToggle(true));
+      dispatch(
+        chatActions.getRoomId({ id: chatRoom.roomId, name: chatRoom.roomName })
+      );
+    } else {
+      alert("채팅방 인원이 가득 차 입장이 불가합니다.");
+    }
   };
 
   const write_comment = () => {
