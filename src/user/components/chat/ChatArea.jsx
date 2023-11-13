@@ -220,6 +220,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       .catch(function (err) {
         console.log("list", err);
       });
+    chattingLogRef.current.scrollTop = 0;
   }, [roomId]);
 
   useEffect(() => {
@@ -233,10 +234,10 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   }, []);
 
   useEffect(() => {
-    if (chattingLogRef.current) {
+    if (chattingLogRef.current && !loading) {
       chattingLogRef.current.scrollTop = chattingLogRef.current.scrollHeight;
     }
-  }, [roomId, lastMsg, msg]);
+  }, [msg]);
 
   if (loading) {
     return (
