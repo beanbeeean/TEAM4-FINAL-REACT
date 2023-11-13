@@ -9,6 +9,8 @@ import htmlToDraft from "html-to-draftjs";
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize-module-react";
 import styles from "../../css/community/CommunityWrite.module.css";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const RowBox = styled.div`
   width: 100%;
@@ -103,11 +105,24 @@ const CommunityModify = () => {
       })
       .then((response) => {
         console.log("수정 성공", response.data);
-        alert("수정이 완료되었습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "수정이 완료되었습니다.",
+          iconColor: "#889aff",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         navigate(-1);
       })
       .catch((error) => {
-        console.error("수정 실패", error);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "수정에 실패하였습니다.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 

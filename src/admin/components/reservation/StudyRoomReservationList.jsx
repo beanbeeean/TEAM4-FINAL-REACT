@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReservationManagement.module.css";
 import { adminStudyRoom } from "../../../user/components/common/login/APIUtils";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
+
 const StudyRoomReservationList = () => {
   const [page, setPage] = useState(1);
   const [studyRoom, setStudyRoom] = useState([]);
@@ -20,7 +23,14 @@ const StudyRoomReservationList = () => {
         console.log("response.data : ", response.data);
         setStudyRoom(response.data);
         if (result == 1) {
-          alert("상태가 변경되었습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "상태가 변경되었습니다.",
+            iconColor: "rgb(33, 41, 66)",
+            showConfirmButton: false,
+            timer: 3000,
+          });
         }
       })
       .catch((error) => console.log(error));

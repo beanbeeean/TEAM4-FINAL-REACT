@@ -10,7 +10,6 @@ div.side_bar {
 
 .logo {
   position: relative;
-  z-index: 500;
   /* max-width: 80%; */
   max-width: 140px;
   min-width: 140px;

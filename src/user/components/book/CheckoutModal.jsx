@@ -5,6 +5,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import bookSlice, { bookActions } from "../../../redux/book/slices/bookSlice";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const CheckoutModal = (props) => {
   const date = new Date();
@@ -60,7 +62,14 @@ const CheckoutModal = (props) => {
       )
       .then((response) => {
         console.log("서버 응답 데이터:", response.data);
-        alert("대여가 완료되었습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "대여가 완료되었습니다.",
+          iconColor: "#889aff",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         dispatch(bookActions.updateStock(props.book.b_no));
         props.setModalShow(false);
 

@@ -14,6 +14,8 @@ import {
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize-module-react";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 Quill.register("modules/imageResize", ImageResize);
 
@@ -84,9 +86,23 @@ const CommunityWrite = () => {
   const handleSubmit = () => {
     if (selection == 3) {
       if (title.trim() == "") {
-        alert("제목을 입력해주세요.");
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: "제목을 입력해주세요.",
+          iconColor: "yellow",
+          showConfirmButton: true,
+          timer: 3000,
+        });
       } else if (enable != 0) {
-        alert("채팅방 이름 중복 체크를 해주세요.");
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: "채팅방 이름 중복 체크를 해주세요.",
+          iconColor: "yellow",
+          showConfirmButton: true,
+          timer: 3000,
+        });
       } else {
         console.log("같이 쓰기", htmlString);
         axios
@@ -100,16 +116,36 @@ const CommunityWrite = () => {
           .then((response) => {
             console.log("글 작성 성공", response.data);
             createRoom(response.data);
-            alert("작성이 완료되었습니다.");
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "작성이 완료되었습니다.",
+              iconColor: "#889aff",
+              showConfirmButton: false,
+              timer: 3000,
+            });
             navigate(-1);
           })
           .catch((error) => {
-            console.error("글 작성 실패", error);
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "글 작성에 실패하였습니다.",
+              showConfirmButton: false,
+              timer: 3000,
+            });
           });
       }
     } else {
       if (title.trim() == "") {
-        alert("제목을 입력해주세요.");
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: "제목을 입력해주세요.",
+          iconColor: "yellow",
+          showConfirmButton: true,
+          timer: 3000,
+        });
       } else {
         console.log("글만 쓰기", htmlString);
         axios
@@ -122,11 +158,24 @@ const CommunityWrite = () => {
           })
           .then((response) => {
             console.log("글 작성 성공", response.data);
-            alert("작성이 완료되었습니다.");
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "작성이 완료되었습니다.",
+              iconColor: "#889aff",
+              showConfirmButton: false,
+              timer: 3000,
+            });
             navigate(-1);
           })
           .catch((error) => {
-            console.error("글 작성 실패", error);
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "글 작성에 실패하였습니다.",
+              showConfirmButton: false,
+              timer: 3000,
+            });
           });
       }
     }

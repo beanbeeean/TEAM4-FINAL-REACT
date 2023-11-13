@@ -8,9 +8,11 @@ import { useDispatch } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { Link, useNavigate } from "react-router-dom";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   console.log("keyword :: ", keyword);
 
@@ -36,6 +38,12 @@ const Header = () => {
     return day;
   };
 
+  const onSearch = () => {
+    console.log("onSearch()");
+    navigate(`/search/${keyword}`);
+    dispatch(commonActions.setMainMenu(1));
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.main_search}>
@@ -44,13 +52,13 @@ const Header = () => {
           placeholder="통합 검색"
           onChange={(e) => setKeyword(e.target.value)}
         />
-        <Link to={`/search/${keyword}`}>
+        <span>
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className={styles.search_btn}
-            // onClick={() => onSearch(keyword)}
+            onClick={onSearch}
           />
-        </Link>
+        </span>
       </div>
       <div className={styles.today}>
         <span className={styles.today_day}> {todayDay()}, </span>

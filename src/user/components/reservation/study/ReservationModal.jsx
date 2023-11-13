@@ -6,6 +6,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Bootpay from "@bootpay/client-js";
 import { reservationRoom } from "../../common/login/APIUtils";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const ReservationModal = (props) => {
   const [selectedTime, setSelectedTime] = useState([]);
@@ -76,7 +78,14 @@ const ReservationModal = (props) => {
       console.log("response :: ", response);
 
       if (response.event === "done") {
-        alert("결제가 완료되었습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "결제가 완료되었습니다.",
+          iconColor: "#889aff",
+          showConfirmButton: false,
+          timer: 3000,
+        });
 
         let data = {
           sr_room: props.selectRoom,
@@ -93,13 +102,31 @@ const ReservationModal = (props) => {
             console.error("Error fetching data: ", error);
           });
       } else if (response.event === "cancel") {
-        alert("결제가 취소되었습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "결제가 취소되었습니다.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       } else {
-        alert("결제가 취소되었습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "결제가 취소되었습니다.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         console.error("Payment failed:", response);
       }
     } catch (error) {
-      alert("결제가 취소되었습니다.");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "결제가 취소되었습니다.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
       console.error(error);
     }
   };

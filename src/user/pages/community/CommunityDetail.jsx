@@ -11,6 +11,8 @@ import {
 import api from "../../../redux/api";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const CommunityDetail = () => {
   let id = useParams().id;
@@ -75,16 +77,34 @@ const CommunityDetail = () => {
   }, []);
 
   const deleteCommunity = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      axios
-        .post(`/community/delete${id}`)
-        .then((response) => {
-          setContent(response.data);
-          alert("삭제가 완료되었습니다.");
-          navigate(-1);
-        })
-        .catch((error) => console.log(error));
-    }
+    Swal.fire({
+      title: "삭제하시겠습니까?",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "#889aff",
+      cancelButtonColor: "#dadada",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(`/community/delete${id}`)
+          .then((response) => {
+            setContent(response.data);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "삭제가 완료되었습니다.",
+              iconColor: "#889aff",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            navigate(-1);
+          })
+          .catch((error) => console.log(error));
+      }
+    });
   };
 
   const showChatHandler = () => {
@@ -94,7 +114,13 @@ const CommunityDetail = () => {
         chatActions.getRoomId({ id: chatRoom.roomId, name: chatRoom.roomName })
       );
     } else {
-      alert("채팅방 인원이 가득 차 입장이 불가합니다.");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "채팅방 정원이 가득 차 입장이 불가합니다.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     }
   };
 
@@ -135,21 +161,32 @@ const CommunityDetail = () => {
   };
 
   const delete_comment = (no) => {
-    if (window.confirm("댓글을 삭제하시겠습니까?")) {
-      axios
-        .post(`/community/delete_comment`, {
-          r_no: no,
-        })
-        .then((response) => {
-          console.log(response.data);
-          getComments();
-          setReReply(false);
-          setReIdx();
-          setComment("");
-          setModify(false);
-        })
-        .catch((error) => console.log(error));
-    }
+    Swal.fire({
+      title: "댓글을 삭제하시겠습니까?",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "#889aff",
+      cancelButtonColor: "#dadada",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(`/community/delete_comment`, {
+            r_no: no,
+          })
+          .then((response) => {
+            console.log(response.data);
+            getComments();
+            setReReply(false);
+            setReIdx();
+            setComment("");
+            setModify(false);
+          })
+          .catch((error) => console.log(error));
+      }
+    });
   };
 
   const getComments = () => {
