@@ -256,98 +256,6 @@ const Home = () => {
               <span className={styles.more}>+ 더보기</span>
             </Link>
           </div>
-          {/* <div className={styles.graph}>
-            <div className={styles.bar}>
-              <div className={styles.barLabel}>1열람실</div>
-              <div
-                className={styles.barFill}
-                style={{ width: `${(firRooms.length / 44) * 100}%` }}
-              >
-                <span className={styles.barValue}>{firRooms.length}/44</span>
-              </div>
-            </div>
-            <div className={styles.bar}>
-              <div className={styles.barLabel}>2열람실</div>
-              <div
-                className={styles.barFill}
-                style={{ width: `${(sndRooms.length / 44) * 100}%` }}
-              >
-                <span className={styles.barValue}>{sndRooms.length}/44</span>
-              </div>
-            </div>
-            <div className={styles.bar}>
-              <div className={styles.barLabel}>3열람실</div>
-              <div
-                className={styles.barFill}
-                style={{ width: `${(thdRooms.length / 44) * 100}%` }}
-              >
-                <span className={styles.barValue}>{thdRooms.length}/44</span>
-              </div>
-            </div>
-          </div> */}
-          {/* 기존 테이블 */}
-          {/* <table className={styles.table_room}>
-            <thead>
-              <th>열람실명</th>
-              <th>전체 좌석수</th>
-              <th>사용 좌석수</th>
-              <th>잔여 좌석수</th>
-              <th>이용률</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1 열람실</td>
-                <td>44</td>
-                <td>{44 - firRooms.length}</td>
-                <td>{firRooms.length}</td>
-                <td>
-                  <div
-                    className={styles.barFill}
-                    style={{
-                      width: `${((44 - firRooms.length) / 44) * 100 + 1}%`,
-                    }}
-                  ></div>
-                  <span>
-                    {(((44 - firRooms.length) / 44) * 100).toFixed(2)}%
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>2 열람실</td>
-                <td>44</td>
-                <td>{44 - sndRooms.length}</td>
-                <td>{sndRooms.length}</td>
-                <td>
-                  <div
-                    className={styles.barFill}
-                    style={{
-                      width: `${((44 - sndRooms.length) / 44) * 100 + 1}%`,
-                    }}
-                  ></div>
-                  <span>
-                    {(((44 - sndRooms.length) / 44) * 100).toFixed(2)}%
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>3 열람실</td>
-                <td>44</td>
-                <td>{44 - thdRooms.length}</td>
-                <td>{thdRooms.length}</td>
-                <td>
-                  <div
-                    className={styles.barFill}
-                    style={{
-                      width: `${((44 - thdRooms.length) / 44) * 100 + 1}%`,
-                    }}
-                  ></div>
-                  <span>
-                    {(((44 - thdRooms.length) / 44) * 100).toFixed(2)}%
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table> */}
 
           <table className={styles.table_room}>
             <thead>
@@ -369,6 +277,7 @@ const Home = () => {
                       }`}
                     ></span>
                     {firRooms.length}석
+                    <span className={styles.total_seat}>(총 44석)</span>
                   </span>
                 </td>
                 <td>
@@ -382,6 +291,7 @@ const Home = () => {
                       }`}
                     ></span>
                     {sndRooms.length}석
+                    <span className={styles.total_seat}>(총 44석)</span>
                   </span>
                 </td>
                 <td>
@@ -395,6 +305,7 @@ const Home = () => {
                       }`}
                     ></span>
                     {thdRooms.length}석
+                    <span className={styles.total_seat}>(총 44석)</span>
                   </span>
                 </td>
               </tr>
