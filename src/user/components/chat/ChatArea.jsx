@@ -41,7 +41,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     var socket = new SockJS("/ws-stomp");
     stompClient = Stomp.over(socket);
 
-    // dispatch(chatActions.setLoading(true));
+    dispatch(chatActions.setLoading(true));
     stompClient.connect({}, onConnected, console.log("error"));
     console.log("[connect] stompClient : ", stompClient);
   }
@@ -49,7 +49,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   function onConnected() {
     // stompClient.subscribe("/sub/chat/room/" + roomId, onMessageReceived);
     stompClient.subscribe("/sub/chat/room/", onMessageReceived);
-
+    dispatch(chatActions.setLoading(false));
     stompClient.send(
       "/pub/chat/enterUser",
       {},
