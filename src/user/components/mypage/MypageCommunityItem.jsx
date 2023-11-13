@@ -19,7 +19,7 @@ const MypageCommunityItem = ({ item }) => {
     <tr>
       <td className="text-center">
         {item.c_category == 1
-          ? "자유"
+          ? "자유 게시판"
           : item.c_category == 2
           ? "도서추천"
           : "스터디원 모집"}

@@ -8,6 +8,8 @@ import {
 } from "../../../user/components/common/login/APIUtils";
 import { userLogin } from "../../../redux/user/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const AdminMypageProfile = () => {
   const loginedUser = useSelector((state) => state.user.userDto);
@@ -45,39 +47,89 @@ const AdminMypageProfile = () => {
         .then((response) => {
           userUpdate({ u_name, u_phone, u_email })
             .then((response) => {
-              alert("수정이 성공하였습니다.");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "수정에 성공하였습니다.",
+                iconColor: "rgb(33, 41, 66)",
+                showConfirmButton: false,
+                timer: 3000,
+              });
               dispatch(userLogin(response.data));
             })
             .catch((error) => {
-              alert((error && error.message) || "수정에 실패하였습니다.");
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "수정에 실패하였습니다.",
+                showConfirmButton: false,
+                timer: 3000,
+              });
             });
         })
         .catch((error) => {});
     } else {
       userUpdate({ u_name, u_phone, u_email })
         .then((response) => {
-          alert("수정이 성공하였습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "수정에 성공하였습니다.",
+            iconColor: "rgb(33, 41, 66)",
+            showConfirmButton: false,
+            timer: 3000,
+          });
           dispatch(userLogin(response.data));
         })
         .catch((error) => {
-          alert((error && error.message) || "수정에 실패하였습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "수정에 실패하였습니다.",
+            showConfirmButton: false,
+            timer: 3000,
+          });
         });
     }
   };
 
   const deleteAccount = () => {
-    
-    if(window.confirm("계정을 탈퇴하시겠습니까?")){
-      myDelete()
-      .then((response) => {
-        alert("회원 탈퇴에 성공하였습니다.");
-        dispatch(userLogin());
-        navigate("/admin/login");
-      })
-      .catch((error) => {
-        alert((error && error.message) || "회원 탈퇴에 실패하였습니다.");
-      });
-    }
+    Swal.fire({
+      title: "계정을 탈퇴하시겠습니까?",
+      text: "계정 탈퇴 시 다시 되돌릴 수 없습니다.",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "rgb(33, 41, 66)",
+      cancelButtonColor: "#dadada",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        myDelete()
+          .then((response) => {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "회원 탈퇴에 성공하였습니다.",
+              iconColor: "rgb(33, 41, 66)",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            dispatch(userLogin());
+            navigate("/admin/login");
+          })
+          .catch((error) => {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "회원 탈퇴에 실패하였습니다.",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          });
+      }
+    });
   };
 
   return (
@@ -108,7 +160,6 @@ const AdminMypageProfile = () => {
           ></input>
         </div>
         <div className={`${stylesAdmin.block} ${stylesAdmin.my_info}`}>
-
           <span className={stylesAdmin.title}>이메일 &emsp;&emsp;</span>
           <input type="mail" value={u_email} readOnly disabled />
           <br />

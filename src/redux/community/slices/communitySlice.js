@@ -16,6 +16,7 @@ const communityState = {
     },
   ],
   searchCommunityDto: [{}],
+  loading: false,
 };
 
 const communitySlice = createSlice({
@@ -40,6 +41,9 @@ const communitySlice = createSlice({
     fetchCommunityDto: (state, action) => {
       state.communityDto = action.payload;
       console.log("state.communityDto: ", state.communityDto);
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
   },
 });

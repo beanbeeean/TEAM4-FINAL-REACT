@@ -94,7 +94,7 @@ const BookManagement = () => {
         page={page}
         between={4}
         total={books.length}
-        limit={20}
+        limit={itemsPerPage}
         changePage={(page) => {
           setPage(page);
         }}

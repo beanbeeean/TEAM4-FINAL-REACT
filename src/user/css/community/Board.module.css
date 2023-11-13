@@ -28,7 +28,7 @@ button.write_btn * {
 }
 
 button.write_btn:hover * {
-  color: #242424;
+  color: #4d4d4d;
 }
 
 .write_icon {
@@ -59,7 +59,7 @@ li.board_category {
 }
 
 li.board_category:hover {
-  color: #f7c7b6;
+  color: #4d4d4d;
 }
 
 li.board_category.on {
@@ -123,8 +123,9 @@ div.board_content {
   border-radius: 10px;
   background-color: #fafafa;
   padding: 20px;
-  min-height: 82vh;
-  max-height: 82vh;
+  min-height: 85vh;
+  max-height: 85vh;
+  margin-bottom: 20px;
 }
 
 table.board_table {
@@ -157,4 +158,12 @@ table.board_table td {
 
 table.board_table tbody tr {
   border-top: 1px solid #dadada;
+}
+
+.loading_community_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 600px;
 }

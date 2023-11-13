@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../../css/chat/Chat.module.css";
 import MyChat from "./MyChat";
 import OthersChat from "./OthersChat";
@@ -16,6 +16,9 @@ import { Stomp } from "@stomp/stompjs";
 import api from "../../../redux/api";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import { Loading } from "../common/Loading";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 let stompClient = null;
 
@@ -28,21 +31,27 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   const [currentUser, setCurrentUser] = useState("");
   const [userListShow, setUserListShow] = useState(false);
 
+  const chattingLogRef = useRef(null);
+
   const dispatch = useDispatch();
-  let { storeUserList, storeUserDetail } = useSelector((state) => state.chat);
+  let { storeUserList, storeUserDetail, loading } = useSelector(
+    (state) => state.chat
+  );
   // let { userDtos } = useSelector((state) => state.user);
 
   function connect() {
     var socket = new SockJS("/ws-stomp");
     stompClient = Stomp.over(socket);
 
+    dispatch(chatActions.setLoading(true));
     stompClient.connect({}, onConnected, console.log("error"));
     console.log("[connect] stompClient : ", stompClient);
   }
 
   function onConnected() {
-    stompClient.subscribe("/sub/chat/room/" + roomId, onMessageReceived);
-
+    // stompClient.subscribe("/sub/chat/room/" + roomId, onMessageReceived);
+    stompClient.subscribe("/sub/chat/room/", onMessageReceived);
+    dispatch(chatActions.setLoading(false));
     stompClient.send(
       "/pub/chat/enterUser",
       {},
@@ -56,24 +65,38 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   }
 
   function onDisConnected() {
-    if (window.confirm("채팅방을 나가겠습니까?")) {
-      stompClient.send(
-        "/pub/chat/leaveUser",
-        {},
-        JSON.stringify({
-          roomId: roomId,
-          sender: user.u_email,
-          sendName: user.u_name,
-          type: "LEAVE",
-        })
-      );
-      disConnect();
-    }
+    Swal.fire({
+      title: "채팅방을 나가겠습니까?",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "#889aff",
+      cancelButtonColor: "#dadada",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        stompClient.send(
+          "/pub/chat/leaveUser",
+          {},
+          JSON.stringify({
+            roomId: roomId,
+            sender: user.u_email,
+            sendName: user.u_name,
+            type: "LEAVE",
+          })
+        );
+        disConnect();
+      }
+    });
   }
 
   function onMessageReceived(payload) {
     let arr = [];
     var chat = JSON.parse(payload.body);
+    // if (chat.roomId !== roomId) {
+    //   return;
+    // }
     console.log("=========================");
     console.log("chat은 이거야", chat);
     let type = chat.type;
@@ -83,15 +106,25 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
 
     if (type == "REJECT" && test == user.u_email) {
       disConnect();
-      alert("채팅방 정원이 가득 차 입장이 불가합니다.");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "채팅방 정원이 가득 차 입장이 불가합니다.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     } else if (type == "ENTER") {
       if (test == user.u_email && !chat.first) {
         lastMsg.push(chat);
-        arr = lastMsg.filter((c) => c.roomId == roomId);
-
-        setLastMsg(arr);
+        // arr = lastMsg.filter((c) => c.roomId == roomId);
+        let sortArr = lastMsg.sort((a, b) => {
+          if (a.idx > b.idx) return 1;
+          if (a.idx < b.idx) return -1;
+          return 0;
+        });
+        setLastMsg(sortArr);
         console.log("lastMSG : ", lastMsg);
-        getUserList();
+        // getUserList();
       }
 
       if (chat.sender === "ADMIN" && chat.first) {
@@ -112,6 +145,8 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
         setMsg([...msg]);
       }
     }
+
+    // dispatch(chatActions.setLoading(false));
   }
 
   function getUserList() {
@@ -123,7 +158,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       })
       .then(function (res) {
         dispatch(chatActions.getUserList(res.data.userList));
-        dispatch(chatActions.getUserDetail(res.data.userDetail));
+        // dispatch(chatActions.getUserDetail(res.data.userDetail));
         console.log(res);
       })
       .catch(function (err) {
@@ -154,7 +189,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
 
   function disConnect() {
     console.log("disconnect");
-    stompClient = null;
+    // stompClient = null;
     setRoomId("");
   }
 
@@ -171,7 +206,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   };
 
   useEffect(() => {
-    connect();
+    // connect();
     api
       .get("/chat/user_detail", {
         params: {
@@ -185,6 +220,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       .catch(function (err) {
         console.log("list", err);
       });
+    chattingLogRef.current.scrollTop = 0;
   }, [roomId]);
 
   useEffect(() => {
@@ -192,10 +228,24 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   }, [storeUserList]);
 
   useEffect(() => {
+    connect();
     getUserList();
     setUserList(storeUserList);
   }, []);
 
+  useEffect(() => {
+    if (chattingLogRef.current && !loading) {
+      chattingLogRef.current.scrollTop = chattingLogRef.current.scrollHeight;
+    }
+  }, [msg]);
+
+  if (loading) {
+    return (
+      <div className={styles.loading_chat_area}>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className={styles.chat_area} onClick={dropDownStateChange}>
       <div className={styles.icon_wrap}>
@@ -211,23 +261,19 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
               <div className={styles.chat_user_list}>
                 <span onClick={() => setUserListShow(!userListShow)}>
                   <FontAwesomeIcon icon={faUser} className={styles.user_icon} />
-                  {storeUserList.length}
+                  {storeUserList.filter((e) => e.room_id == roomId).length}
                 </span>
                 {userListShow && (
                   <ul className={styles.chat_user_list_drop}>
-                    {storeUserList.map((n) => (
-                      <li>
-                        <img
-                          src={
-                            storeUserDetail.filter(
-                              (u) => u.u_email == n.u_mail
-                            )[0].u_image
-                          }
-                          alt=""
-                        />
-                        {n.u_name}
-                      </li>
-                    ))}
+                    {storeUserList.map(
+                      (n) =>
+                        n.room_id == roomId && (
+                          <li>
+                            <img src={n.u_image} alt="" />
+                            {n.u_name}
+                          </li>
+                        )
+                    )}
                   </ul>
                 )}
               </div>
@@ -244,19 +290,27 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       </div>
 
       <div className={styles.chatting}>
-        <div className={styles.chatting_log}>
+        <div className={styles.chatting_log} ref={chattingLogRef}>
           {lastMsg.map((item) =>
-            item.sender == user.u_email ? (
-              <MyChat item={item} />
+            roomId == item.roomId ? (
+              item.sender == user.u_email ? (
+                <MyChat item={item} />
+              ) : (
+                <OthersChat item={item} userList={userList} />
+              )
             ) : (
-              <OthersChat item={item} userList={userList} />
+              ""
             )
           )}
           {msg.map((item) =>
-            item.sender == user.u_email ? (
-              <MyChat item={item} />
+            roomId == item.roomId ? (
+              item.sender == user.u_email ? (
+                <MyChat item={item} />
+              ) : (
+                <OthersChat item={item} userList={userList} />
+              )
             ) : (
-              <OthersChat item={item} userList={userList} />
+              ""
             )
           )}
           {/* <MyChat msg={msg} /> */}

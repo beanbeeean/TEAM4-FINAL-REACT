@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../css/common/Sidebar.module.css";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import LoginModal from "./LoginModal";
 import { userLogout } from "../../../redux/user/slices/userSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
+import { logout } from "./login/APIUtils";
 
 const Sidebar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -14,10 +16,23 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.flag);
+  const { mainMenu } = useSelector((state) => state.common);
   const dispatch = useDispatch();
 
+  const logOut = () => {
+
+    logout()
+    .then(response => {
+      console.error('response: ', response);
+      dispatch(userLogout())
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  };
+
   const movePage = (num) => {
-    setCurrentMenu(num);
+    // setCurrentMenu(num);
     switch (num) {
       case 1:
         navigate("/");
@@ -27,6 +42,7 @@ const Sidebar = () => {
         break;
       case 3:
         dispatch(bookActions.fetchSearchBook({ keyword: "" }));
+        dispatch(commonActions.setBookMenu("all"));
         navigate("/checkout_books");
         break;
       case 4:
@@ -38,11 +54,23 @@ const Sidebar = () => {
         break;
     }
   };
+
+  const goHome = () => {
+    navigate("/");
+  };
+
+  useEffect(() => {
+    setCurrentMenu(mainMenu);
+  }, [mainMenu]);
   return (
     <div className={styles.side_bar}>
-      <Link to="/">
-        <img className={styles.logo} src="../imgs/logo.png" alt="" />
-      </Link>
+      {/* <Link to="/"> */}
+      <img
+        className={styles.logo}
+        src="../imgs/user_logo.png"
+        onClick={goHome}
+      />
+      {/* </Link> */}
       <ul className={styles.nav_menu}>
         <li
           onClick={() => movePage(1)}
@@ -82,12 +110,12 @@ const Sidebar = () => {
 
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       {user ? (
-        <div className={styles.logout} onClick={() => dispatch(userLogout())}>
-          LogOut
+        <div className={styles.logout} onClick={() =>logOut()}>
+          LOGOUT
         </div>
       ) : (
         <div className={styles.logout} onClick={() => setModalShow(true)}>
-          LogIn
+          LOGIN
         </div>
       )}
     </div>

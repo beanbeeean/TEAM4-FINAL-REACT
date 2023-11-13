@@ -43,6 +43,11 @@ const chkBookSlice = createSlice({
       state.chkBookDto = action.payload.dtos;
       console.log("state.chkBookDto: ", state.chkBookDto);
     },
+
+    fetchAdminChkBookDto: (state, action) => {
+      state.chkBookDto = action.payload;
+      console.log("state.chkBookDto: ", state.chkBookDto);
+    },
   },
 });
 

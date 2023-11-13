@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import styles from "../../../css/reservation/ReadRoom.module.css";
 import ReservationModal from "./ReservationModal";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
-const ReadRoomReservation = ({ seat, readRoom, setTest}) => {
+const ReadRoomReservation = ({ seat, readRoom, setTest }) => {
   const [modalShow, setModalShow] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   const checkReservation = () => {
     if (seat == null) {
-      alert("자리를 선택해주세요.");
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "자리를 선택해주세요.",
+        iconColor: "yellow",
+        showConfirmButton: true,
+        timer: 3000,
+      });
     } else {
       setModalShow(true);
     }

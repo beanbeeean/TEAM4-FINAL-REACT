@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../css/common/Home.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -15,10 +15,15 @@ import HomeCommunityItem from "../../components/common/HomeCommunityItem";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { readroomActions } from "../../../redux/readroom/slices/readroomSlice";
 import { fetchUserDtos } from "../../../redux/user/slices/userSlice";
+import { Loading } from "../../components/common/Loading";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { bookDto } = useSelector((state) => state.book);
   const { roomDto } = useSelector((state) => state.readroom);
   const { userDto } = useSelector((state) => state.user);
@@ -58,6 +63,10 @@ const Home = () => {
   const [now, setNow] = useState(todayDate());
   console.log("todd", now);
 
+  const moveToBook = () => {
+    dispatch(commonActions.setBookMenu("bestseller"));
+    navigate("/checkout_books");
+  };
   useEffect(() => {
     axios
       .get(`/admin/management/memberManagement`, {
@@ -94,6 +103,7 @@ const Home = () => {
         );
         const communityDtos = response.data;
         dispatch(communityActions.fetchCommunityDto(communityDtos));
+        setLoading(false);
       })
       .catch((error) => console.log(error));
 
@@ -105,6 +115,7 @@ const Home = () => {
         setRooms(roomDtos);
       })
       .catch((error) => console.log(error));
+    dispatch(commonActions.setMainMenu(1));
   }, []);
 
   useEffect(() => {
@@ -113,18 +124,43 @@ const Home = () => {
 
   useEffect(() => {
     setFirRooms(
-      roomDto.filter(
-        (e) =>
+      roomDto.filter((e) => {
+        if (e.re_room_no === 1 && e.re_reservation == null && e.re_state == 1) {
+          return e;
+        } else if (
           e.re_room_no === 1 &&
-          e.re_reservation == null &&
-          now < e.re_reservation
-      )
+          now > e.re_reservation &&
+          e.re_state == 1
+        ) {
+          return e;
+        }
+      })
     );
     setSndRooms(
-      roomDto.filter((e) => e.re_room_no === 2 && e.re_reservation == null)
+      roomDto.filter((e) => {
+        if (e.re_room_no === 2 && e.re_reservation == null && e.re_state == 1) {
+          return e;
+        } else if (
+          e.re_room_no === 2 &&
+          now > e.re_reservation &&
+          e.re_state == 1
+        ) {
+          return e;
+        }
+      })
     );
     setThdRooms(
-      roomDto.filter((e) => e.re_room_no === 3 && e.re_reservation == null)
+      roomDto.filter((e) => {
+        if (e.re_room_no === 3 && e.re_reservation == null && e.re_state == 1) {
+          return e;
+        } else if (
+          e.re_room_no === 3 &&
+          now > e.re_reservation &&
+          e.re_state == 1
+        ) {
+          return e;
+        }
+      })
     );
   }, [roomDto]);
 
@@ -134,9 +170,9 @@ const Home = () => {
         <div className={`${styles.recommend_books}`}>
           <div className={styles.mini_nav}>
             <span className={styles.title}>추천도서</span>
-            <Link to="/checkout_books">
-              <span className={styles.more}>+ 더보기</span>
-            </Link>
+            <span onClick={moveToBook} className={styles.more}>
+              + 더보기
+            </span>
           </div>
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
@@ -185,9 +221,24 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {communities.map(
-                  (community, idx) =>
-                    idx < 5 && <HomeCommunityItem community={community} />
+                {loading ? (
+                  <div
+                    style={{
+                      position: "relative",
+                      top: "32%",
+                      left: "240px",
+                      width: "100px",
+                    }}
+                  >
+                    <Loading />
+                  </div>
+                ) : (
+                  <>
+                    {communities.map(
+                      (community, idx) =>
+                        idx < 5 && <HomeCommunityItem community={community} />
+                    )}
+                  </>
                 )}
               </tbody>
             </table>
@@ -196,40 +247,70 @@ const Home = () => {
 
         <div className={`${styles.reservation} ${styles.block}`}>
           <div className={styles.mini_nav}>
-            <span className={styles.title}>열람실 예약 현황</span>
+            <span className={styles.title}>열람실 잔여 좌석</span>
+            <span style={{ fontSize: "12px", color: "#b1b1b1" }}>
+              {" "}
+              (현재 시간 기준)
+            </span>
             <Link to="/reservation">
               <span className={styles.more}>+ 더보기</span>
             </Link>
           </div>
-          <div className={styles.graph}>
-            <div className={styles.bar}>
-              <div className={styles.barLabel}>1열람실</div>
-              <div
-                className={styles.barFill}
-                style={{ width: `${(firRooms.length / 44) * 100}%` }}
-              >
-                <span className={styles.barValue}>{firRooms.length}/44</span>
-              </div>
-            </div>
-            <div className={styles.bar}>
-              <div className={styles.barLabel}>2열람실</div>
-              <div
-                className={styles.barFill}
-                style={{ width: `${(sndRooms.length / 44) * 100}%` }}
-              >
-                <span className={styles.barValue}>{sndRooms.length}/44</span>
-              </div>
-            </div>
-            <div className={styles.bar}>
-              <div className={styles.barLabel}>3열람실</div>
-              <div
-                className={styles.barFill}
-                style={{ width: `${(thdRooms.length / 44) * 100}%` }}
-              >
-                <span className={styles.barValue}>{thdRooms.length}/44</span>
-              </div>
-            </div>
-          </div>
+
+          <table className={styles.table_room}>
+            <thead>
+              <tr>
+                <th>1 열람실</th>
+                <th>2 열람실</th>
+                <th>3 열람실</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span>
+                    <span
+                      className={`${styles.circle} ${
+                        firRooms.length == 0
+                          ? styles.circle_red
+                          : styles.circle_green
+                      }`}
+                    ></span>
+                    {firRooms.length}석
+                    <span className={styles.total_seat}>(총 44석)</span>
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    {" "}
+                    <span
+                      className={`${styles.circle} ${
+                        sndRooms.length == 0
+                          ? styles.circle_red
+                          : styles.circle_green
+                      }`}
+                    ></span>
+                    {sndRooms.length}석
+                    <span className={styles.total_seat}>(총 44석)</span>
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    {" "}
+                    <span
+                      className={`${styles.circle} ${
+                        thdRooms.length == 0
+                          ? styles.circle_red
+                          : styles.circle_green
+                      }`}
+                    ></span>
+                    {thdRooms.length}석
+                    <span className={styles.total_seat}>(총 44석)</span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

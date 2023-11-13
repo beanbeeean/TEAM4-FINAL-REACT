@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const SearchMain = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,14 @@ const SearchMain = () => {
 
   const goBookPage = () => {
     dispatch(bookActions.fetchSearchBook({ keyword: "" }));
+    dispatch(commonActions.setBookMenu("all"));
     navigate(`/checkout_books`);
   };
 
-  const goCommunityPage = () => {
-    dispatch(communityActions.fetchSearchCommunity({ keyword: "" }));
+  const goCommunityPage = (category) => {
+    console.log("keyword =-====> ", keyword);
+    dispatch(communityActions.fetchSearchCommunity({ keyword: keyword }));
+    dispatch(commonActions.setCommunityMenu(category));
     navigate("/community");
   };
 
@@ -54,7 +58,7 @@ const SearchMain = () => {
       .catch((error) => console.log(error));
 
     axios
-      .get(`/community`, {
+      .get(`/community/`, {
         params: {
           keyword: keyword,
           category: "",
@@ -93,26 +97,30 @@ const SearchMain = () => {
                 if (idx < 5) {
                   return (
                     <div className={styles.book_wrap}>
-                      <img className={styles.book_img} src={book.b_cover} />
-                      <div className={styles.book_content_wrap}>
-                        <span className={styles.book_title}>
-                          {book.b_title}
-                        </span>
-                        <br />
-                        <span className={styles.author}>
-                          {book.b_author} 저 |{" "}
-                        </span>
-                        <span className={styles.publisher}>
-                          {book.b_publisher}
-                        </span>
-                      </div>
+                      <Link to={`/checkout_books/${book.b_no}`}>
+                        <img className={styles.book_img} src={book.b_cover} />
+                        <div className={styles.book_content_wrap}>
+                          <span className={styles.book_title}>
+                            {book.b_title}
+                          </span>
+                          <br />
+                          <span className={styles.author}>
+                            {book.b_author} 저 |{" "}
+                          </span>
+                          <span className={styles.publisher}>
+                            {book.b_publisher}
+                          </span>
+                        </div>
+                      </Link>
                     </div>
                   );
                 }
               })}
 
               <Link to="/checkout_books">
-                <span className={`${styles.block} ${styles.more}`}>+ more</span>
+                <span className={`${styles.block} ${styles.more}`}>
+                  +더보기
+                </span>
               </Link>
             </>
           )}
@@ -122,10 +130,10 @@ const SearchMain = () => {
       <div className={styles.second_wrap}>
         <div className={`${styles.community} ${styles.block}`}>
           <div className={styles.mini_nav}>
-            <span className={styles.title}>자유게시판</span>
-            <Link to="/community">
-              <li className={styles.more}>+ more</li>
-            </Link>
+            <span className={styles.title}>자유 게시판</span>
+            <li onClick={() => goCommunityPage(1)} className={styles.more}>
+              + 더보기
+            </li>
           </div>
           <div className={styles.commu_wrap}>
             <table className={styles.commu_table}>
@@ -143,7 +151,7 @@ const SearchMain = () => {
                   <tr>
                     <td colSpan="5" className={styles.no_result}>
                       "{keyword}"에 대한 검색 결과가 없습니다. <br />
-                      <span onClick={goCommunityPage}>
+                      <span onClick={() => goCommunityPage(1)}>
                         커뮤니티 페이지로 이동
                       </span>
                     </td>
@@ -157,7 +165,7 @@ const SearchMain = () => {
                           <tr>
                             <td className="text-center">
                               {community.c_category == 1
-                                ? "자유"
+                                ? "자유 게시판"
                                 : community.c_category == 2
                                 ? "도서추천"
                                 : "스터디원 모집"}
@@ -188,9 +196,9 @@ const SearchMain = () => {
         <div className={`${styles.community} ${styles.block}`}>
           <div className={styles.mini_nav}>
             <span className={styles.title}>도서 추천</span>
-            <Link to="/community">
-              <li className={styles.more}>+ more</li>
-            </Link>
+            <li className={styles.more} onClick={() => goCommunityPage(2)}>
+              + 더보기
+            </li>
           </div>
           <div className={styles.commu_wrap}>
             <table className={styles.commu_table}>
@@ -208,7 +216,7 @@ const SearchMain = () => {
                   <tr>
                     <td colSpan="5" className={styles.no_result}>
                       "{keyword}"에 대한 검색 결과가 없습니다. <br />
-                      <span onClick={goCommunityPage}>
+                      <span onClick={() => goCommunityPage(2)}>
                         커뮤니티 페이지로 이동
                       </span>
                     </td>
@@ -254,7 +262,9 @@ const SearchMain = () => {
           <div className={styles.mini_nav}>
             <span className={styles.title}>스터디원 모집</span>
             <Link to="/community">
-              <li className={styles.more}>+ more</li>
+              <li className={styles.more} onClick={() => goCommunityPage(3)}>
+                + 더보기
+              </li>
             </Link>
           </div>
           <div className={styles.commu_wrap}>
@@ -273,7 +283,7 @@ const SearchMain = () => {
                   <tr>
                     <td colSpan="5" className={styles.no_result}>
                       "{keyword}"에 대한 검색 결과가 없습니다. <br />
-                      <span onClick={goCommunityPage}>
+                      <span onClick={() => goCommunityPage(3)}>
                         커뮤니티 페이지로 이동
                       </span>
                     </td>

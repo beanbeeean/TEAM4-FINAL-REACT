@@ -1,6 +1,6 @@
 div.side_bar {
   width: 13%;
-  background-color: #fd8a69;
+  background-color: #9495ed;
   border-radius: 20px;
   height: 98vh;
   padding: 30px 0 30px 20px;
@@ -9,11 +9,17 @@ div.side_bar {
 }
 
 .logo {
-  max-width: 80%;
+  position: relative;
+  /* max-width: 80%; */
+  max-width: 140px;
+  min-width: 140px;
+  min-height: 50.85px;
+  max-height: 50.85px;
   margin: 30px 30px 110px 10px;
 }
 
 .nav_menu {
+  position: relative;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -33,30 +39,31 @@ div.side_bar {
 }
 
 .nav_menu > li:hover {
-  color: #ffeee8;
+  color: #cbccff;
   font-size: 1.1em;
 }
 
 li.on {
   background-color: #fff;
-  color: #fd8a69;
+  color: #889aff;
   font-size: 1.1em;
 }
 
 li.on:hover {
-  color: #fd8a69;
+  color: #cbccff;
 }
 
 .logout {
   position: absolute;
   bottom: 60px;
-  left: 25%;
+  left: 20%;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
 }
 
 .logout:hover {
-  color: #ffeee8;
+  color: #cbccff;
   font-size: 1.1em;
+  transition: all 0.2s;
 }

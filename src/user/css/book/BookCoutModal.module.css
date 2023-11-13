@@ -1,10 +1,10 @@
 .cout_btn {
-  background-color: #feccbe;
+  background-color: #cbccff;
   border: none;
 }
 
 .cout_btn:hover {
-  background-color: #fd8a69;
+  background-color: #889aff;
 }
 
 .cancle_btn {

@@ -48,7 +48,6 @@ const StudyRoomSettingModal = (props) => {
     setEndDate();
   }, [props.onHide]);
 
-
   return (
     <Modal
       {...props}

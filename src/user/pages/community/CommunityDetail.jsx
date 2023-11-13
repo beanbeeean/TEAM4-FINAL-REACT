@@ -3,21 +3,30 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "../../css/community/CommunityDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBackwardStep,
+  faEllipsisVertical,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import api from "../../../redux/api";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const CommunityDetail = () => {
   let id = useParams().id;
   console.log("id : ", id);
 
   const { communityDto } = useSelector((state) => state.community);
+  console.log("communityDto :: ", communityDto);
 
   const [content, setContent] = useState(null);
   const [chatRoom, setChatRoom] = useState(null);
   const [comment, setComment] = useState("");
   const [recomment, setRecomment] = useState("");
+
+  const [userName, setUserName] = useState([]);
 
   const [userInput, setUserInput] = useState(false);
 
@@ -29,16 +38,26 @@ const CommunityDetail = () => {
 
   const [rNo, setRNo] = useState(0);
   const [reIdx, setReIdx] = useState();
+  const [showBtns, setShowBtns] = useState(false);
 
   const { userDto, userDtos } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log("userDtos :: ", userDtos);
+
+  console.log("content :: ", content);
+  console.log("userName : ", userName);
 
   useEffect(() => {
     axios
       .get(`/community/${id}`)
       .then((response) => {
         setContent(response.data);
+        setUserName(
+          userDtos.filter((e) => e.u_email === response.data.u_email)
+        );
+        console.log("res:::::", response.data);
       })
       .catch((error) => console.log(error));
 
@@ -55,24 +74,54 @@ const CommunityDetail = () => {
       .catch(function (err) {
         console.log(" err", err);
       });
-  }, [id]);
+  }, []);
 
   const deleteCommunity = () => {
-    axios
-      .post(`/community/delete${id}`)
-      .then((response) => {
-        setContent(response.data);
-        alert("삭제가 완료되었습니다.");
-        navigate(-1);
-      })
-      .catch((error) => console.log(error));
+    Swal.fire({
+      title: "삭제하시겠습니까?",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "#889aff",
+      cancelButtonColor: "#dadada",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(`/community/delete${id}`)
+          .then((response) => {
+            setContent(response.data);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "삭제가 완료되었습니다.",
+              iconColor: "#889aff",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            navigate(-1);
+          })
+          .catch((error) => console.log(error));
+      }
+    });
   };
 
   const showChatHandler = () => {
-    dispatch(chatActions.clickToggle(true));
-    dispatch(
-      chatActions.getRoomId({ id: chatRoom.roomId, name: chatRoom.roomName })
-    );
+    if (chatRoom.userCount < chatRoom.userMaxCount) {
+      dispatch(chatActions.clickToggle(true));
+      dispatch(
+        chatActions.getRoomId({ id: chatRoom.roomId, name: chatRoom.roomName })
+      );
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "채팅방 정원이 가득 차 입장이 불가합니다.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
   };
 
   const write_comment = () => {
@@ -112,21 +161,32 @@ const CommunityDetail = () => {
   };
 
   const delete_comment = (no) => {
-    if (window.confirm("댓글을 삭제하시겠습니까?")) {
-      axios
-        .post(`/community/delete_comment`, {
-          r_no: no,
-        })
-        .then((response) => {
-          console.log(response.data);
-          getComments();
-          setReReply(false);
-          setReIdx();
-          setComment("");
-          setModify(false);
-        })
-        .catch((error) => console.log(error));
-    }
+    Swal.fire({
+      title: "댓글을 삭제하시겠습니까?",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "#889aff",
+      cancelButtonColor: "#dadada",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(`/community/delete_comment`, {
+            r_no: no,
+          })
+          .then((response) => {
+            console.log(response.data);
+            getComments();
+            setReReply(false);
+            setReIdx();
+            setComment("");
+            setModify(false);
+          })
+          .catch((error) => console.log(error));
+      }
+    });
   };
 
   const getComments = () => {
@@ -188,12 +248,16 @@ const CommunityDetail = () => {
 
   useEffect(() => {
     getComments();
-    console.log("userDtos :: ", userDtos);
+    // console.log("userDtos :: ", userDtos);
+    console.log("userDto :: ", userDto);
+    console.log("content :: ", content);
   }, []);
 
   useEffect(() => {
     console.log("content :: ", content);
   }, [content]);
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     console.log("comment :: ", comment);
@@ -202,25 +266,46 @@ const CommunityDetail = () => {
   return (
     <div className={styles.section_wrap}>
       {content != null && (
-        <div>
+        <div className={styles.community_detail_wrap}>
           <div className={styles.view_content}>
             <h1 className={styles.content_title}>{content.c_title}</h1>
-            <span className={styles.user_name}>{content.u_email}</span> |{" "}
+            <span className={styles.user_name}>
+              {userName[0].u_name}
+            </span> |{" "}
             <span className={styles.content_reg_date}>
               {content.c_reg_date}
             </span>
-            <span className={styles.modify_delete}>
-              <span>
-                <a className={styles.delete_btn} onClick={deleteCommunity}>
-                  삭제하기
-                </a>
+            {userDto.u_email == content.u_email && (
+              <span className={styles.c_d_btns_wrap}>
+                <FontAwesomeIcon
+                  className={styles.community_detail_btns}
+                  icon={faEllipsisVertical}
+                  onClick={() => setShowBtns(!showBtns)}
+                />
+                {showBtns && (
+                  <span className={styles.modify_delete}>
+                    <div>
+                      <Link to={`/community_modify/${id}`}>수정하기</Link>
+                    </div>
+                    <div>
+                      <a
+                        className={styles.delete_btn}
+                        onClick={deleteCommunity}
+                      >
+                        삭제하기
+                      </a>
+                    </div>
+                  </span>
+                )}
               </span>
-              <span>&nbsp;|&nbsp;</span>
-              <span>
-                <Link to={`/community_modify/${id}`}>수정하기</Link>
-              </span>
+            )}
+            <span
+              className={styles.back_to_list}
+              onClick={() => navigate("/community")}
+            >
+              목록보기
             </span>
-            <span className={styles.modify_delete}></span>
+            {/* <span className={styles.modify_delete}></span> */}
             <div
               className={styles.content_area}
               dangerouslySetInnerHTML={{ __html: content.c_content }}

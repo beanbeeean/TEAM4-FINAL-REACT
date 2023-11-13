@@ -40,7 +40,7 @@
 }
 
 .icon_clicked {
-  color: #fd8a69;
+  color: #889aff;
 }
 
 .user_cnt {
@@ -182,7 +182,7 @@
   padding: 15px 0;
   margin-bottom: 10px;
   font-weight: bold;
-  color: #fd8a69;
+  color: #889aff;
 }
 
 .chat_room_on {
@@ -203,7 +203,7 @@
 }
 
 .chatting_room .group_name:hover {
-  color: #fd8a69;
+  color: #889aff;
 }
 
 .chatting_room .group_icon {
@@ -211,7 +211,7 @@
 }
 
 .chat_room_on * {
-  color: #f59e86;
+  color: #889aff;
 }
 
 .chatting_room {
@@ -245,7 +245,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff1eb7a;
+  background-color: #efefff;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -338,7 +338,7 @@
   border-radius: 18px;
   border-top-right-radius: 0;
   /* background-color: #feccbe; */
-  background: linear-gradient(to top, #ffeeeb, #feccbe, #fff9f8);
+  background: linear-gradient(to top, #f2f3ff, #c7c8ff, #f7f8ff);
 }
 
 .others_img > img {
@@ -356,7 +356,7 @@
   padding: 10px 12px;
   border-radius: 18px;
   border-top-left-radius: 0;
-  background: linear-gradient(to top, #e6e6e675, #fff, #fff);
+  background: linear-gradient(to top, #e6e6e6c0, #fff, #fff);
 }
 
 .others .user_name {
@@ -385,4 +385,11 @@
   font-size: 12px;
   font-weight: bold;
   color: #d4d3d3;
+}
+
+.loading_chat_area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 550px;
 }

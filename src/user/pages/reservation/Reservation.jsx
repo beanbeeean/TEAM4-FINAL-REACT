@@ -4,21 +4,29 @@ import { useNavigate } from "react-router-dom/dist";
 import StudyRoom from "./StudyRoom";
 import ReadRoom from "../../components/reservation/read/ReadRoom";
 import StudyHome from "../../components/reservation/study/StudyHome";
+import { useDispatch, useSelector } from "react-redux";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const Reservation = () => {
-  const [category, setCategory] = useState(1);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { reservationMenu } = useSelector((state) => state.common);
+  // useEffect(() => {
+  //   if (category == 1) {
+  //     navigate("/reservation");
+  //   } else if (category == 2) {
+  //     navigate("/reservation");
+  //   }
+  // }, [category]);
   useEffect(() => {
-    if (category == 1) {
-      navigate("/reservation");
-    } else if (category == 2) {
-      navigate("/reservation");
-    }
-  }, [category]);
+    dispatch(commonActions.setMainMenu(2));
+    dispatch(commonActions.setReservationMenu(1));
+  }, []);
   return (
     <>
-      <ReservationHeader category={category} setCategory={setCategory} />
-      {category == 1 ? <ReadRoom /> : <StudyHome />}
+      <ReservationHeader />
+      {reservationMenu == 1 ? <ReadRoom /> : <StudyHome />}
       {/* <ReadRoom /> */}
     </>
   );

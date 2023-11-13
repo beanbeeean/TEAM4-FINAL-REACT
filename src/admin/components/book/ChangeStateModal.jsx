@@ -4,6 +4,8 @@ import stylesAdmin from "../../css/book/ChangeStateModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const ChangeStateModal = (props) => {
   const dispatch = useDispatch();
@@ -54,7 +56,14 @@ const ChangeStateModal = (props) => {
         const b_no = props.book.b_no;
         dispatch(bookActions.updateBookInfo({ b_no, cnt, bookState }));
         if (result == 1) {
-          alert("수정되었습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "상태가 변경되었습니다.",
+            iconColor: "rgb(33, 41, 66)",
+            showConfirmButton: false,
+            timer: 3000,
+          });
           props.onHide(true);
         }
       })

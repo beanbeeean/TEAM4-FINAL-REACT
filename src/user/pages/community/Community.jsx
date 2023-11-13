@@ -7,50 +7,80 @@ import CommunityItem from "../../components/community/CommunityItem";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { PaginationControl } from "react-bootstrap-pagination-control";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
+import { Loading } from "../../components/common/Loading";
 
 const Community = () => {
-  const { communityDto, searchCommunityDto } = useSelector(
+  const { communityDto, searchCommunityDto, loading } = useSelector(
     (state) => state.community
   );
-  const [category, setCategory] = useState(
-    searchCommunityDto.category === undefined ? 1 : searchCommunityDto.category
-  );
-  const [searchOption, setSearchOption] = useState(1);
+
+  console.log("communityDto :: ", communityDto);
   const dispatch = useDispatch();
+  const { communityMenu } = useSelector((state) => state.common);
+  const [searchOption, setSearchOption] = useState(1);
   const [keyword, setKeyword] = useState(
     searchCommunityDto.keyword === undefined ? "" : searchCommunityDto.keyword
   );
 
-  console.log("searchCommunityDto.keyword : ", searchCommunityDto.keyword);
-  console.log("searchCommunityDto.category : ", searchCommunityDto.category);
+  const [communities, setCommunities] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
+
+  // let arr = communityDto.communityDtos.filter(
+  //   (e) => e.c_category === communityMenu
+  // );
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // const displayedCommunities = arr.slice(startIndex, endIndex);
+  const displayedCommunities = communities.slice(startIndex, endIndex);
+  //
 
   const getCommunity = () => {
     axios
       .get(`/community`, {
         params: {
           keyword: keyword,
-          category: category,
+          category: communityMenu,
           searchOption: searchOption,
         },
       })
       .then((response) => {
-        // setCommunity(response.data.communityDtos);
-        const communityDtos = response.data;
-        dispatch(communityActions.fetchCommunityDto(communityDtos));
-        console.log("res", response.data);
+        const community = response.data;
+        dispatch(communityActions.fetchCommunityDto(community));
+        console.log("commu res :: ", response.data);
+        setCommunities(response.data.communityDtos);
+        dispatch(commonActions.setMainMenu(4));
+        dispatch(communityActions.setLoading(false));
       })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
+    dispatch(communityActions.setLoading(true));
     getCommunity();
+    dispatch(commonActions.setMainMenu(4));
+    // dispatch(commonActions.setCommunityMenu(1));
   }, []);
 
   useEffect(() => {
+    dispatch(communityActions.setLoading(true));
     getCommunity();
     // getCommunity(keyword, on, searchOption);
     console.log("바뀜");
-  }, [category]);
+    console.log("communityMenu : ", communityMenu);
+  }, [communityMenu]);
+
+  if (loading) {
+    return (
+      <div className={styles.loading_community_area}>
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -61,25 +91,25 @@ const Community = () => {
             <ul>
               <li
                 className={`${styles.board_category} ${
-                  category == 1 && styles.on
+                  communityMenu == 1 && styles.on
                 }`}
-                onClick={() => setCategory(1)}
+                onClick={() => dispatch(commonActions.setCommunityMenu(1))}
               >
                 자유 게시판
               </li>
               <li
                 className={`${styles.board_category} ${
-                  category == 2 && styles.on
+                  communityMenu == 2 && styles.on
                 }`}
-                onClick={() => setCategory(2)}
+                onClick={() => dispatch(commonActions.setCommunityMenu(2))}
               >
                 도서 추천
               </li>
               <li
                 className={`${styles.board_category} ${
-                  category == 3 && styles.on
+                  communityMenu == 3 && styles.on
                 }`}
-                onClick={() => setCategory(3)}
+                onClick={() => dispatch(commonActions.setCommunityMenu(3))}
               >
                 스터디원 모집
               </li>
@@ -128,12 +158,30 @@ const Community = () => {
             </tr>
           </thead>
           <tbody>
-            {communityDto?.communityDtos?.map((community) => (
-              <CommunityItem community={community} />
-            ))}
+            {communities.length == 0 ? (
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                게시물이 없습니다.
+              </td>
+            ) : (
+              <>
+                {displayedCommunities.map((community) => (
+                  <CommunityItem community={community} />
+                ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>
+      <PaginationControl
+        page={page}
+        between={4}
+        total={communities.length}
+        limit={itemsPerPage}
+        changePage={(page) => {
+          setPage(page);
+        }}
+        ellipsis={1}
+      />
     </>
   );
 };

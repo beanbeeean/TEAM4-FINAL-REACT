@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { updateUserState } from "../../../redux/user/slices/userSlice";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const AdminAdminListItem = ({ admin }) => {
   const dispatch = useDispatch();
@@ -27,7 +29,14 @@ const AdminAdminListItem = ({ admin }) => {
         console.log("response.data : ", response.data);
         dispatch(updateUserState(props.u_no));
         if (result == 1) {
-          alert("상태가 변경되었습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "상태가 변경되었습니다.",
+            iconColor: "rgb(33, 41, 66)",
+            showConfirmButton: false,
+            timer: 3000,
+          });
         }
       })
       .catch((error) => console.log(error));

@@ -6,6 +6,8 @@ import { communityActions } from "../../../redux/community/slices/communitySlice
 import axios from "axios";
 import AdminCommunityListNav from "./AdminCommunityListNav";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const CommunityManagement = () => {
   const [page, setPage] = useState(1);
@@ -34,7 +36,14 @@ const CommunityManagement = () => {
         console.log("response.data : ", response.data);
         dispatch(communityActions.updateState(props.c_no));
         if (result == 1) {
-          alert("상태가 변경되었습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "상태가 변경되었습니다.",
+            iconColor: "rgb(33, 41, 66)",
+            showConfirmButton: false,
+            timer: 3000,
+          });
           // props.onHide(true);
         }
       })
@@ -128,7 +137,7 @@ const CommunityManagement = () => {
         page={page}
         between={4}
         total={communities.length}
-        limit={10}
+        limit={itemsPerPage}
         changePage={(page) => {
           setPage(page);
         }}

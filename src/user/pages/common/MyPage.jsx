@@ -4,13 +4,13 @@ import MypageProfile from "../../components/mypage/MypageProfile";
 import MypageReservation from "../../components/mypage/MypageReservation";
 import MypageBook from "../../components/mypage/MypageBook";
 import MypageCommunity from "../../components/mypage/MypageCommunity";
-import MypageChat from "../../components/mypage/MypageChat";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
@@ -52,6 +52,7 @@ const MyPage = () => {
         dispatch(communityActions.fetchCommunityDto(communityDtos));
       })
       .catch((error) => console.log(error));
+    dispatch(commonActions.setMainMenu(5));
   }, []);
 
   return (
@@ -76,7 +77,7 @@ const MyPage = () => {
               className={`${styles.board_category} ${on == 3 && styles.on}`}
               onClick={() => setOn(3)}
             >
-              CHECK-OUT BOOKS
+              RENTAL BOOKS
             </li>
             <li
               className={`${styles.board_category} ${on == 4 && styles.on}`}

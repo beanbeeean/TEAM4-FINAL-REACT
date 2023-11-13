@@ -22,20 +22,21 @@ const ReadRoom = () => {
   };
 
   const seatHandle = (event) => {
-    axios.get('http://localhost:8090/read/seat?')
-    .then(response => {
-      console.log(response.data);
-      setTest(response.data);
-      // dispatch(seatChk());
-    })
-    .catch(error => {
-      console.error('Error fetching data: ', error);
-    });
-  }
+    axios
+      .get("http://localhost:8090/read/seat?")
+      .then((response) => {
+        console.log(response.data);
+        setTest(response.data);
+        // dispatch(seatChk());
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  };
 
   useEffect(() => {
     seatHandle();
-  }, [readRoom] );
+  }, [readRoom]);
 
   return (
     <div className={styles.readroom_wrap}>
@@ -65,10 +66,22 @@ const ReadRoom = () => {
           3 열람실
         </div>
       </div>
-      <div className={styles.readroom_content}>
-        {test==null ? undefined : <ReadRoomMap readRoom={readRoom-1} setSeat={setSeat} seat={seat} test={test}/>}
-        <ReadRoomReservation seat={seat} readRoom={readRoom} setTest={setTest}/>
-      </div>
+
+      {test == null ? undefined : (
+        <div className={styles.readroom_content}>
+          <ReadRoomMap
+            readRoom={readRoom - 1}
+            setSeat={setSeat}
+            seat={seat}
+            test={test}
+          />
+          <ReadRoomReservation
+            seat={seat}
+            readRoom={readRoom}
+            setTest={setTest}
+          />
+        </div>
+      )}
     </div>
   );
 };

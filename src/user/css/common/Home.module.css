@@ -28,7 +28,7 @@
 .title {
   font-size: 1.5em;
   font-weight: bold;
-  color: #fd8a69;
+  color: #000;
   margin-bottom: 10px;
 }
 
@@ -42,13 +42,14 @@
 }
 
 .community {
-  width: 750px;
+  width: 650px;
   margin-right: 30px;
 }
 
 .more {
   float: right;
   color: #bababa;
+  cursor: pointer;
 }
 
 .books_wrap {
@@ -62,7 +63,6 @@
   padding: 15px;
   color: #bababa;
   margin-left: 20px;
-  background-color: #ffeee8;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
 }
@@ -74,8 +74,7 @@
 
 .table_wrap {
   width: 100%;
-  border: 1px solid #feccbe;
-  border-radius: 10px;
+  /* border: 1px solid #dadada; */
   height: 300px;
 }
 
@@ -85,17 +84,9 @@
 }
 
 table.board_table th {
-  background-color: #feccbe;
+  background-color: #dadada;
   color: #ffffff;
-  padding: 12px 0;
-}
-
-table.board_table th:nth-child(1) {
-  border-radius: 10px 0 0 0;
-}
-
-table.board_table th:nth-child(4) {
-  border-radius: 0 10px 0 0;
+  padding: 10px 0;
 }
 
 table.board_table th:nth-child(2) {
@@ -113,13 +104,12 @@ table.board_table td {
 }
 
 table.board_table tbody tr {
-  border-top: 1px solid #feccbe;
+  border-top: 1px solid #dadada;
 }
 
 .graph {
   width: 600px;
   height: 300px;
-  border: 1px solid #feccbe;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -135,11 +125,78 @@ table.board_table tbody tr {
 }
 
 .barFill {
-  background-color: #feccbe;
+  background-color: #889aff;
   height: 25px;
   align-items: center;
   border-radius: 0px 5px 5px 0px;
-  text-align: right;
-  line-height: 25px;
-  color: #ffffff;
+  /* text-align: right; */
+  /* line-height: 25px; */
+  color: #000;
+}
+
+.table_room {
+  width: 600px;
+  text-align: center;
+  /* border-collapse: separate; */
+}
+
+.table_room thead {
+  background-color: #dadada;
+  border: 1px solid #dadada;
+}
+
+.table_room thead th {
+  padding: 10px;
+  color: #fff;
+  width: 33%;
+  /* border-right: 1px solid #c5c4c4; */
+}
+
+.table_room tbody {
+  height: 250px;
+}
+
+.table_room td {
+  width: 33%;
+  font-size: 35px;
+  /* border-left: 1px solid #c5c4c4; */
+  /* border-bottom: 1px solid #c5c4c4; */
+}
+
+.table_room td > span {
+  width: 100%;
+  height: 180px;
+  display: inline-block;
+  line-height: 180px;
+  /* border-left: 1px solid #c5c4c4; */
+}
+
+.table_room td:nth-child(2) > span {
+  border-left: 1px solid #e9e9e9;
+  border-right: 1px solid #e9e9e9;
+}
+
+.circle {
+  width: 25px;
+  height: 25px;
+
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.circle_red {
+  background-color: red;
+}
+
+.circle_yellow {
+  background-color: yellow;
+}
+
+.circle_green {
+  background-color: greenyellow;
+}
+
+.total_seat {
+  font-size: 12px;
 }

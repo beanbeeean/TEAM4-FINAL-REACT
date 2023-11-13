@@ -22,7 +22,7 @@ const OthersChat = ({ item, userList }) => {
           <div className={styles.others_img}>
             <img
               src={
-                storeUserDetail.filter((u) => u.u_email == user[0].u_mail)[0]
+                storeUserList.filter((u) => u.u_email == user[0].u_mail)[0]
                   .u_image
               }
               alt=""

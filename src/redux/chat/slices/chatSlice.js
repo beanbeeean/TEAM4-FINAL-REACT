@@ -8,6 +8,7 @@ const initialState = {
   isClick: false,
   storeRoomId: "",
   storeRoomName: "",
+  loading: false,
 };
 
 const chatSlice = createSlice({
@@ -31,6 +32,9 @@ const chatSlice = createSlice({
     getRoomId: (state, action) => {
       state.storeRoomId = action.payload.id;
       state.storeRoomName = action.payload.name;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
   },
 });

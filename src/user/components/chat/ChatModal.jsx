@@ -55,10 +55,10 @@ const ChatModal = () => {
     setRoomName(storeRoomName);
   }, [storeRoomId]);
 
-  useEffect(() => {
-    setRoomId("");
-    setRoomId(roomId);
-  }, [roomId]);
+  // useEffect(() => {
+  //   setRoomId("");
+  //   setRoomId(roomId);
+  // }, [roomId]);
 
   return (
     <>

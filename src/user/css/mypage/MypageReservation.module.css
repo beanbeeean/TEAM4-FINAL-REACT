@@ -1,6 +1,6 @@
 div.reserve_wrap {
   width: 1242px;
-  background-color: #ffeee8;
+  background-color: #eeeeee;
   padding: 30px 50px;
   display: inline-block;
   border-radius: 30px;
@@ -40,7 +40,7 @@ div.reserve_tap_item {
   text-align: center;
   cursor: pointer;
   line-height: 70px;
-  background-color: #feccbe;
+  background-color: #8a8989;
   display: inline-block;
 }
 
@@ -48,32 +48,36 @@ div.reserve_tap_item {
   margin-right: 298px;
 }
 
-div.reserve_tap_item.current_room {
+/* div.reserve_tap_item.current_room {
   background-color: #feccbe;
   font-weight: bold;
+} */
+
+.reserve_list {
+  display: flex;
 }
 
 div.reserve_seat_content {
   padding: 30px;
   width: 555px;
   height: 800px;
-  background-color: #feccbe;
+  background-color: #8a8989;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
+  overflow-y: scroll;
 }
 
 div.reserve_studyroom_content {
   padding: 30px;
   width: 555px;
   height: 800px;
-  position: relative;
-  bottom: 800px;
-  left: 578px;
-  background-color: #feccbe;
+  margin-left: 23px;
+  background-color: #8a8989;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
+  overflow-y: scroll;
 }
 
 .common .items {
@@ -83,7 +87,7 @@ div.reserve_studyroom_content {
 .common .reserve_date {
   vertical-align: 35px;
   font-weight: bold;
-  color: #fd8a69;
+  color: rgb(197, 223, 231);
 }
 
 .common .detail_content {
@@ -97,9 +101,9 @@ div.reserve_studyroom_content {
 
 .detail_content .room_num,
 .detail_content .seat_num {
-  font-size: 0.9em;
+  font-size: 0.85em;
   margin-right: 5px;
-  color: #5c5c5c;
+  color: #ffffff;
 }
 
 .pin {
@@ -127,4 +131,10 @@ div.reserve_studyroom_content {
   top: 0;
   left: 50%; /* 가운데 정렬 */
   transform: translateX(-50%); /* 가운데 정렬 */
+}
+
+.no_result {
+  color: #fff;
+  font-size: 1.2em;
+  margin-top: 20px;
 }
