@@ -109,6 +109,7 @@
 .more {
   float: right;
   color: #bababa;
+  cursor: pointer;
 }
 
 .commu_wrap {
@@ -165,4 +166,5 @@ table.commu_table tbody tr {
 .no_result span {
   color: #bababa;
   text-decoration: underline;
+  cursor: pointer;
 }

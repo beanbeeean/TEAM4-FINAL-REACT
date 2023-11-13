@@ -49,6 +49,7 @@
 .more {
   float: right;
   color: #bababa;
+  cursor: pointer;
 }
 
 .books_wrap {
