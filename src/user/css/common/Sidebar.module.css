@@ -1,6 +1,6 @@
 div.side_bar {
   width: 13%;
-  background-color: #fd8a69;
+  background-color: #d6f198;
   border-radius: 20px;
   height: 98vh;
   padding: 30px 0 30px 20px;
@@ -39,12 +39,12 @@ div.side_bar {
 
 li.on {
   background-color: #fff;
-  color: #fd8a69;
+  color: #d6f198;
   font-size: 1.1em;
 }
 
 li.on:hover {
-  color: #fd8a69;
+  color: #d6f198;
 }
 
 .logout {

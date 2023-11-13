@@ -2,6 +2,9 @@ import axios from "axios";
 import { API_BASE_URL, ACCESS_TOKEN } from "./";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../../redux/user/slices/userSlice";
+import { myPageAction } from "../../../../redux/user/slices/myPageSlice";
+import { commonActions } from "../../../../redux/common/slices/commonSlice";
+import { Alert } from "react-bootstrap";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -36,19 +39,30 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      console.log("Response !!:", error.respons);
-      refresh()
+    console.error('response.error : ',error.response.status);
+    if (error.response && error.response.status === 403) {
+      console.error('response403: ',error.response.status);
+      alert("정지된 사용자입니다.");
+    }
+    else if (error.response && error.response.status === 401) {
+      console.log("Response !!:", error.response);
+      return refresh()
       .then(response => {
-        console.error('response: ', response);
+        console.error('response401: ', response);
+        const newAccessToken = response.data.accessToken;
         localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
-        window.location.reload();
+        error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        console.error('response401: ');
+        return axios(error.config);
       })
       .catch(error2 => {
         console.error('Error fetching data: ', error2);
       });
     }
-    return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
+    else {
+      console.error('Error fetching data2: ', error);
+      return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
+    }
   }
 );
 
@@ -102,8 +116,10 @@ export function login(loginRequest) {
   });
 }
 
-export function logout(loginRequest) {
-  return axiosInstance.post("/auth/signout", loginRequest);
+export function logout(tokenRefreshRequest) {
+  return axiosInstance.post("/auth/signout", tokenRefreshRequest, {
+    withCredentials: true,
+  });
 }
 
 export function signup(signupRequest) {

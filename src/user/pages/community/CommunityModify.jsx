@@ -40,6 +40,9 @@ const formats = [
   "align",
   "color",
   "background",
+  "float",
+  "height",
+  "width",
 ];
 
 const CommunityModify = () => {
@@ -55,11 +58,10 @@ const CommunityModify = () => {
   console.log("modifyCommunity :: ", modifyCommunity);
 
   const [htmlString, setHtmlString] = useState(modifyCommunity[0].c_content);
-  // console.log("htmlString :: ", htmlString);
+  console.log("htmlString :: ", htmlString);
   const [selection, setSelection] = useState(1);
 
   const navigate = useNavigate();
-  const [quillValue, setQuillValue] = useState("");
 
   const [title, setTitle] = useState(modifyCommunity[0].c_title);
   // const [content, setContent] = useState(modifyCommunity[0].c_content);
@@ -145,8 +147,7 @@ const CommunityModify = () => {
           theme="snow"
           modules={modules}
           formats={formats}
-          value={htmlString}
-          // defaultValue={htmlString}
+          value={modifyCommunity[0].c_content}
           onChange={handleQuillChange}
         />
       </div>

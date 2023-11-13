@@ -84,3 +84,47 @@
 .btn_delete span:hover {
   color: #3f3f3f;
 }
+
+.filebox {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.filebox .upload_name {
+  display: inline-block;
+  height: 30px;
+  padding: 0 10px;
+  vertical-align: middle;
+
+  border: 1px solid #dddddd;
+  width: 65%;
+  color: #999999;
+  font-size: 12px;
+}
+
+.filebox label {
+  display: inline-block;
+  padding: 0 5px;
+  line-height: 30px;
+  color: #fff;
+  vertical-align: middle;
+  background-color: #c5c4c4;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 11px;
+  width: 30%;
+}
+
+.filebox label:hover {
+  font-weight: bold;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}

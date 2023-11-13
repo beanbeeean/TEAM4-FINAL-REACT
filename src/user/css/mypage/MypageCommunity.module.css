@@ -6,23 +6,22 @@
   padding-left: 20px;
 }
 
-.commu_header .write_btn {
+.commu_header button.write_btn {
   position: absolute;
-  left: 0;
-  top: 50px;
-  border: 0;
-  padding: 5px;
   width: 100px;
+  border: 0;
+  left: 1120px;
+  padding: 5px;
   background-color: #fff;
   cursor: pointer;
 }
 
-.commu_header .write_btn * {
+button.write_btn * {
   color: #969595;
   font-weight: bold;
 }
 
-.commu_header .write_btn:hover * {
+button.write_btn:hover * {
   color: #242424;
 }
 
@@ -33,7 +32,7 @@
 div.write_search_box {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 30px;
+
   position: relative;
 }
 
@@ -82,8 +81,12 @@ div.search_bar > input {
 }
 
 div.board_content {
-  min-height: 82vh;
-  max-height: 82vh;
+  border-radius: 10px;
+  background-color: #fafafa;
+  padding: 20px;
+  min-height: 85vh;
+  max-height: 85vh;
+  margin-bottom: 20px;
 }
 
 table.board_table {

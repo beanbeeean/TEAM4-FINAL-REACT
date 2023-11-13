@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
@@ -52,6 +53,7 @@ const MyPage = () => {
         dispatch(communityActions.fetchCommunityDto(communityDtos));
       })
       .catch((error) => console.log(error));
+    dispatch(commonActions.setMainMenu(5));
   }, []);
 
   return (
@@ -76,7 +78,7 @@ const MyPage = () => {
               className={`${styles.board_category} ${on == 3 && styles.on}`}
               onClick={() => setOn(3)}
             >
-              CHECK-OUT BOOKS
+              RENTAL BOOKS
             </li>
             <li
               className={`${styles.board_category} ${on == 4 && styles.on}`}

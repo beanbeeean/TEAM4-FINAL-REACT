@@ -123,8 +123,9 @@ div.board_content {
   border-radius: 10px;
   background-color: #fafafa;
   padding: 20px;
-  min-height: 82vh;
-  max-height: 82vh;
+  min-height: 85vh;
+  max-height: 85vh;
+  margin-bottom: 20px;
 }
 
 table.board_table {

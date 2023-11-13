@@ -66,3 +66,16 @@ div.carousel {
   width: 1300px;
   height: 600px;
 }
+
+a.page-link {
+  color: #fd8a69;
+}
+
+a.page-link:hover {
+  color: #fd8a69;
+}
+
+.active > .page-link {
+  background-color: #fd8a69;
+  border-color: #fd8a69;
+}

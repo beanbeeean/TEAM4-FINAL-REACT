@@ -36,10 +36,8 @@ const OAuth2RedirectHandler = () => {
         });
         navigate("/", { state: { from: location } });
         return null;
-    } else {
-        navigate("/", { state: { from: location, error: error } });
-        return null;
-    }
+    } 
+    return null;
 };
 
 export default OAuth2RedirectHandler;

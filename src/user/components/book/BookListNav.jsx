@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import styles from "../../css/book/BookListNav.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
-const BookListNav = ({ onNavStateChange, onSearchBookChange }) => {
+const BookListNav = ({ bookMenu, onNavStateChange, onSearchBookChange }) => {
   const [keyword, setKeyword] = useState("");
-  const [selectedNav, setSelectedNav] = useState("all");
-
+  // const [selectedNav, setSelectedNav] = useState("all");
+  const dispatch = useDispatch();
+  console.log("bookMenu : ", bookMenu);
   const handleNavClick = (nav) => {
-    setSelectedNav(nav);
+    // setSelectedNav(nav);
+    dispatch(commonActions.setBookMenu(nav));
     onNavStateChange(nav);
   };
 
@@ -21,19 +24,19 @@ const BookListNav = ({ onNavStateChange, onSearchBookChange }) => {
         <ul className={styles.booklist_nav}>
           <li
             onClick={() => handleNavClick("all")}
-            className={selectedNav === "all" ? styles.nav_selected : ""}
+            className={bookMenu === "all" ? styles.nav_selected : ""}
           >
             종합
           </li>
           <li
             onClick={() => handleNavClick("new")}
-            className={selectedNav === "new" ? styles.nav_selected : ""}
+            className={bookMenu === "new" ? styles.nav_selected : ""}
           >
             신간
           </li>
           <li
             onClick={() => handleNavClick("bestseller")}
-            className={selectedNav === "bestseller" ? styles.nav_selected : ""}
+            className={bookMenu === "bestseller" ? styles.nav_selected : ""}
           >
             베스트셀러
           </li>

@@ -4,7 +4,6 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { adminReadRoomLog } from "../../../user/components/common/login/APIUtils";
 
 const ReadRoomReservationList = () => {
-
   const [page, setPage] = useState(1);
   const [readRoom, setReadRoom] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -28,22 +27,21 @@ const ReadRoomReservationList = () => {
     .catch((error) => console.log(error));
   }, [keyword]);
 
-
   return (
     <div>
-    <table className={stylesAdmin.reservation_seat_table}>
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>이메일</th>
-          <th>열람실</th>
-          <th>좌석</th>
-          <th>입실 시간</th>
-          <th>퇴실 시간</th>
-        </tr>
-      </thead>
-      <tbody>
-        {displayedLists.map((item)=> (
+      <table className={stylesAdmin.reservation_seat_table}>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>이메일</th>
+            <th>열람실</th>
+            <th>좌석</th>
+            <th>입실 시간</th>
+            <th>퇴실 시간</th>
+          </tr>
+        </thead>
+        <tbody>
+          {displayedLists.map((item) => (
             <tr className={stylesAdmin.reservation_list}>
               <td>1</td>
               <td>{item.l_email}</td>
@@ -52,17 +50,15 @@ const ReadRoomReservationList = () => {
               <td>{item.l_reg_date.substring(0, 16)}</td>
               <td>{item.l_end_date.substring(0, 16)}</td>
             </tr>
-        ))
-        }
-      </tbody>
-      
-    </table>
-    <br/>
-    <PaginationControl
+          ))}
+        </tbody>
+      </table>
+      <br />
+      <PaginationControl
         page={page}
         between={4}
         total={readRoom.length}
-        limit={10}
+        limit={itemsPerPage}
         changePage={(page) => {
           setPage(page);
         }}

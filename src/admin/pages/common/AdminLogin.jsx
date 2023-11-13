@@ -41,7 +41,6 @@ const AdminLogin = () => {
         navigate("/admin/management");
       })
       .catch((error) => {
-        alert((error && error.message) || "로그인에 실패하였습니다.");
         dispatch(userLogout());
       });
   };
@@ -61,7 +60,7 @@ const AdminLogin = () => {
           />
           <h5>Sign in to your account.</h5>
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="ID"
             value={email}

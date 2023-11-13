@@ -2,8 +2,12 @@
   margin: 0 50px;
 }
 
+.community_detail_wrap {
+  position: relative;
+}
+
 .view_content {
-  margin-top: 50px;
+  margin-top: 30px;
   width: 100%;
 }
 
@@ -22,8 +26,54 @@ span.user_name {
   color: #989898;
 }
 
-span.modify_delete {
+.community_detail_btns {
+  /* float: right; */
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.back_to_list {
   float: right;
+  margin-right: 15px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.c_d_btns_wrap {
+  float: right;
+  position: relative;
+  /* display: flex;
+  justify-content: flex-end; */
+}
+
+span.modify_delete {
+  /* float: right; */
+  position: absolute;
+  width: 100px;
+
+  text-align: center;
+  right: 0;
+  top: 25px;
+  border: 1px solid #dadada;
+  background-color: #fff;
+  z-index: 100;
+  border-radius: 15px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.modify_delete > div:first-child {
+  border-bottom: 1px solid #dadada;
+}
+
+.modify_delete > div {
+  padding: 15px;
+}
+
+.modify_delete > div:hover {
+  background-color: #eeeaea;
 }
 
 span.modify_delete a {

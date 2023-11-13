@@ -3,9 +3,25 @@ import stylesAdmin from "../../css/common/AdminSidebar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../../redux/user/slices/userSlice";
 import { useNavigate } from "react-router";
+import { logout } from "../../../user/components/common/login/APIUtils";
 
 const AdminSidebar = ({ menu, setMenu }) => {
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const logOut = () => {
+
+    logout()
+    .then(response => {
+      console.error('response: ', response);
+      dispatch(userLogout())
+      navigate("/admin/login")
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  };
 
   return (
     <div className={stylesAdmin.side_bar}>
@@ -51,7 +67,7 @@ const AdminSidebar = ({ menu, setMenu }) => {
       </ul>
       <div
         className={stylesAdmin.logout}
-        onClick={() => navigate("/admin/login")}
+        onClick={() => logOut()}
       >
         LogOut
       </div>

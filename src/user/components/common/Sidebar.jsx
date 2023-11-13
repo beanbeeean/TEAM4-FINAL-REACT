@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../css/common/Sidebar.module.css";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -7,8 +7,9 @@ import LoginModal from "./LoginModal";
 import { userLogout } from "../../../redux/user/slices/userSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
-import { refresh } from "./login/APIUtils";
+import { logout, refresh } from "./login/APIUtils";
 import { ACCESS_TOKEN } from "./login";
+import { commonActions } from "../../../redux/common/slices/commonSlice";
 
 const Sidebar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -18,15 +19,15 @@ const Sidebar = () => {
   const user = useSelector((state) => state.user.flag);
 
   const email = useSelector((state) => state.user.userDto);
+  const { mainMenu } = useSelector((state) => state.common);
   const dispatch = useDispatch();
 
-  const test = () => {
-    console.log(email.u_email);
+  const logOut = () => {
 
-    refresh({email:email.u_email})
+    logout()
     .then(response => {
       console.error('response: ', response);
-      localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
+      dispatch(userLogout())
     })
     .catch(error => {
       console.error('Error fetching data: ', error);
@@ -34,7 +35,7 @@ const Sidebar = () => {
   };
 
   const movePage = (num) => {
-    setCurrentMenu(num);
+    // setCurrentMenu(num);
     switch (num) {
       case 1:
         navigate("/");
@@ -44,6 +45,7 @@ const Sidebar = () => {
         break;
       case 3:
         dispatch(bookActions.fetchSearchBook({ keyword: "" }));
+        dispatch(commonActions.setBookMenu("all"));
         navigate("/checkout_books");
         break;
       case 4:
@@ -55,6 +57,10 @@ const Sidebar = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    setCurrentMenu(mainMenu);
+  }, [mainMenu]);
   return (
     <div className={styles.side_bar}>
       <Link to="/">
@@ -100,11 +106,8 @@ const Sidebar = () => {
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       {user ? (
         <div>
-        <div className={styles.logout} onClick={() => dispatch(userLogout())}>
+        <div className={styles.logout} onClick={() =>logOut()}>
           LogOut
-        </div>
-        <div onClick={() => test()}>
-          refresh
         </div>
         </div>
       ) : (
