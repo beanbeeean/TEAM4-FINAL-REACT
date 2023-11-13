@@ -4,7 +4,6 @@ import MypageProfile from "../../components/mypage/MypageProfile";
 import MypageReservation from "../../components/mypage/MypageReservation";
 import MypageBook from "../../components/mypage/MypageBook";
 import MypageCommunity from "../../components/mypage/MypageCommunity";
-import MypageChat from "../../components/mypage/MypageChat";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { useDispatch } from "react-redux";
