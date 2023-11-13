@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReadRoomSetting.module.css";
 import axios from "axios";
-import { adminReadRoom } from "../../../user/components/common/login/APIUtils";
 import { adminSeat } from "../../../user/components/common/login/APIUtils";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
@@ -42,9 +41,8 @@ const ReadRoomSetting = () => {
         setSeat(0);
       })
       .catch((error) => console.log(error));
+  };
 
-  }
-    
   const floorSelect = (num) => {
     setSeat();
     setActiveTap(num);

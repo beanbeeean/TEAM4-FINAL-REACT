@@ -53,14 +53,14 @@ const ReservationManagement = () => {
       <div className={stylesAdmin.rm_content}>
         {tapActive ? (
           smallTap ? (
-            <ReadRoomReservationList />
+             <ReadRoomReservationList />
           ) : (
-            <StudyRoomReservationList />
+             <StudyRoomReservationList />
           )
         ) : smallTap ? (
-          <ReadRoomSetting />
+           <ReadRoomSetting />
         ) : (
-          <StudyRoomSetting />
+           <StudyRoomSetting />
         )}
       </div>
     </div>

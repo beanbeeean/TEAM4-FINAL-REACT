@@ -9,8 +9,6 @@ import "flatpickr/dist/themes/material_blue.css";
 import stylesAdmin from "../../css/reservation/StudyRoomSetting.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
-import { adminStudyRoom } from "../../../user/components/common/login/APIUtils";
-
 
 const getToday = () => {
   let today = new Date();
@@ -23,25 +21,6 @@ const getToday = () => {
 const StudyRoomSettingModal = (props) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  const roomSetting = () => {
-
-      const sDate = new Date(startDate);
-      const eDate = new Date(endDate);
-      const sDateYMD = sDate.toISOString().slice(0, 10).replace('T', ' ').replace(/-/g, "");
-      const sDateTime = sDate.toISOString().slice(11, 13).replace('T', ' ');
-      const eDateYMD = eDate.toISOString().slice(0, 10).replace('T', ' ').replace(/-/g, "");
-      const eDateTime = eDate.toISOString().slice(11, 13).replace('T', ' ');
-
-      alert(""+sDateYMD+ "  "+ sDateTime + " !!! "+eDateTime);
-
-      adminStudyRoom({sDateYMD,sDateTime,eDateYMD,eDateTime,roomName:props.roomName})
-      .then((response) => {
-        props.onHide();
-      })
-      .catch((error) => console.log(error));
-
-
-  }
 
   useEffect(() => {
     setStartDate();
@@ -141,14 +120,14 @@ const StudyRoomSettingModal = (props) => {
               />
             </Col>
           </Form.Group>
-          {/* <Form.Group as={Row} controlId="unableDate" className="mb-3">
+          <Form.Group as={Row} controlId="unableDate" className="mb-3">
             <Form.Label column sm={3}>
               설정일
             </Form.Label>
             <Col className={stylesAdmin.setting_date} sm={9}>
               <Form.Control
                 type="text"
-                defaultValue={time}
+                defaultValue="2023.10.26 08:00 ~ 2023.11.01 08:00"
                 readOnly
               />
               <FontAwesomeIcon
@@ -156,11 +135,11 @@ const StudyRoomSettingModal = (props) => {
                 icon={faCircleXmark}
               />
             </Col>
-          </Form.Group> */}
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={() => roomSetting()}>저장</Button>
+        <Button variant="primary">저장</Button>
         <Button variant="secondary" onClick={props.onHide}>
           닫기
         </Button>

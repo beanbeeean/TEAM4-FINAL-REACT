@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReservationManagement.module.css";
 import { PaginationControl } from "react-bootstrap-pagination-control";
-import { adminReadRoomLog } from "../../../user/components/common/login/APIUtils";
 import { adminReadRoom } from "../../../user/components/common/login/APIUtils";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
@@ -18,16 +17,6 @@ const ReadRoomReservationList = () => {
   const displayedLists = readRoom.slice(startIndex, endIndex);
 
   useEffect(() => {
-    adminReadRoomLog({keyword})
-    .then((response) => {
-      const result = response.data;
-      console.log("response.data : ", response.data);
-      setReadRoom(response.data);
-      if (result == 1) {
-        alert("상태가 변경되었습니다.");
-      }
-    })
-    .catch((error) => console.log(error));
     adminReadRoom({ keyword })
       .then((response) => {
         const result = response.data;
