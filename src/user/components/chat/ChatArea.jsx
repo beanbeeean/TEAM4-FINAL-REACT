@@ -39,13 +39,14 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     var socket = new SockJS("/ws-stomp");
     stompClient = Stomp.over(socket);
 
-    dispatch(chatActions.setLoading(true));
+    // dispatch(chatActions.setLoading(true));
     stompClient.connect({}, onConnected, console.log("error"));
     console.log("[connect] stompClient : ", stompClient);
   }
 
   function onConnected() {
-    stompClient.subscribe("/sub/chat/room/" + roomId, onMessageReceived);
+    // stompClient.subscribe("/sub/chat/room/" + roomId, onMessageReceived);
+    stompClient.subscribe("/sub/chat/room/", onMessageReceived);
 
     stompClient.send(
       "/pub/chat/enterUser",
@@ -78,6 +79,9 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   function onMessageReceived(payload) {
     let arr = [];
     var chat = JSON.parse(payload.body);
+    // if (chat.roomId !== roomId) {
+    //   return;
+    // }
     console.log("=========================");
     console.log("chat은 이거야", chat);
     let type = chat.type;
@@ -91,11 +95,15 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     } else if (type == "ENTER") {
       if (test == user.u_email && !chat.first) {
         lastMsg.push(chat);
-        arr = lastMsg.filter((c) => c.roomId == roomId);
-
-        setLastMsg(arr);
+        // arr = lastMsg.filter((c) => c.roomId == roomId);
+        let sortArr = lastMsg.sort((a, b) => {
+          if (a.idx > b.idx) return 1;
+          if (a.idx < b.idx) return -1;
+          return 0;
+        });
+        setLastMsg(sortArr);
         console.log("lastMSG : ", lastMsg);
-        getUserList();
+        // getUserList();
       }
 
       if (chat.sender === "ADMIN" && chat.first) {
@@ -116,7 +124,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
         setMsg([...msg]);
       }
     }
-    dispatch(chatActions.setLoading(false));
+    // dispatch(chatActions.setLoading(false));
   }
 
   function getUserList() {
@@ -128,7 +136,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       })
       .then(function (res) {
         dispatch(chatActions.getUserList(res.data.userList));
-        dispatch(chatActions.getUserDetail(res.data.userDetail));
+        // dispatch(chatActions.getUserDetail(res.data.userDetail));
         console.log(res);
       })
       .catch(function (err) {
@@ -159,7 +167,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
 
   function disConnect() {
     console.log("disconnect");
-    stompClient = null;
+    // stompClient = null;
     setRoomId("");
   }
 
@@ -176,7 +184,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   };
 
   useEffect(() => {
-    connect();
+    // connect();
     api
       .get("/chat/user_detail", {
         params: {
@@ -197,17 +205,18 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   }, [storeUserList]);
 
   useEffect(() => {
+    connect();
     getUserList();
     setUserList(storeUserList);
   }, []);
 
-  if (loading) {
-    return (
-      <div className={styles.loading_chat_area}>
-        <Loading />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className={styles.loading_chat_area}>
+  //       <Loading />
+  //     </div>
+  //   );
+  // }
   return (
     <div className={styles.chat_area} onClick={dropDownStateChange}>
       <div className={styles.icon_wrap}>
@@ -223,23 +232,19 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
               <div className={styles.chat_user_list}>
                 <span onClick={() => setUserListShow(!userListShow)}>
                   <FontAwesomeIcon icon={faUser} className={styles.user_icon} />
-                  {storeUserList.length}
+                  {storeUserList.filter((e) => e.room_id == roomId).length}
                 </span>
                 {userListShow && (
                   <ul className={styles.chat_user_list_drop}>
-                    {storeUserList.map((n) => (
-                      <li>
-                        <img
-                          src={
-                            storeUserDetail.filter(
-                              (u) => u.u_email == n.u_mail
-                            )[0].u_image
-                          }
-                          alt=""
-                        />
-                        {n.u_name}
-                      </li>
-                    ))}
+                    {storeUserList.map(
+                      (n) =>
+                        n.room_id == roomId && (
+                          <li>
+                            <img src={n.u_image} alt="" />
+                            {n.u_name}
+                          </li>
+                        )
+                    )}
                   </ul>
                 )}
               </div>
@@ -258,17 +263,25 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       <div className={styles.chatting}>
         <div className={styles.chatting_log}>
           {lastMsg.map((item) =>
-            item.sender == user.u_email ? (
-              <MyChat item={item} />
+            roomId == item.roomId ? (
+              item.sender == user.u_email ? (
+                <MyChat item={item} />
+              ) : (
+                <OthersChat item={item} userList={userList} />
+              )
             ) : (
-              <OthersChat item={item} userList={userList} />
+              ""
             )
           )}
           {msg.map((item) =>
-            item.sender == user.u_email ? (
-              <MyChat item={item} />
+            roomId == item.roomId ? (
+              item.sender == user.u_email ? (
+                <MyChat item={item} />
+              ) : (
+                <OthersChat item={item} userList={userList} />
+              )
             ) : (
-              <OthersChat item={item} userList={userList} />
+              ""
             )
           )}
           {/* <MyChat msg={msg} /> */}
