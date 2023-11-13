@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../../css/chat/Chat.module.css";
 import MyChat from "./MyChat";
 import OthersChat from "./OthersChat";
@@ -17,6 +17,8 @@ import api from "../../../redux/api";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import { Loading } from "../common/Loading";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 let stompClient = null;
 
@@ -60,19 +62,44 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   }
 
   function onDisConnected() {
-    if (window.confirm("채팅방을 나가겠습니까?")) {
-      stompClient.send(
-        "/pub/chat/leaveUser",
-        {},
-        JSON.stringify({
-          roomId: roomId,
-          sender: user.u_email,
-          sendName: user.u_name,
-          type: "LEAVE",
-        })
-      );
-      disConnect();
-    }
+    Swal.fire({
+      title: "채팅방을 나가겠습니까?",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "#889aff",
+      cancelButtonColor: "#dadada",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        stompClient.send(
+          "/pub/chat/leaveUser",
+          {},
+          JSON.stringify({
+            roomId: roomId,
+            sender: user.u_email,
+            sendName: user.u_name,
+            type: "LEAVE",
+          })
+        );
+        disConnect();
+      }
+    });
+
+    // if (window.confirm("채팅방을 나가겠습니까?")) {
+    //   stompClient.send(
+    //     "/pub/chat/leaveUser",
+    //     {},
+    //     JSON.stringify({
+    //       roomId: roomId,
+    //       sender: user.u_email,
+    //       sendName: user.u_name,
+    //       type: "LEAVE",
+    //     })
+    //   );
+    //   disConnect();
+    // }
   }
 
   function onMessageReceived(payload) {
@@ -87,7 +114,13 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
 
     if (type == "REJECT" && test == user.u_email) {
       disConnect();
-      alert("채팅방 정원이 가득 차 입장이 불가합니다.");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "채팅방 정원이 가득 차 입장이 불가합니다.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     } else if (type == "ENTER") {
       if (test == user.u_email && !chat.first) {
         lastMsg.push(chat);
@@ -201,6 +234,14 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     setUserList(storeUserList);
   }, []);
 
+  const chattingLogRef = useRef(null);
+
+  useEffect(() => {
+    if (chattingLogRef.current) {
+      chattingLogRef.current.scrollTop = chattingLogRef.current.scrollHeight;
+    }
+  }, [lastMsg, msg]);
+
   if (loading) {
     return (
       <div className={styles.loading_chat_area}>
@@ -256,7 +297,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       </div>
 
       <div className={styles.chatting}>
-        <div className={styles.chatting_log}>
+        <div className={styles.chatting_log} ref={chattingLogRef}>
           {lastMsg.map((item) =>
             item.sender == user.u_email ? (
               <MyChat item={item} />

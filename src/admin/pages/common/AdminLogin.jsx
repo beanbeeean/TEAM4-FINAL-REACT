@@ -5,6 +5,8 @@ import { login, myPage } from "../../../user/components/common/login/APIUtils";
 import { ACCESS_TOKEN } from "../../../user/components/common/login";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin, userLogout } from "../../../redux/user/slices/userSlice";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +29,14 @@ const AdminLogin = () => {
     login(loginRequest)
       .then((response) => {
         localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
-        alert("로그인에 성공하였습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "로그인에 성공하였습니다.",
+          iconColor: "rgb(33, 41, 66)",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         // dispatch(userLogin(response.data));
         myPage()
           .then((response) => {
@@ -35,13 +44,25 @@ const AdminLogin = () => {
             dispatch(userLogin(response.data));
           })
           .catch((error) => {
-            alert((error && error.message) || "로그인에 실패하였습니다.");
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "로그인에 실패하였습니다.",
+              showConfirmButton: false,
+              timer: 3000,
+            });
             dispatch(userLogout());
           });
         navigate("/admin/management");
       })
       .catch((error) => {
-        alert((error && error.message) || "로그인에 실패하였습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "로그인에 실패하였습니다.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         dispatch(userLogout());
       });
   };

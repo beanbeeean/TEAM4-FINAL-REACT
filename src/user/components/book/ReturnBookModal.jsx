@@ -4,6 +4,8 @@ import styles from "../../css/book/BookCoutModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const ReturnBookModal = (props) => {
   const [state, setState] = useState(false);
@@ -23,28 +25,46 @@ const ReturnBookModal = (props) => {
   // }, []);
 
   const changeState = () => {
-    if (window.confirm("반납하시겠습니까?")) {
-      axios
-        .get(`/admin/management/return_book`, {
-          params: {
-            b_no: props.book.b_no,
-            chk_b_no: props.item.chk_b_no,
-          },
-        })
-        .then((response) => {
-          console.log("response.data : ", response.data);
-          const result = response.data;
-          const b_no = props.book.b_no;
-          const chk_b_no = props.item.chk_b_no;
-          dispatch(chkBookActions.updateReturnState({ b_no, chk_b_no }));
-          if (result == 1) {
-            alert("반납 처리 되었습니다.");
-            setState(!state);
-            props.onHide(true);
-          }
-        })
-        .catch((error) => console.log(error));
-    }
+    Swal.fire({
+      title: "반납하시겠습니까?",
+      icon: "warning",
+
+      showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+      confirmButtonColor: "#889aff", // confrim 버튼 색깔 지정
+      cancelButtonColor: "#dadada", // cancel 버튼 색깔 지정
+      confirmButtonText: "확인", // confirm 버튼 텍스트 지정
+      cancelButtonText: "취소", // cancel 버튼 텍스트 지정
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .get(`/admin/management/return_book`, {
+            params: {
+              b_no: props.book.b_no,
+              chk_b_no: props.item.chk_b_no,
+            },
+          })
+          .then((response) => {
+            console.log("response.data : ", response.data);
+            const result = response.data;
+            const b_no = props.book.b_no;
+            const chk_b_no = props.item.chk_b_no;
+            dispatch(chkBookActions.updateReturnState({ b_no, chk_b_no }));
+            if (result == 1) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "반납 처리 되었습니다.",
+                iconColor: "#889aff",
+                showConfirmButton: false,
+                timer: 3000,
+              });
+              setState(!state);
+              props.onHide(true);
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
   };
 
   return (

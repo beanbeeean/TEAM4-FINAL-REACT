@@ -130,7 +130,7 @@ const SearchMain = () => {
       <div className={styles.second_wrap}>
         <div className={`${styles.community} ${styles.block}`}>
           <div className={styles.mini_nav}>
-            <span className={styles.title}>자유게시판</span>
+            <span className={styles.title}>자유 게시판</span>
             <li onClick={() => goCommunityPage(1)} className={styles.more}>
               + 더보기
             </li>
@@ -165,7 +165,7 @@ const SearchMain = () => {
                           <tr>
                             <td className="text-center">
                               {community.c_category == 1
-                                ? "자유"
+                                ? "자유 게시판"
                                 : community.c_category == 2
                                 ? "도서추천"
                                 : "스터디원 모집"}

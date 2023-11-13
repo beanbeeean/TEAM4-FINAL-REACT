@@ -29,7 +29,7 @@ const CheckoutUserModal = (props) => {
         // setUsers([]);
         const chkBookDtos = response.data;
         console.log("chkBookDtos: ", chkBookDtos.dtos);
-        dispatch(chkBookActions.fetchChkBookDto(chkBookDtos.dtos));
+        dispatch(chkBookActions.fetchAdminChkBookDto(chkBookDtos.dtos));
         arr = Array.from(response.data.dtos);
         setUsers(arr);
       })

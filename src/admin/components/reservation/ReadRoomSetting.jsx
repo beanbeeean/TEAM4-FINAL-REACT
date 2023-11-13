@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReadRoomSetting.module.css";
 import axios from "axios";
 import { adminSeat } from "../../../user/components/common/login/APIUtils";
-const ReadRoomSetting = () => {
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
+const ReadRoomSetting = () => {
   const [seat, setSeat] = useState();
   const [activeTap, setActiveTap] = useState(1);
   const [state, setState] = useState();
@@ -12,9 +14,11 @@ const ReadRoomSetting = () => {
   const selection = (e) => {
     console.log(e.target.textContent);
     console.log(activeTap);
-    console.log((e.target.textContent-1)*(activeTap-1)*44);
-    console.log(readRoom[(e.target.textContent-1)+(activeTap-1)*44].re_state);
-    if(readRoom[(e.target.textContent-1)+(activeTap-1)*44].re_state){
+    console.log((e.target.textContent - 1) * (activeTap - 1) * 44);
+    console.log(
+      readRoom[e.target.textContent - 1 + (activeTap - 1) * 44].re_state
+    );
+    if (readRoom[e.target.textContent - 1 + (activeTap - 1) * 44].re_state) {
       setState(1);
     } else {
       setState(0);
@@ -23,14 +27,21 @@ const ReadRoomSetting = () => {
   };
 
   const saveState = (e) => {
-    adminSeat({re_state:e, re_room_no:activeTap, re_seat:seat})
-    .then((response) => {
-      alert("수정되었습니다.");
-      seatHandle();
-      setSeat(0);
-    })
-    .catch((error) => console.log(error));
-  }
+    adminSeat({ re_state: e, re_room_no: activeTap, re_seat: seat })
+      .then((response) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "수정 되었습니다.",
+          iconColor: "rgb(33, 41, 66)",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        seatHandle();
+        setSeat(0);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const floorSelect = (num) => {
     setSeat();
@@ -38,20 +49,21 @@ const ReadRoomSetting = () => {
   };
 
   const seatHandle = (event) => {
-    axios.get('http://localhost:8090/read/seat?')
-    .then(response => {
-      console.log(response.data);
-      setReadRoom(response.data);
-      // dispatch(seatChk());
-    })
-    .catch(error => {
-      console.error('Error fetching data: ', error);
-    });
-  }
+    axios
+      .get("http://localhost:8090/read/seat?")
+      .then((response) => {
+        console.log(response.data);
+        setReadRoom(response.data);
+        // dispatch(seatChk());
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  };
 
   useEffect(() => {
     seatHandle();
-  }, [activeTap] );
+  }, [activeTap]);
 
   return (
     <div className={stylesAdmin.readroom_content}>
@@ -402,7 +414,7 @@ const ReadRoomSetting = () => {
           </div>
           <div>
             <div>현재 상태</div>
-            <div>{seat > 0 ? state ? "가능" : "불가능" : ""}</div>
+            <div>{seat > 0 ? (state ? "가능" : "불가능") : ""}</div>
           </div>
         </div>
         <div className={stylesAdmin.status_btn}>

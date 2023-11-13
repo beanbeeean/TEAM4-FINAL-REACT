@@ -15,6 +15,8 @@ const Community = () => {
   const { communityDto, searchCommunityDto, loading } = useSelector(
     (state) => state.community
   );
+
+  console.log("communityDto :: ", communityDto);
   const dispatch = useDispatch();
   const { communityMenu } = useSelector((state) => state.common);
   const [searchOption, setSearchOption] = useState(1);
@@ -22,16 +24,20 @@ const Community = () => {
     searchCommunityDto.keyword === undefined ? "" : searchCommunityDto.keyword
   );
 
+  const [communities, setCommunities] = useState([]);
+
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
-  let arr = communityDto.communityDtos.filter(
-    (e) => e.c_category === communityMenu
-  );
+  // let arr = communityDto.communityDtos.filter(
+  //   (e) => e.c_category === communityMenu
+  // );
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedCommunities = arr.slice(startIndex, endIndex);
+  // const displayedCommunities = arr.slice(startIndex, endIndex);
+  const displayedCommunities = communities.slice(startIndex, endIndex);
+  //
 
   const getCommunity = () => {
     axios
@@ -46,6 +52,8 @@ const Community = () => {
         const community = response.data;
         dispatch(communityActions.fetchCommunityDto(community));
         console.log("commu res :: ", response.data);
+        setCommunities(response.data.communityDtos);
+        dispatch(commonActions.setMainMenu(4));
         dispatch(communityActions.setLoading(false));
       })
       .catch((error) => console.log(error));
@@ -65,6 +73,7 @@ const Community = () => {
     console.log("바뀜");
     console.log("communityMenu : ", communityMenu);
   }, [communityMenu]);
+
   if (loading) {
     return (
       <div className={styles.loading_community_area}>
@@ -72,6 +81,7 @@ const Community = () => {
       </div>
     );
   }
+
   return (
     <>
       <div className={styles.board_header}>
@@ -148,7 +158,7 @@ const Community = () => {
             </tr>
           </thead>
           <tbody>
-            {arr.length == 0 ? (
+            {communities.length == 0 ? (
               <td colSpan="5" style={{ textAlign: "center" }}>
                 게시물이 없습니다.
               </td>
@@ -165,7 +175,7 @@ const Community = () => {
       <PaginationControl
         page={page}
         between={4}
-        total={communityDto.communityDtos.length}
+        total={communities.length}
         limit={itemsPerPage}
         changePage={(page) => {
           setPage(page);

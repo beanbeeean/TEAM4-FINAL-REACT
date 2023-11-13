@@ -54,8 +54,7 @@ const Sidebar = () => {
       {/* <Link to="/"> */}
       <img
         className={styles.logo}
-        src="../imgs/admin_logo.png"
-        alt=""
+        src="../imgs/user_logo.png"
         onClick={goHome}
       />
       {/* </Link> */}

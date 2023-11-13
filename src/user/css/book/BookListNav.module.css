@@ -21,7 +21,7 @@ div.search_box {
 
 .book_search {
   min-width: 250px;
-  border: 1px solid #c4dd8b;
+  border: 1px solid #dadada;
   border-radius: 10px;
   padding: 5px;
   padding-left: 10px;
@@ -34,7 +34,7 @@ div.search_box {
   position: relative;
   left: -25px;
   top: 10px;
-  color: #c4dd8b;
+  color: #dadada;
 }
 
 .booklist_nav {

@@ -6,6 +6,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { reservationRead } from "../../common/login/APIUtils";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const ReservationModal = (props) => {
   const reservation = (e) => {
@@ -20,14 +22,28 @@ const ReservationModal = (props) => {
       .then((response) => {
         console.log(response.data);
         if (response.data == 0) {
-          alert("이미 이용중인 좌석이 있습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "info",
+            title: "이미 이용중인 좌석이 있습니다.",
+            iconColor: "yellow",
+            showConfirmButton: true,
+            timer: 3000,
+          });
         } else {
           axios
             .get("http://localhost:8090/read/seat?")
             .then((response) => {
               console.log(response.data);
               props.setTest(response.data);
-              alert("좌석을 예약했습니다");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "좌석이 예약되었습니다.",
+                iconColor: "#889aff",
+                showConfirmButton: false,
+                timer: 3000,
+              });
             })
             .catch((error) => {
               console.error("Error fetching data: ", error);

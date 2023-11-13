@@ -125,27 +125,39 @@ const Home = () => {
   useEffect(() => {
     setFirRooms(
       roomDto.filter((e) => {
-        if (e.re_room_no === 1 && e.re_reservation == null) {
+        if (e.re_room_no === 1 && e.re_reservation == null && e.re_state == 1) {
           return e;
-        } else if (e.re_room_no === 1 && now > e.re_reservation) {
+        } else if (
+          e.re_room_no === 1 &&
+          now > e.re_reservation &&
+          e.re_state == 1
+        ) {
           return e;
         }
       })
     );
     setSndRooms(
       roomDto.filter((e) => {
-        if (e.re_room_no === 2 && e.re_reservation == null) {
+        if (e.re_room_no === 2 && e.re_reservation == null && e.re_state == 1) {
           return e;
-        } else if (e.re_room_no === 2 && now > e.re_reservation) {
+        } else if (
+          e.re_room_no === 2 &&
+          now > e.re_reservation &&
+          e.re_state == 1
+        ) {
           return e;
         }
       })
     );
     setThdRooms(
       roomDto.filter((e) => {
-        if (e.re_room_no === 3 && e.re_reservation == null) {
+        if (e.re_room_no === 3 && e.re_reservation == null && e.re_state == 1) {
           return e;
-        } else if (e.re_room_no === 3 && now > e.re_reservation) {
+        } else if (
+          e.re_room_no === 3 &&
+          now > e.re_reservation &&
+          e.re_state == 1
+        ) {
           return e;
         }
       })
@@ -351,11 +363,9 @@ const Home = () => {
                   <span>
                     <span
                       className={`${styles.circle} ${
-                        firRooms.length > 29
-                          ? styles.circle_green
-                          : firRooms.length > 14
-                          ? styles.circle_yellow
-                          : styles.circle_red
+                        firRooms.length == 0
+                          ? styles.circle_red
+                          : styles.circle_green
                       }`}
                     ></span>
                     {firRooms.length}석
@@ -366,11 +376,9 @@ const Home = () => {
                     {" "}
                     <span
                       className={`${styles.circle} ${
-                        sndRooms.length > 29
-                          ? styles.circle_green
-                          : sndRooms.length > 14
-                          ? styles.circle_yellow
-                          : styles.circle_red
+                        sndRooms.length == 0
+                          ? styles.circle_red
+                          : styles.circle_green
                       }`}
                     ></span>
                     {sndRooms.length}석
@@ -381,11 +389,9 @@ const Home = () => {
                     {" "}
                     <span
                       className={`${styles.circle} ${
-                        thdRooms.length > 29
-                          ? styles.circle_green
-                          : thdRooms.length > 14
-                          ? styles.circle_yellow
-                          : styles.circle_red
+                        thdRooms.length == 0
+                          ? styles.circle_red
+                          : styles.circle_green
                       }`}
                     ></span>
                     {thdRooms.length}석

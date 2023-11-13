@@ -12,18 +12,18 @@ const AdminBookListItem = ({ book }) => {
   // const [list, setList] = useState([]);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`/admin/management/checkout_book_user_list${book.b_no}`)
-  //     .then((response) => {
-  //       const chkBookDtos = response.data;
-  //       console.log("chkBookDtos: ", chkBookDtos);
-  //       dispatch(chkBookActions.fetchChkBookDto(chkBookDtos.dtos));
+  useEffect(() => {
+    axios
+      .get(`/admin/management/checkout_book_user_list${book.b_no}`)
+      .then((response) => {
+        const chkBookDtos = response.data;
+        console.log("chkBookDtos: ", chkBookDtos);
+        dispatch(chkBookActions.fetchAdminChkBookDto(chkBookDtos.dtos));
 
-  //       // setList(chkBookDtos.dtos);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
+        // setList(chkBookDtos.dtos);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <tr>

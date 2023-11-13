@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { ACCESS_TOKEN } from "../../../user/components/common/login";
 import { signup } from "../../../user/components/common/login/APIUtils";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const AdminCreateAccount = () => {
   const [name, setName] = useState("");
@@ -29,11 +31,24 @@ const AdminCreateAccount = () => {
     signup(signupRequest)
       .then((response) => {
         console.log(JSON.stringify(response, null, 2));
-        alert("회원가입에 성공하였습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "회원가입에 성공하였습니다.",
+          iconColor: "rgb(33, 41, 66)",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         navigate("/admin/login");
       })
       .catch((error) => {
-        alert((error && error.message) || "회원가입에 실패하였습니다.");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "회원가입에 실패하였습니다.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 
