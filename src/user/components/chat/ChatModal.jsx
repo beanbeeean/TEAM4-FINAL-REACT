@@ -6,6 +6,7 @@ import ChatArea from "./ChatArea";
 import ChatItem from "./ChatItem";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
+import { userChatList } from "../common/login/APIUtils";
 
 const ChatModal = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -23,12 +24,11 @@ const ChatModal = () => {
   );
 
   const getList = () => {
-    api
-      .get("http://127.0.0.1:8090/chat/list", {
-        params: {
-          user: userDto.u_email,
-        },
-      })
+    userChatList({
+      params: {
+        user: userDto.u_email,
+      },
+    })
       .then(function (res) {
         dispatch(chatActions.getChatRoomList(res.data.list));
         console.log("dsdsdsds", res.data.list);

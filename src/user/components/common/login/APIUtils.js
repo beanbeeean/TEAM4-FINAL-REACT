@@ -208,6 +208,11 @@ export function isDuplicateChatRoom(roomReq) {
   return axiosInstance.post("/chat/duplicate", roomReq);
 }
 
+// 채팅방 유저 리스트
+export function userChatUserList(roomReq) {
+  return axiosInstance.get("/chat/userlist", roomReq);
+}
+
 export function chkedBookList(userBookRequest) {
   console.log(userBookRequest);
   return axiosInstance.get(
