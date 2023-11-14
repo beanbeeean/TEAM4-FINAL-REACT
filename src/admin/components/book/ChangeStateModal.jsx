@@ -6,6 +6,7 @@ import axios from "axios";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { adminBookState } from "../../../user/components/common/login/APIUtils";
 
 const ChangeStateModal = (props) => {
   const dispatch = useDispatch();
@@ -42,14 +43,13 @@ const ChangeStateModal = (props) => {
   };
 
   const handleSave = () => {
-    axios
-      .get(`/admin/management/change_book_state`, {
-        params: {
-          no: props.book.b_no,
-          stock: cnt,
-          state: bookState,
-        },
-      })
+    adminBookState({
+      params: {
+        no: props.book.b_no,
+        stock: cnt,
+        state: bookState,
+      },
+    })
       .then((response) => {
         const result = response.data;
         console.log("response.data : ", response.data);

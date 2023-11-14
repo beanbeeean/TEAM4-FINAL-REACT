@@ -5,6 +5,7 @@ import ChangeStateModal from "./ChangeStateModal";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { adminChkBookUserListModal } from "../../../user/components/common/login/APIUtils";
 
 const AdminBookListItem = ({ book }) => {
   const [coutModalShow, setCoutModalShow] = useState(false);
@@ -13,8 +14,7 @@ const AdminBookListItem = ({ book }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get(`/admin/management/checkout_book_user_list${book.b_no}`)
+    adminChkBookUserListModal(book.b_no)
       .then((response) => {
         const chkBookDtos = response.data;
         console.log("chkBookDtos: ", chkBookDtos);

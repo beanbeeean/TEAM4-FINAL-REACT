@@ -178,6 +178,7 @@ export function adminSeat(adminRequest) {
   console.log(adminRequest);
   return axiosInstance.post("/admin/reservation/seat", adminRequest);
 }
+
 // 커뮤니티 리스트
 export function userCommunity(communityReq) {
   return axiosInstance.get("/community", communityReq);
@@ -213,6 +214,7 @@ export function userChatUserList(roomReq) {
   return axiosInstance.get("/chat/userlist", roomReq);
 }
 
+// 반납 책 리스트
 export function chkedBookList(userBookRequest) {
   console.log(userBookRequest);
   return axiosInstance.get(
@@ -221,12 +223,68 @@ export function chkedBookList(userBookRequest) {
   );
 }
 
+// 책 대여
 export function chkoutBook(userBookRequest) {
   console.log(userBookRequest);
   return axiosInstance.get("/checkout_books/checkout", userBookRequest);
 }
 
+// 책 반납
 export function returnBook(userBookRequest) {
   console.log(userBookRequest);
   return axiosInstance.get("/admin/management/return_book", userBookRequest);
+}
+
+// admin user관리
+export function userManagement(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/memberManagement", adminRequest);
+}
+
+// admin admin리스트
+export function adminList(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/change_user_state", adminRequest);
+}
+
+// admin 대여한 유저 리스트
+export function adminChkBookUserListModal(bNo) {
+  console.log(bNo);
+  return axiosInstance.get(`/admin/management/checkout_book_user_list${bNo}`);
+}
+
+// admin 대여한 유저 리스트
+export function adminChkBookUserList(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get(`/admin/management/return_book`, adminRequest);
+}
+
+// admin Book State 변경
+export function adminBookState(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/change_book_state", adminRequest);
+}
+
+// admin Book 관리
+export function adminBookManagement(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/bookManagement", adminRequest);
+}
+
+// admin Community Management
+export function adminCommunityManagement(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get(
+    "/admin/management/communityManagement",
+    adminRequest
+  );
+}
+
+// admin Community State 변경
+export function adminCommunityState(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get(
+    "/admin/management/change_community_state",
+    adminRequest
+  );
 }

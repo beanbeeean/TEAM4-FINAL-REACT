@@ -41,15 +41,11 @@ const CheckoutList = () => {
 
   useEffect(() => {
     let arr = [];
-    // axios.get(`/checkout_books/checkout_book_list`, {
-    //   params: {
-    //     id: null,
-    //     u_email: null,
-    //   },
-    // });
     chkedBookList({
-      id: null,
-      u_email: null,
+      params: {
+        id: null,
+        u_email: null,
+      },
     })
       .then((response) => {
         const chkBookDtos = response.data;

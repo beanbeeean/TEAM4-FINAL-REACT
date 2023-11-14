@@ -7,6 +7,7 @@ import { Loading } from "../../../user/components/common/Loading";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import AdminBookListNav from "./AdminBookListNav";
 import AdminBookListItem from "./AdminBookListItem";
+import { adminBookManagement } from "../../../user/components/common/login/APIUtils";
 
 const BookManagement = () => {
   const [loading, setLoading] = useState(true);
@@ -26,13 +27,12 @@ const BookManagement = () => {
 
   useEffect(() => {
     let arr = [];
-    axios
-      .get(`/admin/management/bookManagement`, {
-        params: {
-          category: navState,
-          keyword: searchBook,
-        },
-      })
+    adminBookManagement({
+      params: {
+        category: navState,
+        keyword: searchBook,
+      },
+    })
       .then((response) => {
         const bookDtos = response.data;
         dispatch(bookActions.fetchBookDto(bookDtos));

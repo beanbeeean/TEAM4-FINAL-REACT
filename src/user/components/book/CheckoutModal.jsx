@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styles from "../../css/book/BookCoutModal.module.css";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import bookSlice, { bookActions } from "../../../redux/book/slices/bookSlice";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
@@ -50,20 +49,11 @@ const CheckoutModal = (props) => {
   const checkoutBook = () => {
     console.log("checkoutBook");
 
-    // axios
-    //   .get(
-    //     `/checkout_books/checkout`,
-    //     {
-    //       params: {
-    //         id: props.book.b_no,
-    //         u_email: userDto.u_email,
-    //       },
-    //     }
-    //     // props.book.b_no
-    //   )
     chkoutBook({
-      id: props.book.b_no,
-      u_email: userDto.u_email,
+      params: {
+        id: props.book.b_no,
+        u_email: userDto.u_email,
+      },
     })
       .then((response) => {
         console.log("서버 응답 데이터:", response.data);

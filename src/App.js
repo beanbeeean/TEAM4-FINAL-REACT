@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./user/pages/common/Home";
 import Sidebar from "./user/components/common/Sidebar";
 import Header from "./user/components/common/Header";
-import Cart from "./admin/pages/book/cart/Cart";
+
 import CheckoutDetail from "./user/pages/book/CheckoutDetail";
 import MyPage from "./user/pages/common/MyPage";
 import Reservation from "./user/pages/reservation/Reservation";
@@ -13,7 +13,7 @@ import CheckoutList from "./user/pages/book/CheckoutList";
 import Community from "./user/pages/community/Community";
 import CommunityDetail from "./user/pages/community/CommunityDetail";
 import CommunityWrite from "./user/pages/community/CommunityWrite";
-import CartPayConfirm from "./admin/pages/book/cart/CartPayConfirm";
+
 import AdminLogin from "./admin/pages/common/AdminLogin";
 import AdminCreateAccount from "./admin/pages/common/AdminCreateAccount";
 import Admin from "./admin/pages/common/Admin";
@@ -71,8 +71,7 @@ function App() {
                       path="/community_modify/:id"
                       element={<CommunityModify />}
                     />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/cart/confirm" element={<CartPayConfirm />} />
+
                     <Route path="/checkout_books" element={<CheckoutList />} />
                     <Route
                       path="/checkout_books/:id"

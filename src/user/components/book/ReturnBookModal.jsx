@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styles from "../../css/book/BookCoutModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
@@ -37,16 +36,11 @@ const ReturnBookModal = (props) => {
       cancelButtonText: "취소", // cancel 버튼 텍스트 지정
     }).then((result) => {
       if (result.isConfirmed) {
-        // axios
-        //   .get(`/admin/management/return_book`, {
-        //     params: {
-        //       b_no: props.book.b_no,
-        //       chk_b_no: props.item.chk_b_no,
-        //     },
-        //   })
         returnBook({
-          b_no: props.book.b_no,
-          chk_b_no: props.item.chk_b_no,
+          params: {
+            b_no: props.book.b_no,
+            chk_b_no: props.item.chk_b_no,
+          },
         })
           .then((response) => {
             console.log("response.data : ", response.data);
