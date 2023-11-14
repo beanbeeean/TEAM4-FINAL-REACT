@@ -103,7 +103,11 @@ const CommunityManagement = () => {
                     fontSize: "1.2em",
                   }}
                 >
-                  "{searchCommunity}" 에 대한 검색 결과가 없습니다.
+                  {searchCommunity == null ? (
+                    <>"{searchCommunity}" 에 대한 검색 결과가 없습니다.</>
+                  ) : (
+                    <>작성된 게시물이 없습니다.</>
+                  )}
                 </td>
               ) : (
                 <>

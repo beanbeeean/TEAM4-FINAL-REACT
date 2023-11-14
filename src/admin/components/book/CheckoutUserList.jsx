@@ -6,6 +6,7 @@ import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import { adminChkBookUserList } from "../../../user/components/common/login/APIUtils";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
 
 const CheckoutUserList = ({ user }) => {
   const [state, setState] = useState(false);
@@ -44,6 +45,7 @@ const CheckoutUserList = ({ user }) => {
             const b_no = user.b_no;
             const chk_b_no = user.chk_b_no;
             dispatch(chkBookActions.updateReturnState({ b_no, chk_b_no }));
+            dispatch(bookActions.addStock(b_no));
             if (result == 1) {
               Swal.fire({
                 position: "center",
@@ -69,9 +71,15 @@ const CheckoutUserList = ({ user }) => {
         {user.chk_b_start_date} ~{user.chk_b_end_date}
       </td>
       <td>{isChkBook[0].chk_b_state == 0 ? "반납완료" : "대여중"} </td>
-      <td>
-        <input type="button" value="반납" onClick={changeState} />
-      </td>
+      {isChkBook[0].chk_b_state == 0 ? (
+        <td>
+          <input type="button" value="반납" disabled />
+        </td>
+      ) : (
+        <td>
+          <input type="button" value="반납" onClick={changeState} />
+        </td>
+      )}
     </tr>
   );
 };

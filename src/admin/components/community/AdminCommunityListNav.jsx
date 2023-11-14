@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const AdminCommunityListNav = ({ onNavStateChange, onSearchBookChange }) => {
   const [keyword, setKeyword] = useState("");
-  const [selectedNav, setSelectedNav] = useState("RECOMMEND");
+  const [selectedNav, setSelectedNav] = useState("FREE");
 
   const handleNavClick = (nav) => {
     setSelectedNav(nav);
