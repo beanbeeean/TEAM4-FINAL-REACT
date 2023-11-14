@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 import ReturnBookModal from "../book/ReturnBookModal";
 import MypageBookItem from "./MypageBookItem";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
-import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { sizeof } from "stylis";
 import MypageBookAllItem from "./MypageBookAllItem";
 

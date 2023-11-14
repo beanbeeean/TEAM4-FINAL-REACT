@@ -11,6 +11,7 @@ import {
 } from "../../../redux/user/slices/userSlice";
 import AdminUserListItem from "../../components/user/AdminUserListItem";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import { userManagement } from "../../../user/components/common/login/APIUtils";
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -31,12 +32,17 @@ const UserManagement = () => {
   console.log("userDto :: ", userDtos);
 
   useEffect(() => {
-    axios
-      .get(`/admin/management/memberManagement`, {
-        params: {
-          keyword: searchUser,
-        },
-      })
+    // axios
+    //   .get(`/admin/management/memberManagement`, {
+    //     params: {
+    //       keyword: searchUser,
+    //     },
+    //   })
+    userManagement({
+      params: {
+        keyword: searchUser,
+      },
+    })
       .then((response) => {
         const dtos = response.data.dtos;
         console.log("userDtos :: ", dtos);
