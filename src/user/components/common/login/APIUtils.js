@@ -207,3 +207,8 @@ export function createChatRoom(roomReq) {
 export function isDuplicateChatRoom(roomReq) {
   return axiosInstance.post("/chat/duplicate", roomReq);
 }
+
+// 채팅방 유저 리스트
+export function userChatUserList(roomReq) {
+  return axiosInstance.get("/chat/userlist", roomReq);
+}
