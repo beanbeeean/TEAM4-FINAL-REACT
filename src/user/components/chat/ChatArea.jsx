@@ -31,6 +31,8 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   const [currentUser, setCurrentUser] = useState("");
   const [userListShow, setUserListShow] = useState(false);
 
+  const chattingLogRef = useRef(null);
+
   const dispatch = useDispatch();
   let { storeUserList, storeUserDetail, loading } = useSelector(
     (state) => state.chat
@@ -143,6 +145,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
         setMsg([...msg]);
       }
     }
+
     // dispatch(chatActions.setLoading(false));
   }
 
@@ -217,6 +220,7 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
       .catch(function (err) {
         console.log("list", err);
       });
+    chattingLogRef.current.scrollTop = 0;
   }, [roomId]);
 
   useEffect(() => {
@@ -229,13 +233,11 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
     setUserList(storeUserList);
   }, []);
 
-  const chattingLogRef = useRef(null);
-
   useEffect(() => {
-    if (chattingLogRef.current) {
+    if (chattingLogRef.current && !loading) {
       chattingLogRef.current.scrollTop = chattingLogRef.current.scrollHeight;
     }
-  }, [lastMsg, msg]);
+  }, [msg]);
 
   if (loading) {
     return (

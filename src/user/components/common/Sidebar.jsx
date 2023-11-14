@@ -8,6 +8,7 @@ import { userLogout } from "../../../redux/user/slices/userSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
+import { logout } from "./login/APIUtils";
 
 const Sidebar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -17,6 +18,18 @@ const Sidebar = () => {
   const user = useSelector((state) => state.user.flag);
   const { mainMenu } = useSelector((state) => state.common);
   const dispatch = useDispatch();
+
+  const logOut = () => {
+
+    logout()
+    .then(response => {
+      console.error('response: ', response);
+      dispatch(userLogout())
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  };
 
   const movePage = (num) => {
     // setCurrentMenu(num);
@@ -97,7 +110,7 @@ const Sidebar = () => {
 
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       {user ? (
-        <div className={styles.logout} onClick={() => dispatch(userLogout())}>
+        <div className={styles.logout} onClick={() =>logOut()}>
           LOGOUT
         </div>
       ) : (

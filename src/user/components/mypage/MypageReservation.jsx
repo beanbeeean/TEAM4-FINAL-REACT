@@ -47,7 +47,6 @@ const MypageReservation = () => {
     if (type) {
       setStart(time);
       clone.setHours(time.getHours() + 9);
-      console.log(" stttt ", startDate);
       setStartDate(clone);
     } else {
       setEnd(time);
@@ -65,75 +64,34 @@ const MypageReservation = () => {
   const [start, setStart] = useState(startSetting());
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.mypage);
-  // if (seat == null) {
-  //   myPageRead({ startDate, endDate })
-  //     .then((response) => {
-  //       // console.log("resresres :: ", response.data);
-  //       console.log("11");
-  //       if (response.data.length > 0) {
-  //         setSeat(response.data);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data: ", error);
-  //     });
-  // }
-
-  // if (study == null) {
-  //   myPageStudy({ startDate, endDate })
-  //     .then((response) => {
-  //       // console.log("myPageStudy : ", response.data);
-  //       console.log("22");
-  //       if (response.data.length > 0) {
-  //         setStudy(response.data);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data: ", error);
-  //     });
-  // }
-
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    if (show) {
-      dispatch(myPageAction.setLoading(false));
-    }
-  }, [show]);
 
   useEffect(() => {
     dispatch(myPageAction.setLoading(true));
-
     myPageRead({ startDate, endDate })
       .then((response) => {
-        console.log("11 :: ", response.data);
-        if (response.data.length == 0) {
-          setShow(true);
-        }
-
+        console.log("e:", response.data);
         if (response.data.length > 0) {
           setSeat(response.data);
           dispatch(myPageAction.setLoading(false));
         }
+        myPageStudy({ startDate, endDate })
+        .then((response) => {
+          console.log("myPageStudy:", response);
+          if (response.data.length > 0) {
+            setStudy(response.data);
+            dispatch(myPageAction.setLoading(false));
+          }
+        })
+        .catch((error) => {
+          console.log("error1:", error);
+        });
       })
       .catch((error) => {
-        console.error("Error fetching data: ", error);
+        
+        console.log("error2:", error);
       });
 
-    myPageStudy({ startDate, endDate })
-      .then((response) => {
-        console.log("22 :: ", response.data);
-        if (response.data.length == 0) {
-          setShow(true);
-        }
-        if (response.data.length > 0) {
-          setStudy(response.data);
-          dispatch(myPageAction.setLoading(false));
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
+    
   }, [startDate, endDate]);
 
   if (loading) {
@@ -150,7 +108,6 @@ const MypageReservation = () => {
       </div>
     );
   }
-
   return (
     <div className={styles.reserve_wrap}>
       <div className={styles.datePicker_wrap}>
@@ -179,20 +136,16 @@ const MypageReservation = () => {
         <div className={styles.reserve_seat_content}>
           {seat ? (
             seat.map((item, index) => <ReadReserveItem seat={item} />)
-          ) : show ? (
-            <div className={styles.no_result}>예약 내역이 없습니다.</div>
           ) : (
-            <></>
+            <div className={styles.no_result}>예약 내역이 없습니다.</div>
           )}
         </div>
 
         <div className={styles.reserve_studyroom_content}>
           {study ? (
             study.map((item, index) => <StudyReserveItem study={item} />)
-          ) : show ? (
-            <div className={styles.no_result}>예약 내역이 없습니다.</div>
           ) : (
-            <></>
+            <div className={styles.no_result}>예약 내역이 없습니다.</div>
           )}
         </div>
       </div>

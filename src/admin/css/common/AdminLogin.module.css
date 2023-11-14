@@ -31,6 +31,7 @@ img.admin_logo {
   margin-bottom: 50px;
 }
 
+.login_form input[type="email"],
 .login_form input[type="text"],
 .login_form input[type="password"] {
   display: block;
@@ -44,6 +45,8 @@ img.admin_logo {
   color: #d6d6d6;
   transition: all 0.2s ease-out;
 }
+
+.login_form input[type="email"]:focus,
 .login_form input[type="text"]:focus,
 .login_form input[type="password"]:focus {
   border: 1px solid #79a6fe;

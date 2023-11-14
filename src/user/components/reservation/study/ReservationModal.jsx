@@ -95,19 +95,13 @@ const ReservationModal = (props) => {
           time: setTime,
         };
         reservationRoom(data)
-          .then((response) => {
-            props.setModalShow(false);
-          })
-          .catch((error) => {
-            console.error("Error fetching data: ", error);
-          });
-      } else if (response.event === "cancel") {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "결제가 취소되었습니다.",
-          showConfirmButton: false,
-          timer: 3000,
+        .then(response => {
+          alert("예약이 완료되었습니다.");
+          props.setModalShow(false);
+          props.selectedRoom("");
+        })
+        .catch(error => {
+          console.error('Error fetching data: ', error);
         });
       } else {
         Swal.fire({

@@ -8,7 +8,7 @@ const StudyRoomHeader = ({
   setChosenMonth,
   setChosenDay,
   setMonthState,
-  setLoad,
+  setLoad,space,setSpace
 }) => {
   const now = new Date();
   const todayWeak = now.getDay();

@@ -82,7 +82,7 @@ const AdminLogin = () => {
           />
           <h5>Sign in to your account.</h5>
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="ID"
             value={email}
