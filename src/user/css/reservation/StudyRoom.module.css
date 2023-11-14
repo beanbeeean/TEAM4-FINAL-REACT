@@ -21,7 +21,7 @@
 
 .calendar .year_month_list {
   font-style: italic;
-  color: #fd8a69;
+  color: #889aff;
   font-weight: bold;
   width: 100% - 30px;
   padding-left: 30px;
@@ -38,7 +38,7 @@
 .calendar .day_list {
   width: 100%;
   font-size: 1.4rem;
-  color: #fd8a69;
+  color: #bababa;
   float: left;
 }
 
@@ -73,12 +73,12 @@
 }
 
 .calendar .day_list .day_list_area:hover {
-  background: #f3b9a4;
+  background: #e7e7ff;
   color: white;
 }
 
 .calendar .day_list .day_list_area.selected_day {
-  border: 1px solid #f3b9a4;
+  border: 1px solid #cbccff;
 }
 
 .calendar .day_list .day_list_area.selected_day .weak {
@@ -124,14 +124,15 @@
 }
 
 .study_reservation_date > table > thead > tr {
-  border-bottom: 2px solid #fddacd;
-  background-color: #fddacd;
+  border-bottom: 2px solid #f1f1ff;
+  background-color: #f1f1ff;
 }
 
 .study_reservation_date > table > thead th {
   padding: 15px 0;
   font-size: 22px;
-  color: #f7f7f7;
+  /* color: #f7f7f7; */
+  color: #505050;
   /* color: #f3b9a4; */
 }
 
@@ -149,7 +150,7 @@
 }
 
 .study_reservation_date > table tbody td:nth-child(1) {
-  background-color: #fff7f7;
+  background-color: #f8f8f8;
   font-weight: bold;
   font-size: 17px;
   color: #9e9d9d;
@@ -184,8 +185,8 @@
 .reservation_card_title {
   font-weight: 800;
   padding: 15px 0;
-  background-color: #fddacd;
-  border-bottom: 1px solid #dadada;
+  background-color: #ced0ff;
+  border-bottom: 1px solid #eaebff;
   color: #fff;
   margin: 0;
 }
@@ -195,7 +196,7 @@
 }
 
 .reservation_card_table {
-  background-color: #fff7f7;
+  background-color: #f0f1ff;
   padding: 0px 10px 10px;
 }
 
@@ -209,7 +210,7 @@
   font-size: 22px;
   padding: 30px 0;
   color: #9e9d9d;
-  background-color: #fff7f7;
+  background-color: #f0f1ff;
   border-bottom: 1px solid #dadada;
 }
 
@@ -243,7 +244,7 @@
   margin-top: 15px;
   font-size: 42px;
   text-align: center;
-  background-color: #f8ebeb;
+  background-color: #fff;
   font-weight: bold;
   color: #cfcfcf;
   border-radius: 20px;
@@ -251,7 +252,7 @@
 }
 
 .reservation_card_btn:hover {
-  background-color: #f7d4d4;
+  background-color: #eeeeee;
   color: #fff;
 }
 

@@ -207,3 +207,21 @@ export function createChatRoom(roomReq) {
 export function isDuplicateChatRoom(roomReq) {
   return axiosInstance.post("/chat/duplicate", roomReq);
 }
+
+export function chkedBookList(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get(
+    "/checkout_books/checkout_book_list",
+    userBookRequest
+  );
+}
+
+export function chkoutBook(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/checkout_books/checkout", userBookRequest);
+}
+
+export function returnBook(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/admin/management/return_book", userBookRequest);
+}
