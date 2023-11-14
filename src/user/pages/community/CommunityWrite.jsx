@@ -16,6 +16,12 @@ import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize-module-react";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import {
+  createChatRoom,
+  isDuplicateChatRoom,
+  userChatList,
+  userCommunityWrite,
+} from "../../components/common/login/APIUtils";
 
 Quill.register("modules/imageResize", ImageResize);
 
@@ -105,14 +111,13 @@ const CommunityWrite = () => {
         });
       } else {
         console.log("같이 쓰기", htmlString);
-        axios
-          .post(`/community/write`, {
-            selection: selection,
-            title: title,
-            content: htmlString,
-            u_email: userDto.u_email,
-            // u_name: userDto.u_name,
-          })
+        userCommunityWrite({
+          selection: selection,
+          title: title,
+          content: htmlString,
+          u_email: userDto.u_email,
+          // u_name: userDto.u_name,
+        })
           .then((response) => {
             console.log("글 작성 성공", response.data);
             createRoom(response.data);
@@ -148,14 +153,13 @@ const CommunityWrite = () => {
         });
       } else {
         console.log("글만 쓰기", htmlString);
-        axios
-          .post(`/community/write`, {
-            selection: selection,
-            title: title,
-            content: htmlString,
-            u_email: userDto.u_email,
-            // u_name: userDto.u_name,
-          })
+
+        userCommunityWrite({
+          selection: selection,
+          title: title,
+          content: htmlString,
+          u_email: userDto.u_email,
+        })
           .then((response) => {
             console.log("글 작성 성공", response.data);
             Swal.fire({
@@ -182,12 +186,17 @@ const CommunityWrite = () => {
   };
 
   const getList = () => {
-    api
-      .get("http://127.0.0.1:8090/chat/list", {
-        params: {
-          user: userDto.u_email,
-        },
-      })
+    // api
+    //   .get("http://127.0.0.1:8090/chat/list", {
+    //     params: {
+    //       user: userDto.u_email,
+    //     },
+    //   })
+    userChatList({
+      params: {
+        user: userDto.u_email,
+      },
+    })
       .then(function (res) {
         dispatch(chatActions.getChatRoomList(res.data.list));
       })
@@ -198,14 +207,14 @@ const CommunityWrite = () => {
 
   const createRoom = (cNo) => {
     console.log("cNO ", cNo);
-    api
-      .post("http://127.0.0.1:8090/chat/createroom", {
-        newName: newName,
-        userMaxCount: userMaxCount,
-        userMail: userDto.u_email,
-        userName: userDto.u_name,
-        cNo: cNo,
-      })
+
+    createChatRoom({
+      newName: newName,
+      userMaxCount: userMaxCount,
+      userMail: userDto.u_email,
+      userName: userDto.u_name,
+      cNo: cNo,
+    })
       .then(function (response) {
         console.log(response);
         getList();
@@ -216,10 +225,9 @@ const CommunityWrite = () => {
   };
 
   const isDuplicate = () => {
-    api
-      .post("http://127.0.0.1:8090/chat/duplicate", {
-        newName: newName,
-      })
+    isDuplicateChatRoom({
+      newName: newName,
+    })
       .then(function (response) {
         console.log("중복체크", response.data);
         setEnable(response.data.isDuplicate);

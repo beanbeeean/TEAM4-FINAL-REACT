@@ -128,15 +128,45 @@ export function myPageStudy(reservationRequest) {
   return axiosInstance.post("/user/myStudyReservation", reservationRequest);
 }
 
-export function adminReadRoom(adminRequest){
+export function adminReadRoom(adminRequest) {
   return axiosInstance.post("/admin/reservation/readRoom", adminRequest);
 }
 
-export function adminStudyRoom(adminRequest){
+export function adminStudyRoom(adminRequest) {
   return axiosInstance.post("/admin/reservation/studyRoom", adminRequest);
 }
 
-export function adminSeat(adminRequest){
+export function adminSeat(adminRequest) {
   console.log(adminRequest);
   return axiosInstance.post("/admin/reservation/seat", adminRequest);
+}
+
+// 커뮤니티 리스트
+export function userCommunity(communityReq) {
+  return axiosInstance.get("/community", communityReq);
+}
+
+// 커뮤니티 작성
+export function userCommunityWrite(communityReq) {
+  return axiosInstance.post("/community/write", communityReq);
+}
+
+// 커뮤니티 수정
+export function userCommunityModify(communityReq, id) {
+  return axiosInstance.post(`/community/community_modify/${id}`, communityReq);
+}
+
+// 채팅 리스트
+export function userChatList(userReq) {
+  return axiosInstance.get("/chat/list", userReq);
+}
+
+// 채팅방 개설
+export function createChatRoom(roomReq) {
+  return axiosInstance.post("/chat/createroom", roomReq);
+}
+
+// 채팅방 이름 중복체크
+export function isDuplicateChatRoom(roomReq) {
+  return axiosInstance.post("/chat/duplicate", roomReq);
 }
