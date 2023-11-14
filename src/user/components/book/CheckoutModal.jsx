@@ -7,6 +7,7 @@ import bookSlice, { bookActions } from "../../../redux/book/slices/bookSlice";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { chkoutBook } from "../common/login/APIUtils";
 
 const CheckoutModal = (props) => {
   const date = new Date();
@@ -49,17 +50,21 @@ const CheckoutModal = (props) => {
   const checkoutBook = () => {
     console.log("checkoutBook");
 
-    axios
-      .get(
-        `/checkout_books/checkout`,
-        {
-          params: {
-            id: props.book.b_no,
-            u_email: userDto.u_email,
-          },
-        },
-        props.book.b_no
-      )
+    // axios
+    //   .get(
+    //     `/checkout_books/checkout`,
+    //     {
+    //       params: {
+    //         id: props.book.b_no,
+    //         u_email: userDto.u_email,
+    //       },
+    //     }
+    //     // props.book.b_no
+    //   )
+    chkoutBook({
+      id: props.book.b_no,
+      u_email: userDto.u_email,
+    })
       .then((response) => {
         console.log("서버 응답 데이터:", response.data);
         Swal.fire({

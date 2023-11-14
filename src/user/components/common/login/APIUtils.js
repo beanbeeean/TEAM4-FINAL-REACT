@@ -128,15 +128,33 @@ export function myPageStudy(reservationRequest) {
   return axiosInstance.post("/user/myStudyReservation", reservationRequest);
 }
 
-export function adminReadRoom(adminRequest){
+export function adminReadRoom(adminRequest) {
   return axiosInstance.post("/admin/reservation/readRoom", adminRequest);
 }
 
-export function adminStudyRoom(adminRequest){
+export function adminStudyRoom(adminRequest) {
   return axiosInstance.post("/admin/reservation/studyRoom", adminRequest);
 }
 
-export function adminSeat(adminRequest){
+export function adminSeat(adminRequest) {
   console.log(adminRequest);
   return axiosInstance.post("/admin/reservation/seat", adminRequest);
+}
+
+export function chkedBookList(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get(
+    "/checkout_books/checkout_book_list",
+    userBookRequest
+  );
+}
+
+export function chkoutBook(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/checkout_books/checkout", userBookRequest);
+}
+
+export function returnBook(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/admin/management/return_book", userBookRequest);
 }
