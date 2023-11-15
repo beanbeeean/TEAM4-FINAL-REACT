@@ -24,7 +24,7 @@ const ChatModal = () => {
 
   const getList = () => {
     api
-      .get("http://127.0.0.1:8090/chat/list", {
+      .get("http://127.0.0.1:8080/chat/list", {
         params: {
           user: userDto.u_email,
         },

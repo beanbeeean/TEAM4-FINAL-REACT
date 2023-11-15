@@ -79,7 +79,7 @@ const CommunityDetail = () => {
       .catch((error) => console.log(error));
 
     api
-      .get("http://127.0.0.1:8090/chat/room_cno", {
+      .get("http://127.0.0.1:8080/chat/room_cno", {
         params: {
           cNo: id,
         },

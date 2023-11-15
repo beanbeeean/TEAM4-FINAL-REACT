@@ -23,7 +23,7 @@ const ReadRoom = () => {
 
   const seatHandle = (event) => {
     axios
-      .get("http://localhost:8090/read/seat?")
+      .get("http://localhost:8080/read/seat?")
       .then((response) => {
         console.log(response.data);
         setTest(response.data);

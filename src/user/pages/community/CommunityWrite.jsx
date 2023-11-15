@@ -183,7 +183,7 @@ const CommunityWrite = () => {
 
   const getList = () => {
     api
-      .get("http://127.0.0.1:8090/chat/list", {
+      .get("http://127.0.0.1:8080/chat/list", {
         params: {
           user: userDto.u_email,
         },
@@ -199,7 +199,7 @@ const CommunityWrite = () => {
   const createRoom = (cNo) => {
     console.log("cNO ", cNo);
     api
-      .post("http://127.0.0.1:8090/chat/createroom", {
+      .post("http://127.0.0.1:8080/chat/createroom", {
         newName: newName,
         userMaxCount: userMaxCount,
         userMail: userDto.u_email,
@@ -217,7 +217,7 @@ const CommunityWrite = () => {
 
   const isDuplicate = () => {
     api
-      .post("http://127.0.0.1:8090/chat/duplicate", {
+      .post("http://127.0.0.1:8080/chat/duplicate", {
         newName: newName,
       })
       .then(function (response) {

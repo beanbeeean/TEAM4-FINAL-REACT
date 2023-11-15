@@ -32,7 +32,7 @@ const ReservationModal = (props) => {
           });
         } else {
           axios
-            .get("http://localhost:8090/read/seat?")
+            .get("http://localhost:8080/read/seat?")
             .then((response) => {
               console.log(response.data);
               props.setTest(response.data);
