@@ -49,6 +49,23 @@ const CommunityDetail = () => {
   console.log("content :: ", content);
   console.log("userName : ", userName);
 
+  const user = useSelector((state) => state.user.flag);
+
+  const loginChk = () => {
+    if(!user){
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "로그인이 필요합니다.",
+        iconColor: "rgb(33, 41, 66)",
+        showConfirmButton: true,
+        timer: 3000,
+      });
+    } else {
+      write_comment();
+    }
+  }
+
   useEffect(() => {
     axios
       .get(`/community/${id}`)
@@ -360,7 +377,7 @@ const CommunityDetail = () => {
                     onClick={() => setRNo(0)}
                   />
                   <div className={styles.user_input_btns}>
-                    <button onClick={write_comment}>댓글</button>
+                    <button onClick={loginChk}>댓글</button>
                     <button onClick={() => setUserInput(false)}>취소</button>
                   </div>
                 </div>
@@ -456,7 +473,7 @@ const CommunityDetail = () => {
                               />
                             </div>
                             <div className={styles.write_reply_btns}>
-                              <button onClick={write_comment}>답글</button>
+                              <button onClick={loginChk}>답글</button>
                               <button onClick={closeReRly}>취소</button>
                             </div>
                           </div>
@@ -571,7 +588,7 @@ const CommunityDetail = () => {
                                       />
                                     </div>
                                     <div className={styles.write_reply_btns}>
-                                      <button onClick={write_comment}>
+                                      <button onClick={loginChk}>
                                         답글
                                       </button>
                                       <button onClick={closeReRly}>취소</button>

@@ -36,28 +36,25 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error('response.error : ',error.response.status);
+    console.error("response.error : ", error.response.status);
     if (error.response && error.response.status === 403) {
-      console.error('response403: ',error.response.status);
-      alert("정지된 사용자입니다.");
-    }
-    else if (error.response && error.response.status === 401) {
+      console.error("response403: ", error.response.status);
+    } else if (error.response && error.response.status === 401) {
       console.log("Response !!:", error.response);
       return refresh()
-      .then(response => {
-        console.error('response401: ', response);
-        const newAccessToken = response.data.accessToken;
-        localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
-        error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-        console.error('response401: ');
-        return axios(error.config);
-      })
-      .catch(error2 => {
-        console.error('Error fetching data: ', error2);
-      });
-    }
-    else {
-      console.error('Error fetching data2: ', error);
+        .then((response) => {
+          console.error("response401: ", response);
+          const newAccessToken = response.data.accessToken;
+          localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
+          error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
+          console.error("response401: ");
+          return axios(error.config);
+        })
+        .catch((error2) => {
+          console.error("Error fetching data: ", error2);
+        });
+    } else {
+      console.error("Error fetching data2: ", error);
       return Promise.reject(error); // 반드시 에러를 reject 해야 합니다.
     }
   }
@@ -158,25 +155,135 @@ export function myPageStudy(reservationRequest) {
   return axiosInstance.post("/user/myStudyReservation", reservationRequest);
 }
 
-export function adminReadRoomLog(adminRequest){
+export function adminReadRoomLog(adminRequest) {
   return axiosInstance.post("/admin/reservation/readRoom", adminRequest);
 }
 
-export function adminStudyRoomLog(adminRequest){
+export function adminStudyRoomLog(adminRequest) {
   return axiosInstance.post("/admin/reservation/studyRoom", adminRequest);
 }
 
-export function adminReadRoom(adminRequest){
+export function adminReadRoom(adminRequest) {
   console.log(adminRequest);
   return axiosInstance.post("/admin/reservation/readRoom", adminRequest);
 }
 
-export function adminStudyRoom(adminRequest){
+export function adminStudyRoom(adminRequest) {
   console.log(adminRequest);
   return axiosInstance.post("/admin/reservation/studyRoom", adminRequest);
 }
 
-export function adminSeat(adminRequest){
+export function adminSeat(adminRequest) {
   console.log(adminRequest);
   return axiosInstance.post("/admin/reservation/seat", adminRequest);
+}
+
+// 커뮤니티 리스트
+export function userCommunity(communityReq) {
+  return axiosInstance.get("/community", communityReq);
+}
+
+// 커뮤니티 작성
+export function userCommunityWrite(communityReq) {
+  return axiosInstance.post("/community/write", communityReq);
+}
+
+// 커뮤니티 수정
+export function userCommunityModify(communityReq, id) {
+  return axiosInstance.post(`/community/community_modify/${id}`, communityReq);
+}
+
+// 채팅 리스트
+export function userChatList(userReq) {
+  return axiosInstance.get("/chat/list", userReq);
+}
+
+// 채팅방 개설
+export function createChatRoom(roomReq) {
+  return axiosInstance.post("/chat/createroom", roomReq);
+}
+
+// 채팅방 이름 중복체크
+export function isDuplicateChatRoom(roomReq) {
+  return axiosInstance.post("/chat/duplicate", roomReq);
+}
+
+// 채팅방 유저 리스트
+export function userChatUserList(roomReq) {
+  return axiosInstance.get("/chat/userlist", roomReq);
+}
+
+// 반납 책 리스트
+export function chkedBookList(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get(
+    "/checkout_books/checkout_book_list",
+    userBookRequest
+  );
+}
+
+// 책 대여
+export function chkoutBook(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/checkout_books/checkout", userBookRequest);
+}
+
+// 책 반납
+export function returnBook(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/admin/management/return_book", userBookRequest);
+}
+
+// admin user관리
+export function userManagement(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/memberManagement", adminRequest);
+}
+
+// admin admin리스트
+export function adminList(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/change_user_state", adminRequest);
+}
+
+// admin 대여한 유저 리스트
+export function adminChkBookUserListModal(bNo) {
+  console.log(bNo);
+  return axiosInstance.get(`/admin/management/checkout_book_user_list${bNo}`);
+}
+
+// admin 대여한 유저 리스트
+export function adminChkBookUserList(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get(`/admin/management/return_book`, adminRequest);
+}
+
+// admin Book State 변경
+export function adminBookState(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/change_book_state", adminRequest);
+}
+
+// admin Book 관리
+export function adminBookManagement(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get("/admin/management/bookManagement", adminRequest);
+}
+
+// admin Community Management
+export function adminCommunityManagement(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get(
+    "/admin/management/communityManagement",
+    adminRequest
+  );
+}
+
+// admin Community State 변경
+export function adminCommunityState(adminRequest) {
+  console.log(adminRequest);
+  return axiosInstance.get(
+    "/admin/management/change_community_state",
+    adminRequest
+  );
 }

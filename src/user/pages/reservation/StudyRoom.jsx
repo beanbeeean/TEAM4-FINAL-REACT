@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Table, Card, Button } from "react-bootstrap";
 import ReservationModal from "../../components/reservation/study/ReservationModal";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 // import ReservationHeader from "../ReservationHeader";
 
 function StudyRoom() {
@@ -8,6 +10,23 @@ function StudyRoom() {
   const [modalShow, setModalShow] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [showTimeSelectionCard, setShowTimeSelectionCard] = useState(false);
+
+  const user = useSelector((state) => state.user.flag);
+
+  const loginChk = () => {
+    if(!user){
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "로그인이 필요합니다.",
+        iconColor: "rgb(33, 41, 66)",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    } else {
+      setModalShow(true);
+    }
+  }
 
   const getDate = () => {
     let today = new Date();
@@ -123,7 +142,7 @@ function StudyRoom() {
           <Button
             variant="primary"
             className="w-100"
-            onClick={() => setModalShow(true)}
+            onClick={() => loginChk()}
           >
             예약하기
           </Button>

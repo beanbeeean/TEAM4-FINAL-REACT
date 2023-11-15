@@ -5,6 +5,8 @@ import axios from "axios";
 import Bootpay from "@bootpay/client-js";
 import { chkRoom } from "../../common/login/APIUtils";
 import ReservationModal from "./ReservationModal";
+import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 const getBusinessHours = (start, end) => {
   const hours = [];
@@ -42,6 +44,23 @@ const StudyRoomBody = ({
   const month = now.getMonth()+1;
   const year = now.getFullYear();
   const date = chosenDay + month * 100 + year * 10000;
+
+  const user = useSelector((state) => state.user.flag);
+
+  const loginChk = () => {
+    if(!user){
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "로그인이 필요합니다.",
+        iconColor: "rgb(33, 41, 66)",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    } else {
+      setModalShow(true);
+    }
+  }
   
 
   const chkroom = (e) => {
@@ -249,7 +268,7 @@ const StudyRoomBody = ({
                 </table>
                 <div
                   className={styles.reservation_card_btn}
-                  onClick={handlePayment}
+                  onClick={loginChk}
                 >
                   예약하기
                 </div>

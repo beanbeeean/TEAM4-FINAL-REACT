@@ -6,6 +6,7 @@ import CheckoutModal from "./CheckoutModal";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import Swal from "sweetalert2";
 
 const CheckoutListItem = (props) => {
   const [modalShow, setModalShow] = useState(false);
@@ -15,10 +16,28 @@ const CheckoutListItem = (props) => {
   const { chkBookDto } = useSelector((state) => state.chkBook);
 
   const { bookDto } = useSelector((state) => state.book);
+  
 
   const isChkBook = chkBookDto.filter(
     (e) => e.u_email === userDto.u_email && e.chk_b_state == 1
   );
+
+  const user = useSelector((state) => state.user.flag);
+
+  const loginChk = () => {
+    if(!user){
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "로그인이 필요합니다.",
+        iconColor: "rgb(33, 41, 66)",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    } else {
+      setModalShow(true);
+    }
+  }
 
   useEffect(() => {
     setUnable(true);
@@ -64,7 +83,7 @@ const CheckoutListItem = (props) => {
               className={styles.checkout_btn}
               type="button"
               value="대여하기"
-              onClick={() => setModalShow(true)}
+              onClick={() => loginChk()}
             />
           ) : (
             <input

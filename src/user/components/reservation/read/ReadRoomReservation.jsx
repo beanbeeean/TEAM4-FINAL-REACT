@@ -3,10 +3,13 @@ import styles from "../../../css/reservation/ReadRoom.module.css";
 import ReservationModal from "./ReservationModal";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { useSelector } from "react-redux";
 
 const ReadRoomReservation = ({ seat, readRoom, setTest }) => {
   const [modalShow, setModalShow] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const user = useSelector((state) => state.user.flag);
+
 
   const checkReservation = () => {
     if (seat == null) {
@@ -18,7 +21,17 @@ const ReadRoomReservation = ({ seat, readRoom, setTest }) => {
         showConfirmButton: true,
         timer: 3000,
       });
-    } else {
+    } else if(!user) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "로그인이 필요합니다.",
+        iconColor: "rgb(33, 41, 66)",
+        showConfirmButton: true,
+        timer: 3000,
+      });
+    }
+    else {
       setModalShow(true);
     }
   };

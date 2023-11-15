@@ -11,6 +11,8 @@ import Month from "react-live-clock";
 import { chkRoom } from "../../common/login/APIUtils";
 import { Col, Row } from "react-bootstrap";
 import ReservationModal from "./ReservationModal";
+import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 const getBusinessHours = (start, end) => {
   const hours = [];
@@ -51,6 +53,33 @@ const StudyHome = () => {
   const month = now.getMonth()+1;
   const year = now.getFullYear();
   const date = chosenDay + month * 100 + year * 10000;
+
+  const user = useSelector((state) => state.user.flag);
+
+  const loginChk = () => {
+    if(selectRoom == 0){
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "자리를 선택해주세요.",
+        iconColor: "yellow",
+        showConfirmButton: true,
+        timer: 3000,
+      });
+    }
+    else if(!user){
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "로그인이 필요합니다.",
+        iconColor: "rgb(33, 41, 66)",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    } else {
+      setModalShow(true);
+    }
+  }
 
 
   let selectedIdx;
@@ -418,7 +447,7 @@ const StudyHome = () => {
                 </table>
                 <div
                   className={styles.reservation_card_btn}
-                  onClick={handlePayment}
+                  onClick={loginChk}
                 >
                   예약하기
                 </div>

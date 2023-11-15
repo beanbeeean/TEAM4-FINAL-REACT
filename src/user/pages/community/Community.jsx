@@ -10,6 +10,7 @@ import { communityActions } from "../../../redux/community/slices/communitySlice
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
 import { Loading } from "../../components/common/Loading";
+import Swal from "sweetalert2";
 
 const Community = () => {
   const { communityDto, searchCommunityDto, loading } = useSelector(
@@ -38,6 +39,20 @@ const Community = () => {
   // const displayedCommunities = arr.slice(startIndex, endIndex);
   const displayedCommunities = communities.slice(startIndex, endIndex);
   //
+  const user = useSelector((state) => state.user.flag);
+
+  const loginChk = () => {
+    if(!user){
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "로그인이 필요합니다.",
+        iconColor: "rgb(33, 41, 66)",
+        showConfirmButton: true,
+        timer: 3000,
+      });
+    }
+  }
 
   const getCommunity = () => {
     axios
@@ -117,10 +132,13 @@ const Community = () => {
           </div>
         </div>
         <button className={styles.write_btn}>
+          { user ?
           <Link to="/community_write">
             <FontAwesomeIcon className={styles.write_icon} icon={faPen} />
             &nbsp;&nbsp;글쓰기
-          </Link>
+          </Link> : <p onClick={()=>loginChk()}><FontAwesomeIcon className={styles.write_icon} icon={faPen}/>
+            &nbsp;&nbsp;글쓰기</p>
+          }
         </button>
       </div>
 
