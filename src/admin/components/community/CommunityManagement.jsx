@@ -8,6 +8,10 @@ import AdminCommunityListNav from "./AdminCommunityListNav";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import {
+  adminCommunityManagement,
+  adminCommunityState,
+} from "../../../user/components/common/login/APIUtils";
 
 const CommunityManagement = () => {
   const [page, setPage] = useState(1);
@@ -25,12 +29,11 @@ const CommunityManagement = () => {
   const displayedLists = communities.slice(startIndex, endIndex);
 
   const changeState = (props) => {
-    axios
-      .get(`/admin/management/change_community_state`, {
-        params: {
-          no: props.c_no,
-        },
-      })
+    adminCommunityState({
+      params: {
+        no: props.c_no,
+      },
+    })
       .then((response) => {
         const result = response.data;
         console.log("response.data : ", response.data);
@@ -52,13 +55,12 @@ const CommunityManagement = () => {
 
   useEffect(() => {
     let arr = [];
-    axios
-      .get(`/admin/management/communityManagement`, {
-        params: {
-          category: navState,
-          keyword: searchCommunity,
-        },
-      })
+    adminCommunityManagement({
+      params: {
+        category: navState,
+        keyword: searchCommunity,
+      },
+    })
       .then((response) => {
         const communityDtos = response.data.dtos;
         dispatch(communityActions.fetchCommunityDto(communityDtos));
@@ -101,7 +103,11 @@ const CommunityManagement = () => {
                     fontSize: "1.2em",
                   }}
                 >
-                  "{searchCommunity}" 에 대한 검색 결과가 없습니다.
+                  {searchCommunity == null ? (
+                    <>"{searchCommunity}" 에 대한 검색 결과가 없습니다.</>
+                  ) : (
+                    <>작성된 게시물이 없습니다.</>
+                  )}
                 </td>
               ) : (
                 <>

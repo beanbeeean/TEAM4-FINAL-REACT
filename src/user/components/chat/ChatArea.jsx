@@ -19,6 +19,7 @@ import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import { Loading } from "../common/Loading";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { userChatUserList } from "../common/login/APIUtils";
 
 let stompClient = null;
 
@@ -150,12 +151,11 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   }
 
   function getUserList() {
-    api
-      .get("/chat/userlist", {
-        params: {
-          roomId: roomId,
-        },
-      })
+    userChatUserList({
+      params: {
+        roomId: roomId,
+      },
+    })
       .then(function (res) {
         dispatch(chatActions.getUserList(res.data.userList));
         // dispatch(chatActions.getUserDetail(res.data.userDetail));
@@ -207,19 +207,19 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
 
   useEffect(() => {
     // connect();
-    api
-      .get("/chat/user_detail", {
-        params: {
-          roomId: roomId,
-        },
-      })
-      .then(function (res) {
-        // dispatch(chatActions.getChatRoomList(res.data.list));
-        console.log("가져왔어  ", res.data);
-      })
-      .catch(function (err) {
-        console.log("list", err);
-      });
+    // api
+    //   .get("/chat/user_detail", {
+    //     params: {
+    //       roomId: roomId,
+    //     },
+    //   })
+    //   .then(function (res) {
+    //     // dispatch(chatActions.getChatRoomList(res.data.list));
+    //     console.log("가져왔어  ", res.data);
+    //   })
+    //   .catch(function (err) {
+    //     console.log("list", err);
+    //   });
     chattingLogRef.current.scrollTop = 0;
   }, [roomId]);
 

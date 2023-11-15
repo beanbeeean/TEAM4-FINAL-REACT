@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { adminChkBookUserList } from "../../../user/components/common/login/APIUtils";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
 
 const CheckoutUserList = ({ user }) => {
   const [state, setState] = useState(false);
@@ -31,19 +33,19 @@ const CheckoutUserList = ({ user }) => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .get(`/admin/management/return_book`, {
-            params: {
-              b_no: user.b_no,
-              chk_b_no: user.chk_b_no,
-            },
-          })
+        adminChkBookUserList({
+          params: {
+            b_no: user.b_no,
+            chk_b_no: user.chk_b_no,
+          },
+        })
           .then((response) => {
             console.log("response.data : ", response.data);
             const result = response.data;
             const b_no = user.b_no;
             const chk_b_no = user.chk_b_no;
             dispatch(chkBookActions.updateReturnState({ b_no, chk_b_no }));
+            dispatch(bookActions.addStock(b_no));
             if (result == 1) {
               Swal.fire({
                 position: "center",
@@ -69,9 +71,15 @@ const CheckoutUserList = ({ user }) => {
         {user.chk_b_start_date} ~{user.chk_b_end_date}
       </td>
       <td>{isChkBook[0].chk_b_state == 0 ? "반납완료" : "대여중"} </td>
-      <td>
-        <input type="button" value="반납" onClick={changeState} />
-      </td>
+      {isChkBook[0].chk_b_state == 0 ? (
+        <td>
+          <input type="button" value="반납" disabled />
+        </td>
+      ) : (
+        <td>
+          <input type="button" value="반납" onClick={changeState} />
+        </td>
+      )}
     </tr>
   );
 };

@@ -58,6 +58,19 @@ const bookSlice = createSlice({
       });
     },
 
+    addStock: (state, action) => {
+      state.bookDto.forEach((e, idx) => {
+        if (e.b_no === action.payload) {
+          state.bookDto[idx].b_stock += 1;
+          console.log(
+            "state.bookDto[idx].b_stock : ",
+            state.bookDto[idx].b_stock
+          );
+          console.log("state.bookDto 1: ", state.bookDto);
+        }
+      });
+    },
+
     fetchSearchBook: (state, action) => {
       state.searchBookDto = action.payload;
       console.log("state.searchBookDto: ", state.searchBookDto);

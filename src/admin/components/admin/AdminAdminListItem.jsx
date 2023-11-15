@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { updateUserState } from "../../../redux/user/slices/userSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { adminList } from "../../../user/components/common/login/APIUtils";
 
 const AdminAdminListItem = ({ admin }) => {
   const dispatch = useDispatch();
@@ -18,12 +19,17 @@ const AdminAdminListItem = ({ admin }) => {
   };
 
   const changeState = (props) => {
-    axios
-      .get(`/admin/management/change_user_state`, {
-        params: {
-          no: props.u_no,
-        },
-      })
+    // axios
+    //   .get(`/admin/management/change_user_state`, {
+    //     params: {
+    //       no: props.u_no,
+    //     },
+    //   })
+    adminList({
+      params: {
+        no: props.u_no,
+      },
+    })
       .then((response) => {
         const result = response.data;
         console.log("response.data : ", response.data);

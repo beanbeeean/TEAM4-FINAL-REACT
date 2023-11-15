@@ -11,6 +11,7 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
 import { Loading } from "../../components/common/Loading";
 import Swal from "sweetalert2";
+import { userCommunity } from "../../components/common/login/APIUtils";
 
 const Community = () => {
   const { communityDto, searchCommunityDto, loading } = useSelector(
@@ -55,14 +56,20 @@ const Community = () => {
   }
 
   const getCommunity = () => {
-    axios
-      .get(`/community`, {
-        params: {
-          keyword: keyword,
-          category: communityMenu,
-          searchOption: searchOption,
-        },
-      })
+    // axios.get(`/community`, {
+    //   params: {
+    //     keyword: keyword,
+    //     category: communityMenu,
+    //     searchOption: searchOption,
+    //   },
+    // });
+    userCommunity({
+      params: {
+        keyword: keyword,
+        category: communityMenu,
+        searchOption: searchOption,
+      },
+    })
       .then((response) => {
         const community = response.data;
         dispatch(communityActions.fetchCommunityDto(community));

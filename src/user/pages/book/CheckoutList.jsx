@@ -10,6 +10,7 @@ import { Loading } from "../../components/common/Loading";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { useLocation } from "react-router";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
+import { chkedBookList } from "../../components/common/login/APIUtils";
 
 const CheckoutList = () => {
   const [loading, setLoading] = useState(true);
@@ -40,13 +41,12 @@ const CheckoutList = () => {
 
   useEffect(() => {
     let arr = [];
-    axios
-      .get(`/checkout_books/checkout_book_list`, {
-        params: {
-          id: null,
-          u_email: null,
-        },
-      })
+    chkedBookList({
+      params: {
+        id: null,
+        u_email: null,
+      },
+    })
       .then((response) => {
         const chkBookDtos = response.data;
         dispatch(chkBookActions.fetchChkBookDto(chkBookDtos));
@@ -54,7 +54,6 @@ const CheckoutList = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-
     axios
       .get(`/checkout_books/home`, {
         params: {

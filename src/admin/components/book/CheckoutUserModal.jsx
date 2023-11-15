@@ -5,6 +5,10 @@ import CheckoutUserList from "./CheckoutUserList";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
+import {
+  adminChkBookUserList,
+  adminChkBookUserListModal,
+} from "../../../user/components/common/login/APIUtils";
 
 const CheckoutUserModal = (props) => {
   const [users, setUsers] = useState([]);
@@ -23,8 +27,7 @@ const CheckoutUserModal = (props) => {
   useEffect(() => {
     console.log("props.book", props.book);
     let arr = [];
-    axios
-      .get(`/admin/management/checkout_book_user_list${props.book.b_no}`)
+    adminChkBookUserListModal(props.book.b_no)
       .then((response) => {
         // setUsers([]);
         const chkBookDtos = response.data;

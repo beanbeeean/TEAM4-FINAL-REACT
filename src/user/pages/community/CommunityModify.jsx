@@ -11,6 +11,7 @@ import ImageResize from "quill-image-resize-module-react";
 import styles from "../../css/community/CommunityWrite.module.css";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { userCommunityModify } from "../../components/common/login/APIUtils";
 
 const RowBox = styled.div`
   width: 100%;
@@ -97,12 +98,19 @@ const CommunityModify = () => {
   };
 
   const handleSubmit = () => {
-    axios
-      .post(`/community/community_modify/${id}`, {
+    // axios.post(`/community/community_modify/${id}`, {
+    //   selection: selection,
+    //   title: title,
+    //   content: htmlString,
+    // });
+    userCommunityModify(
+      {
         selection: selection,
         title: title,
         content: htmlString,
-      })
+      },
+      id
+    )
       .then((response) => {
         console.log("수정 성공", response.data);
         Swal.fire({
