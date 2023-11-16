@@ -19,7 +19,7 @@ const readroomSlice = createSlice({
   //action을 담자.
   reducers: {
     fetchRoomDto: (state, action) => {
-      state.roomDto = action.payload;
+      // state.roomDto = action.payload;
       console.log("state.roomDto: ", state.roomDto);
     },
   },
