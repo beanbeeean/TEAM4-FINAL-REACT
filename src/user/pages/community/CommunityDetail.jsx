@@ -52,7 +52,7 @@ const CommunityDetail = () => {
   const user = useSelector((state) => state.user.flag);
 
   const loginChk = () => {
-    if(!user){
+    if (!user) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -64,7 +64,7 @@ const CommunityDetail = () => {
     } else {
       write_comment();
     }
-  }
+  };
 
   useEffect(() => {
     axios
@@ -79,11 +79,14 @@ const CommunityDetail = () => {
       .catch((error) => console.log(error));
 
     api
-      .get("http://127.0.0.1:8080/chat/room_cno", {
-        params: {
-          cNo: id,
-        },
-      })
+      .get(
+        "http://libooks-nlb-4d85942f78544b5d.elb.ap-northeast-2.amazonaws.com:8080/chat/room_cno",
+        {
+          params: {
+            cNo: id,
+          },
+        }
+      )
       .then(function (res) {
         setChatRoom(res.data.room);
         console.log("dsdsdsds", res.data.room);
@@ -588,9 +591,7 @@ const CommunityDetail = () => {
                                       />
                                     </div>
                                     <div className={styles.write_reply_btns}>
-                                      <button onClick={loginChk}>
-                                        답글
-                                      </button>
+                                      <button onClick={loginChk}>답글</button>
                                       <button onClick={closeReRly}>취소</button>
                                     </div>
                                   </div>
