@@ -52,7 +52,7 @@ const StudyRoomReservationList = () => {
         <tbody>
           {displayedLists.map((item) => (
             <tr className={stylesAdmin.reservation_list}>
-              <td>1</td>
+              <td>{item.sr_no}</td>
               <td>{item.sr_email}</td>
               <td>{item.sr_name}</td>
               <td>
