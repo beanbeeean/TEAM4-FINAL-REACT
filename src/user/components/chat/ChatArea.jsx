@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
-import api from "../../../redux/api";
+
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import { Loading } from "../common/Loading";
