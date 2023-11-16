@@ -46,7 +46,6 @@
     "swiper": "^10.3.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://libooks-nlb-4225b366ab8936e7.elb.ap-northeast-2.amazonaws.com:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
