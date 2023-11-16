@@ -61,7 +61,6 @@ const CommunityModify = () => {
   console.log("modifyCommunity :: ", modifyCommunity);
 
   const [htmlString, setHtmlString] = useState(modifyCommunity[0].c_content);
-  console.log("htmlString :: ", htmlString);
   const [selection, setSelection] = useState(1);
 
   const navigate = useNavigate();
@@ -91,9 +90,6 @@ const CommunityModify = () => {
   };
 
   const handleQuillChange = (content, delta, source, editor) => {
-    console.log("content :: ", content);
-    // console.log("editor.getContents() :: ", editor.getContents());
-    // setQuillValue(editor.getContents());
     setHtmlString(content);
   };
 
@@ -149,7 +145,8 @@ const CommunityModify = () => {
         <select
           name="write_category"
           className={styles.wrtie_select_category}
-          value={modifyCommunity[0].c_category}
+          // value={modifyCommunity[0].c_category}
+          value={selection}
           onChange={(e) => setSelection(e.target.value)}
         >
           <option value="1">자유</option>
@@ -170,7 +167,8 @@ const CommunityModify = () => {
           theme="snow"
           modules={modules}
           formats={formats}
-          value={modifyCommunity[0].c_content}
+          // value={modifyCommunity[0].c_content}
+          value={htmlString}
           onChange={handleQuillChange}
         />
       </div>

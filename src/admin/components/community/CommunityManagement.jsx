@@ -18,7 +18,7 @@ const CommunityManagement = () => {
   const itemsPerPage = 10;
 
   const [communities, setCommunities] = useState([]);
-  const [navState, setNavState] = useState("RECOMMEND");
+  const [navState, setNavState] = useState("FREE");
   const [searchCommunity, setSearchCommunity] = useState("");
 
   const dispatch = useDispatch();
