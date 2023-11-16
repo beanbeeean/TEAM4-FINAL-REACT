@@ -14,6 +14,7 @@ import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import LoginModal from "../../components/common/LoginModal";
+import { userCommentDelete, userCommentModify, userCommentWrite } from "../../components/common/login/APIUtils";
 
 const CommunityDetail = () => {
   let id = useParams().id;
@@ -146,8 +147,7 @@ const CommunityDetail = () => {
   };
 
   const write_comment = () => {
-    axios
-      .post(`/community/write_comment`, {
+    userCommentWrite({
         c_no: id,
         u_no: userDto.u_no,
         r_comment: comment,
@@ -165,8 +165,7 @@ const CommunityDetail = () => {
   };
 
   const modify_comment = () => {
-    axios
-      .post(`/community/modify_comment`, {
+    userCommentModify({
         r_no: rNo,
         r_comment: comment,
       })
@@ -193,8 +192,7 @@ const CommunityDetail = () => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .post(`/community/delete_comment`, {
+        userCommentDelete({
             r_no: no,
           })
           .then((response) => {
