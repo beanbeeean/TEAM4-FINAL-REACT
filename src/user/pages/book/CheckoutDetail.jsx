@@ -30,7 +30,7 @@ const CheckoutDetail = () => {
   const user = useSelector((state) => state.user.flag);
 
   const loginChk = () => {
-    if(!user){
+    if (!user) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -39,16 +39,16 @@ const CheckoutDetail = () => {
         showConfirmButton: true,
         timer: 3000, // 메시지를 표시한 후 3초 동안 대기
       }).then((result) => {
-         setLoginModalShow(true)
+        setLoginModalShow(true);
       });
     } else {
       setModalShow(true);
     }
-  }
+  };
 
   useEffect(() => {
     isChkBook.map((item) => {
-      if (item.b_no == detailBook[0].b_no) {
+      if (item.b_no == detailBook[0].b_no && item.chk_b_state == 1) {
         setUnable(false);
       }
     });
@@ -134,7 +134,10 @@ const CheckoutDetail = () => {
           )}
         </Row>
       )}
-      <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+      <LoginModal
+        show={loginModalShow}
+        onHide={() => setLoginModalShow(false)}
+      />
     </Container>
   );
 };
