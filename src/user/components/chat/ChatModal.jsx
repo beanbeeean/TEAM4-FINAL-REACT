@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../css/chat/Chat.module.css";
 import { BiChat } from "react-icons/bi";
-import api from "../../../redux/api";
+
 import ChatArea from "./ChatArea";
 import ChatItem from "./ChatItem";
 import { useDispatch, useSelector } from "react-redux";
