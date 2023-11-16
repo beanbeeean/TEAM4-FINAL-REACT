@@ -79,7 +79,7 @@ const CommunityDetail = () => {
 
     axios
       .get(
-        "http://libooks-nlb-4d85942f78544b5d.elb.ap-northeast-2.amazonaws.com:8080/chat/room_cno",
+        "http://libooks-nlb-4225b366ab8936e7.elb.ap-northeast-2.amazonaws.com:8080/chat/room_cno",
         {
           params: {
             cNo: id,
