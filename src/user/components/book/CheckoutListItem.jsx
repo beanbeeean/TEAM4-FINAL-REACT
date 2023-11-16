@@ -7,9 +7,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import Swal from "sweetalert2";
+import LoginModal from "../common/LoginModal";
 
 const CheckoutListItem = (props) => {
   const [modalShow, setModalShow] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
   const [unable, setUnable] = useState(true);
 
   const { userDto } = useSelector((state) => state.user);
@@ -31,8 +33,10 @@ const CheckoutListItem = (props) => {
         icon: "error",
         title: "로그인이 필요합니다.",
         iconColor: "rgb(33, 41, 66)",
-        showConfirmButton: false,
-        timer: 3000,
+        showConfirmButton: true,
+        timer: 3000, // 메시지를 표시한 후 3초 동안 대기
+      }).then((result) => {
+        setLoginModalShow(true)
       });
     } else {
       setModalShow(true);
@@ -101,6 +105,7 @@ const CheckoutListItem = (props) => {
           />
         </div>
       </div>
+      <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
     </div>
   );
 };

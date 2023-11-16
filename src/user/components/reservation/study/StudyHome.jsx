@@ -13,6 +13,7 @@ import { Col, Row } from "react-bootstrap";
 import ReservationModal from "./ReservationModal";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
+import LoginModal from "../../common/LoginModal";
 
 const getBusinessHours = (start, end) => {
   const hours = [];
@@ -28,7 +29,7 @@ const StudyHome = () => {
 
   const [selectedTime, setSelectedTime] = useState();
   const [selectedRoom, setSelectedRoom] = useState();
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState(0);
   const [chosenMonth, setChosenMonth] = useState(new Date().getMonth() + 1);
   const [chosenDay, setChosenDay] = useState(new Date().getDate());
   const [monthState, setMonthState] = useState(0);
@@ -41,6 +42,7 @@ const StudyHome = () => {
   const [daylist, setDaylist] = useState([]);
   const [weaklist, setWeaklist] = useState([]);
   const [selectedDay, setSelectedDay] = useState(0);
+  const [loginModalShow, setLoginModalShow] = useState(false);
 
   const [times, setTimes] = useState(getBusinessHours(8, 22));
   const [spaceNum, setSpaceNum] = useState();
@@ -50,6 +52,7 @@ const StudyHome = () => {
   const [modalShow, setModalShow] = useState(false);
   const [maxTime, setMaxTime] = useState(0);
   const [selectRoom, setSelectRoom] = useState(0);
+  const [restart, setRestart] = useState(0);
   const month = now.getMonth()+1;
   const year = now.getFullYear();
   const date = chosenDay + month * 100 + year * 10000;
@@ -57,11 +60,11 @@ const StudyHome = () => {
   const user = useSelector((state) => state.user.flag);
 
   const loginChk = () => {
-    if(selectRoom == 0){
+    if(price == 0){
       Swal.fire({
         position: "center",
         icon: "info",
-        title: "자리를 선택해주세요.",
+        title: "스터디룸을 선택해주세요.",
         iconColor: "yellow",
         showConfirmButton: true,
         timer: 3000,
@@ -73,8 +76,10 @@ const StudyHome = () => {
         icon: "error",
         title: "로그인이 필요합니다.",
         iconColor: "rgb(33, 41, 66)",
-        showConfirmButton: false,
-        timer: 3000,
+        showConfirmButton: true,
+        timer: 3000, // 메시지를 표시한 후 3초 동안 대기
+      }).then((result) => {
+          setLoginModalShow(true)
       });
     } else {
       setModalShow(true);
@@ -154,6 +159,7 @@ const StudyHome = () => {
   const setDateData = (idx, day) => {
     console.log("idx:", idx);
     console.log("selectedIdx-1 :", selectedIdx - 1);
+    console.log("isNaN(selectedIdx - 1) :", isNaN(selectedIdx - 1));
 
     if (idx > selectedIdx - 1) {
       setMonthState(1);
@@ -162,14 +168,26 @@ const StudyHome = () => {
     }
 
     setSelectedDay(idx);
-    setLoad(false);
+    if(load){
+      setLoad(false);
+    } else {
+      setLoad(true);
+    }
     setChosenDay(day);
   };
 
   useEffect(() => {
-    console.log(chosenDay);
-
-  }, [chosenDay]);
+    console.log("chosenDay"+chosenDay);
+    setLoad(false);
+    chkRoom({date, space})
+    .then(response => {
+        let impossible = response.data
+        setImpossible(impossible.slice());
+      setLoad(true);
+    })
+    .catch(error => {
+    });
+  }, [restart]);
 
   const chkroom = (e) => {
     setSpace(e);
@@ -208,7 +226,7 @@ const StudyHome = () => {
 
     for(let i = 0; i < 3; i++){
       console.log(impossible[num][time]);
-      if(impossible[num][time + i] == 0){
+      if(impossible[num][time + i] == 0 && (time + i)<23){
         setMaxTime(i);
       } else {
         break;
@@ -441,7 +459,7 @@ const StudyHome = () => {
                       </td>
                       <td>{selectedTime > 7 ? selectedTime + ":00" : ""}</td>
                       <td>{selectedRoom}</td>
-                      <td>{price > 0 && "\\" + price}</td>
+                      <td>{price > 0 && price +"원"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -465,9 +483,17 @@ const StudyHome = () => {
         selectedTime={selectedTime}
         selectedRoom={selectedRoom}
         setModalShow={setModalShow}
+        setSelectedRoom={setSelectedRoom}
+        setSelectMonth={setSelectMonth}
+        setSelectday={setSelectday}
+        setSelectedTime={setSelectedTime}
+        setPrice={setPrice}
+        setRestart={setRestart}
+        restart={restart}
         onHide={() => setModalShow(false)}
       />
     </div>):""}
+    <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
     </>
    
   );

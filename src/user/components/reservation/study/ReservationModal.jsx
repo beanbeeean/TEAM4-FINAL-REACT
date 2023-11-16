@@ -42,6 +42,21 @@ const ReservationModal = (props) => {
     props.onHide();
   };
 
+  const chk = () => {
+    if(total==null){
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "시간을 선택해주세요.",
+        iconColor: "yellow",
+        showConfirmButton: true,
+        timer: 3000,
+      });
+    } else{
+      handlePayment();
+    }
+  }
+
   const handlePayment = async () => {
     try {
       const response = await Bootpay.requestPayment({
@@ -97,7 +112,12 @@ const ReservationModal = (props) => {
         reservationRoom(data)
         .then(response => {
           props.setModalShow(false);
-          props.selectedRoom("");
+          props.setSelectedRoom();
+          props.setSelectday();
+          props.setSelectedTime();
+          props.setPrice(0);
+          props.setSelectMonth();
+          props.setRestart(props.restart+1);
         })
         .catch(error => {
           console.error('Error fetching data: ', error);
@@ -109,7 +129,11 @@ const ReservationModal = (props) => {
           title: "결제가 취소되었습니다.",
           showConfirmButton: false,
           timer: 3000,
-        });
+        }).then(
+          response => {
+            
+          }
+        );
         console.error("Payment failed:", response);
       }
     } catch (error) {
@@ -194,7 +218,7 @@ const ReservationModal = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={handlePayment}>
+        <Button variant="primary" onClick={chk}>
           예약
         </Button>
         <Button variant="secondary" onClick={handleTest}>

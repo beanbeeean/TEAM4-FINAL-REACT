@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import LoginModal from "../../components/common/LoginModal";
 
 const CommunityDetail = () => {
   let id = useParams().id;
@@ -25,6 +26,7 @@ const CommunityDetail = () => {
   const [chatRoom, setChatRoom] = useState(null);
   const [comment, setComment] = useState("");
   const [recomment, setRecomment] = useState("");
+  const [modalShow, setModalShow] = useState(false);
 
   const [userName, setUserName] = useState([]);
 
@@ -59,7 +61,9 @@ const CommunityDetail = () => {
         title: "로그인이 필요합니다.",
         iconColor: "rgb(33, 41, 66)",
         showConfirmButton: true,
-        timer: 3000,
+        timer: 3000, // 메시지를 표시한 후 3초 동안 대기
+      }).then((result) => {
+          setModalShow(true)
       });
     } else {
       write_comment();
@@ -605,6 +609,7 @@ const CommunityDetail = () => {
           </div>
         </div>
       )}
+      <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 };

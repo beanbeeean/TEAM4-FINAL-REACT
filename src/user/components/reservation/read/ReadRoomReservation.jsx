@@ -4,11 +4,13 @@ import ReservationModal from "./ReservationModal";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import { useSelector } from "react-redux";
+import LoginModal from "../../common/LoginModal";
 
 const ReadRoomReservation = ({ seat, readRoom, setTest }) => {
   const [modalShow, setModalShow] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const user = useSelector((state) => state.user.flag);
+  const [loginModalShow, setLoginModalShow] = useState(false);
 
 
   const checkReservation = () => {
@@ -28,7 +30,9 @@ const ReadRoomReservation = ({ seat, readRoom, setTest }) => {
         title: "로그인이 필요합니다.",
         iconColor: "rgb(33, 41, 66)",
         showConfirmButton: true,
-        timer: 3000,
+        timer: 3000, // 메시지를 표시한 후 3초 동안 대기
+      }).then((result) => {
+        setLoginModalShow(true)
       });
     }
     else {
@@ -75,6 +79,7 @@ const ReadRoomReservation = ({ seat, readRoom, setTest }) => {
         setTest={setTest}
         onHide={() => setModalShow(false)}
       />
+      <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
     </div>
   );
 };
