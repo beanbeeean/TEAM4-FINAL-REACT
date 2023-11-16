@@ -68,33 +68,30 @@ const Home = () => {
     navigate("/checkout_books");
   };
   useEffect(() => {
-    axios
-      .get(`/admin/management/memberManagement`, {
-        params: {
-          keyword: "",
-        },
-      })
+    userManagement({
+      params: {
+        keyword: "",
+      },
+    })
       .then((response) => {
         const userDtos = response.data.dtos;
         dispatch(fetchUserDtos(userDtos));
       })
       .catch((error) => console.log(error));
 
-    axios
-      .get(`/checkout_books/home`, {
-        params: {
-          category: null,
-          keyword: null,
-        },
-      })
+    checkoutBooksHome({
+      params: {
+        category: null,
+        keyword: null,
+      },
+    })
       .then((response) => {
         const bookDtos = response.data;
         dispatch(bookActions.fetchBookDto(bookDtos));
       })
       .catch((error) => console.log(error));
 
-    axios
-      .get(`/community`)
+    getCommunity()
       .then((response) => {
         setCommunities(response.data.communityDtos);
         console.log(
@@ -107,8 +104,7 @@ const Home = () => {
       })
       .catch((error) => console.log(error));
 
-    axios
-      .get(`/read/seat`)
+    readSeat()
       .then((response) => {
         const roomDtos = response.data;
         dispatch(readroomActions.fetchRoomDto(roomDtos));

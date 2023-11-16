@@ -287,3 +287,15 @@ export function adminCommunityState(adminRequest) {
     adminRequest
   );
 }
+
+export function readSeat() {
+  return axiosInstance.get("/read/seat");
+}
+
+export function getCommunity() {
+  return axiosInstance.get("/community");
+}
+
+export function checkoutBooksHome(bookParam) {
+  return axiosInstance.get("/checkout_books/home", bookParam);
+}
