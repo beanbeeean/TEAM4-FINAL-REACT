@@ -39,7 +39,10 @@ const ChatModal = () => {
   };
 
   useEffect(() => {
-    getList();
+    if (JSON.stringify(userDto) != JSON.stringify({})) {
+      getList();
+      console.log("참 실행");
+    }
     console.log("userDto  ", userDto);
   }, [userDto]);
 
