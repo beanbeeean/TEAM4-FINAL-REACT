@@ -5,7 +5,6 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../css/community/CommunityWrite.module.css";
-import api from "../../../redux/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,

@@ -8,7 +8,6 @@ import {
   faEllipsisVertical,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import api from "../../../redux/api";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import Swal from "sweetalert2";
@@ -78,7 +77,7 @@ const CommunityDetail = () => {
       })
       .catch((error) => console.log(error));
 
-    api
+    axios
       .get(
         "http://libooks-nlb-4d85942f78544b5d.elb.ap-northeast-2.amazonaws.com:8080/chat/room_cno",
         {
