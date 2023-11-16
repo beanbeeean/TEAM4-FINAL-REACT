@@ -1,10 +1,9 @@
 export const API_BASE_URL =
-  "http://libooks-nlb-4d85942f78544b5d.elb.ap-northeast-2.amazonaws.com:8080";
+  "http://libooks-nlb-4225b366ab8936e7.elb.ap-northeast-2.amazonaws.com:8080";
 export const ACCESS_TOKEN = "accessToken";
 export const REFRESH_TOKEN = "refreshToken";
 
-export const OAUTH2_REDIRECT_URI =
-  "http://libooks-alb-1739935494.ap-northeast-2.elb.amazonaws.com:3000/oauth2/redirect";
+export const OAUTH2_REDIRECT_URI = "http://localhost:3000/oauth2/redirect";
 
 export const GOOGLE_AUTH_URL =
   API_BASE_URL + "/oauth2/authorize/google?redirect_uri=" + OAUTH2_REDIRECT_URI;
