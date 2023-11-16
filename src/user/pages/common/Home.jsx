@@ -119,8 +119,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // setBooks(bookDto.filter((e) => e.b_category === 3));
-    setBooks(bookDto);
+    setBooks(bookDto.filter((e) => e.b_category === 3));
+    // setBooks(bookDto);
   }, [bookDto]);
 
   useEffect(() => {
