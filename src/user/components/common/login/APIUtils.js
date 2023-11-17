@@ -170,7 +170,7 @@ export function adminReadRoom(adminRequest) {
 
 export function adminStudyRoom(adminRequest) {
   console.log(adminRequest);
-  return axiosInstance.post("/admin/reservation/studyRoom", adminRequest);
+  return axiosInstance.post("/admin/reservation/room", adminRequest);
 }
 
 export function adminSeat(adminRequest) {

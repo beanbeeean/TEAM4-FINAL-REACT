@@ -115,7 +115,7 @@ const ReservationModal = (props) => {
           props.setSelectedRoom();
           props.setSelectday();
           props.setSelectedTime();
-          props.setPrice(0);
+          props.setPrice();
           props.setSelectMonth();
           props.setRestart(props.restart+1);
         })

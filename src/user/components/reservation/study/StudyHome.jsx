@@ -29,7 +29,7 @@ const StudyHome = () => {
 
   const [selectedTime, setSelectedTime] = useState();
   const [selectedRoom, setSelectedRoom] = useState();
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState();
   const [chosenMonth, setChosenMonth] = useState(new Date().getMonth() + 1);
   const [chosenDay, setChosenDay] = useState(new Date().getDate());
   const [monthState, setMonthState] = useState(0);
