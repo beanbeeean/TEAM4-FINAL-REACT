@@ -5,9 +5,9 @@ import styles from "../../css/mypage/MypageCommunity.module.css";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import MypageCommunityItem from "./MypageCommunityItem";
-import axios from "axios";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import { userCommunity } from "../common/login/APIUtils";
 
 const MypageCommunity = () => {
   const [on, setOn] = useState(1);
@@ -35,14 +35,13 @@ const MypageCommunity = () => {
   console.log("displayedCommunities :: ", displayedCommunities);
 
   const getCommunity = () => {
-    axios
-      .get(`/community`, {
-        params: {
-          keyword: keyword,
-          category: category,
-          searchOption: "",
-        },
-      })
+    userCommunity({
+      params: {
+        keyword: keyword,
+        category: category,
+        searchOption: "",
+      },
+    })
       .then((response) => {
         const community = response.data;
         dispatch(communityActions.fetchCommunityDto(community));
