@@ -11,7 +11,10 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
 import { Loading } from "../../components/common/Loading";
 import Swal from "sweetalert2";
-import { userCommunity } from "../../components/common/login/APIUtils";
+import {
+  userCommunity,
+  userManagement,
+} from "../../components/common/login/APIUtils";
 import LoginModal from "../../components/common/LoginModal";
 import { fetchUserDtos } from "../../../redux/user/slices/userSlice";
 
@@ -44,10 +47,10 @@ const Community = () => {
   const displayedCommunities = communities.slice(startIndex, endIndex);
   //
   const user = useSelector((state) => state.user.flag);
-  const {userDtos} = useSelector(state=>state.user);
+  const { userDtos } = useSelector((state) => state.user);
 
   const loginChk = () => {
-    if(!user){
+    if (!user) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -56,10 +59,10 @@ const Community = () => {
         showConfirmButton: true,
         timer: 3000, // 메시지를 표시한 후 3초 동안 대기
       }).then((result) => {
-          setModalShow(true)
+        setModalShow(true);
       });
     }
-  }
+  };
 
   const getCommunity = () => {
     // axios.get(`/community`, {
@@ -92,16 +95,15 @@ const Community = () => {
     getCommunity();
     dispatch(commonActions.setMainMenu(4));
     // dispatch(commonActions.setCommunityMenu(1));
-    axios
-    .get(`/admin/management/memberManagement`, {
+    userManagement({
       params: {
         keyword: "",
       },
     })
-    .then((response) => {
-      dispatch(fetchUserDtos(response.data.dtos));
-    })
-    .catch((error) => console.log(error));
+      .then((response) => {
+        dispatch(fetchUserDtos(response.data.dtos));
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
@@ -155,13 +157,17 @@ const Community = () => {
           </div>
         </div>
         <button className={styles.write_btn}>
-          { user ?
-          <Link to="/community_write">
-            <FontAwesomeIcon className={styles.write_icon} icon={faPen} />
-            &nbsp;&nbsp;글쓰기
-          </Link> : <p onClick={()=>loginChk()}><FontAwesomeIcon className={styles.write_icon} icon={faPen}/>
-            &nbsp;&nbsp;글쓰기</p>
-          }
+          {user ? (
+            <Link to="/community_write">
+              <FontAwesomeIcon className={styles.write_icon} icon={faPen} />
+              &nbsp;&nbsp;글쓰기
+            </Link>
+          ) : (
+            <p onClick={() => loginChk()}>
+              <FontAwesomeIcon className={styles.write_icon} icon={faPen} />
+              &nbsp;&nbsp;글쓰기
+            </p>
+          )}
         </button>
       </div>
 
@@ -206,7 +212,7 @@ const Community = () => {
             ) : (
               <>
                 {displayedCommunities.map((community) => (
-                  <CommunityItem community={community} userDtos={userDtos}/>
+                  <CommunityItem community={community} userDtos={userDtos} />
                 ))}
               </>
             )}
@@ -223,7 +229,7 @@ const Community = () => {
         }}
         ellipsis={1}
       />
-       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
+      <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
   );
 };
