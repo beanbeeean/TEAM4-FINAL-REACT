@@ -12,6 +12,8 @@ import { commonActions } from "../../../redux/common/slices/commonSlice";
 import { Loading } from "../../components/common/Loading";
 import Swal from "sweetalert2";
 import { userCommunity } from "../../components/common/login/APIUtils";
+import LoginModal from "../../components/common/LoginModal";
+import { fetchUserDtos } from "../../../redux/user/slices/userSlice";
 
 const Community = () => {
   const { communityDto, searchCommunityDto, loading } = useSelector(
@@ -20,6 +22,7 @@ const Community = () => {
 
   console.log("communityDto :: ", communityDto);
   const dispatch = useDispatch();
+  const [modalShow, setModalShow] = useState(false);
   const { communityMenu } = useSelector((state) => state.common);
   const [searchOption, setSearchOption] = useState(1);
   const [keyword, setKeyword] = useState(
@@ -41,6 +44,7 @@ const Community = () => {
   const displayedCommunities = communities.slice(startIndex, endIndex);
   //
   const user = useSelector((state) => state.user.flag);
+  const {userDtos} = useSelector(state=>state.user);
 
   const loginChk = () => {
     if(!user){
@@ -50,7 +54,9 @@ const Community = () => {
         title: "로그인이 필요합니다.",
         iconColor: "rgb(33, 41, 66)",
         showConfirmButton: true,
-        timer: 3000,
+        timer: 3000, // 메시지를 표시한 후 3초 동안 대기
+      }).then((result) => {
+          setModalShow(true)
       });
     }
   }
@@ -86,6 +92,16 @@ const Community = () => {
     getCommunity();
     dispatch(commonActions.setMainMenu(4));
     // dispatch(commonActions.setCommunityMenu(1));
+    axios
+    .get(`/admin/management/memberManagement`, {
+      params: {
+        keyword: "",
+      },
+    })
+    .then((response) => {
+      dispatch(fetchUserDtos(response.data.dtos));
+    })
+    .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
@@ -190,7 +206,7 @@ const Community = () => {
             ) : (
               <>
                 {displayedCommunities.map((community) => (
-                  <CommunityItem community={community} />
+                  <CommunityItem community={community} userDtos={userDtos}/>
                 ))}
               </>
             )}
@@ -207,6 +223,7 @@ const Community = () => {
         }}
         ellipsis={1}
       />
+       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
   );
 };

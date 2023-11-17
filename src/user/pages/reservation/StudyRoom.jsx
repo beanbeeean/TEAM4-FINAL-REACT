@@ -3,10 +3,12 @@ import { Row, Col, Table, Card, Button } from "react-bootstrap";
 import ReservationModal from "../../components/reservation/study/ReservationModal";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import LoginModal from "../../components/common/LoginModal";
 // import ReservationHeader from "../ReservationHeader";
 
 function StudyRoom() {
   const [selectedTime, setSelectedTime] = useState([]);
+  const [loginModalShow, setLoginModalShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [showTimeSelectionCard, setShowTimeSelectionCard] = useState(false);
@@ -20,8 +22,10 @@ function StudyRoom() {
         icon: "error",
         title: "로그인이 필요합니다.",
         iconColor: "rgb(33, 41, 66)",
-        showConfirmButton: false,
-        timer: 3000,
+        showConfirmButton: true,
+        timer: 3000, // 메시지를 표시한 후 3초 동안 대기
+      }).then((result) => {
+        setLoginModalShow(true)
       });
     } else {
       setModalShow(true);
@@ -154,6 +158,7 @@ function StudyRoom() {
         no={selectedSeat}
         onHide={() => setModalShow(false)}
       />
+      <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
     </div>
   );
 }

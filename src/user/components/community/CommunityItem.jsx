@@ -2,13 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const CommunityItem = ({ community }) => {
+const CommunityItem = ({ community,userDtos }) => {
   const date = new Date(community.c_reg_date);
   const yyyy = date.getFullYear();
   const mm = String(date.getMonth() + 1).padStart(2, "0");
   const dd = String(date.getDate()).padStart(2, "0");
 
-  const { userDtos } = useSelector((state) => state.user);
+  // const { userDtos } = useSelector((state) => state.user);
 
   return (
     <tr>

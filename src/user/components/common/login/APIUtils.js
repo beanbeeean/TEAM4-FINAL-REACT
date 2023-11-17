@@ -170,7 +170,7 @@ export function adminReadRoom(adminRequest) {
 
 export function adminStudyRoom(adminRequest) {
   console.log(adminRequest);
-  return axiosInstance.post("/admin/reservation/studyRoom", adminRequest);
+  return axiosInstance.post("/admin/reservation/room", adminRequest);
 }
 
 export function adminSeat(adminRequest) {
@@ -191,6 +191,21 @@ export function userCommunityWrite(communityReq) {
 // 커뮤니티 수정
 export function userCommunityModify(communityReq, id) {
   return axiosInstance.post(`/community/community_modify/${id}`, communityReq);
+}
+
+// 댓글 작성
+export function userCommentWrite(commentReq, id) {
+  return axiosInstance.post("/community/write_comment", commentReq);
+}
+
+// 댓글 수정
+export function userCommentModify(commentReq) {
+  return axiosInstance.post("/community/modify_comment", commentReq);
+}
+
+// 댓글 삭제
+export function userCommentDelete(commentReq) {
+  return axiosInstance.post("/community/delete_comment", commentReq);
 }
 
 // 채팅 리스트
@@ -232,6 +247,12 @@ export function chkoutBook(userBookRequest) {
 export function returnBook(userBookRequest) {
   console.log(userBookRequest);
   return axiosInstance.get("/admin/management/return_book", userBookRequest);
+}
+
+// mypage 책 리스트
+export function myPageChkBookHome(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/checkout_books/home", userBookRequest);
 }
 
 // admin user관리

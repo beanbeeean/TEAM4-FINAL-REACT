@@ -6,9 +6,11 @@ import axios from "axios";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import LoginModal from "../../components/common/LoginModal";
 
 const CheckoutDetail = () => {
   const [modalShow, setModalShow] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
   const id = useParams().id;
 
   const { bookDto } = useSelector((state) => state.book);
@@ -28,23 +30,25 @@ const CheckoutDetail = () => {
   const user = useSelector((state) => state.user.flag);
 
   const loginChk = () => {
-    if(!user){
+    if (!user) {
       Swal.fire({
         position: "center",
         icon: "error",
         title: "로그인이 필요합니다.",
         iconColor: "rgb(33, 41, 66)",
         showConfirmButton: true,
-        timer: 3000,
+        timer: 3000, // 메시지를 표시한 후 3초 동안 대기
+      }).then((result) => {
+        setLoginModalShow(true);
       });
     } else {
       setModalShow(true);
     }
-  }
+  };
 
   useEffect(() => {
     isChkBook.map((item) => {
-      if (item.b_no == detailBook[0].b_no) {
+      if (item.b_no == detailBook[0].b_no && item.chk_b_state == 1) {
         setUnable(false);
       }
     });
@@ -130,6 +134,10 @@ const CheckoutDetail = () => {
           )}
         </Row>
       )}
+      <LoginModal
+        show={loginModalShow}
+        onHide={() => setLoginModalShow(false)}
+      />
     </Container>
   );
 };
