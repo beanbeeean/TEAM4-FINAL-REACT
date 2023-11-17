@@ -54,13 +54,13 @@ const CheckoutList = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-    axios
-      .get(`/checkout_books/home`, {
-        params: {
-          category: bookMenu,
-          keyword: searchBook,
-        },
-      })
+
+    checkoutBooksHome({
+      params: {
+        category: bookMenu,
+        keyword: searchBook,
+      },
+    })
       .then((response) => {
         const bookDtos = response.data;
         dispatch(bookActions.fetchBookDto(bookDtos));
