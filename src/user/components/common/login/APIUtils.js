@@ -249,6 +249,12 @@ export function returnBook(userBookRequest) {
   return axiosInstance.get("/admin/management/return_book", userBookRequest);
 }
 
+// mypage 책 리스트
+export function myPageChkBookHome(userBookRequest) {
+  console.log(userBookRequest);
+  return axiosInstance.get("/checkout_books/home", userBookRequest);
+}
+
 // admin user관리
 export function userManagement(adminRequest) {
   console.log(adminRequest);
