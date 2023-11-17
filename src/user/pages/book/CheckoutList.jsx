@@ -10,7 +10,10 @@ import { Loading } from "../../components/common/Loading";
 import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { useLocation } from "react-router";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
-import { chkedBookList } from "../../components/common/login/APIUtils";
+import {
+  checkoutBooksHome,
+  chkedBookList,
+} from "../../components/common/login/APIUtils";
 
 const CheckoutList = () => {
   const [loading, setLoading] = useState(true);
