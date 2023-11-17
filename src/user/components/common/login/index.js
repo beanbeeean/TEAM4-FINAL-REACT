@@ -3,7 +3,8 @@ export const API_BASE_URL =
 export const ACCESS_TOKEN = "accessToken";
 export const REFRESH_TOKEN = "refreshToken";
 
-export const OAUTH2_REDIRECT_URI = "http://localhost:3000/oauth2/redirect";
+export const OAUTH2_REDIRECT_URI =
+  "http://libooks-alb-1739935494.ap-northeast-2.elb.amazonaws.comoauth2/redirect";
 
 export const GOOGLE_AUTH_URL =
   API_BASE_URL + "/oauth2/authorize/google?redirect_uri=" + OAUTH2_REDIRECT_URI;
