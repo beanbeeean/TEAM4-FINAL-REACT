@@ -11,32 +11,35 @@ import { chkBookActions } from "../../../redux/book/slices/chkBookSlice";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
+import {
+  checkoutBooksHome,
+  chkedBookList,
+  getCommunity,
+} from "../../components/common/login/APIUtils";
 
 const MyPage = () => {
   const [on, setOn] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get(`/checkout_books/home`, {
-        params: {
-          category: null,
-          keyword: null,
-        },
-      })
+    checkoutBooksHome({
+      params: {
+        category: null,
+        keyword: null,
+      },
+    })
       .then((response) => {
         const bookDtos = response.data;
         dispatch(bookActions.fetchBookDto(bookDtos));
       })
       .catch((error) => console.log(error));
 
-    axios
-      .get(`/checkout_books/checkout_book_list`, {
-        params: {
-          id: null,
-          u_email: null,
-        },
-      })
+    chkedBookList({
+      params: {
+        id: null,
+        u_email: null,
+      },
+    })
       .then((response) => {
         const chkBookDtos = response.data;
         dispatch(chkBookActions.fetchChkBookDto(chkBookDtos));
@@ -45,8 +48,7 @@ const MyPage = () => {
         console.error("Error:", error);
       });
 
-    axios
-      .get(`/community`)
+    getCommunity()
       .then((response) => {
         const communityDtos = response.data;
         dispatch(communityActions.fetchCommunityDto(communityDtos));
