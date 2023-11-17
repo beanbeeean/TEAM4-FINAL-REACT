@@ -120,7 +120,7 @@ const StudyRoomSettingModal = (props) => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="unableDate" className="mb-3">
+          {/* <Form.Group as={Row} controlId="unableDate" className="mb-3">
             <Form.Label column sm={3}>
               설정일
             </Form.Label>
@@ -135,7 +135,7 @@ const StudyRoomSettingModal = (props) => {
                 icon={faCircleXmark}
               />
             </Col>
-          </Form.Group>
+          </Form.Group> */}
         </Form>
       </Modal.Body>
       <Modal.Footer>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState , useRef} from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import styles from "../../../css/reservation/StudyRoom.module.css";
 import Carousel from "react-bootstrap/Carousel";
 import StudyRoomReservation from "./StudyRoomReservation";
@@ -29,7 +29,7 @@ const StudyHome = () => {
 
   const [selectedTime, setSelectedTime] = useState();
   const [selectedRoom, setSelectedRoom] = useState();
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState();
   const [chosenMonth, setChosenMonth] = useState(new Date().getMonth() + 1);
   const [chosenDay, setChosenDay] = useState(new Date().getDate());
   const [monthState, setMonthState] = useState(0);
@@ -53,14 +53,14 @@ const StudyHome = () => {
   const [maxTime, setMaxTime] = useState(0);
   const [selectRoom, setSelectRoom] = useState(0);
   const [restart, setRestart] = useState(0);
-  const month = now.getMonth()+1;
+  const month = now.getMonth() + 1;
   const year = now.getFullYear();
   const date = chosenDay + month * 100 + year * 10000;
 
   const user = useSelector((state) => state.user.flag);
 
   const loginChk = () => {
-    if(price == 0){
+    if (price == 0) {
       Swal.fire({
         position: "center",
         icon: "info",
@@ -69,8 +69,7 @@ const StudyHome = () => {
         showConfirmButton: true,
         timer: 3000,
       });
-    }
-    else if(!user){
+    } else if (!user) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -79,13 +78,12 @@ const StudyHome = () => {
         showConfirmButton: true,
         timer: 3000, // 메시지를 표시한 후 3초 동안 대기
       }).then((result) => {
-          setLoginModalShow(true)
+        setLoginModalShow(true);
       });
     } else {
       setModalShow(true);
     }
-  }
-
+  };
 
   let selectedIdx;
 
@@ -168,7 +166,7 @@ const StudyHome = () => {
     }
 
     setSelectedDay(idx);
-    if(load){
+    if (load) {
       setLoad(false);
     } else {
       setLoad(true);
@@ -177,34 +175,33 @@ const StudyHome = () => {
   };
 
   useEffect(() => {
-    console.log("chosenDay"+chosenDay);
+    console.log("chosenDay" + chosenDay);
     setLoad(false);
-    chkRoom({date, space})
-    .then(response => {
-        let impossible = response.data
+    chkRoom({ date, space })
+      .then((response) => {
+        let impossible = response.data;
         setImpossible(impossible.slice());
-      setLoad(true);
-    })
-    .catch(error => {
-    });
+        setLoad(true);
+      })
+      .catch((error) => {});
   }, [restart]);
 
   const chkroom = (e) => {
     setSpace(e);
     setLoad(false);
     setClick(1);
-    chkRoom({ date , space:e})
-      .then(response => {
+    chkRoom({ date, space: e })
+      .then((response) => {
         // console.log(response);
         // setImpossible(response.data);
-        let impossible = response.data
+        let impossible = response.data;
         setImpossible(impossible.slice());
-        console.log("3333")
+        console.log("3333");
       })
-      .catch(error => {
-        console.error('Error fetching data: ', error);
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
       });
-  }
+  };
 
   const roomNames = [
     "SPACE1 - A",
@@ -216,17 +213,16 @@ const StudyHome = () => {
   ];
 
   const userSelect = (num, time) => {
-
     console.log(num);
-    
+
     setSelectMonth(chosenMonth);
     setSelectday(chosenDay);
     setSelectedTime(time);
     setSelectRoom(num);
 
-    for(let i = 0; i < 3; i++){
+    for (let i = 0; i < 3; i++) {
       console.log(impossible[num][time]);
-      if(impossible[num][time + i] == 0 && (time + i)<23){
+      if (impossible[num][time + i] == 0 && time + i < 23) {
         setMaxTime(i);
       } else {
         break;
@@ -246,18 +242,17 @@ const StudyHome = () => {
     }
   };
   useEffect(() => {
-    chkRoom({date, space})
-    .then(response => {
-      if(!load){
-        let impossible = response.data
-        setImpossible(impossible.slice());
-        console.log("3333")
-      }
-      setLoad(true);
-    })
-    .catch(error => {
-    });
-  }, [impossible,chosenDay]);
+    chkRoom({ date, space })
+      .then((response) => {
+        if (!load) {
+          let impossible = response.data;
+          setImpossible(impossible.slice());
+          console.log("3333");
+        }
+        setLoad(true);
+      })
+      .catch((error) => {});
+  }, [impossible, chosenDay]);
 
   // useEffect(() => {
   //   console.log(chosenDay);
@@ -285,18 +280,16 @@ const StudyHome = () => {
   const [paymentResponse, setPaymentResponse] = useState(null);
 
   const handlePayment = async () => {
-
     setModalShow(true);
   };
 
   return (
-
     <>
       <div className={styles.studyroom_items}>
         <div className={styles.studyroom_item}>
           <span
             className={`${space == 1 && styles.reservation_tap_active}`}
-             onClick={() => chkroom(1)}
+            onClick={() => chkroom(1)}
             // className={`${space == 1 && styles.reservation_tap_active}`}
           >
             SPACE1(2~4인)
@@ -309,9 +302,9 @@ const StudyHome = () => {
         </div>
         <div className={styles.studyroom_item}>
           <span
-          className={`${space == 2 && styles.reservation_tap_active}`}
-           onClick={() => chkroom(2)}
-          // className={`${space == 1 && styles.reservation_tap_active}`}
+            className={`${space == 2 && styles.reservation_tap_active}`}
+            onClick={() => chkroom(2)}
+            // className={`${space == 1 && styles.reservation_tap_active}`}
           >
             SPACE2(4~6인)
           </span>
@@ -323,9 +316,9 @@ const StudyHome = () => {
         </div>
         <div className={styles.studyroom_item}>
           <span
-          className={`${space == 3 && styles.reservation_tap_active}`}
-           onClick={() => chkroom(3)}
-          // className={`${space == 1 && styles.reservation_tap_active}`}
+            className={`${space == 3 && styles.reservation_tap_active}`}
+            onClick={() => chkroom(3)}
+            // className={`${space == 1 && styles.reservation_tap_active}`}
           >
             SPACE3(6~8인)
           </span>
@@ -336,174 +329,198 @@ const StudyHome = () => {
           />
         </div>
       </div>
-      { click==0 ? "":
+      {click == 0 ? (
+        ""
+      ) : (
         <div className={styles.calendar}>
-        <div className={styles.year_month_list}>
-          <p>
-            <span className={styles.year}>
-              <Year
-                id="Year"
-                format={"YYYY"}
-                ticking={false}
-                timezone={"KR/Pacific"}
-              />
-            </span>
-            &nbsp;&nbsp;
-            <span className={styles.month}>
-              <Month format={"MMMM"} ticking={false} timezone={"KR/Pacific"} />
-            </span>
-          </p>
-        </div>
-        <div className={styles.day_list} ticking={false}>
-          <div className={styles.day_list_container}>
-            {CalendarObject.map((calendar, index) => (
-              <div
-                onClick={() => setDateData(index, calendar.day)}
-                className={`${styles.day_list_area} ${
-                  selectedDay == index ? styles.selected_day : ""
-                } `}
-              >
+          <div className={styles.year_month_list}>
+            <p>
+              <span className={styles.year}>
+                <Year
+                  id="Year"
+                  format={"YYYY"}
+                  ticking={false}
+                  timezone={"KR/Pacific"}
+                />
+              </span>
+              &nbsp;&nbsp;
+              <span className={styles.month}>
+                <Month
+                  format={"MMMM"}
+                  ticking={false}
+                  timezone={"KR/Pacific"}
+                />
+              </span>
+            </p>
+          </div>
+          <div className={styles.day_list} ticking={false}>
+            <div className={styles.day_list_container}>
+              {CalendarObject.map((calendar, index) => (
                 <div
-                  className={`${styles.weak} ${
-                    calendar.weak === "Sun" && styles.sun
-                  }
+                  onClick={() => setDateData(index, calendar.day)}
+                  className={`${styles.day_list_area} ${
+                    selectedDay == index ? styles.selected_day : ""
+                  } `}
+                >
+                  <div
+                    className={`${styles.weak} ${
+                      calendar.weak === "Sun" && styles.sun
+                    }
                  ${calendar.weak === "Sat" && styles.sat}`}
-                  ref={Weak}
-                >
-                  {calendar.weak}
+                    ref={Weak}
+                  >
+                    {calendar.weak}
+                  </div>
+                  <div className={styles.day}>{calendar.day}</div>
                 </div>
-                <div className={styles.day}>{calendar.day}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>}
-      { click == 0 ? "" : load? (
-    <div className={styles.study_reservation_wrap}>
-      <Row>
-        <Col>
-          <div className={styles.study_reservation_date}>
-            <table>
-              <thead>
-                {space == 1 ? (
-                  <tr>
-                    <th>Time</th>
-                    <th>SPACE1 - A</th>
-                    <th>SPACE1 - B</th>
-                  </tr>
-                ) : space == 2 ? (
-                  <tr>
-                    <th>Time</th>
-                    <th>SPACE2 - A</th>
-                    <th>SPACE2 - B</th>
-                  </tr>
-                ) : space == 3 ? (
-                  <tr>
-                    <th>Time</th>
-                    <th>SPACE3 - A</th>
-                    <th>SPACE3 - B</th>
-                  </tr>
-                ) : (
-                  ""
-                )}
-              </thead>
-              <tbody>
-                {times.map((t) => (
-                  <tr>
-                    <td>{t}:00</td>
-                    {impossible[spaceNum[0]][t]? <td className={`${styles.reservation_badge}`}>예약 불가</td>: 
-                  
-                    <td
-                      onClick={() => userSelect(spaceNum[0], t)}
-                      className={`${styles.reservation_enable} `}
-                    >
-                      예약 가능
-                    </td>  
-                    }
-                    {impossible[spaceNum[1]][t]? <td className={`${styles.reservation_badge}`}>예약 불가</td>: 
-                    <td
-                      onClick={() => userSelect(spaceNum[1], t)}
-                      className={`${styles.reservation_enable}`}
-                    >
-                      예약 가능
-                    </td>
-                    }
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Col>
-        <Col>
-          <div className={styles.study_reservation_confirm}>
-            <div className={styles.reservation_confirm_card}>
-              <h3 className={styles.reservation_card_title}>
-                &nbsp;사용자 선택 정보
-              </h3>
-              <div className={styles.reservation_card_table}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>StudyRoom</th>
-                      <th>Costs per hour</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        {/* {chosenMonth + (monthState === 1 ? 1 : 0)}
-                        {chosenDay > 0 && "." + chosenDay} */}
-                        {selectMonth==null ? "" :selectMonth+"."+selectday}
-                      </td>
-                      <td>{selectedTime > 7 ? selectedTime + ":00" : ""}</td>
-                      <td>{selectedRoom}</td>
-                      <td>{price > 0 && price +"원"}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div
-                  className={styles.reservation_card_btn}
-                  onClick={loginChk}
-                >
-                  예약하기
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </Col>
-      </Row>
-      <ReservationModal 
-        show={modalShow}
-        maxTime={maxTime}
-        price={price}
-        selectRoom={selectRoom}
-        date={date}
-        selectedTime={selectedTime}
-        selectedRoom={selectedRoom}
-        setModalShow={setModalShow}
-        setSelectedRoom={setSelectedRoom}
-        setSelectMonth={setSelectMonth}
-        setSelectday={setSelectday}
-        setSelectedTime={setSelectedTime}
-        setPrice={setPrice}
-        setRestart={setRestart}
-        restart={restart}
-        onHide={() => setModalShow(false)}
+        </div>
+      )}
+      {click == 0 ? (
+        ""
+      ) : load ? (
+        <div className={styles.study_reservation_wrap}>
+          <Row>
+            <Col>
+              <div className={styles.study_reservation_date}>
+                <table>
+                  <thead>
+                    {space == 1 ? (
+                      <tr>
+                        <th>Time</th>
+                        <th>SPACE1 - A</th>
+                        <th>SPACE1 - B</th>
+                      </tr>
+                    ) : space == 2 ? (
+                      <tr>
+                        <th>Time</th>
+                        <th>SPACE2 - A</th>
+                        <th>SPACE2 - B</th>
+                      </tr>
+                    ) : space == 3 ? (
+                      <tr>
+                        <th>Time</th>
+                        <th>SPACE3 - A</th>
+                        <th>SPACE3 - B</th>
+                      </tr>
+                    ) : (
+                      ""
+                    )}
+                  </thead>
+                  <tbody>
+                    {times.map((t) => (
+                      <tr>
+                        <td>{t}:00</td>
+                        {impossible[spaceNum[0]][t] ? (
+                          <td className={`${styles.reservation_badge}`}>
+                            예약 불가
+                          </td>
+                        ) : (
+                          <td
+                            onClick={() => userSelect(spaceNum[0], t)}
+                            className={`${styles.reservation_enable} `}
+                          >
+                            예약 가능
+                          </td>
+                        )}
+                        {impossible[spaceNum[1]][t] ? (
+                          <td className={`${styles.reservation_badge}`}>
+                            예약 불가
+                          </td>
+                        ) : (
+                          <td
+                            onClick={() => userSelect(spaceNum[1], t)}
+                            className={`${styles.reservation_enable}`}
+                          >
+                            예약 가능
+                          </td>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Col>
+            <Col>
+              <div className={styles.study_reservation_confirm}>
+                <div className={styles.reservation_confirm_card}>
+                  <h3 className={styles.reservation_card_title}>
+                    &nbsp;사용자 선택 정보
+                  </h3>
+                  <div className={styles.reservation_card_table}>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>StudyRoom</th>
+                          <th>Costs per hour</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            {/* {chosenMonth + (monthState === 1 ? 1 : 0)}
+                        {chosenDay > 0 && "." + chosenDay} */}
+                            {selectMonth == null
+                              ? ""
+                              : selectMonth + "." + selectday}
+                          </td>
+                          <td>
+                            {selectedTime > 7 ? selectedTime + ":00" : ""}
+                          </td>
+                          <td>{selectedRoom}</td>
+                          <td>{price > 0 && price + "원"}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div
+                      className={styles.reservation_card_btn}
+                      onClick={loginChk}
+                    >
+                      예약하기
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <ReservationModal
+            show={modalShow}
+            maxTime={maxTime}
+            price={price}
+            selectRoom={selectRoom}
+            date={date}
+            selectedTime={selectedTime}
+            selectedRoom={selectedRoom}
+            setModalShow={setModalShow}
+            setSelectedRoom={setSelectedRoom}
+            setSelectMonth={setSelectMonth}
+            setSelectday={setSelectday}
+            setSelectedTime={setSelectedTime}
+            setPrice={setPrice}
+            setRestart={setRestart}
+            restart={restart}
+            onHide={() => setModalShow(false)}
+          />
+        </div>
+      ) : (
+        ""
+      )}
+      <LoginModal
+        show={loginModalShow}
+        onHide={() => setLoginModalShow(false)}
       />
-    </div>):""}
-    <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
     </>
-   
   );
 };
 
 export default StudyHome;
 
-
-
-{/* 
+{
+  /* 
 const [space, setSpace] = useState(0);
 <div className={styles.study_wrap}>
 {space == 0 ? (
@@ -545,4 +562,5 @@ const [space, setSpace] = useState(0);
 ) : (
   <StudyRoomReservation space={space} setSpace={setSpace} />
 )}
-</div> */}
+</div> */
+}
