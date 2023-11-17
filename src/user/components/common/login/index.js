@@ -4,7 +4,7 @@ export const ACCESS_TOKEN = "accessToken";
 export const REFRESH_TOKEN = "refreshToken";
 
 export const OAUTH2_REDIRECT_URI =
-  "http://libooks-alb-1739935494.ap-northeast-2.elb.amazonaws.como/auth2/redirect";
+  "http://libooks-alb-1739935494.ap-northeast-2.elb.amazonaws.com/oauth2/redirect";
 
 export const GOOGLE_AUTH_URL =
   API_BASE_URL + "/oauth2/authorize/google?redirect_uri=" + OAUTH2_REDIRECT_URI;
