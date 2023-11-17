@@ -33,7 +33,7 @@ const ReservationModal = (props) => {
         } else {
           axios
             .get(
-              "http://libooks-nlb-4225b366ab8936e7.elb.ap-northeast-2.amazonaws.com:8080/read/seat?"
+              "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/read/seat?"
             )
             .then((response) => {
               console.log(response.data);
