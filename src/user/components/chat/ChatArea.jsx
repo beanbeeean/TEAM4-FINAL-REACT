@@ -41,7 +41,9 @@ const ChatArea = ({ roomId, setRoomId, user, roomName, getList }) => {
   // let { userDtos } = useSelector((state) => state.user);
 
   function connect() {
-    var socket = new SockJS("/ws-stomp");
+    var socket = new SockJS(
+      "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/ws-stomp"
+    );
     stompClient = Stomp.over(socket);
 
     dispatch(chatActions.setLoading(true));
