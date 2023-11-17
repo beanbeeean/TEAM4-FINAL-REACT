@@ -83,6 +83,11 @@ div.readroom_map table {
   text-align: center;
 }
 
+.readroom_map td.impossible_select{
+  background-color: rgb(200, 20, 20);
+  color: #fff;
+}
+
 .readroom_map td.user_select {
   background-color: rgb(28, 30, 189);
   color: #fff;

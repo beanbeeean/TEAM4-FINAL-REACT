@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import stylesAdmin from "../../css/reservation/ReservationManagement.module.css";
-import { adminStudyRoom } from "../../../user/components/common/login/APIUtils";
+import { adminStudyRoomLog } from "../../../user/components/common/login/APIUtils";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
@@ -17,7 +17,7 @@ const StudyRoomReservationList = () => {
   const displayedLists = studyRoom.slice(startIndex, endIndex);
 
   useEffect(() => {
-    adminStudyRoom({ keyword })
+    adminStudyRoomLog({ keyword })
       .then((response) => {
         const result = response.data;
         console.log("response.data : ", response.data);

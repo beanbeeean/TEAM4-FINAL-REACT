@@ -15,6 +15,8 @@ import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import LoginModal from "../../components/common/LoginModal";
 import { userCommentDelete, userCommentModify, userCommentWrite } from "../../components/common/login/APIUtils";
+import { bookActions } from "../../../redux/book/slices/bookSlice";
+import { communityActions } from "../../../redux/community/slices/communitySlice";
 
 const CommunityDetail = () => {
   let id = useParams().id;
@@ -69,6 +71,12 @@ const CommunityDetail = () => {
     } else {
       write_comment();
     }
+  }
+
+  const list = () => {
+    dispatch(bookActions.fetchSearchBook({ keyword: "" }));
+    dispatch(communityActions.fetchSearchCommunity({ keyword: "" }));
+    navigate("/community")
   }
 
   useEffect(() => {
@@ -320,7 +328,7 @@ const CommunityDetail = () => {
             )}
             <span
               className={styles.back_to_list}
-              onClick={() => navigate("/community")}
+              onClick={() => list()}
             >
               목록보기
             </span>

@@ -42,6 +42,7 @@ const Header = () => {
     console.log("onSearch()");
     navigate(`/search/${keyword}`);
     dispatch(commonActions.setMainMenu(1));
+    setKeyword("");
   };
 
   return (
@@ -50,6 +51,7 @@ const Header = () => {
         <input
           type="text"
           placeholder="통합 검색"
+          value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
         />
         <span>

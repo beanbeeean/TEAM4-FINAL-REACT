@@ -9,6 +9,9 @@ import "flatpickr/dist/themes/material_blue.css";
 import stylesAdmin from "../../css/reservation/StudyRoomSetting.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import { adminStudyRoom } from "../../../user/components/common/login/APIUtils";
+import Swal from "sweetalert2";
+
 
 const getToday = () => {
   let today = new Date();
@@ -21,11 +24,47 @@ const getToday = () => {
 const StudyRoomSettingModal = (props) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const roomSetting = () => {
+
+      if(startDate && endDate){
+        const sDate = new Date(startDate);
+        const eDate = new Date(endDate);
+        const sDateYMD = sDate.toISOString().slice(0, 10).replace('T', ' ').replace(/-/g, "");
+        const sDateTime = sDate.toISOString().slice(11, 13).replace('T', ' ');
+        const eDateYMD = eDate.toISOString().slice(0, 10).replace('T', ' ').replace(/-/g, "");
+        const eDateTime = eDate.toISOString().slice(11, 13).replace('T', ' ');
+        adminStudyRoom({sDateYMD,sDateTime,eDateYMD,eDateTime,roomName:props.roomName})
+        .then((response) => {
+          props.onHide();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "예약 설정이 완료되었습니다.",
+            iconColor: "#889aff",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+
+        })
+        .catch((error) => console.log(error));
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "시간을 선택해주세요.",
+          iconColor: "#889aff",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      }
+
+  }
 
   useEffect(() => {
     setStartDate();
     setEndDate();
   }, [props.onHide]);
+
 
   return (
     <Modal
@@ -65,7 +104,7 @@ const StudyRoomSettingModal = (props) => {
               가격 (1시간)
             </Form.Label>
             <Col sm={9}>
-              <Form.Control
+              <Form.Control readOnly
                 type="number"
                 defaultValue={
                   props.roomName.includes("1")
@@ -127,7 +166,7 @@ const StudyRoomSettingModal = (props) => {
             <Col className={stylesAdmin.setting_date} sm={9}>
               <Form.Control
                 type="text"
-                defaultValue="2023.10.26 08:00 ~ 2023.11.01 08:00"
+                defaultValue={time}
                 readOnly
               />
               <FontAwesomeIcon
@@ -139,7 +178,7 @@ const StudyRoomSettingModal = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary">저장</Button>
+        <Button variant="primary" onClick={() => roomSetting()}>저장</Button>
         <Button variant="secondary" onClick={props.onHide}>
           닫기
         </Button>
