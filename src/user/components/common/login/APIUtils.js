@@ -109,8 +109,8 @@ export function login(loginRequest) {
   });
 }
 
-export function logout(tokenRefreshRequest) {
-  return axiosInstance.post("/auth/signout", tokenRefreshRequest, {
+export function logout() {
+  return axiosInstance.get("/auth/signout", {
     withCredentials: true,
   });
 }
