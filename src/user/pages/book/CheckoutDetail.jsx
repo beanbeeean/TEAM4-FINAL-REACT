@@ -19,7 +19,7 @@ const CheckoutDetail = () => {
   console.log("bookDto :: ", bookDto);
 
   // const detailBook = bookDto.filter((e) => e.b_no === id * 1);
-  const [detailBook, setDetailBook] = useState();
+  const [detailBook, setDetailBook] = useState(null);
   // console.log("detailBook :: ", detailBook);
 
   const [unable, setUnable] = useState(true);
@@ -69,7 +69,7 @@ const CheckoutDetail = () => {
   return (
     <Container>
       <Row>
-        {detailBook !== undefined && (
+        {detailBook !== null && (
           <div className={styles.bookdetail_wrap}>
             <div>
               <img className={styles.bookImg} src={detailBook.b_cover} />
