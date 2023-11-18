@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
-import { reservationRead } from "../../common/login/APIUtils";
+import { readSeat, reservationRead } from "../../common/login/APIUtils";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 
@@ -31,10 +31,11 @@ const ReservationModal = (props) => {
             timer: 3000,
           });
         } else {
-          axios
-            .get(
-              "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/read/seat?"
-            )
+          // axios
+          //   .get(
+          //     "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/read/seat?"
+          //   )
+          readSeat()
             .then((response) => {
               console.log(response.data);
               props.setTest(response.data);

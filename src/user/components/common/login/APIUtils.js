@@ -185,6 +185,11 @@ export function userCommunity(communityReq) {
   return axiosInstance.get("/community", communityReq);
 }
 
+// 커뮤니티 디테일
+export function userCommunityDetail(communityId) {
+  return axiosInstance.get(`/community/${communityId}`);
+}
+
 // 커뮤니티 작성
 export function userCommunityWrite(communityReq) {
   return axiosInstance.post("/community/write", communityReq);
@@ -321,4 +326,20 @@ export function getCommunity() {
 
 export function checkoutBooksHome(bookParam) {
   return axiosInstance.get("/checkout_books/home", bookParam);
+}
+
+export function getComment(commentReq) {
+  return axiosInstance.get("/community/get_comments", commentReq);
+}
+
+// 게시글 삭제
+export function userCommunityDelete(communityId) {
+  return axiosInstance.post(`/community/delete${communityId}`);
+}
+
+export function getCommunityChatRoom(communityReq) {
+  return axiosInstance.get(
+    "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/chat/room_cno",
+    communityReq
+  );
 }

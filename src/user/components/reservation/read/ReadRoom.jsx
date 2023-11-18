@@ -4,7 +4,7 @@ import ReadRoomMap from "./ReadRoomMap";
 import styles from "../../../css/reservation/ReadRoom.module.css";
 import { useNavigate } from "react-router-dom/dist";
 import axios from "axios";
-import { test } from "../../common/login/APIUtils";
+import { readSeat, test } from "../../common/login/APIUtils";
 import { seatChk } from "../../../../redux/user/slices/seatSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,10 +22,10 @@ const ReadRoom = () => {
   };
 
   const seatHandle = (event) => {
-    axios
-      .get(
-        "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/read/seat?"
-      )
+    // axios.get(
+    //   "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/read/seat?"
+    // );
+    readSeat()
       .then((response) => {
         console.log(response.data);
         setTest(response.data);

@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 import { commonActions } from "../../../redux/common/slices/commonSlice";
+import {
+  myPageChkBookHome,
+  userCommunity,
+} from "../../components/common/login/APIUtils";
 
 const SearchMain = () => {
   const dispatch = useDispatch();
@@ -42,13 +46,19 @@ const SearchMain = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`/checkout_books/home`, {
-        params: {
-          category: "",
-          keyword: keyword,
-        },
-      })
+    // axios
+    //   .get(`/checkout_books/home`, {
+    //     params: {
+    //       category: "",
+    //       keyword: keyword,
+    //     },
+    //   })
+    myPageChkBookHome({
+      params: {
+        category: "",
+        keyword: keyword,
+      },
+    })
       .then((response) => {
         const bookDtos = response.data;
         console.log("bookDtos", bookDtos.dtos);
@@ -57,14 +67,21 @@ const SearchMain = () => {
       })
       .catch((error) => console.log(error));
 
-    axios
-      .get(`/community/`, {
-        params: {
-          keyword: keyword,
-          category: "",
-          searchOption: "",
-        },
-      })
+    // axios
+    //   .get(`/community/`, {
+    //     params: {
+    //       keyword: keyword,
+    //       category: "",
+    //       searchOption: "",
+    //     },
+    //   })
+    userCommunity({
+      params: {
+        keyword: keyword,
+        category: "",
+        searchOption: "",
+      },
+    })
       .then((response) => {
         const communityDtos = response.data;
         console.log("communityDtos", communityDtos);

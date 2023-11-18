@@ -13,7 +13,15 @@ import { chatActions } from "../../../redux/chat/slices/chatSlice";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import LoginModal from "../../components/common/LoginModal";
-import { userCommentDelete, userCommentModify, userCommentWrite } from "../../components/common/login/APIUtils";
+import {
+  getComment,
+  getCommunityChatRoom,
+  userCommentDelete,
+  userCommentModify,
+  userCommentWrite,
+  userCommunityDelete,
+  userCommunityDetail,
+} from "../../components/common/login/APIUtils";
 import { bookActions } from "../../../redux/book/slices/bookSlice";
 import { communityActions } from "../../../redux/community/slices/communitySlice";
 
@@ -65,7 +73,7 @@ const CommunityDetail = () => {
         showConfirmButton: true,
         timer: 3000, // 메시지를 표시한 후 3초 동안 대기
       }).then((result) => {
-          setModalShow(true)
+        setModalShow(true);
       });
     } else {
       write_comment();
@@ -75,12 +83,13 @@ const CommunityDetail = () => {
   const list = () => {
     dispatch(bookActions.fetchSearchBook({ keyword: "" }));
     dispatch(communityActions.fetchSearchCommunity({ keyword: "" }));
-    navigate("/community")
-  }
+    navigate("/community");
+  };
 
   useEffect(() => {
-    axios
-      .get(`/community/${id}`)
+    // axios
+    //   .get(`/community/${id}`)
+    userCommunityDetail(id)
       .then((response) => {
         setContent(response.data);
         setUserName(
@@ -90,15 +99,20 @@ const CommunityDetail = () => {
       })
       .catch((error) => console.log(error));
 
-    axios
-      .get(
-        "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/chat/room_cno",
-        {
-          params: {
-            cNo: id,
-          },
-        }
-      )
+    // axios
+    //   .get(
+    //     "http://libooks-web-was-alb-922008251.ap-northeast-2.elb.amazonaws.com:8080/chat/room_cno",
+    //     {
+    //       params: {
+    //         cNo: id,
+    //       },
+    //     }
+    //   )
+    getCommunityChatRoom({
+      params: {
+        cNo: id,
+      },
+    })
       .then(function (res) {
         setChatRoom(res.data.room);
         console.log("dsdsdsds", res.data.room);
@@ -120,8 +134,7 @@ const CommunityDetail = () => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .post(`/community/delete${id}`)
+        userCommunityDelete(id)
           .then((response) => {
             setContent(response.data);
             Swal.fire({
@@ -158,11 +171,11 @@ const CommunityDetail = () => {
 
   const write_comment = () => {
     userCommentWrite({
-        c_no: id,
-        u_no: userDto.u_no,
-        r_comment: comment,
-        r_target_r_no: rNo,
-      })
+      c_no: id,
+      u_no: userDto.u_no,
+      r_comment: comment,
+      r_target_r_no: rNo,
+    })
       .then((response) => {
         console.log(response.data);
         getComments();
@@ -176,9 +189,9 @@ const CommunityDetail = () => {
 
   const modify_comment = () => {
     userCommentModify({
-        r_no: rNo,
-        r_comment: comment,
-      })
+      r_no: rNo,
+      r_comment: comment,
+    })
       .then((response) => {
         console.log(response.data);
         getComments();
@@ -203,8 +216,8 @@ const CommunityDetail = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         userCommentDelete({
-            r_no: no,
-          })
+          r_no: no,
+        })
           .then((response) => {
             console.log(response.data);
             getComments();
@@ -219,12 +232,17 @@ const CommunityDetail = () => {
   };
 
   const getComments = () => {
-    axios
-      .get(`/community/get_comments`, {
-        params: {
-          c_no: id,
-        },
-      })
+    // axios
+    //   .get(`/community/get_comments`, {
+    //     params: {
+    //       c_no: id,
+    //     },
+    //   })
+    getComment({
+      params: {
+        c_no: id,
+      },
+    })
       .then((response) => {
         setReply(response.data.dtos);
         console.log("ddd", response.data.dtos);
@@ -328,10 +346,7 @@ const CommunityDetail = () => {
                 )}
               </span>
             )}
-            <span
-              className={styles.back_to_list}
-              onClick={() => list()}
-            >
+            <span className={styles.back_to_list} onClick={() => list()}>
               목록보기
             </span>
             {/* <span className={styles.modify_delete}></span> */}
