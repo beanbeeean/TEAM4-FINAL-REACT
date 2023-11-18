@@ -20,6 +20,8 @@ const axiosImgInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
+    const allCookies = document.cookie;
+    console.log("allCookies" + allCookies);
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
     }
