@@ -20,15 +20,14 @@ const Sidebar = () => {
   const dispatch = useDispatch();
 
   const logOut = () => {
-
-    logout()
-    .then(response => {
-      console.error('response: ', response);
-      dispatch(userLogout())
-    })
-    .catch(error => {
-      console.error('Error fetching data: ', error);
-    });
+    dispatch(userLogout());
+    // logout()
+    // .then(response => {
+    //   console.error('response: ', response);
+    // })
+    // .catch(error => {
+    //   console.error('Error fetching data: ', error);
+    // });
   };
 
   const movePage = (num) => {
@@ -110,7 +109,7 @@ const Sidebar = () => {
 
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       {user ? (
-        <div className={styles.logout} onClick={() =>logOut()}>
+        <div className={styles.logout} onClick={() => logOut()}>
           LOGOUT
         </div>
       ) : (
