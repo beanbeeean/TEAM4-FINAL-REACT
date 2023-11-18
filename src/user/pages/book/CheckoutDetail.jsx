@@ -50,6 +50,7 @@ const CheckoutDetail = () => {
     isChkBook.map((item) => {
       if (item.b_no == detailBook[0].b_no && item.chk_b_state == 1) {
         setUnable(false);
+        console.log("SUB");
       }
     });
   }, [isChkBook]);
