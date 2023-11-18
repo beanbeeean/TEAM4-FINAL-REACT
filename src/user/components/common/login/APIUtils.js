@@ -250,6 +250,11 @@ export function chkoutBook(userBookRequest) {
   return axiosInstance.get("/checkout_books/checkout", userBookRequest);
 }
 
+// 책 디테일
+export function getChkBookDetail(bNo) {
+  return axiosInstance.get(`/checkout_books/${bNo}`);
+}
+
 // 책 반납
 export function returnBook(userBookRequest) {
   console.log(userBookRequest);

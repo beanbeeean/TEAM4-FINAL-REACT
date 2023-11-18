@@ -7,6 +7,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import LoginModal from "../../components/common/LoginModal";
+import { getChkBookDetail } from "../../components/common/login/APIUtils";
 
 const CheckoutDetail = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -17,8 +18,9 @@ const CheckoutDetail = () => {
 
   console.log("bookDto :: ", bookDto);
 
-  const detailBook = bookDto.filter((e) => e.b_no === id * 1);
-  console.log("detailBook :: ", detailBook[0]);
+  // const detailBook = bookDto.filter((e) => e.b_no === id * 1);
+  const [detailBook, setDetailBook] = useState();
+  // console.log("detailBook :: ", detailBook);
 
   const [unable, setUnable] = useState(true);
   const { userDto } = useSelector((state) => state.user);
@@ -47,9 +49,18 @@ const CheckoutDetail = () => {
   };
 
   useEffect(() => {
+    getChkBookDetail(id)
+      .then((response) => {
+        setDetailBook(response.data);
+      })
+      .catch((err) => console.log("error"));
+  }, []);
+
+  useEffect(() => {
     isChkBook.map((item) => {
-      if (item.b_no == detailBook[0].b_no && item.chk_b_state == 1) {
+      if (item.b_no == detailBook.b_no && item.chk_b_state == 1) {
         setUnable(false);
+
         console.log("plz");
       }
     });
@@ -58,21 +69,21 @@ const CheckoutDetail = () => {
   return (
     <Container>
       <Row>
-        {detailBook[0] !== undefined && (
+        {detailBook !== undefined && (
           <div className={styles.bookdetail_wrap}>
             <div>
-              <img className={styles.bookImg} src={detailBook[0].b_cover} />
+              <img className={styles.bookImg} src={detailBook.b_cover} />
               <div className={styles.copyright}>
                 도서 DB 제공 : 알라딘 인터넷서점(www.aladin.co.kr)
               </div>
             </div>
             <div className={styles.content_wrap}>
-              <h2>{detailBook[0].b_title}</h2>
+              <h2>{detailBook.b_title}</h2>
               <div className={styles.name}>
-                <span>{detailBook[0].b_author}</span> |{" "}
-                <span>{detailBook[0].b_publisher}&nbsp;</span>
+                <span>{detailBook.b_author}</span> |{" "}
+                <span>{detailBook.b_publisher}&nbsp;</span>
                 <span className={styles.publish_date}>
-                  | {detailBook[0].b_publish_date}
+                  | {detailBook.b_publish_date}
                 </span>
               </div>
 
@@ -86,7 +97,7 @@ const CheckoutDetail = () => {
 
                 <div className={styles.count_wrap}>
                   <span className={styles.count}>대여 가능 수량 :</span>&nbsp;
-                  <span>{detailBook[0].b_stock}</span>
+                  <span>{detailBook.b_stock}</span>
                 </div>
 
                 <div className={styles.buttons}>
@@ -97,7 +108,7 @@ const CheckoutDetail = () => {
                       value="대여중"
                       disabled
                     />
-                  ) : detailBook[0].b_stock > 0 ? (
+                  ) : detailBook.b_stock > 0 ? (
                     <input
                       className={styles.checkout_btn}
                       type="button"
@@ -116,7 +127,7 @@ const CheckoutDetail = () => {
                     show={modalShow}
                     setModalShow={setModalShow}
                     onHide={() => setModalShow(false)}
-                    book={detailBook[0]}
+                    book={detailBook}
                   />
                 </div>
               </div>
@@ -124,14 +135,14 @@ const CheckoutDetail = () => {
           </div>
         )}
       </Row>
-      {detailBook[0] !== null && (
+      {detailBook !== null && (
         <Row>
           <div className={styles.description}>소개글</div>
 
-          {detailBook[0].b_description == "" ? (
+          {detailBook.b_description == "" ? (
             <div>등록된 소개글이 없습니다. </div>
           ) : (
-            <div>{detailBook[0].b_description}</div>
+            <div>{detailBook.b_description}</div>
           )}
         </Row>
       )}
