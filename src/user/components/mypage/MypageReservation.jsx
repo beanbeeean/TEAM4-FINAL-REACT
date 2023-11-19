@@ -72,15 +72,15 @@ const MypageReservation = () => {
         console.log("e:", response.data);
         if (response.data.length > 0) {
           setSeat(response.data);
-          // dispatch(myPageAction.setLoading(false));
+          dispatch(myPageAction.setLoading(false));
         }
         myPageStudy({ startDate, endDate })
           .then((response) => {
             console.log("myPageStudy:", response);
             if (response.data.length > 0) {
               setStudy(response.data);
-              // dispatch(myPageAction.setLoading(false));
             }
+            dispatch(myPageAction.setLoading(false));
           })
           .catch((error) => {
             console.log("error1:", error);
