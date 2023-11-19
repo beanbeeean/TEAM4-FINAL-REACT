@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../css/mypage/MypageReservation.module.css";
 import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { myPageRead, myPageStudy } from "../common/login/APIUtils";
 import ReadReserveItem from "./ReadReserveItem";
 import StudyReserveItem from "./StudyReserveItem";
-import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { myPageAction } from "../../../redux/user/slices/myPageSlice";
 import { Loading } from "../common/Loading";
 
-const MypageReservation = () => {
+export const MypageReservation = () => {
   const currentDate = new Date();
 
   const startOfCurrentMonth = new Date(
@@ -70,11 +68,9 @@ const MypageReservation = () => {
     myPageRead({ startDate, endDate })
       .then((response) => {
         console.log("e:", response.data);
-        if (response.data.length > 0) {
-          setSeat(response.data);
-        } else {
-          setSeat(null);
-        }
+        setSeat(response.data);
+        // if (response.data.length > 0) {
+        // }
         myPageStudy({ startDate, endDate })
           .then((response) => {
             console.log("myPageStudy:", response);
@@ -152,5 +148,3 @@ const MypageReservation = () => {
     </div>
   );
 };
-
-export default MypageReservation;
