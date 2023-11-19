@@ -57,13 +57,15 @@ const CheckoutDetail = () => {
   }, []);
 
   useEffect(() => {
-    isChkBook.map((item) => {
-      if (item.b_no == detailBook.b_no && item.chk_b_state == 1) {
-        setUnable(false);
+    if (detailBook != null) {
+      isChkBook.map((item) => {
+        if (item.b_no == detailBook.b_no && item.chk_b_state == 1) {
+          setUnable(false);
 
-        console.log("plz");
-      }
-    });
+          console.log("plz");
+        }
+      });
+    }
   }, [isChkBook]);
 
   return (
