@@ -186,6 +186,7 @@ const Community = () => {
               type="text"
               placeholder="검색"
               onChange={(e) => setKeyword(e.target.value)}
+              value={keyword}
             />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
