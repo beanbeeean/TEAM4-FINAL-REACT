@@ -9,13 +9,20 @@ import Authorization from "./authorization/Authorization";
 function App() {
   const persistor = persistStore(store);
 
-  console.log(window.location.pathname.includes("/admin"));
+  var useConsole = false;
+
+  if (!useConsole) {
+    console = {};
+    console.log = function () {};
+    console.warn = function () {};
+    console.error = function () {};
+  }
 
   return (
     <div id="wrap">
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-         <Authorization />
+          <Authorization />
         </PersistGate>
       </Provider>
     </div>
