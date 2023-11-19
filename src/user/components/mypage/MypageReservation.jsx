@@ -70,17 +70,15 @@ const MypageReservation = () => {
     myPageRead({ startDate, endDate })
       .then((response) => {
         console.log("e:", response.data);
-        if (response.data.length > 0) {
-          setSeat(response.data);
-          dispatch(myPageAction.setLoading(false));
-        }
+        setSeat(response.data);
+        // if (response.data.length > 0) {
+        // }
         myPageStudy({ startDate, endDate })
           .then((response) => {
             console.log("myPageStudy:", response);
-            if (response.data.length > 0) {
-              setStudy(response.data);
-            }
-            dispatch(myPageAction.setLoading(false));
+            setStudy(response.data);
+            // if (response.data.length > 0) {
+            // }
           })
           .catch((error) => {
             console.log("error1:", error);
@@ -89,6 +87,7 @@ const MypageReservation = () => {
       .catch((error) => {
         console.log("error2:", error);
       });
+    dispatch(myPageAction.setLoading(false));
   }, [startDate, endDate]);
 
   if (loading) {
