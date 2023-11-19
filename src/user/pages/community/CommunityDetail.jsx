@@ -361,17 +361,17 @@ const CommunityDetail = () => {
                     <img src="../imgs/chat_logo.png" alt="" />
                   </div>
                   <div className={styles.ce_card_info}>
-                    <p className={styles.ce_title}>{chatRoom.roomName}</p>
+                    <p className={styles.ce_title}>{chatRoom?.roomName}</p>
                     <div className={styles.ce_user_count}>
                       <FontAwesomeIcon
                         className={`${
-                          chatRoom.userCount == chatRoom.userMaxCount
+                          chatRoom?.userCount == chatRoom?.userMaxCount
                             ? styles.can_not_join
                             : styles.can_join
                         }`}
                         icon={faUser}
                       />
-                      {chatRoom.userCount} / {chatRoom.userMaxCount}명
+                      {chatRoom?.userCount} / {chatRoom?.userMaxCount}명
                     </div>
                     {/* <button className={styles.ce_button}>참여하기</button> */}
                     <button
