@@ -393,7 +393,14 @@ const CommunityDetail = () => {
             <hr />
             <p>댓글</p>
             <div className={styles.user_input}>
-              <img src={`${userDto.u_image}`} alt="" />
+              <img
+                src={`${
+                  userDto.u_image != undefined
+                    ? userDto.u_image
+                    : "../imgs/default_profile.png"
+                }`}
+                alt=""
+              />
               {userInput ? (
                 <div className={styles.user_input_area}>
                   <input
