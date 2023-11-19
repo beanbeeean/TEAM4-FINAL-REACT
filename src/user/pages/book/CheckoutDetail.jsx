@@ -68,6 +68,15 @@ const CheckoutDetail = () => {
     }
   }, [isChkBook]);
 
+  useEffect(() => {
+    if (detailBook != null) {
+      getChkBookDetail(id)
+        .then((response) => {
+          setDetailBook(response.data);
+        })
+        .catch((err) => console.log("error"));
+    }
+  }, [bookDto]);
   return (
     <Container>
       <Row>
