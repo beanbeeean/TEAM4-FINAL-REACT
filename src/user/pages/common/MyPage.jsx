@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../css/mypage/Mypage.module.css";
 import MypageProfile from "../../components/mypage/MypageProfile";
-import MypageReservation from "../../components/mypage/MypageReservation.1";
+import MypageReservation from "../../components/mypage/MypageReservation";
 import MypageBook from "../../components/mypage/MypageBook";
 import MypageCommunity from "../../components/mypage/MypageCommunity";
 import { useLocation } from "react-router";
