@@ -1,70 +1,142 @@
-# Getting Started with Create React App
+# LIBOOKS(도서관 서비스) FRONT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> BTC 3기 개발자과정 - 4조(우승나조)
+>
+> ## 개발자
+>
+> **홍재희 이시영 강동훈**
+>
+> ## 프로젝트 기간
+>
+> 2023.10.19 ~ 2022.11.20
+>
+> ## 담당 멘토님
+>
+> 전희연 멘토님
+> 
+> ## BACK Git
+>
+> https://github.com/beanbeeean/TEAM4-FINAL-SPRINGBOOT.git
+> 
+> <br/> <br/>
 
-## Available Scripts
+-   [실행](#1-실행)
+-   [개요](#2-개요)
+    -   [주제](#주제)
+    -   [선정배경](#선정배경)
+    -   [프로젝트 폴더 설명](#프로젝트-폴더-설명)
+-   [아키텍처](#3-아키텍처)
+    -   [ERD](#ERD)
+    -   [Infra Architecture](#Infra Architecture)
+    -   [API 명세서](#API 명세서)
+-   [환경 및 버전](#4-환경-및-버전)
+    -   [Environment](#environment)
+    -   [React](#react)
+-   [팀원 역할](#5.팀원-역할)
+-   [PPT](#6-ppt)
+    <br/>
+    <br/>
 
-In the project directory, you can run:
+# 1. 실행
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   라이브러리 및 모듈 설치하기
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+<br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   Node.js 서버 실행하기
 
-### `npm run build`
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 2. 개요
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 주제
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-   검색 기능과 필터링을 통한 도서 대여 기능 제공
+-   사용자가 직접 예약하여 사용할 수 있도록 열람실 및 스터디룸 예약 기능 제공
+-   커뮤니티 및 실시간 채팅 기능 제공
+-   도서관 서비스 **(LIBOOKS)**
+    <br/>
+    <br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 선정배경
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+-  요즘 취준생들이 늘어나는 시점에서 혼자서 취업 준비 혹은 공부하기 어려운 사람들을 위해서 기획하였음.
+-  도서 대여와 열람실 예약을 기본 서비스로 생각하였고, 더 나아가 스터디원 모집, 예약을 통해서 다른 사람들과 서로 공유할 수 있도록 서비스 제공하였음.
+-  실시간 채팅을 통해서 스터디원이 빠르게 소통하고 예약하는 등의 서비스를 진행할 수 있도록 기획하였음.
+-  이 모든 기능들을 한 페이지에서 진행하게 된다면 일반적인 도서관 사이트와 차별되어 사용자 수에 대한 기대 효과가 있을 것이라 판단되어 선정하였음.
+    <br/>
+    <br/>
 
-## Learn More
+## 프로젝트 폴더 설명
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-   `public` : 필요한 테스트 이미지 및 환경 변수 파일
+-   `src - css` : 적용한 css 폴더
+-   `src - redux` : api를 호출할 때 필요한 config redux 폴더
+-   `src - pages` : Router를 사용해 출력하는 Components
+-   `src - user` : 사용자 UI에서 사용되는 Components
+-   `src - admin` : 관리자 UI에서 사용되는 Components
+    <br/>
+    <br/>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# 3. 아키텍처
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## ERD
 
-### Analyzing the Bundle Size
+![ERD](https://github.com/beanbeeean/TEAM4-FINAL-REACT/assets/93970771/1cb24627-de26-4393-bf0e-195d939f77eb)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Infra Architecture
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Infra](https://github.com/beanbeeean/TEAM4-FINAL-REACT/assets/93970771/cdd28b62-a4d9-4096-ac3f-5b9733b7d24b)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+# 4. 환경 및 버전
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+### Environment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   Node.js
+
+### React
+
+-   React 18.2.0
+
+<br/>
+<br/>
+
+# 5. 팀원 역할
+
+---
+
+| 이름                                    | 담당 직무                                      |
+| --------------------------------------- | ---------------------------------------------------------------- |
+| [홍재희](https://github.com/beanbeeean)   | 팀장 / 뷰 설계, 실시간 채팅, 커뮤니티 서비스, 통합 검색, 인프라 구축 |
+| [이시영](https://github.com/siyeong1013) | 팀원 / 뷰 설계, 도서 대여, 관리자 서비스, 마이 페이지, 인프라 구축 |
+| [강동훈](https://github.com/gilgan9852)  | 팀원 / JWT 토큰, 열람실 및 스터디룸 예약, Redis, ERD 설계   |
+
+<br/>
+<br/>
+
+# 6. PPT
+
+---
+
+발표 PPT : https://docs.google.com/presentation/d/1BRN8iYt7B4sFcUhf7Y8t2sR0rn2pBPvJvnMIA7Dj2Mw/edit#slide=id.g27c01c8515a_1_0
